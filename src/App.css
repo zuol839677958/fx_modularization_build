@@ -1,3 +1,4 @@
+@import '~antd/dist/antd.css';
 .App {
   background: #e6e6e6;
   min-height: 100vh;
