@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { addCount } from '../../store/actions'
 import { Action } from 'redux'
 
-import 'index.less'
+import './index.less'
 
 interface IEditorContainerProps {
   count?: number;
