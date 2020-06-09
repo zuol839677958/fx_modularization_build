@@ -2,9 +2,9 @@ import React, { Component, Dispatch } from 'react'
 import { Button } from 'antd'
 import { connect } from 'react-redux'
 import { addCount } from '../../store/actions'
-
-import './index.css'
 import { Action } from 'redux'
+
+import 'index.less'
 
 interface IEditorContainerProps {
   count?: number;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
 
-import './index.css'
+import 'index.less'
 
 class Header extends Component {
     render() {
