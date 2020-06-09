@@ -1,33 +1,34 @@
-import React, { Component } from 'react'
+import React, { Component, Dispatch } from 'react'
 import { Button } from 'antd'
 import { connect } from 'react-redux'
 import { addCount } from '../../store/actions'
 
 import './index.css'
+import { Action } from 'redux'
 
 interface IEditorContainerProps {
-  count: number;
-  clickTest: Function
+  count?: number;
+  clickTest?: Function
 }
 
 class EditorContainer extends Component<IEditorContainerProps> {
   render() {
-    console.log('test:', this.props)
+    const { count, clickTest } = this.props
 
     return (
       <div className="editor-wrap">
-        <span>{this.props.count}</span>
-        <Button type="primary" onClick={() => this.props.clickTest()}>测试</Button>
+        <span>{count}</span>
+        <Button type="primary" onClick={() => clickTest && clickTest()}>测试</Button>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state: any, ownProps: any) => ({
+const mapStateToProps = (state: any, ownProps: IEditorContainerProps) => ({
   count: state.testReducer.count
 })
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   clickTest: () => {
     dispatch(addCount())
   }
