@@ -16,10 +16,14 @@ class EditorContainer extends Component<IEditorContainerProps> {
     const { count, clickTest } = this.props
 
     return (
-      <div className="editor-wrap">
-        <span>{count}</span>
-        <Button type="primary" onClick={() => clickTest && clickTest()}>测试</Button>
+      <div className="editor-content" style={{marginLeft:340}}>
+            <div className="editor-wrap" >
+              
+            <span>{count}</span>
+            <Button type="primary" onClick={() => clickTest && clickTest()}>测试</Button>
+          </div>
       </div>
+      
     )
   }
 }
@@ -32,6 +36,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   clickTest: () => {
     dispatch(addCount())
   }
+  
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)
