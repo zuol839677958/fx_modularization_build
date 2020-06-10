@@ -1,3 +1,7 @@
+export interface IPageState {
+  editorContainerReducer: IPageModel
+}
+
 export interface IPageModel {
   modeType: number;
   pageHtml: string;
@@ -7,12 +11,13 @@ export interface IPageModel {
 }
 
 export interface ITemplateModel {
+  id: string;
   type: number;
-  tempIndex: number;
+  tempSort: number;
   isShow: boolean;
   bgColor?: string;
   bgImageUrl?: string;
-  tempData: IIconTitleTextModel | IPictureTextModel;
+  tempData: IIconTitleTextModel[] | IPictureTextModel;
 }
 
 /* 图标标题文字模板 */
@@ -22,6 +27,8 @@ export interface IIconTitleTextModel {
   titleBgColor?: string;
   titleBgImageUrl?: string;
   text: string;
+  isShow: boolean;
+  itemSort: number;
 }
 
 /* 图文模板 */
@@ -39,5 +46,5 @@ export interface ITitleTextModel {
   titleBgImageUrl?: string;
   text: string;
   isShow: boolean;
-  itemIndex: number;
+  itemSort: number;
 }
