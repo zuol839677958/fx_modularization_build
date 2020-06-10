@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'antd'
+import {connect} from "react-redux"
 
 import './index.less'
 
@@ -8,7 +9,7 @@ class Header extends Component {
         return (
             <div className="header-wrap">
                 <div className="header-left">
-                    <Button type="primary" shape="round">新增模块</Button>
+                    <Button type="primary" shape="round" >新增模块</Button>
                     <Button type="primary" shape="round" style={{ marginLeft: 20 }}>设置背景</Button>
                 </div>
                 <div className="header-center">
@@ -23,5 +24,6 @@ class Header extends Component {
         )
     }
 }
+
 
 export default Header

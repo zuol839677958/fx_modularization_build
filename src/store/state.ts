@@ -8,6 +8,8 @@ enum TemplateType {
 export default {
   testReducer: {
     count: 0
+  },
+  editorState:{
+    close:true
   }
-
 }
