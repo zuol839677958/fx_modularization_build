@@ -1,37 +1,54 @@
-import React, { Component, Dispatch } from 'react'
-import { Button } from 'antd'
+import React, { Component, Dispatch, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { addCount } from '../../store/actions'
 import { Action } from 'redux'
+import { ITemplateModel, IPageState } from '../../store/data'
+import { TemplateType } from './store/state'
+
+//模板
+import IconTitleText from '../../template/IconTitleText'
 
 import './index.less'
 
 interface IEditorContainerProps {
-  count?: number;
-  clickTest?: Function
+  allTempData?: ITemplateModel[]
 }
 
 class EditorContainer extends Component<IEditorContainerProps> {
   render() {
-    const { count, clickTest } = this.props
+    const { allTempData } = this.props
 
     return (
       <div className="editor-wrap">
-        <span>{count}</span>
-        <Button type="primary" onClick={() => clickTest && clickTest()}>测试</Button>
+        {this.renderAllTemplate(allTempData as ITemplateModel[])}
       </div>
+    )
+  }
+
+  renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
+    if (!allTempData) return <Fragment></Fragment>
+    return (
+      <Fragment>
+        {
+          allTempData.map(tempData => {
+            switch (tempData.type) {
+              case TemplateType.IconTitleText:
+                return <IconTitleText key={tempData.id} iconTitleTextTempData={tempData} />
+              default:
+                return <Fragment></Fragment>
+            }
+          })
+        }
+      </Fragment>
     )
   }
 }
 
-const mapStateToProps = (state: any, ownProps: IEditorContainerProps) => ({
-  count: state.testReducer.count
+const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => ({
+  allTempData: state.editorContainerReducer.allTempData
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  clickTest: () => {
-    dispatch(addCount())
-  }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)
