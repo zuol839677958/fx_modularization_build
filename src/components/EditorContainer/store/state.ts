@@ -7,19 +7,30 @@ export enum TemplateType {
   LeftTextRightPicture
 }
 
-const editorContainerState: ITemplateModel[] = [{
-  id: `${TemplateType[TemplateType.IconTitleText]}_1`,
-  type: TemplateType.IconTitleText,
-  sort: 1,
-  isShow: true,
-  tempData: [{
-    iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
-    title: '请输入标题',
-    text: '请输入文字',
+const editorContainerState: ITemplateModel[] = [
+  {
+    id: `${TemplateType[TemplateType.IconTitleText]}_1`,
+    type: TemplateType.IconTitleText,
+    sort: 1,
     isShow: true,
-    sort: 1
-  }]
-}]
+    tempData: [
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题2',
+        text: '请输入文字2',
+        isShow: true,
+        sort: 2
+      },
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题',
+        text: '请输入文字',
+        isShow: true,
+        sort: 1
+      }
+    ]
+  }
+]
 
 export {
   editorContainerState

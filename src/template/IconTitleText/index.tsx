@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { ITemplateModel, IIconTitleTextModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateProps } from '../MasterTemplate'
+import { getIsShowList } from '../../utils/utils'
 
 import './index.less'
 
@@ -21,7 +22,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
 
   renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
     if (tempDataList.length === 0) return <Fragment></Fragment>
-    const filterList = this.getIsShowList(tempDataList) as IIconTitleTextModel[]
+    const filterList = getIsShowList(tempDataList) as IIconTitleTextModel[]
     return (
       <Fragment>
         {

@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ITemplateModel, IPageState } from '../../store/data'
 import { TemplateType } from './store/state'
+import { getIsShowList } from '../../utils/utils'
 
 //模板
 import IconTitleText from '../../template/IconTitleText'
+import PictureText from '../../template/PictureText'
 
 import './index.less'
 
@@ -18,25 +20,26 @@ class EditorContainer extends Component<IEditorContainerProps> {
     const { allTempData } = this.props
 
     return (
-      <div className="editor-content" style={{paddingLeft:340}}>
-          <div className="editor-wrap">
-             {this.renderAllTemplate(allTempData as ITemplateModel[])}
-         </div>
+      <div className="editor-content" style={{ paddingLeft: 340 }}>
+        <div className="editor-wrap">
+          {this.renderAllTemplate(allTempData as ITemplateModel[])}
+        </div>
       </div>
-    
-      
     )
   }
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
-    if (!allTempData) return <Fragment></Fragment>
+    if (allTempData.length === 0) return <Fragment></Fragment>
+    const filterAllTempData = getIsShowList(allTempData) as ITemplateModel[]
     return (
       <Fragment>
         {
-          allTempData.map(tempData => {
+          filterAllTempData.map(tempData => {
             switch (tempData.type) {
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} iconTitleTextTempData={tempData} />
+              case TemplateType.LeftPictureRightText || TemplateType.LeftTextRightPicture:
+                return <PictureText key={tempData.id} pictureTextTempData={tempData} />
               default:
                 return <Fragment></Fragment>
             }
@@ -52,7 +55,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => 
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)

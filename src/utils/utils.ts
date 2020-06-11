@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 /**
 * 数组元素交换位置
 * @param {array} arr 数组
@@ -46,10 +48,27 @@ const zIndexBottom = (arr: any[], index: number) => {
   }
 }
 
+const getIsShowList = (dataList: { isShow: boolean, sort: number, [key: string]: any }[]) => {
+  if (dataList.length === 0) return
+  const filterList = _.filter(dataList, item => item.isShow)
+  const sortList = _.sortBy(filterList, item => item.sort)
+  return sortList
+}
+
+const getResetSortList = (dataList: { sort: number }[]) => {
+  if (dataList.length === 0) return
+  const resetDataList = dataList.map((item, index) => (
+    item.sort = index + 1
+  ))
+  return resetDataList
+}
+
 export {
   swapArray,
   zIndexUp,
   zIndexDown,
   zIndexTop,
-  zIndexBottom
+  zIndexBottom,
+  getIsShowList,
+  getResetSortList
 }
