@@ -3,25 +3,22 @@ import { CloseOutlined } from '@ant-design/icons';
 import './index.less'
 
 interface IEditortitleBack {
-    isShow?: boolean;
-    titleArrow?: boolean;
-    title?: string;
+  titleArrow: boolean;
+  title: string;
+  closeEditorSlide: () => void;
 }
 
 class TitleBack extends Component<IEditortitleBack> {
+  render() {
+    const { closeEditorSlide } = this.props
 
-    render() {
-        return (
-            <div className="title-back">
-                <p><i style={{ display: this.props.titleArrow ? "inline-block" : "none" }}>←</i><i>{this.props.title}</i></p>
-                <CloseOutlined style={{fontSize:14,marginTop:2}} onClick={() => this.click()} />
-            </div>
-        )
-    }
-
-    click() {
-        alert(1)
-    }
+    return (
+      <div className="title-back">
+        <p><i style={{ display: this.props.titleArrow ? "inline-block" : "none" }}>←</i><i>{this.props.title}</i></p>
+        <CloseOutlined style={{ fontSize: 14, marginTop: 2 }} onClick={() => closeEditorSlide()} />
+      </div>
+    )
+  }
 }
 
 export default TitleBack

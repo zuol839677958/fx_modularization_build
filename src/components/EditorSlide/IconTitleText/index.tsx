@@ -4,16 +4,18 @@ import ItemMangement from "../commonEitorModel/ItemManagement"
 import './index.less'
 
 interface IEditorIconTitleText {
-    isShow?: boolean;
-    title?: string;
+    title: string;
+    hasBackBtn: boolean;
+    closeEditorSlide: () => void;
 }
 
 class EditorIconTitleText extends Component<IEditorIconTitleText> {
     render() {
+        const { title, hasBackBtn, closeEditorSlide } = this.props
         return (
             <div className="slide-content">
-               <TitleBack titleArrow={true} title={"标题文字修改"}/> 
-               <ItemMangement />
+                <TitleBack titleArrow={hasBackBtn} title={title} closeEditorSlide={() => closeEditorSlide()} />
+                <ItemMangement title={"条目管理"} />
             </div>
         )
     }

@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Radio } from 'antd';
+import { Checkbox } from 'antd';
 import './index.less' 
 
 interface IEditoritemTitle {
     isShow?: boolean;
     title?: string;
+    label?: string;
+    checkShow?:boolean;
+    disabled?: boolean;
 }
 
 class itemTitle extends Component<IEditoritemTitle> {
@@ -13,10 +16,13 @@ class itemTitle extends Component<IEditoritemTitle> {
         return (
             <div className="item-title">
                 <p>{this.props.title}</p>
-                <Radio style={{}} checked={true}></Radio>
+                <Checkbox style={{display:this.props.checkShow?"block":"none"}} onChange ={this.onChange}></Checkbox>
             </div>
         )
     }
+    onChange(){
+        console.log(`checked`); 
+    } 
 
    
 }

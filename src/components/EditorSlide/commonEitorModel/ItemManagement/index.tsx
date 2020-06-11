@@ -14,9 +14,9 @@ class ItemManagement extends Component<IEditorItemManagement> {
     render() {
         return ( 
             <div className="item-Manage">
-                <p>条目管理</p>
-               <ItemTitle />
-               
+                <p>{this.props.title}</p>
+               <ItemTitle checkShow={true} />
+                
             </div>
         )
     }

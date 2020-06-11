@@ -1,6 +1,11 @@
 export interface IPageState {
-  editorContainerReducer: IPageModel
+  editorContainerReducer: IPageModel;
+  editorSlideReducer: IEditorSlideModel;
 }
+
+export interface IEditorSlideModel {
+  isShow: boolean;
+} 
 
 export interface IPageModel {
   modeType: number;
