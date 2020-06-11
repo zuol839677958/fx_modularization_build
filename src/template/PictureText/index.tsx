@@ -58,7 +58,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     return (
       <Fragment>
         {filterList.map(tempData => (
-          <Fragment>
+          <Fragment key={tempData.sort}>
             <h5>{tempData.title}</h5>
             <p>{tempData.text}</p>
           </Fragment>
