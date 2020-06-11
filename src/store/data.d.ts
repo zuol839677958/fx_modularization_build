@@ -13,7 +13,7 @@ export interface IPageModel {
 export interface ITemplateModel {
   id: string;
   type: number;
-  tempSort: number;
+  sort: number;
   isShow: boolean;
   bgColor?: string;
   bgImageUrl?: string;
@@ -28,7 +28,7 @@ export interface IIconTitleTextModel {
   titleBgImageUrl?: string;
   text: string;
   isShow: boolean;
-  itemSort: number;
+  sort: number;
 }
 
 /* 图文模板 */
@@ -36,6 +36,7 @@ export interface IPictureTextModel {
   picUrl: string;
   bgColor?: string;
   bgImageurl?: string;
+  spacing?: string;
   titleTextList: IIconTitleTextModel[];
 }
 
@@ -46,5 +47,5 @@ export interface ITitleTextModel {
   titleBgImageUrl?: string;
   text: string;
   isShow: boolean;
-  itemSort: number;
+  sort: number;
 }
