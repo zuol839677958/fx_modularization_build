@@ -5,7 +5,7 @@ export interface IPageState {
 
 export interface IEditorSlideModel {
   isShow: boolean;
-} 
+}
 
 export interface IPageModel {
   modeType: number;
@@ -27,7 +27,7 @@ export interface ITemplateModel {
 
 /* 图标标题文字模板 */
 export interface IIconTitleTextModel {
-  iconUrl: string;
+  iconUrl?: string;
   title: string;
   titleBgColor?: string;
   titleBgImageUrl?: string;
