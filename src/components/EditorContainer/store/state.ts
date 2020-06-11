@@ -18,6 +18,13 @@ const editorContainerState: ITemplateModel[] = [{
     text: '请输入文字',
     isShow: true,
     itemSort: 1
+  },
+  {
+    iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+    title: '请输入标题',
+    text: '请输入文字',
+    isShow: true,
+    itemSort: 1
   }]
 }]
 

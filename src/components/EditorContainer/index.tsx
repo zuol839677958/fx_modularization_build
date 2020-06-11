@@ -18,9 +18,12 @@ class EditorContainer extends Component<IEditorContainerProps> {
     const { allTempData } = this.props
 
     return (
-      <div className="editor-wrap">
-        {this.renderAllTemplate(allTempData as ITemplateModel[])}
+      <div className="editor-content" style={{paddingLeft:340}}>
+          <div className="editor-wrap">
+             {this.renderAllTemplate(allTempData as ITemplateModel[])}
+         </div>
       </div>
+    
       
     )
   }
@@ -49,6 +52,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => 
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+  
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)
