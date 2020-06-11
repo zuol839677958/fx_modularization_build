@@ -2,8 +2,9 @@ import React, { Fragment } from 'react'
 import { ITemplateModel, IPictureTextModel, ITitleTextModel } from '../../store/data'
 import MasterTemplate from '../MasterTemplate'
 import { TemplateType } from '../../components/EditorContainer/store/state'
+import { getIsShowList } from '../../utils/utils'
 
-import './less'
+import './index.less'
 
 interface IPictureTextProps {
   pictureTextTempData: ITemplateModel
@@ -54,7 +55,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
 
   renderTemplateItem(tempDataList: ITitleTextModel[]): JSX.Element {
     if (tempDataList.length === 0) return <Fragment></Fragment>
-    const filterList = this.getIsShowList(tempDataList) as ITitleTextModel[]
+    const filterList = getIsShowList(tempDataList) as ITitleTextModel[]
     return (
       <Fragment>
         {filterList.map(tempData => (

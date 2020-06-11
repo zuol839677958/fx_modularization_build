@@ -4,9 +4,11 @@ import { Action } from 'redux'
 import { ITemplateModel, IPageState } from '../../store/data'
 import { TemplateType } from './store/state'
 import { changeSlideShow } from '../EditorSlide/store/actions'
+import { getIsShowList } from '../../utils/utils'
 
 //模板
 import IconTitleText from '../../template/IconTitleText'
+import PictureText from '../../template/PictureText'
 
 import './index.less'
 
@@ -31,14 +33,17 @@ class EditorContainer extends Component<IEditorContainerProps> {
   }
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
-    if (!allTempData) return <Fragment></Fragment>
+    if (allTempData.length === 0) return <Fragment></Fragment>
+    const filterAllTempData = getIsShowList(allTempData) as ITemplateModel[]
     return (
       <Fragment>
         {
-          allTempData.map(tempData => {
+          filterAllTempData.map(tempData => {
             switch (tempData.type) {
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} iconTitleTextTempData={tempData} />
+              case TemplateType.LeftPictureRightText || TemplateType.LeftTextRightPicture:
+                return <PictureText key={tempData.id} pictureTextTempData={tempData} />
               default:
                 return <Fragment></Fragment>
             }
