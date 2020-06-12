@@ -1,4 +1,4 @@
-import React, { Component, Dispatch } from 'react'
+import React, { Component, Dispatch, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { IPageState, ITemplateModel } from '../../store/data'
@@ -21,17 +21,24 @@ interface IEditorBoxProps {
 
 class EditorBox extends Component<IEditorBoxProps> {
   render() {
-    const { isShow, title, hasBackBtn ,currentTemplateId } = this.props
+    const { isShow, title, hasBackBtn ,currentTemplateId ,allTempData } = this.props
 
     return (
       <div className="slide-content" style={{ display: isShow ? 'block' : 'none' }}>
-        {this.renderSlideBox()}
+        {this.renderSlideBox(currentTemplateId as string, allTempData)}
         <EditorIconTitleText title={"标题文字修改"} hasBackBtn={hasBackBtn as boolean} closeEditorSlide={() => this.closeEditorSlide()} />
       </div>
     )
   }
-  renderSlideBox(){
-    
+  renderSlideBox(temId:string,allTempData:any):JSX.Element{
+      if( temId.length ==0)  return <Fragment></Fragment>;
+      return (
+        <Fragment>
+          {
+            
+          }
+        </Fragment>
+      )
   }
 
   closeEditorSlide() {
