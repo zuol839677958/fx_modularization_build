@@ -27,8 +27,6 @@ class EditorContainer extends Component<IEditorContainerProps> {
           {this.renderAllTemplate(allTempData as ITemplateModel[])}
         </div>
       </div>
-
-
     )
   }
 
@@ -42,7 +40,9 @@ class EditorContainer extends Component<IEditorContainerProps> {
             switch (tempData.type) {
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} iconTitleTextTempData={tempData} />
-              case TemplateType.LeftPictureRightText || TemplateType.LeftTextRightPicture:
+              case TemplateType.LeftPictureRightText:
+                return <PictureText key={tempData.id} pictureTextTempData={tempData} />
+              case TemplateType.LeftTextRightPicture:
                 return <PictureText key={tempData.id} pictureTextTempData={tempData} />
               default:
                 return <Fragment></Fragment>
