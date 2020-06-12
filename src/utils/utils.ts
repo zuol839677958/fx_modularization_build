@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { TemplateType } from '../components/EditorContainer/store/state'
 
 /**
 * 数组元素交换位置
@@ -9,17 +10,16 @@ import _ from 'lodash'
 */
 const swapArray = (arr: any[], index1: number, index2: number) => {
   arr[index1] = arr.splice(index2, 1, arr[index1])[0]
-  return arr
 }
 
-//上移 将当前数组index索引与后面一个元素互换位置，向数组后面移动一位
-const zIndexUp = (arr: any[], index: number, length: number) => {
-  if (index + 1 !== length) swapArray(arr, index, index + 1)
-}
-
-//下移 将当前数组index索引与前面一个元素互换位置，向数组前面移动一位
-const zIndexDown = (arr: any[], index: number) => {
+//上移 将当前数组index索引与前面一个元素互换位置，向数组前面移动一位
+const zIndexUp = (arr: any[], index: number) => {
   if (index !== 0) swapArray(arr, index, index - 1)
+}
+
+//下移 将当前数组index索引与后面一个元素互换位置，向数组后面移动一位
+const zIndexDown = (arr: any[], index: number, length: number) => {
+  if (index + 1 !== length) swapArray(arr, index, index + 1)
 }
 
 //置顶，即将当前元素移到数组的最后一位
@@ -48,8 +48,14 @@ const zIndexBottom = (arr: any[], index: number) => {
   }
 }
 
-const getIsShowList = (dataList: { isShow: boolean, sort: number, [key: string]: any }[]) => {
+const getIsShowList = (dataList: { isShow: boolean, sort: number, id?: string, type?: number, [key: string]: any }[]) => {
   if (dataList.length === 0) return
+  dataList.forEach((item, index: number) => {
+    item.sort = index + 1
+    if (item.type) {
+      item.id = `${TemplateType[item.type]}_${index + 1}`
+    }
+  })
   const filterList = _.filter(dataList, item => item.isShow)
   const sortList = _.sortBy(filterList, item => item.sort)
   return sortList

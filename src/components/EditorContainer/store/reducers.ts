@@ -3,7 +3,7 @@ import { IPageModel, ITemplateModel } from '../../../store/data'
 import { Action } from 'redux'
 
 interface IEditorContainerReducerAction extends Action {
-  tempData: ITemplateModel[]
+  allTempData: ITemplateModel[]
   activeTempId: string
 }
 
@@ -12,7 +12,7 @@ const editorContainerReducer = (state: IPageModel, action: IEditorContainerReduc
     case CHANGE_PAGE_TEMPLATE_DATA:
       return {
         ...state,
-        tempData: action.tempData
+        allTempData: action.allTempData
       }
     case CHANGE_PAGE_ACTIVE_TEMP_ID:
       return {

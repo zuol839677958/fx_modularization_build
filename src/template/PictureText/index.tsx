@@ -8,10 +8,11 @@ import './index.less'
 
 interface IPictureTextProps {
   activeTempId: string
-  allTempDataLength: number
+  allTempData: ITemplateModel[]
   pictureTextTempData: ITemplateModel
   changeActiveTempId: (activeTempId: string) => void
   showEditorSlider: () => void
+  changeTempData: (allTempData: ITemplateModel[]) => void
 }
 
 interface IPictureTextState extends IMasterTemplateState { }
@@ -27,17 +28,19 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     const {
       activeTempId,
       pictureTextTempData,
-      allTempDataLength,
+      allTempData,
       changeActiveTempId,
-      showEditorSlider
+      showEditorSlider,
+      changeTempData
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: pictureTextTempData.id,
       activeTempId,
       tempSort: pictureTextTempData.sort,
-      allTempDataLength,
+      allTempData,
       changeActiveTempId,
-      showEditorSlider
+      showEditorSlider,
+      changeTempData
     }
 
     return (

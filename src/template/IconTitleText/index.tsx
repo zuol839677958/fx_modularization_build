@@ -7,10 +7,11 @@ import './index.less'
 
 interface IIconTitleTextProps extends IMasterTemplateProps {
   activeTempId: string
-  allTempDataLength: number
+  allTempData: ITemplateModel[]
   iconTitleTextTempData: ITemplateModel
   changeActiveTempId: (activeTempId: string) => void
   showEditorSlider: () => void
+  changeTempData: (allTempData: ITemplateModel[]) => void
 }
 
 interface IIconTitleTextState extends IMasterTemplateState { }
@@ -24,24 +25,26 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
     const {
       activeTempId,
       iconTitleTextTempData,
-      allTempDataLength,
+      allTempData,
       changeActiveTempId,
-      showEditorSlider
+      showEditorSlider,
+      changeTempData
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: iconTitleTextTempData.id,
       activeTempId,
       tempSort: iconTitleTextTempData.sort,
-      allTempDataLength,
+      allTempData,
       changeActiveTempId,
-      showEditorSlider
+      showEditorSlider,
+      changeTempData
     }
 
     return (
       <div id={iconTitleTextTempData.id} className="iconTitleText_box"
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
-        onClick={() => {
+        onClick={(e) => {
           changeActiveTempId(iconTitleTextTempData.id)
           showEditorSlider()
         }}
