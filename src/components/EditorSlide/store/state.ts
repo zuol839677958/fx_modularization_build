@@ -1,7 +1,7 @@
 import { IEditorSlideModel } from "../../../store/data"
 
 const editorSlideState: IEditorSlideModel = {
-  isShow: true
+  isShow: false
 }
 
 export { editorSlideState }

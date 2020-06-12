@@ -2,7 +2,7 @@ import React, { Component, Dispatch, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { IPageState, ITemplateModel } from '../../store/data'
-import { changeSlideShow } from './store/actions'
+import { changeEditorSlideShow } from './store/actions'
 
 //模板
 import EditorIconTitleText from "./IconTitleText" //编辑部分左图右文
@@ -54,7 +54,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorBoxProps) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeEditorSlideShow(isShow: boolean) {
-    dispatch(changeSlideShow(isShow))
+    dispatch(changeEditorSlideShow(isShow))
   }
 })
 

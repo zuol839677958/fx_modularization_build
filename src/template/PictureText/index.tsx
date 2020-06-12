@@ -1,23 +1,58 @@
 import React, { Fragment } from 'react'
 import { ITemplateModel, IPictureTextModel, ITitleTextModel } from '../../store/data'
-import MasterTemplate from '../MasterTemplate'
+import MasterTemplate, { IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { TemplateType } from '../../components/EditorContainer/store/state'
 import { getIsShowList } from '../../utils/utils'
 
 import './index.less'
 
 interface IPictureTextProps {
+  activeTempId: string
+  allTempData: ITemplateModel[]
   pictureTextTempData: ITemplateModel
+  changeActiveTempId: (activeTempId: string) => void
+  showEditorSlider: () => void
+  changeTempData: (allTempData: ITemplateModel[]) => void
 }
+
+interface IPictureTextState extends IMasterTemplateState { }
 
 const defaultSpacingPercent = 2
 
 class PictureText extends MasterTemplate<IPictureTextProps> {
+  state: IPictureTextState = {
+    isShowMask: false
+  }
+
   render() {
-    const { pictureTextTempData } = this.props
+    const {
+      activeTempId,
+      pictureTextTempData,
+      allTempData,
+      changeActiveTempId,
+      showEditorSlider,
+      changeTempData
+    } = this.props
+    const maskParams: IRenderMaskParams = {
+      tempId: pictureTextTempData.id,
+      activeTempId,
+      tempSort: pictureTextTempData.sort,
+      allTempData,
+      changeActiveTempId,
+      showEditorSlider,
+      changeTempData
+    }
 
     return (
-      <div id={pictureTextTempData.id} className="pictureText_box">
+      <div id={pictureTextTempData.id} className="pictureText_box"
+        onMouseEnter={() => this.setState({ isShowMask: true })}
+        onMouseLeave={() => this.setState({ isShowMask: false })}
+        onClick={() => {
+          changeActiveTempId(pictureTextTempData.id)
+          showEditorSlider()
+        }}
+      >
+        {this.renderMask(maskParams)}
         <div className="general-items">
           <div className="general-list">
             {
