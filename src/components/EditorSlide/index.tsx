@@ -1,9 +1,12 @@
 import React, { Component, Dispatch } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
-import EditorIconTitleText from "./IconTitleText"
 import { IPageState } from '../../store/data'
 import { changeSlideShow } from './store/actions'
+
+//模板
+import EditorIconTitleText from "./IconTitleText" //编辑部分左图右文
+
 
 import './index.less'
 
@@ -31,6 +34,7 @@ class EditorBox extends Component<IEditorBoxProps> {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorBoxProps) => ({
+  
   isShow: state.editorSlideReducer.isShow
 })
 
