@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ITemplateModel, IPageState } from '../../store/data'
 import { TemplateType } from './store/state'
-import { changeSlideShow } from '../EditorSlide/store/actions'
+import { changeEditorSlideShow } from '../EditorSlide/store/actions'
+import { changeActiveTempId } from './store/actions'
 import { getIsShowList } from '../../utils/utils'
 
 //模板
@@ -13,8 +14,11 @@ import PictureText from '../../template/PictureText'
 import './index.less'
 
 interface IEditorContainerProps {
+  activeTempId?: string;
   allTempData?: ITemplateModel[]
   isShow?: boolean
+  changeEditorSliderShow?: (isShow: boolean) => void
+  changeActiveTempId?: (activeTempId: string) => void
 }
 
 class EditorContainer extends Component<IEditorContainerProps> {
@@ -32,6 +36,7 @@ class EditorContainer extends Component<IEditorContainerProps> {
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>
+    const { activeTempId, changeActiveTempId } = this.props
     const filterAllTempData = getIsShowList(allTempData) as ITemplateModel[]
     return (
       <Fragment>
@@ -39,11 +44,24 @@ class EditorContainer extends Component<IEditorContainerProps> {
           filterAllTempData.map(tempData => {
             switch (tempData.type) {
               case TemplateType.IconTitleText:
-                return <IconTitleText key={tempData.id} iconTitleTextTempData={tempData} />
+                return <IconTitleText
+                  key={tempData.id}
+                  activeTempId={activeTempId as string}
+                  allTempDataLength={filterAllTempData.length}
+                  iconTitleTextTempData={tempData}
+                  changeActiveTempId={(activeTempId: string) => changeActiveTempId && changeActiveTempId(activeTempId)}
+                  showEditorSlider={() => this.showEditorSlider()}
+                />
               case TemplateType.LeftPictureRightText:
-                return <PictureText key={tempData.id} pictureTextTempData={tempData} />
               case TemplateType.LeftTextRightPicture:
-                return <PictureText key={tempData.id} pictureTextTempData={tempData} />
+                return <PictureText
+                  key={tempData.id}
+                  activeTempId={activeTempId as string}
+                  allTempDataLength={filterAllTempData.length}
+                  pictureTextTempData={tempData}
+                  changeActiveTempId={(activeTempId: string) => changeActiveTempId && changeActiveTempId(activeTempId)}
+                  showEditorSlider={() => this.showEditorSlider()}
+                />
               default:
                 return <Fragment></Fragment>
             }
@@ -52,16 +70,25 @@ class EditorContainer extends Component<IEditorContainerProps> {
       </Fragment>
     )
   }
+
+  showEditorSlider() {
+    const { changeEditorSliderShow } = this.props
+    changeEditorSliderShow && changeEditorSliderShow(true)
+  }
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => ({
+  activeTempId: state.editorContainerReducer.activeTempId,
   allTempData: state.editorContainerReducer.allTempData,
   isShow: state.editorSlideReducer.isShow
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeEditorSlideShow(isShow: boolean) {
-    dispatch(changeSlideShow(isShow))
+  changeEditorSliderShow(isShow: boolean) {
+    dispatch(changeEditorSlideShow(isShow))
+  },
+  changeActiveTempId(activeTempId: string) {
+    dispatch(changeActiveTempId(activeTempId))
   }
 })
 

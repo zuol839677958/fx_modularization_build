@@ -1,4 +1,4 @@
-import { CHANGE_PAGE_TEMPLATE_DATA } from './actionTypes'
+import { CHANGE_PAGE_TEMPLATE_DATA, CHANGE_PAGE_ACTIVE_TEMP_ID } from './actionTypes'
 import { ITemplateModel } from '../../../store/data'
 
 const changeTempData = (tempData: ITemplateModel[]) => {
@@ -8,4 +8,11 @@ const changeTempData = (tempData: ITemplateModel[]) => {
   }
 }
 
-export { changeTempData }
+const changeActiveTempId = (activeTempId: string) => {
+  return {
+    type: CHANGE_PAGE_ACTIVE_TEMP_ID,
+    activeTempId
+  }
+}
+
+export { changeTempData, changeActiveTempId }

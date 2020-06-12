@@ -1,9 +1,10 @@
-import { CHANGE_PAGE_TEMPLATE_DATA } from './actionTypes';
+import { CHANGE_PAGE_TEMPLATE_DATA, CHANGE_PAGE_ACTIVE_TEMP_ID } from './actionTypes'
 import { IPageModel, ITemplateModel } from '../../../store/data'
-import { Action } from 'redux';
+import { Action } from 'redux'
 
 interface IEditorContainerReducerAction extends Action {
-  tempData: ITemplateModel[];
+  tempData: ITemplateModel[]
+  activeTempId: string
 }
 
 const editorContainerReducer = (state: IPageModel, action: IEditorContainerReducerAction) => {
@@ -12,6 +13,11 @@ const editorContainerReducer = (state: IPageModel, action: IEditorContainerReduc
       return {
         ...state,
         tempData: action.tempData
+      }
+    case CHANGE_PAGE_ACTIVE_TEMP_ID:
+      return {
+        ...state,
+        activeTempId: action.activeTempId
       }
     default:
       return state || {}

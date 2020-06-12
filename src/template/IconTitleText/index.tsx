@@ -1,20 +1,44 @@
 import React, { Fragment } from 'react'
 import { ITemplateModel, IIconTitleTextModel } from '../../store/data'
-import MasterTemplate, { IMasterTemplateProps } from '../MasterTemplate'
+import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { getIsShowList } from '../../utils/utils'
 
 import './index.less'
 
 interface IIconTitleTextProps extends IMasterTemplateProps {
+  activeTempId: string
+  allTempDataLength: number
   iconTitleTextTempData: ITemplateModel
+  changeActiveTempId: (activeTempId: string) => void
+  showEditorSlider: () => void
 }
 
+interface IIconTitleTextState extends IMasterTemplateState { }
+
 class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
+  state: IIconTitleTextState = {
+    isShowMask: false
+  }
+
   render() {
-    const { iconTitleTextTempData } = this.props
+    const { activeTempId, iconTitleTextTempData, allTempDataLength, changeActiveTempId, showEditorSlider } = this.props
+    const maskParams: IRenderMaskParams = {
+      tempId: iconTitleTextTempData.id,
+      activeTempId,
+      tempSort: iconTitleTextTempData.sort,
+      allTempDataLength
+    }
 
     return (
-      <div id={iconTitleTextTempData.id} className="iconTitleText_box">
+      <div id={iconTitleTextTempData.id} className="iconTitleText_box"
+        onMouseEnter={() => this.setState({ isShowMask: true })}
+        onMouseLeave={() => this.setState({ isShowMask: false })}
+        onClick={() => {
+          changeActiveTempId(iconTitleTextTempData.id)
+          showEditorSlider()
+        }}
+      >
+        {this.renderMask(maskParams)}
         {this.renderTemplateItem(iconTitleTextTempData.tempData as IIconTitleTextModel[])}
       </div>
     )
