@@ -5,6 +5,7 @@ import { editorSlideState } from '../components/EditorSlide/store/state'
 const editorContainerReducer: IPageModel = {
   modeType: 1,
   pageHtml: '',
+  activeTempId: '',
   allTempData: editorContainerState
 }
 

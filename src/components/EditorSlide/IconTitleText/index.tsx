@@ -16,6 +16,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleText> {
             <div className="slide-content">
                 <TitleBack titleArrow={hasBackBtn} title={title} closeEditorSlide={() => closeEditorSlide()} />
                 <ItemMangement title={"条目管理"} />
+                
             </div>
         )
     }

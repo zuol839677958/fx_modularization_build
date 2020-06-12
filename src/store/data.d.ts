@@ -10,6 +10,7 @@ export interface IEditorSlideModel {
 export interface IPageModel {
   modeType: number;
   pageHtml: string;
+  activeTempId: string;
   allTempData: ITemplateModel[];
   bgColor?: string;
   bgImageUrl?: string;
