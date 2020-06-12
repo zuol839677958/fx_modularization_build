@@ -16,17 +16,17 @@ import './index.less'
 interface IEditorContainerProps {
   activeTempId?: string;
   allTempData?: ITemplateModel[]
-  isShow?: boolean
+  isShowSlider?: boolean
   changeEditorSliderShow?: (isShow: boolean) => void
   changeActiveTempId?: (activeTempId: string) => void
 }
 
 class EditorContainer extends Component<IEditorContainerProps> {
   render() {
-    const { allTempData, isShow } = this.props
+    const { allTempData, isShowSlider } = this.props
 
     return (
-      <div className="editor-content" style={{ paddingLeft: isShow ? "340px" : "0px" }}>
+      <div className="editor-content" style={{ paddingLeft: isShowSlider ? "340px" : "0px" }}>
         <div className="editor-wrap">
           {this.renderAllTemplate(allTempData as ITemplateModel[])}
         </div>
@@ -72,7 +72,8 @@ class EditorContainer extends Component<IEditorContainerProps> {
   }
 
   showEditorSlider() {
-    const { changeEditorSliderShow } = this.props
+    const { isShowSlider, changeEditorSliderShow } = this.props
+    if (isShowSlider) return
     changeEditorSliderShow && changeEditorSliderShow(true)
   }
 }
@@ -80,7 +81,7 @@ class EditorContainer extends Component<IEditorContainerProps> {
 const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => ({
   activeTempId: state.editorContainerReducer.activeTempId,
   allTempData: state.editorContainerReducer.allTempData,
-  isShow: state.editorSlideReducer.isShow
+  isShowSlider: state.editorSlideReducer.isShow
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

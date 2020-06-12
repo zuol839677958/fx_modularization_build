@@ -24,12 +24,20 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   }
 
   render() {
-    const { activeTempId, pictureTextTempData, allTempDataLength, changeActiveTempId, showEditorSlider } = this.props
+    const {
+      activeTempId,
+      pictureTextTempData,
+      allTempDataLength,
+      changeActiveTempId,
+      showEditorSlider
+    } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: pictureTextTempData.id,
       activeTempId,
       tempSort: pictureTextTempData.sort,
-      allTempDataLength
+      allTempDataLength,
+      changeActiveTempId,
+      showEditorSlider
     }
 
     return (

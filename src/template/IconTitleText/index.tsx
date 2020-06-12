@@ -21,12 +21,20 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
   }
 
   render() {
-    const { activeTempId, iconTitleTextTempData, allTempDataLength, changeActiveTempId, showEditorSlider } = this.props
+    const {
+      activeTempId,
+      iconTitleTextTempData,
+      allTempDataLength,
+      changeActiveTempId,
+      showEditorSlider
+    } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: iconTitleTextTempData.id,
       activeTempId,
       tempSort: iconTitleTextTempData.sort,
-      allTempDataLength
+      allTempDataLength,
+      changeActiveTempId,
+      showEditorSlider
     }
 
     return (

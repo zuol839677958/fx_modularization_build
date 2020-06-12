@@ -15,6 +15,8 @@ export interface IRenderMaskParams {
   activeTempId: string
   tempSort: number
   allTempDataLength: number
+  changeActiveTempId: (activeTempId: string) => void
+  showEditorSlider: () => void
 }
 
 class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
@@ -25,7 +27,13 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
       return (
         <div className="mask-box">
           <div className="action-box">
-            <Button type="default" shape="round" icon={<EditFilled />} style={{ marginRight: 10 }}>编辑</Button>
+            <Button type="default" shape="round" icon={<EditFilled />}
+              style={{ marginRight: 10 }}
+              onClick={() => {
+                params.changeActiveTempId(params.tempId)
+                params.showEditorSlider()
+              }}
+            >编辑</Button>
             <Button type="primary" shape="round" danger icon={<DeleteFilled />}>删除</Button>
           </div>
           <div className="sort-box">
