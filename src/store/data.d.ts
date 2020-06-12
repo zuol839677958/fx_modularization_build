@@ -41,7 +41,7 @@ export interface IPictureTextModel {
   picUrl: string;
   bgColor?: string;
   bgImageurl?: string;
-  spacing?: string;
+  spacingPercent?: number;
   titleTextList: IIconTitleTextModel[];
 }
 

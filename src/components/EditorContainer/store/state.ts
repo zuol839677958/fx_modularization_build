@@ -37,6 +37,7 @@ const editorContainerState: ITemplateModel[] = [
     isShow: true,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+      spacingPercent: 2,
       titleTextList: [
         {
           title: '故事过程',
@@ -60,6 +61,7 @@ const editorContainerState: ITemplateModel[] = [
     isShow: true,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+      spacingPercent: 2,
       titleTextList: [
         {
           title: '故事过程',

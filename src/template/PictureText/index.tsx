@@ -10,30 +10,38 @@ interface IPictureTextProps {
   pictureTextTempData: ITemplateModel
 }
 
+const defaultSpacingPercent = 2
+
 class PictureText extends MasterTemplate<IPictureTextProps> {
   render() {
     const { pictureTextTempData } = this.props
 
     return (
-      <div className="general-items">
-        <div className="general-list">
-          {
-            pictureTextTempData.type === TemplateType.LeftPictureRightText
-              ? this.renderLeftPictureRightTextTemp(pictureTextTempData.tempData as IPictureTextModel)
-              : this.rnderLeftTextRightPictureTemp(pictureTextTempData.tempData as IPictureTextModel)
-          }
+      <div id={pictureTextTempData.id} className="pictureText_box">
+        <div className="general-items">
+          <div className="general-list">
+            {
+              pictureTextTempData.type === TemplateType.LeftPictureRightText
+                ? this.renderLeftPictureRightTextTemp(pictureTextTempData.tempData as IPictureTextModel)
+                : this.rnderLeftTextRightPictureTemp(pictureTextTempData.tempData as IPictureTextModel)
+            }
+          </div>
         </div>
       </div>
     )
   }
 
   renderLeftPictureRightTextTemp(tempData: IPictureTextModel): JSX.Element {
+    const { spacingPercent } = tempData
+    const marginRight = `${spacingPercent}%` || `${defaultSpacingPercent}%`
+    const width = `${(100 - (spacingPercent || defaultSpacingPercent)) / 2}%`
+
     return (
       <Fragment>
-        <div className="general-img">
+        <div className="general-img" style={{ width, marginRight }}>
           <img src={tempData.picUrl} alt="" />
         </div>
-        <div className="general-txt">
+        <div className="general-txt" style={{ width }}>
           {this.renderTemplateItem(tempData.titleTextList)}
         </div>
       </Fragment>
@@ -41,12 +49,16 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   }
 
   rnderLeftTextRightPictureTemp(tempData: IPictureTextModel): JSX.Element {
+    const { spacingPercent } = tempData
+    const marginRight = `${spacingPercent}%` || `${defaultSpacingPercent}%`
+    const width = `${(100 - (spacingPercent || defaultSpacingPercent)) / 2}%`
+
     return (
       <Fragment>
-        <div className="general-txt">
+        <div className="general-txt" style={{ width, marginRight }}>
           {this.renderTemplateItem(tempData.titleTextList)}
         </div>
-        <div className="general-img">
+        <div className="general-img" style={{ width }}>
           <img src={tempData.picUrl} alt="" />
         </div>
       </Fragment>
