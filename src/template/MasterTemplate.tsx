@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { Button } from 'antd'
-import { EditFilled, DeleteFilled, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
+import { Button, Modal } from 'antd'
+import { EditFilled, DeleteFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { ITemplateModel } from '../store/data'
 import { zIndexDown, zIndexUp } from '../utils/utils'
+import _ from 'lodash'
 
 import './MasterTemplate.less'
 
@@ -37,7 +38,12 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
                 params.showEditorSlider()
               }}
             >编辑</Button>
-            <Button type="primary" shape="round" danger icon={<DeleteFilled />}>删除</Button>
+            <Button type="primary" shape="round" danger icon={<DeleteFilled />}
+              onClick={(e) => {
+                e.stopPropagation()
+                this.deleteTemplate(params)
+              }}
+            >删除</Button>
           </div>
           <div className="sort-box">
             <Button type="primary" shape="round" style={{ marginRight: 30 }}>背景</Button>
@@ -71,6 +77,19 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
   moveDownTemplate(sort: number, tempData: ITemplateModel[]) {
     zIndexDown(tempData, sort - 1, tempData.length)
     return tempData
+  }
+
+  deleteTemplate(params: IRenderMaskParams) {
+    Modal.confirm({
+      title: '删除提示',
+      icon: <ExclamationCircleOutlined />,
+      content: '确定删除此模块吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
+      }
+    })
   }
 }
 
