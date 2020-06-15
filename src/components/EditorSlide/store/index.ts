@@ -1,7 +1,7 @@
-import { editorSlideState } from './state'
-import { editorSlideReducer } from './reducers'
+import { editorSliderState } from './state'
+import { editorSliderReducer } from './reducers'
 
 export {
-    editorSlideState,
-    editorSlideReducer
+    editorSliderState,
+    editorSliderReducer
 }

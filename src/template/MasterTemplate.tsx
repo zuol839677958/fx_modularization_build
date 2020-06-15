@@ -4,6 +4,7 @@ import { EditFilled, DeleteFilled, ArrowUpOutlined, ArrowDownOutlined, Exclamati
 import { ITemplateModel } from '../store/data'
 import { zIndexDown, zIndexUp } from '../utils/utils'
 import _ from 'lodash'
+import { SketchPicker } from 'react-color'
 
 import './MasterTemplate.less'
 
@@ -11,6 +12,7 @@ export interface IMasterTemplateProps { }
 
 export interface IMasterTemplateState {
   isShowMask: boolean
+  bgModalVisible?: boolean
 }
 
 export interface IRenderMaskParams {
@@ -24,6 +26,11 @@ export interface IRenderMaskParams {
 }
 
 class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
+  state: IMasterTemplateState = {
+    isShowMask: false,
+    bgModalVisible: true
+  }
+
   renderMask(params: IRenderMaskParams): JSX.Element {
     const { isShowMask } = this.state
 
@@ -46,7 +53,12 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
             >删除</Button>
           </div>
           <div className="sort-box">
-            <Button type="primary" shape="round" style={{ marginRight: 30 }}>背景</Button>
+            <Button type="primary" shape="round" style={{ marginRight: 30 }}
+              onClick={(e) => {
+                e.stopPropagation()
+                this.setBackground()
+              }}
+            >背景</Button>
             <Button type="primary" shape="circle" icon={<ArrowUpOutlined />}
               style={{ marginRight: 10 }} disabled={params.tempSort === 1}
               onClick={(e) => {
@@ -89,6 +101,15 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
       onOk: () => {
         params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
       }
+    })
+  }
+
+  setBackground() {
+    Modal.confirm({
+      title: '设置背景',
+      content: <SketchPicker color="#fff" />,
+      okText: '确认',
+      cancelText: '取消',
     })
   }
 }
