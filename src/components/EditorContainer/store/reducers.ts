@@ -13,7 +13,7 @@ const editorContainerReducer = (state: IPageModel, action: IEditorContainerReduc
     case CHANGE_PAGE_TEMPLATE_DATA:
       return {
         ...state,
-        allTempData: action.allTempData
+        allTempData: [...action.allTempData]
       }
     case CHANGE_PAGE_ACTIVE_TEMP_ID:
       return {

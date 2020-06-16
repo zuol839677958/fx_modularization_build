@@ -61,16 +61,10 @@ class EditorContainer extends Component<IEditorContainerProps> {
             }
             switch (tempData.type) {
               case TemplateType.IconTitleText:
-                return <IconTitleText
-                  key={tempData.id}
-                  {...masterProps}
-                />
+                return <IconTitleText key={tempData.id} {...masterProps} />
               case TemplateType.LeftPictureRightText:
               case TemplateType.LeftTextRightPicture:
-                return <PictureText
-                  key={tempData.id}
-                  {...masterProps}
-                />
+                return <PictureText key={tempData.id} {...masterProps} />
               default:
                 return <Fragment></Fragment>
             }
