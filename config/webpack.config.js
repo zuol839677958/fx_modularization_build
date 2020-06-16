@@ -68,7 +68,7 @@ module.exports = function(webpackEnv) {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+  const getStyleLoaders = (cssOptions,lessOptions, preProcessor) => {
     const loaders = [
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
@@ -85,7 +85,7 @@ module.exports = function(webpackEnv) {
       },
       {
         loader: require.resolve('less-loader'),
-        options: cssOptions,
+        options: lessOptions,
       },
       {
         // Options for PostCSS as we reference these options twice
@@ -460,7 +460,7 @@ module.exports = function(webpackEnv) {
             // extensions .module.scss or .module.sass
             {
               test: lessRegex,
-              exclude: lessModuleRegex,
+              exclude: cssModuleRegex,
               use: getStyleLoaders(
                 {
                   importLoaders: 3,
