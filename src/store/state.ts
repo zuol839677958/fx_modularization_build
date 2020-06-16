@@ -1,6 +1,7 @@
 import { IPageModel } from "./data"
 import { editorContainerState } from '../components/EditorContainer/store/state'
-import { editorSlideState } from '../components/EditorSlide/store/state'
+import { editorSliderState } from '../components/EditorSlide/store/state'
+import { backgroundSetState } from '../components/BackgroundSet/store/state'
 
 const editorContainerReducer: IPageModel = {
   modeType: 1,
@@ -9,9 +10,11 @@ const editorContainerReducer: IPageModel = {
   allTempData: editorContainerState
 }
 
-const editorSlideReducer = editorSlideState
+const editorSliderReducer = editorSliderState
+const backgroundSetReducer = backgroundSetState
 
 export default {
   editorContainerReducer,
-  editorSlideReducer
+  editorSliderReducer,
+  backgroundSetReducer
 }

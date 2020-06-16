@@ -1,7 +1,7 @@
-import { IEditorSlideModel } from "../../../store/data"
+import { IEditorSliderModel } from "../../../store/data"
 
-const editorSlideState: IEditorSlideModel = {
+const editorSliderState: IEditorSliderModel = {
   isShow: false
 }
 
-export { editorSlideState }
+export { editorSliderState }

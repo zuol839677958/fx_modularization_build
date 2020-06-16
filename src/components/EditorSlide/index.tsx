@@ -64,7 +64,7 @@ class EditorBox extends Component<IEditorBoxProps> {
 const mapStateToProps = (state: IPageState, ownProps: IEditorBoxProps) => ({
   currentTemplateId: state.editorContainerReducer.activeTempId,
   allTempData: state.editorContainerReducer.allTempData,
-  isShow: state.editorSlideReducer.isShow
+  isShow: state.editorSliderReducer.isShow
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

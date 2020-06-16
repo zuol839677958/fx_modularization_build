@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import EditorContainer from '../src/components/EditorContainer'
 import Header from '../src/components/Header'
 import EditorBox from '../src/components/EditorSlide'
+import BackgroundSet from './components/BackgroundSet'
 import './App.less'
 
 const App: FC = () => (
@@ -9,6 +10,7 @@ const App: FC = () => (
     <Header />
     <EditorBox />
     <EditorContainer />
+    <BackgroundSet />
   </div>
 )
 

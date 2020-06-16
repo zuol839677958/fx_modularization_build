@@ -1,9 +1,10 @@
 export interface IPageState {
   editorContainerReducer: IPageModel;
-  editorSlideReducer: IEditorSlideModel;
+  editorSliderReducer: IEditorSliderModel;
+  backgroundSetReducer: IBackgroundSetModel;
 }
 
-export interface IEditorSlideModel {
+export interface IEditorSliderModel {
   isShow: boolean;
 }
 
@@ -12,8 +13,7 @@ export interface IPageModel {
   pageHtml: string;
   activeTempId: string;
   allTempData: ITemplateModel[];
-  bgColor?: string;
-  bgImageUrl?: string;
+  background?: IBackgroundSetModel;
 }
 
 export interface ITemplateModel {
@@ -21,8 +21,7 @@ export interface ITemplateModel {
   type: number;
   sort: number;
   isShow: boolean;
-  bgColor?: string;
-  bgImageUrl?: string;
+  background?: IBackgroundSetModel;
   tempData: IIconTitleTextModel[] | IPictureTextModel;
 }
 
@@ -30,8 +29,7 @@ export interface ITemplateModel {
 export interface IIconTitleTextModel {
   iconUrl?: string;
   title: string;
-  titleBgColor?: string;
-  titleBgImageUrl?: string;
+  background?: IBackgroundSetModel;
   text: string;
   isShow: boolean;
   sort: number;
@@ -40,8 +38,6 @@ export interface IIconTitleTextModel {
 /* 图文模板 */
 export interface IPictureTextModel {
   picUrl: string;
-  bgColor?: string;
-  bgImageurl?: string;
   spacingPercent?: number;
   titleTextList: IIconTitleTextModel[];
 }
@@ -49,9 +45,17 @@ export interface IPictureTextModel {
 /* 标题文字模板 */
 export interface ITitleTextModel {
   title: string;
-  titleBgColor?: string;
-  titleBgImageUrl?: string;
+  background?: IBackgroundSetModel;
   text: string;
   isShow: boolean;
   sort: number;
+}
+
+/* 背景设置 */
+export interface IBackgroundSetModel {
+  tempId?: string;
+  bgType?: number;
+  bgColor?: string;
+  bgImageUrl?: string;
+  isShow?: boolean;
 }
