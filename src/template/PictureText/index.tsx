@@ -23,7 +23,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       tempData,
       allTempData,
       changeActiveTempId,
-      showEditorSlider,
+      changeEditorSliderShow,
       changeTempData,
       setTempBackground
     } = this.props
@@ -33,7 +33,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
-      showEditorSlider,
+      changeEditorSliderShow,
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background
@@ -46,7 +46,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={() => {
           changeActiveTempId(tempData.id)
-          showEditorSlider()
+          changeEditorSliderShow(true)
         }}
       >
         {this.renderMask(maskParams)}

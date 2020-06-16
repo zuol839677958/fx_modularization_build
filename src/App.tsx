@@ -1,16 +1,17 @@
 import React, { FC } from 'react'
-import EditorContainer from '../src/components/EditorContainer'
-import Header from '../src/components/Header'
-import EditorBox from '../src/components/EditorSlide'
-import BackgroundSet from './components/BackgroundSet'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+import Home from './pages/Home'
+import Preview from './pages/Preview'
+
 import './App.less'
 
 const App: FC = () => (
   <div className="App">
-    <Header />
-    <EditorBox />
-    <EditorContainer />
-    <BackgroundSet />
+    <Router>
+      <Route exact path="/" component={Home}></Route>
+      <Route exact path="/preview" component={Preview}></Route>
+    </Router>
   </div>
 )
 

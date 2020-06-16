@@ -10,6 +10,9 @@ import { TemplateType } from '../components/EditorContainer/store/state'
 */
 const swapArray = (arr: any[], index1: number, index2: number) => {
   arr[index1] = arr.splice(index2, 1, arr[index1])[0]
+  arr?.forEach((item: { sort: number }, index: number) => {
+    item.sort = index + 1
+  })
 }
 
 //上移 将当前数组index索引与前面一个元素互换位置，向数组前面移动一位
@@ -50,12 +53,6 @@ const zIndexBottom = (arr: any[], index: number) => {
 
 const getIsShowList = (dataList: { isShow: boolean, sort: number, id?: string, type?: number, [key: string]: any }[]) => {
   if (dataList.length === 0) return
-  dataList.forEach((item, index: number) => {
-    item.sort = index + 1
-    if (item.type) {
-      item.id = `${TemplateType[item.type]}_${index + 1}`
-    }
-  })
   const filterList = _.filter(dataList, item => item.isShow)
   const sortList = _.sortBy(filterList, item => item.sort)
   return sortList

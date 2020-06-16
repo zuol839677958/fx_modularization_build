@@ -11,6 +11,7 @@ import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { IMasterTemplateProps } from '../../template/MasterTemplate'
 
 //模板
+import Banner from '../../template/Banner'
 import IconTitleText from '../../template/IconTitleText'
 import PictureText from '../../template/PictureText'
 
@@ -55,11 +56,13 @@ class EditorContainer extends Component<IEditorContainerProps> {
               tempData,
               allTempData: filterAllTempData,
               changeActiveTempId: (activeTempId: string) => changeActiveTempId!(activeTempId),
-              showEditorSlider: () => this.showEditorSlider(),
+              changeEditorSliderShow: (isShow: boolean) => this.changeEditorSliderShow(isShow),
               changeTempData: (tempData: ITemplateModel[]) => changeTempData!(tempData),
               setTempBackground: (backgroundSet: IBackgroundSetModel) => changeBackgroundSetData!(backgroundSet)
             }
             switch (tempData.type) {
+              case TemplateType.Banner:
+                return <Banner key={tempData.id} {...masterProps} />
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} {...masterProps} />
               case TemplateType.LeftPictureRightText:
@@ -74,10 +77,10 @@ class EditorContainer extends Component<IEditorContainerProps> {
     )
   }
 
-  showEditorSlider() {
+  changeEditorSliderShow(isShow: boolean) {
     const { isShowSlider, changeEditorSliderShow } = this.props
-    if (isShowSlider) return
-    changeEditorSliderShow!(true)
+    if (isShow === isShowSlider) return
+    changeEditorSliderShow!(isShow)
   }
 
   initGeneralPageBackground(): CSSProperties {
