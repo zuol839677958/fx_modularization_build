@@ -9,7 +9,6 @@ import { savePageHtml, changeActiveTempId } from '../EditorContainer/store/actio
 import { changeEditorSlideShow } from '../EditorSlide/store/actions'
 
 import './index.less'
-import { resolve } from 'url'
 
 interface IHeaderProps {
   backgroundSetData?: IBackgroundSetModel

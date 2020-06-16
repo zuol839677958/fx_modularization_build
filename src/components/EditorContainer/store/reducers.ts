@@ -1,7 +1,6 @@
 import { CHANGE_PAGE_TEMPLATE_DATA, CHANGE_PAGE_ACTIVE_TEMP_ID, CHANGE_PAGE_BACKGROUND, SAVE_PAGE_HTML } from './actionTypes'
 import { IPageModel, ITemplateModel, IBackgroundSetModel } from '../../../store/data'
 import { Action } from 'redux'
-import { savePageHtml } from './actions'
 
 interface IEditorContainerReducerAction extends Action {
   allTempData: ITemplateModel[]

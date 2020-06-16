@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import { TemplateType } from '../components/EditorContainer/store/state'
 
 /**
 * 数组元素交换位置
