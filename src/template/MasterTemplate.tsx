@@ -1,14 +1,22 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, CSSProperties } from 'react'
 import { Button, Modal } from 'antd'
 import { EditFilled, DeleteFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { ITemplateModel } from '../store/data'
+import { ITemplateModel, IBackgroundSetModel } from '../store/data'
 import { zIndexDown, zIndexUp } from '../utils/utils'
 import _ from 'lodash'
-import { SketchPicker } from 'react-color'
+import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 import './MasterTemplate.less'
 
-export interface IMasterTemplateProps { }
+export interface IMasterTemplateProps {
+  activeTempId: string
+  tempData: ITemplateModel
+  allTempData: ITemplateModel[]
+  changeActiveTempId: (activeTempId: string) => void
+  showEditorSlider: () => void
+  changeTempData: (allTempData: ITemplateModel[]) => void
+  setTempBackground: (backgroundSet: IBackgroundSetModel) => void
+}
 
 export interface IMasterTemplateState {
   isShowMask: boolean
@@ -19,10 +27,12 @@ export interface IRenderMaskParams {
   tempId: string
   activeTempId: string
   tempSort: number
+  tempBackground?: IBackgroundSetModel
   allTempData: ITemplateModel[]
   changeActiveTempId: (activeTempId: string) => void
   showEditorSlider: () => void
   changeTempData: (allTempData: ITemplateModel[]) => void
+  setTempBackground: (backgroundSet: IBackgroundSetModel) => void
 }
 
 class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
@@ -56,7 +66,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
             <Button type="primary" shape="round" style={{ marginRight: 30 }}
               onClick={(e) => {
                 e.stopPropagation()
-                this.setBackground()
+                this.setTempBackground(params)
               }}
             >背景</Button>
             <Button type="primary" shape="circle" icon={<ArrowUpOutlined />}
@@ -104,13 +114,25 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     })
   }
 
-  setBackground() {
-    Modal.confirm({
-      title: '设置背景',
-      content: <SketchPicker color="#fff" />,
-      okText: '确认',
-      cancelText: '取消',
-    })
+  setTempBackground(params: IRenderMaskParams) {
+    const backgroundSet: IBackgroundSetModel = {
+      tempId: params.tempId,
+      isShow: true,
+      ...params.tempBackground
+    }
+    params.setTempBackground(backgroundSet)
+  }
+
+  initTempBackground(background?: IBackgroundSetModel): CSSProperties {
+    let bgCss: CSSProperties = {}
+    if (!background) return bgCss
+    switch (background.bgType) {
+      case BackgroundSetType.NoneColor:
+        break
+      case BackgroundSetType.PureColor:
+        bgCss.backgroundColor = background.bgColor
+    }
+    return bgCss
   }
 }
 

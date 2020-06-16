@@ -1,18 +1,19 @@
 import React, { Component, Fragment } from 'react'
 import { SketchPicker, ColorResult } from 'react-color'
 import { Modal, Radio } from 'antd';
-import { IBackgroundSetModel, IPageState, IPageModel } from '../../store/data';
+import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '../../store/data';
 import { BackgroundSetType } from './store/state';
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { changeBackgroundSetData } from './store/actions'
-import { changePageBackground } from '../EditorContainer/store/actions';
+import { changePageBackground, changeTempData } from '../EditorContainer/store/actions';
 
 interface IBackgroundSetProps {
   backgroundSetData?: IBackgroundSetModel
   pageData?: IPageModel
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changePageBackground?: (background: IBackgroundSetModel) => void
+  changeTempData?: (tempData: ITemplateModel[]) => void
 }
 
 interface IBackgroundSetState {
@@ -24,14 +25,27 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
   state: IBackgroundSetState = {}
 
   handleOk = () => {
-    const { backgroundSetData, changePageBackground } = this.props
-    if (!backgroundSetData?.tempId) changePageBackground!({ ...this.state })
+    const { backgroundSetData, pageData, changePageBackground, changeTempData } = this.props
+    if (!backgroundSetData?.tempId) {
+      changePageBackground!({ ...this.state })
+    } else {
+      const allTempData = pageData!.allTempData
+      allTempData.forEach(item => {
+        if (item.id === backgroundSetData!.tempId) {
+          item.background = { ...this.state }
+        }
+      })
+      changeTempData!(allTempData)
+    }
     this.handleCancel()
   }
 
   handleCancel = () => {
     let { backgroundSetData, changeBackgroundSetData } = this.props
+    backgroundSetData!.tempId = ''
     backgroundSetData!.isShow = false
+    backgroundSetData!.bgColor = ''
+    backgroundSetData!.bgImageUrl = ''
     changeBackgroundSetData!(backgroundSetData!)
   }
 
@@ -104,6 +118,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   changePageBackground(background: IBackgroundSetModel) {
     dispatch(changePageBackground(background))
+  },
+  changeTempData(allTempData: ITemplateModel[]) {
+    dispatch(changeTempData(allTempData))
   }
 })
 

@@ -1,19 +1,12 @@
 import React, { Fragment } from 'react'
-import { ITemplateModel, IPictureTextModel, ITitleTextModel } from '../../store/data'
-import MasterTemplate, { IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
+import { IPictureTextModel, ITitleTextModel } from '../../store/data'
+import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { TemplateType } from '../../components/EditorContainer/store/state'
 import { getIsShowList } from '../../utils/utils'
 
 import './index.less'
 
-interface IPictureTextProps {
-  activeTempId: string
-  allTempData: ITemplateModel[]
-  pictureTextTempData: ITemplateModel
-  changeActiveTempId: (activeTempId: string) => void
-  showEditorSlider: () => void
-  changeTempData: (allTempData: ITemplateModel[]) => void
-}
+interface IPictureTextProps extends IMasterTemplateProps { }
 
 interface IPictureTextState extends IMasterTemplateState { }
 
@@ -27,28 +20,32 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   render() {
     const {
       activeTempId,
-      pictureTextTempData,
+      tempData,
       allTempData,
       changeActiveTempId,
       showEditorSlider,
-      changeTempData
+      changeTempData,
+      setTempBackground
     } = this.props
     const maskParams: IRenderMaskParams = {
-      tempId: pictureTextTempData.id,
+      tempId: tempData.id,
       activeTempId,
-      tempSort: pictureTextTempData.sort,
+      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       showEditorSlider,
-      changeTempData
+      changeTempData,
+      setTempBackground,
+      tempBackground: tempData.background
     }
 
     return (
-      <div id={pictureTextTempData.id} className="pictureText_box"
+      <div id={tempData.id} className="pictureText_box"
+        style={this.initTempBackground(tempData.background)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={() => {
-          changeActiveTempId(pictureTextTempData.id)
+          changeActiveTempId(tempData.id)
           showEditorSlider()
         }}
       >
@@ -56,9 +53,9 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
         <div className="general-items">
           <div className="general-list">
             {
-              pictureTextTempData.type === TemplateType.LeftPictureRightText
-                ? this.renderLeftPictureRightTextTemp(pictureTextTempData.tempData as IPictureTextModel)
-                : this.rnderLeftTextRightPictureTemp(pictureTextTempData.tempData as IPictureTextModel)
+              tempData.type === TemplateType.LeftPictureRightText
+                ? this.renderLeftPictureRightTextTemp(tempData.tempData as IPictureTextModel)
+                : this.rnderLeftTextRightPictureTemp(tempData.tempData as IPictureTextModel)
             }
           </div>
         </div>

@@ -1,18 +1,11 @@
 import React, { Fragment } from 'react'
-import { ITemplateModel, IIconTitleTextModel } from '../../store/data'
+import { IIconTitleTextModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { getIsShowList } from '../../utils/utils'
 
 import './index.less'
 
-interface IIconTitleTextProps extends IMasterTemplateProps {
-  activeTempId: string
-  allTempData: ITemplateModel[]
-  iconTitleTextTempData: ITemplateModel
-  changeActiveTempId: (activeTempId: string) => void
-  showEditorSlider: () => void
-  changeTempData: (allTempData: ITemplateModel[]) => void
-}
+interface IIconTitleTextProps extends IMasterTemplateProps { }
 
 interface IIconTitleTextState extends IMasterTemplateState { }
 
@@ -24,33 +17,37 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
   render() {
     const {
       activeTempId,
-      iconTitleTextTempData,
+      tempData,
       allTempData,
       changeActiveTempId,
       showEditorSlider,
-      changeTempData
+      changeTempData,
+      setTempBackground
     } = this.props
     const maskParams: IRenderMaskParams = {
-      tempId: iconTitleTextTempData.id,
+      tempId: tempData.id,
       activeTempId,
-      tempSort: iconTitleTextTempData.sort,
+      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       showEditorSlider,
-      changeTempData
+      changeTempData,
+      setTempBackground,
+      tempBackground: tempData.background
     }
 
     return (
-      <div id={iconTitleTextTempData.id} className="iconTitleText_box"
+      <div id={tempData.id} className="iconTitleText_box"
+        style={this.initTempBackground(tempData.background)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
-          changeActiveTempId(iconTitleTextTempData.id)
+          changeActiveTempId(tempData.id)
           showEditorSlider()
         }}
       >
         {this.renderMask(maskParams)}
-        {this.renderTemplateItem(iconTitleTextTempData.tempData as IIconTitleTextModel[])}
+        {this.renderTemplateItem(tempData.tempData as IIconTitleTextModel[])}
       </div>
     )
   }
