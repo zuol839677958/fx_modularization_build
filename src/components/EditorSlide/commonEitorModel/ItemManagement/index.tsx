@@ -1,18 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment, Dispatch } from 'react'
 import { Checkbox } from 'antd';
+import { connect } from 'react-redux';
+import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../../store/data';
 import ItemTitle from "../../comonEitorComplate/itemTitle"
 import './index.less'
+import { Action } from 'redux';
+
+
 
 interface IEditorItemManagement {
-    data?:Object;
     isShow?: boolean;
+    data:ITemplateModel;
     titleArrow?: boolean;
     title?: string;
 }
 
 class ItemManagement extends Component<IEditorItemManagement> {
-    
+   
     render() {
+        let { data } =this.props;
         return ( 
          <div className="item-Manage-content">
             <div className="item-Manage">
@@ -21,37 +27,52 @@ class ItemManagement extends Component<IEditorItemManagement> {
             </div>
              <div className="modification_switchingPosition">
                 <ul>
-                    <li>
-                        <div>
-                        <i className="iconfont">&#xE011;</i>
-                        <span>请输入标题</span>
-                            <div className="right">
-                                        <i className="iconfont recycle">&#xE009;</i>
-                                        <i className="iconfont amend">&#xE00C;</i>
-                            </div>
-                        </div>
-                        <Checkbox />
-                    </li>
-                    <li>
-                        <div>
-                                <i className="iconfont">&#xE011;</i>
-                                <span>请输入标题</span>
-                                <div className="right">
-                                            <i className="iconfont recycle">&#xE009;</i>
-                                            <i className="iconfont amend">&#xE00C;</i>
-                                </div>
-                        </div>
-                        <Checkbox />
-                    </li>
+                    {this.renderTemplateItem(data.tempData as IIconTitleTextModel[])}
                 </ul>
             </div>
         </div>
         )
     }
-    renderTemplateData(){
+    renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
+        if(tempDataList.length===0) return <Fragment></Fragment>
+        
+        return(
+            <Fragment>
+                {
+                    tempDataList.map(tmp => (
+                    <li>
+                        <div>
+                        <i className="iconfont">&#xE011;</i>
+                        <span>{tmp.title}</span>
+                            <div className="right">
+                                        <i className="iconfont recycle">&#xE009;</i>
+                                        <i className="iconfont amend">&#xE00C;</i>
+                            </div>
+                        </div>
+                        <Checkbox checked={tmp.isShow} onChange ={(e)=>this.changeChecked(tmp.sort)}/>
+                    </li>
+                    ))
+                }
+
+
+            </Fragment>
+        )
+
+    }
+    changeChecked(srot:any){
         
     }
 
 }
-
-export default ItemManagement
+const mapStateToProps = (state: IPageState, ownProps: IEditorItemManagement) => ({
+    currentTemplateId: state.editorContainerReducer.activeTempId,
+    allTempData: state.editorContainerReducer.allTempData,
+  })
+  
+  const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+    changeEditorSlideShow(isShow: boolean) {
+   
+    }
+  })
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(ItemManagement)

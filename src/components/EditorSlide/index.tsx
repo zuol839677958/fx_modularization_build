@@ -38,14 +38,15 @@ class EditorBox extends Component<IEditorBoxProps> {
   renderSlideBox(temId: string, allTempData: ITemplateModel[], tempType: TemplateType,hasBackBtn: boolean): JSX.Element {
     if (temId.length === 0) return <Fragment></Fragment>;
     return (
+
       <Fragment>
         {
           allTempData.map(item=> {
             switch (item.type) {
               case TemplateType.IconTitleText:
                 console.log(item);
-                return <EditorIconTitleText title={"标题文字修改"}  key={item.id} data={item} hasBackBtn={hasBackBtn as boolean} closeEditorSlide={() => this.closeEditorSlide()} />
-             
+                return <EditorIconTitleText title={"标题文字修改"}  key={item.id} data={item as ITemplateModel} hasBackBtn={hasBackBtn as boolean} closeEditorSlide={() => this.closeEditorSlide()} />
+              
                 default:
                   return <Fragment></Fragment>
             }
