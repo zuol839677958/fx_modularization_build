@@ -22,7 +22,28 @@ export interface ITemplateModel {
   sort: number;
   isShow: boolean;
   background?: IBackgroundSetModel;
-  tempData: IIconTitleTextModel[] | IPictureTextModel;
+  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel;
+}
+
+/* Banner模板 */
+export interface IBannerModel {
+  bannerType: number;
+  imageData: IBannerImageModel;
+  imageListData?: IBannerImageModel[];
+  videoData?: IBannerVideoModel;
+}
+
+export interface IBannerImageModel {
+  imageUrl: string;
+  imageTitle?: string;
+  imageDesc?: string;
+  imageLinkUrl?: string;
+}
+
+export interface IBannerVideoModel {
+  videoSrc: string;
+  videoTitle?: string;
+  videoDesc?: string;
 }
 
 /* 图标标题文字模板 */

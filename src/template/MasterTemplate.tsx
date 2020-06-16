@@ -13,7 +13,7 @@ export interface IMasterTemplateProps {
   tempData: ITemplateModel
   allTempData: ITemplateModel[]
   changeActiveTempId: (activeTempId: string) => void
-  showEditorSlider: () => void
+  changeEditorSliderShow: (isShow: boolean) => void
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
 }
@@ -30,7 +30,7 @@ export interface IRenderMaskParams {
   tempBackground?: IBackgroundSetModel
   allTempData: ITemplateModel[]
   changeActiveTempId: (activeTempId: string) => void
-  showEditorSlider: () => void
+  changeEditorSliderShow: (isShow: boolean) => void
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
 }
@@ -52,7 +52,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
               style={{ marginRight: 10 }}
               onClick={() => {
                 params.changeActiveTempId(params.tempId)
-                params.showEditorSlider()
+                params.changeEditorSliderShow(true)
               }}
             >编辑</Button>
             <Button type="primary" shape="round" danger icon={<DeleteFilled />}
@@ -73,14 +73,14 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
               style={{ marginRight: 10 }} disabled={params.tempSort === 1}
               onClick={(e) => {
                 e.stopPropagation()
-                params.changeTempData(this.moveUpTemplate(params.tempSort, params.allTempData))
+                params.changeTempData(this.moveUpTemplate(params))
               }}
             ></Button>
             <Button type="primary" shape="circle" icon={<ArrowDownOutlined />}
               disabled={params.tempSort === params.allTempData.length}
               onClick={(e) => {
                 e.stopPropagation()
-                params.changeTempData(this.moveDownTemplate(params.tempSort, params.allTempData))
+                params.changeTempData(this.moveDownTemplate(params))
               }}
             ></Button>
           </div>
@@ -91,14 +91,14 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     }
   }
 
-  moveUpTemplate(sort: number, tempData: ITemplateModel[]) {
-    zIndexUp(tempData, sort - 1)
-    return tempData
+  moveUpTemplate(params: IRenderMaskParams) {
+    zIndexUp(params.allTempData, params.tempSort - 1)
+    return params.allTempData
   }
 
-  moveDownTemplate(sort: number, tempData: ITemplateModel[]) {
-    zIndexDown(tempData, sort - 1, tempData.length)
-    return tempData
+  moveDownTemplate(params: IRenderMaskParams) {
+    zIndexDown(params.allTempData, params.tempSort - 1, params.allTempData.length)
+    return params.allTempData
   }
 
   deleteTemplate(params: IRenderMaskParams) {
@@ -110,6 +110,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
       cancelText: '取消',
       onOk: () => {
         params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
+        params.changeActiveTempId('')
       }
     })
   }

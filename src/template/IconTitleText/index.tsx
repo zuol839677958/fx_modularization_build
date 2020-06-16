@@ -20,7 +20,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       tempData,
       allTempData,
       changeActiveTempId,
-      showEditorSlider,
+      changeEditorSliderShow,
       changeTempData,
       setTempBackground
     } = this.props
@@ -30,7 +30,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
-      showEditorSlider,
+      changeEditorSliderShow,
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background
@@ -43,7 +43,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
           changeActiveTempId(tempData.id)
-          showEditorSlider()
+          changeEditorSliderShow(true)
         }}
       >
         {this.renderMask(maskParams)}
