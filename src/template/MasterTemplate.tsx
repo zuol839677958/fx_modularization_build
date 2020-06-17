@@ -111,6 +111,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
       onOk: () => {
         params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
         params.changeActiveTempId('')
+        params.changeEditorSliderShow(false)
       }
     })
   }

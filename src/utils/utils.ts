@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { TemplateType } from '../components/EditorContainer/store/state'
+import { ITemplateModel, IIconTitleTextModel } from '../store/data'
 
 /**
 * 数组元素交换位置
@@ -66,6 +66,24 @@ const getResetSortList = (dataList: { sort: number }[]) => {
   return resetDataList
 }
 
+const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.isShow = isShow
+    }
+  })
+  return tempData
+}
+
+const updateCurrentTempData = (currentTempData: ITemplateModel, allTempData: ITemplateModel[]) => {
+  allTempData.forEach(item => {
+    if (item.id === currentTempData.id) {
+      item.tempData = currentTempData.tempData
+    }
+  })
+  return allTempData
+}
+
 export {
   swapArray,
   zIndexUp,
@@ -73,5 +91,7 @@ export {
   zIndexTop,
   zIndexBottom,
   getIsShowList,
-  getResetSortList
+  getResetSortList,
+  updateIconTitleTextItemShow,
+  updateCurrentTempData
 }
