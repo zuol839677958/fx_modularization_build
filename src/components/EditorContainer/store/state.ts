@@ -49,6 +49,28 @@ const editorContainerState: ITemplateModel[] = [
     ]
   },
   {
+    id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now()+1111}`,
+    type: TemplateType.IconTitleText,
+    sort: 3,
+    isShow: true,
+    tempData: [
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题1111',
+        text: '请输入文字',
+        isShow: true,
+        sort: 1
+      },
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题22222',
+        text: '请输入文字22222',
+        isShow: false,
+        sort: 2
+      }
+    ]
+  },
+  {
     id: `${TemplateType[TemplateType.LeftTextRightPicture]}_${Date.now()}`,
     type: TemplateType.LeftTextRightPicture,
     sort: 3,

@@ -27,36 +27,37 @@ class EditorBox extends Component<IEditorBoxProps> {
     console.log('22', allTempData)
     //@ts-ignore
     const tempType: TemplateType = allTempData && allTempData.filter(item => item.id === currentTemplateId)[0]?.type
+    const currentTempData = allTempData!.filter(item => item.id === currentTemplateId)[0] as ITemplateModel
 
     return (
       <div className="slide-content" style={{ display: isShow ? 'block' : 'none' }}>
-        {this.renderSlideBox(currentTemplateId as string, allTempData as ITemplateModel[], tempType,hasBackBtn as boolean)}
+        {this.renderSlideBox(currentTemplateId as string, allTempData as ITemplateModel[], tempType,hasBackBtn as boolean ,currentTempData)}
 
       </div>
     )
   }
-  renderSlideBox(temId: string, allTempData: ITemplateModel[], tempType: TemplateType,hasBackBtn: boolean): JSX.Element {
+  renderSlideBox(temId: string, allTempData: ITemplateModel[], tempType: TemplateType,hasBackBtn: boolean, currentTempData: ITemplateModel): JSX.Element {
     if (temId.length === 0) return <Fragment></Fragment>;
+    
     return (
 
       <Fragment>
         {
-          allTempData.map(item=> {
-            switch (item.type) {
-              case TemplateType.IconTitleText:
-                console.log(item);
-                return <EditorIconTitleText title={"标题文字修改"}  key={item.id} data={item as ITemplateModel} hasBackBtn={hasBackBtn as boolean} closeEditorSlide={() => this.closeEditorSlide()} />
-              
-                default:
-                  return <Fragment></Fragment>
-            }
-          })
+          this.switchEditorModel(tempType as TemplateType, currentTempData,hasBackBtn)
         }
       </Fragment>
     )
   }
 
-
+  switchEditorModel(tempType: TemplateType,currentTempData: ITemplateModel,hasBackBtn:boolean){
+    switch (tempType) {
+      case TemplateType.IconTitleText:
+        return <EditorIconTitleText title={"标题文字修改"}  key={currentTempData.id} data={currentTempData as ITemplateModel} hasBackBtn={hasBackBtn as boolean} closeEditorSlide={() => this.closeEditorSlide()} />
+      
+        default:
+          return <Fragment></Fragment>
+    }
+  }
   closeEditorSlide() {
     this.props.changeEditorSlideShow && this.props.changeEditorSlideShow(false)
   }

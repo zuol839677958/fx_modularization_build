@@ -16,6 +16,7 @@ interface IEditorIconTitleText {
 class EditorIconTitleText extends Component<IEditorIconTitleText> {
     render() {
         const {data, title, hasBackBtn, closeEditorSlide } = this.props
+        console.log(data);
         return (
             <div className="slide-content">
                 <TitleBack titleArrow={hasBackBtn} title={title} closeEditorSlide={() => closeEditorSlide()} />
