@@ -22,7 +22,7 @@ export interface ITemplateModel {
   sort: number;
   isShow: boolean;
   background?: IBackgroundSetModel;
-  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel;
+  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel;
 }
 
 /* Banner模板 */
@@ -70,6 +70,11 @@ export interface ITitleTextModel {
   text: string;
   isShow: boolean;
   sort: number;
+}
+
+/* 纯文字模板 */
+export interface IPlaintextModel {
+  textHtml: string
 }
 
 /* 背景设置 */

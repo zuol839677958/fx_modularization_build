@@ -14,6 +14,7 @@ import { IMasterTemplateProps } from '../../template/MasterTemplate'
 import Banner from '../../template/Banner'
 import IconTitleText from '../../template/IconTitleText'
 import PictureText from '../../template/PictureText'
+import Plaintext from '../../template/Plaintext'
 
 import './index.less'
 
@@ -68,6 +69,8 @@ class EditorContainer extends Component<IEditorContainerProps> {
               case TemplateType.LeftPictureRightText:
               case TemplateType.LeftTextRightPicture:
                 return <PictureText key={tempData.id} {...masterProps} />
+              case TemplateType.Plaintext:
+                return <Plaintext key={tempData.id} {...masterProps} />
               default:
                 return <Fragment></Fragment>
             }

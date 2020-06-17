@@ -4,7 +4,8 @@ export enum TemplateType {
   Banner = 1,
   IconTitleText,
   LeftPictureRightText,
-  LeftTextRightPicture
+  LeftTextRightPicture,
+  Plaintext
 }
 
 export enum BannerType {
