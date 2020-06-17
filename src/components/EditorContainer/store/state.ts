@@ -50,7 +50,7 @@ const editorContainerState: ITemplateModel[] = [
     ]
   },
   {
-    id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now()+1111}`,
+    id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now() + 1111}`,
     type: TemplateType.IconTitleText,
     sort: 3,
     isShow: true,
@@ -74,7 +74,7 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.LeftTextRightPicture]}_${Date.now()}`,
     type: TemplateType.LeftTextRightPicture,
-    sort: 3,
+    sort: 4,
     isShow: true,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
@@ -98,7 +98,7 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.LeftPictureRightText]}_${Date.now()}`,
     type: TemplateType.LeftPictureRightText,
-    sort: 4,
+    sort: 5,
     isShow: true,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
@@ -117,6 +117,15 @@ const editorContainerState: ITemplateModel[] = [
           sort: 2
         }
       ]
+    }
+  },
+  {
+    id: `${TemplateType[TemplateType.Plaintext]}_${Date.now()}`,
+    type: TemplateType.Plaintext,
+    sort: 6,
+    isShow: true,
+    tempData: {
+      textHtml: 'Mahasagara，汇聊号“521667”，总盈利率排名第49，获胜率高达93.91%擅长做波段和中线1年时间。 内将资金翻仓6倍，因眼光精准、下手果决而闻名。'
     }
   }
 ]
