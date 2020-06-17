@@ -23,7 +23,7 @@ const changePageBackground = (background: IBackgroundSetModel) => {
 }
 
 const savePageHtml = () => {
-  const pageHtml = document.getElementById('generalPage')?.innerHTML
+  const pageHtml = document.getElementById('generalPage')?.outerHTML
   return {
     type: SAVE_PAGE_HTML,
     pageHtml
