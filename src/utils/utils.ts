@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { ITemplateModel } from '../store/data'
 
 /**
 * 数组元素交换位置
@@ -65,6 +66,15 @@ const getResetSortList = (dataList: { sort: number }[]) => {
   return resetDataList
 }
 
+const updateCurrentTempData = (currentTempData: ITemplateModel, allTempData: ITemplateModel[]) => {
+  allTempData.forEach(item => {
+    if (item.id === currentTempData.id) {
+      item.tempData = currentTempData.tempData
+    }
+  })
+  return allTempData
+}
+
 export {
   swapArray,
   zIndexUp,
@@ -72,5 +82,6 @@ export {
   zIndexTop,
   zIndexBottom,
   getIsShowList,
-  getResetSortList
+  getResetSortList,
+  updateCurrentTempData
 }
