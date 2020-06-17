@@ -68,6 +68,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
                 e.stopPropagation()
                 this.setTempBackground(params)
               }}
+
             >背景</Button>
             <Button type="primary" shape="circle" icon={<ArrowUpOutlined />}
               style={{ marginRight: 10 }} disabled={params.tempSort === 1}

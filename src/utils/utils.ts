@@ -75,6 +75,10 @@ const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: II
   return tempData
 }
 
+const deleteIconTitleTextItem = (sort: number, tempData: IIconTitleTextModel[]) => {
+  return tempData.filter(item => item.sort !== sort)
+}
+
 const updateCurrentTempData = (currentTempData: ITemplateModel, allTempData: ITemplateModel[]) => {
   allTempData.forEach(item => {
     if (item.id === currentTempData.id) {
@@ -83,6 +87,7 @@ const updateCurrentTempData = (currentTempData: ITemplateModel, allTempData: ITe
   })
   return allTempData
 }
+
 
 export {
   swapArray,
@@ -93,5 +98,6 @@ export {
   getIsShowList,
   getResetSortList,
   updateIconTitleTextItemShow,
-  updateCurrentTempData
+  updateCurrentTempData,
+  deleteIconTitleTextItem
 }
