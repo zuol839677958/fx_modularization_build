@@ -1,25 +1,30 @@
 import React, { Component } from 'react'
-import TitleBack from "../comonEitorComplate/titleBack"
+
+import { ITemplateModel } from '../../../store/data'
 import ItemMangement from "../commonEitorModel/ItemManagement"
 import './index.less'
 
+
+
 interface IEditorIconTitleText {
-    title: string;
-    hasBackBtn: boolean;
-    closeEditorSlide: () => void;
+  data: ITemplateModel;
 }
 
+
+
 class EditorIconTitleText extends Component<IEditorIconTitleText> {
-    render() {
-        const { title, hasBackBtn, closeEditorSlide } = this.props
-        return (
-            <div className="slide-content">
-                <TitleBack titleArrow={hasBackBtn} title={title} closeEditorSlide={() => closeEditorSlide()} />
-                <ItemMangement title={"条目管理"} />
-                
-            </div>
-        )
-    }
+ 
+
+  render() {
+    const { data} = this.props
+    return (
+      <div className="slide-content">
+        <ItemMangement  data={data} />
+      </div>
+    )
+  }
+
+ 
 }
 
 export default EditorIconTitleText

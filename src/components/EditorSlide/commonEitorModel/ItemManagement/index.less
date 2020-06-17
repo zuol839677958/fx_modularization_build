@@ -1,10 +1,88 @@
-.item-Manage{
+@import (reference) "../../../../../styles/common/PublicDefind";
+.item-Manage-content{
     padding:20px;
-    overflow: hidden;
-    p{
-        float:left;
+    .item-Manage{
+       margin-bottom:@verticalSpacing_s;
+        overflow: hidden;
+        p{
+            float:left;
+        }
+        .item-title{
+            float: right;
+        }
     }
-    .item-title{
-        float: right;
+    .modification_switchingPosition{
+        overflow:hidden;
+       
+            ul{
+                li{
+                 position: relative;
+                 height: 30px;
+                 line-height: 30px;
+                 margin-bottom: 10px;
+                 width: 100%;
+                 box-sizing: border-box;
+                 
+                 &>div {
+                    display: inline-block;
+                    margin-right: 30px;
+                    border-radius:20px;
+                    padding: 0 10px;
+                    position: relative;
+                    &>i{
+                        margin-right:3px;
+                        vertical-align: text-bottom;
+                    }
+                    &:hover,
+                    &.active {
+                        background-color: @F1;
+    
+                        span {
+                            color: #FFFFFF;
+                        }
+    
+                        i {
+                            color: #FFFFFF;
+                            opacity: 1;
+                        }
+                    }
+    
+                    &>i {
+                        line-height: 30px;
+                       display: inline-block;
+                    }
+    
+                    span {
+                        width:160px;
+                        vertical-align: text-bottom;
+                        display: inline-block;
+                      
+                        cursor: all-scroll;
+    
+                     
+                    }
+    
+                    .right {
+                       display: inline-block;
+                       position: relative;
+                       top:5px;
+    
+                        i {
+                            color: #FFFFFF;
+                            cursor: pointer;
+                            font-size: 20px;
+                            float: right!important;
+                            top: 0;
+                        }
+                        .amend{
+                            margin-right: 10px;
+                        }
+                    }
+                }
+    
+             
+                }
+            }
     }
 }
+
