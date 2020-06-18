@@ -1,0 +1,71 @@
+@import (reference) "../../../../../styles/common/PublicDefind";
+
+.modification_switchingPosition {
+  overflow: hidden;
+
+  ul {
+    li {
+      height: 40px;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+
+      &>div {
+        margin-right: 30px;
+        border-radius: 20px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+
+        &>i {
+          margin-right: 3px;
+          vertical-align: text-bottom;
+        }
+
+        &:hover,
+        &.active {
+          background-color: @F1;
+
+          span {
+            color: #FFFFFF;
+          }
+
+          i {
+            color: #FFFFFF;
+            opacity: 1;
+          }
+        }
+
+        &>i {
+          line-height: 30px;
+          display: inline-block;
+        }
+
+        span {
+          width: 160px;
+          vertical-align: text-bottom;
+          display: inline-block;
+          cursor: all-scroll;
+        }
+
+        .right {
+          display: flex;
+          align-items: center;
+
+          i {
+            color: #FFFFFF;
+            cursor: pointer;
+            font-size: 20px;
+            float: right !important;
+            top: 0;
+          }
+
+          .amend {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}
