@@ -105,7 +105,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
         {filterList.map(tempData => (
           <Fragment key={tempData.sort}>
             <h5>{tempData.title}</h5>
-            <p>{tempData.text}</p>
+            <section dangerouslySetInnerHTML={{ __html: tempData.text }}></section>
           </Fragment>
         ))}
       </Fragment>

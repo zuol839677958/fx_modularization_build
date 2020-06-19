@@ -66,18 +66,18 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
           <Row style={{ marginBottom: 20 }}>
             <p>修改标题</p>
-            <Input placeholder="请输入题" maxLength={10} value={editItemData?.title}
+            <Input placeholder="请输入标题" maxLength={10} value={editItemData?.title}
               onChange={(e) => this.changeItemTitle(e.target.value)}
-            ></Input>
+            />
           </Row>
           <Row>
             <p>修改文字</p>
             <Input placeholder="请输入文字" maxLength={20} value={editItemData?.text}
-              onChange={(e) => this.changeItemText(e.target.value)}>
-            </Input>
+              onChange={(e) => this.changeItemText(e.target.value)}
+            />
           </Row>
         </div>
-      </Fragment>
+      </Fragment >
     )
   }
 
