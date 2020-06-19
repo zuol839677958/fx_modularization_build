@@ -103,6 +103,9 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
 
   changeTypeIndex(typeIndex: number) {
     this.setState({ typeIndex })
+    if (typeIndex === 0) {
+      this.setState({ topTitle: '图标标题文字模板编辑' })
+    }
   }
 
   closeEditorSlide() {
