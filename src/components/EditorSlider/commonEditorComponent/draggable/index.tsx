@@ -1,46 +1,60 @@
 import React, { Component, Fragment } from 'react'
-import { IIconTitleTextModel } from '../../../../store/data'
 import { Checkbox } from 'antd'
 
-interface IDraggableProps { }
+export interface IDraggableData {
+  sort: number
+  title: string
+  isShow: boolean
+  [key: string]: any
+}
 
-interface IDraggableState { }
+interface IDraggableProps {
+  data: IDraggableData[]
+  handleEditItem: (itemData: IDraggableData) => void
+  handleDeleteItem: (itemSort: number) => void
+  handleIsShowItem: (checked: boolean, itemSort: number) => void
+  handleDraggableItemChange: (dragItemStartIndex: number, dragItemEndIndex: number) => void
+}
 
-let dragStartSort = 0
-let dragEndIndex = 0
-let dragLiHeight = 0
+let dragItemStartIndex = 0
+let dragItemEndIndex = 0
+let dragItemLiHeight = 0
 
-class Draggable extends Component<IDraggableProps, IDraggableState> {
+class Draggable extends Component<IDraggableProps> {
   render() {
+    const { data } = this.props
+
     return (
-      <div className="modification_switchingPosition"></div>
+      <div className="modification_switchingPosition">
+        {this.renderDraggableItem(data)}
+      </div>
     )
   }
 
-  renderDraggableItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
-    if (tempDataList.length === 0) return <Fragment></Fragment>
+  renderDraggableItem(draggableDataList: IDraggableData[]): JSX.Element {
+    if (draggableDataList.length === 0) return <Fragment></Fragment>
 
     return (
       <ul
         onDrop={() => this.handleDrop()}
         onDragOver={(e) => this.handleDragOver(e)}>
         {
-          tempDataList.map(tempData => (
-            <li key={tempData.sort} draggable={true}
+          draggableDataList.map((draggableData, index: number) => (
+            <li key={draggableData.sort} draggable={true}
               onDragStart={(e) => {
-                dragStartSort = tempData.sort
-                dragLiHeight = e.currentTarget.offsetHeight
+                dragItemStartIndex = index
+                dragItemLiHeight = e.currentTarget.offsetHeight
               }}
             >
               <div>
                 <i className="iconfont">&#xE011;</i>
-                <span>{tempData.title}</span>
+                <span>{draggableData.title}</span>
                 <div className="right">
-                  <i className="iconfont amend" onClick={() => this.handleEditItem(tempData)}>&#xE00C;</i>
-                  <i className="iconfont recycle" onClick={() => this.handleDeleteItem(tempData.sort)}>&#xE009;</i>
+                  <i className="iconfont amend" onClick={() => this.handleEditItem(draggableData)}>&#xE00C;</i>
+                  <i className="iconfont recycle" onClick={() => this.handleDeleteItem(draggableData.sort)}>&#xE009;</i>
                 </div>
               </div>
-              <Checkbox checked={tempData.isShow} onChange={(e) => this.handleIsShowItem(e.target.checked, tempData.sort)} />
+              <Checkbox checked={draggableData.isShow} onChange={(e) => this.handleIsShowItem(e.target.checked, draggableData.sort)} />
             </li>
           ))
         }
@@ -48,31 +62,32 @@ class Draggable extends Component<IDraggableProps, IDraggableState> {
     )
   }
 
-  handleEditItem(tempData: IIconTitleTextModel) {
-
+  handleEditItem(itemData: IDraggableData) {
+    const { handleEditItem } = this.props
+    handleEditItem(itemData)
   }
 
-  handleDeleteItem(sort: number) {
-
+  handleDeleteItem(itemSort: number) {
+    const { handleDeleteItem } = this.props
+    handleDeleteItem(itemSort)
   }
 
-  handleIsShowItem(checked: boolean, sort: number) {
-
+  handleIsShowItem(checked: boolean, itemSort: number) {
+    const { handleIsShowItem } = this.props
+    handleIsShowItem(checked, itemSort)
   }
 
   handleDragOver(e: React.DragEvent<HTMLUListElement>) {
-    // const { data } = this.props
-    // e.preventDefault()
-    // const { clientY } = e
-    // const dragUlHeight = (data.tempData as IIconTitleTextModel[]).length * dragLiHeight
-    // dragEndIndex = Math.round((clientY - dragUlHeight) / dragLiHeight)
+    e.preventDefault()
+    const { data } = this.props
+    const { clientY } = e
+    const dragUlHeight = data.length * dragItemLiHeight
+    dragItemEndIndex = Math.round((clientY - dragUlHeight) / dragItemLiHeight)
   }
 
   handleDrop() {
-    // const { data, allTempData, changeTempData } = this.props
-    // swapArray(data.tempData as IIconTitleTextModel[], dragStartSort - 1, dragEndIndex)
-    // updateCurrentTempData(data, allTempData!)
-    // changeTempData!(allTempData!)
+    const { handleDraggableItemChange } = this.props
+    handleDraggableItemChange(dragItemStartIndex, dragItemEndIndex)
   }
 }
 

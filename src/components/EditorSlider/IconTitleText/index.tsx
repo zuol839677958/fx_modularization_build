@@ -1,12 +1,14 @@
 import React, { Component, Fragment, Dispatch } from 'react'
-import { Checkbox, message, Input, Row } from 'antd';
-import { connect } from 'react-redux';
-import { changeEditorSlideShow } from '../store/actions';
+import { message, Input, Row } from 'antd'
+import { connect } from 'react-redux'
+import { changeEditorSlideShow } from '../store/actions'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText } from '../../../utils/utils';
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
-import { Action } from 'redux';
-import { changeTempData } from '../../EditorContainer/store/actions';
+import { Action } from 'redux'
+import { changeTempData } from '../../EditorContainer/store/actions'
+
+import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 
 import './index.less'
 
@@ -27,10 +29,6 @@ interface IEditorIconTitleTextState {
   title: string
   editItemData?: IIconTitleTextModel
 }
-
-let dragStartSort = 0
-let dragEndIndex = 0
-let dragLiHeight = 0
 
 class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
   state: IEditorIconTitleTextState = {
@@ -56,9 +54,14 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           <div className="item-Manage">
             <p>{title}</p>
           </div>
-          <div className="modification_switchingPosition">
-            {this.renderTemplateItem(data.tempData as IIconTitleTextModel[])}
-          </div>
+          <Draggable
+            data={data.tempData as IDraggableData[]}
+            handleEditItem={(itemData: IDraggableData) => this.inToDetails(itemData as IIconTitleTextModel)}
+            handleDeleteItem={(itemSort: number) => this.deleteIconTitle(itemSort)}
+            handleIsShowItem={(checked: boolean, itemSort: number) => this.changeChecked(checked, itemSort)}
+            handleDraggableItemChange={(dragItemStartIndex: number, dragItemEndIndex: number) =>
+              this.changeItemSort(dragItemStartIndex, dragItemEndIndex)}
+          />
         </div>
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
           <Row style={{ marginBottom: 20 }}>
@@ -109,52 +112,6 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     this.props.changeEditorSlideShow && this.props.changeEditorSlideShow(false)
   }
 
-  renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
-    if (tempDataList.length === 0) return <Fragment></Fragment>
-
-    return (
-      <ul
-        onDrop={() => this.handleDrop()}
-        onDragOver={(e) => this.handleDragOver(e)}>
-        {
-          tempDataList.map(tmp => (
-            <li key={tmp.sort} draggable={true}
-              onDragStart={(e) => {
-                dragStartSort = tmp.sort
-                dragLiHeight = e.currentTarget.offsetHeight
-              }}
-            >
-              <div>
-                <i className="iconfont">&#xE011;</i>
-                <span>{tmp.title}</span>
-                <div className="right">
-                  <i className="iconfont amend" onClick={() => this.inToDetails(tmp)}>&#xE00C;</i>
-                  <i className="iconfont recycle" onClick={() => this.deleteIconTitle(tmp.sort)}>&#xE009;</i>
-                </div>
-              </div>
-              <Checkbox checked={tmp.isShow} onChange={(e) => this.changeChecked(e.target.checked, tmp.sort)} />
-            </li>
-          ))
-        }
-      </ul>
-    )
-  }
-
-  handleDragOver(e: React.DragEvent<HTMLUListElement>) {
-    e.preventDefault()
-    const { data } = this.props
-    const { clientY } = e
-    const dragUlHeight = (data.tempData as IIconTitleTextModel[]).length * dragLiHeight
-    dragEndIndex = Math.round((clientY - dragUlHeight) / dragLiHeight)
-  }
-
-  handleDrop() {
-    const { data, allTempData, changeTempData } = this.props
-    swapArray(data.tempData as IIconTitleTextModel[], dragStartSort - 1, dragEndIndex)
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
-  }
-
   inToDetails(editItemData: IIconTitleTextModel) {
     this.setState({
       topTitle: '修改详情页',
@@ -174,6 +131,13 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   changeChecked(checkedState: boolean, sort: number) {
     const { data, allTempData, changeTempData } = this.props
     updateIconTitleTextItemShow(checkedState, sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  changeItemSort(dragItemStartIndex: number, dragItemEndIndex: number) {
+    const { data, allTempData, changeTempData } = this.props
+    swapArray(data.tempData as IIconTitleTextModel[], dragItemStartIndex, dragItemEndIndex)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
