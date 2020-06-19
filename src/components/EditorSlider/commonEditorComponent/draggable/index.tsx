@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Checkbox } from 'antd'
 
+import './index.less'
+
 export interface IDraggableData {
   sort: number
   title: string
@@ -18,7 +20,6 @@ interface IDraggableProps {
 
 let dragItemStartIndex = 0
 let dragItemEndIndex = 0
-let dragItemLiHeight = 0
 
 class Draggable extends Component<IDraggableProps> {
   render() {
@@ -41,9 +42,11 @@ class Draggable extends Component<IDraggableProps> {
         {
           draggableDataList.map((draggableData, index: number) => (
             <li key={draggableData.sort} draggable={true}
-              onDragStart={(e) => {
+              onDragStart={() => {
                 dragItemStartIndex = index
-                dragItemLiHeight = e.currentTarget.offsetHeight
+              }}
+              onDragEnter={() => {
+                dragItemEndIndex = index
               }}
             >
               <div>
@@ -79,10 +82,6 @@ class Draggable extends Component<IDraggableProps> {
 
   handleDragOver(e: React.DragEvent<HTMLUListElement>) {
     e.preventDefault()
-    const { data } = this.props
-    const { clientY } = e
-    const dragUlHeight = data.length * dragItemLiHeight
-    dragItemEndIndex = Math.round((clientY - dragUlHeight) / dragItemLiHeight)
   }
 
   handleDrop() {
