@@ -33,7 +33,7 @@ interface IEditorIconTitleTextState {
 class ItemManagement extends Component<IEditorItemManagement, IEditorIconTitleTextState> {
   state: IEditorIconTitleTextState = {
     sort: 1,
-    typeIndex: 0,
+    typeIndex: 1,
     topTitle: "标题文字修改",
     title: "条目管理"
   }
@@ -55,7 +55,11 @@ class ItemManagement extends Component<IEditorItemManagement, IEditorIconTitleTe
           </div>
         </div>
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
-          111
+            <div className="top-tip">
+              <span>请输入标题</span>
+              <Checkbox  /> 
+            </div>
+            <input type="text"/>
         </div>
       </Fragment>
     )
@@ -69,6 +73,9 @@ class ItemManagement extends Component<IEditorItemManagement, IEditorIconTitleTe
     })
     this.props.changeEditorSlideShow && this.props.changeEditorSlideShow(false)
   }
+
+
+
 
   renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
     if (tempDataList.length === 0) return <Fragment></Fragment>
@@ -95,7 +102,8 @@ class ItemManagement extends Component<IEditorItemManagement, IEditorIconTitleTe
   }
   inToDetails() {
     this.setState({
-      typeIndex: 1
+      typeIndex: 1,
+      topTitle:"修改详情" 
     })
   }
   deleteIconTitle(sort: number) {

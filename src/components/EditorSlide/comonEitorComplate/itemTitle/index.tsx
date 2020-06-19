@@ -3,7 +3,6 @@ import './index.less'
 interface IEditoritemTitle {
     isShow?: boolean;
     title?: string;
-    label?: string;
     checkShow?:boolean;
     disabled?: boolean;
 }
