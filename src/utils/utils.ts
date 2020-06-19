@@ -75,6 +75,24 @@ const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: II
   return tempData
 }
 
+const updateIconTitleTextItemTitle = (title: string, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.title = title
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextItemText = (text: string, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.text = text
+    }
+  })
+  return tempData
+}
+
 const deleteIconTitleTextItem = (sort: number, tempData: IIconTitleTextModel[]) => {
   return tempData.filter(item => item.sort !== sort)
 }
@@ -98,6 +116,8 @@ export {
   getIsShowList,
   getResetSortList,
   updateIconTitleTextItemShow,
+  updateIconTitleTextItemTitle,
+  updateIconTitleTextItemText,
   updateCurrentTempData,
   deleteIconTitleTextItem
 }

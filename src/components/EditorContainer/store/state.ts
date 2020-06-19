@@ -46,6 +46,27 @@ const editorContainerState: ITemplateModel[] = [
         text: '请输入文字2',
         isShow: true,
         sort: 2
+      },
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题3',
+        text: '请输入文字3',
+        isShow: true,
+        sort: 3
+      },
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题4',
+        text: '请输入文字4',
+        isShow: true,
+        sort: 4
+      },
+      {
+        iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+        title: '请输入标题5',
+        text: '请输入文字5',
+        isShow: true,
+        sort: 5
       }
     ]
   },

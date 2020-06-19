@@ -6,7 +6,7 @@ import { Dispatch, Action } from 'redux'
 import { connect } from 'react-redux'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { savePageHtml, changeActiveTempId } from '../EditorContainer/store/actions'
-import { changeEditorSlideShow } from '../EditorSlide/store/actions'
+import { changeEditorSlideShow } from '../EditorSlider/store/actions'
 
 import './index.less'
 

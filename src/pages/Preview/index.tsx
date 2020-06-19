@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { IPageState } from '../../store/data'
 
+import './index.less'
+
 interface IPreviewProps {
   pageHtml: string
 }
@@ -11,7 +13,7 @@ class Preview extends Component<IPreviewProps> {
     const { pageHtml } = this.props
 
     return (
-      <div dangerouslySetInnerHTML={{ __html: pageHtml }}></div>
+      <section className="preview-wrap" dangerouslySetInnerHTML={{ __html: pageHtml }}></section>
     )
   }
 }
