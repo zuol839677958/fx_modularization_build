@@ -113,38 +113,36 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     if (tempDataList.length === 0) return <Fragment></Fragment>
 
     return (
-      <Fragment>
-        <ul
-          onDrop={() => this.handleDrop()}
-          onDragOver={(e) => this.handleDragOver(e)}>
-          {
-            tempDataList.map(tmp => (
-              <li key={tmp.sort} draggable={true}
-                onDragStart={(e) => {
-                  dragStartSort = tmp.sort
-                  dragLiHeight = e.currentTarget.offsetHeight
-                }}
-              >
-                <div>
-                  <i className="iconfont">&#xE011;</i>
-                  <span>{tmp.title}</span>
-                  <div className="right">
-                    <i className="iconfont amend" onClick={() => this.inToDetails(tmp)}>&#xE00C;</i>
-                    <i className="iconfont recycle" onClick={() => this.deleteIconTitle(tmp.sort)}>&#xE009;</i>
-                  </div>
+      <ul
+        onDrop={() => this.handleDrop()}
+        onDragOver={(e) => this.handleDragOver(e)}>
+        {
+          tempDataList.map(tmp => (
+            <li key={tmp.sort} draggable={true}
+              onDragStart={(e) => {
+                dragStartSort = tmp.sort
+                dragLiHeight = e.currentTarget.offsetHeight
+              }}
+            >
+              <div>
+                <i className="iconfont">&#xE011;</i>
+                <span>{tmp.title}</span>
+                <div className="right">
+                  <i className="iconfont amend" onClick={() => this.inToDetails(tmp)}>&#xE00C;</i>
+                  <i className="iconfont recycle" onClick={() => this.deleteIconTitle(tmp.sort)}>&#xE009;</i>
                 </div>
-                <Checkbox checked={tmp.isShow} onChange={(e) => this.changeChecked(e.target.checked, tmp.sort)} />
-              </li>
-            ))
-          }
-        </ul>
-      </Fragment>
+              </div>
+              <Checkbox checked={tmp.isShow} onChange={(e) => this.changeChecked(e.target.checked, tmp.sort)} />
+            </li>
+          ))
+        }
+      </ul>
     )
   }
 
   handleDragOver(e: React.DragEvent<HTMLUListElement>) {
-    const { data } = this.props
     e.preventDefault()
+    const { data } = this.props
     const { clientY } = e
     const dragUlHeight = (data.tempData as IIconTitleTextModel[]).length * dragLiHeight
     dragEndIndex = Math.round((clientY - dragUlHeight) / dragLiHeight)
