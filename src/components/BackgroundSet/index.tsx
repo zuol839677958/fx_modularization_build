@@ -41,7 +41,7 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
   }
 
   handleCancel = () => {
-    let { backgroundSetData, changeBackgroundSetData } = this.props
+    const { backgroundSetData, changeBackgroundSetData } = this.props
     backgroundSetData!.tempId = ''
     backgroundSetData!.isShow = false
     backgroundSetData!.bgColor = ''
@@ -63,7 +63,7 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
 
     return (
       <Modal
-        title="设置背景"
+        title={backgroundSetData?.tempId ? '设置模块背景' : '设置网页背景'}
         visible={backgroundSetData?.isShow}
         destroyOnClose
         okText='确定'
