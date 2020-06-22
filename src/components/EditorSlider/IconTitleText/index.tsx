@@ -1,7 +1,6 @@
 import React, { Component, Fragment, Dispatch } from 'react'
 import { message, Input, Row } from 'antd'
 import { connect } from 'react-redux'
-import { changeEditorSlideShow } from '../store/actions'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
 import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
@@ -18,7 +17,7 @@ interface IEditorIconTitleTextProps {
   allTempData?: ITemplateModel[];
   titleArrow?: boolean;
   changeTempData?: (tempData: ITemplateModel[]) => void
-  changeEditorSlideShow?: (isShow: boolean) => void
+ 
   closeEditorSlide?: () => void;
 }
 
@@ -47,7 +46,6 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
         <TitleBack
           titleArrow={typeIndex === 1}
           title={topTitle!}
-          closeEditorSlide={() => this.closeEditorSlide()}
           changeTypeIndex={(index) => this.changeTypeIndex(index)}
         />
         <div className="item-Manage-content" style={{ display: typeIndex === 0 ? "block" : "none" }}>
@@ -66,7 +64,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
           <Row style={{ marginBottom: 20 }}>
             <p>修改标题</p>
-            <Input placeholder="请输入题" maxLength={10} value={editItemData?.title}
+            <Input placeholder="请输入标题" maxLength={10} value={editItemData?.title}
               onChange={(e) => this.changeItemTitle(e.target.value)}
             ></Input>
           </Row>
@@ -112,7 +110,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     this.setState({
       typeIndex: 0
     })
-    this.props.changeEditorSlideShow && this.props.changeEditorSlideShow(false)
+   
   }
 
   inToDetails(editItemData: IIconTitleTextModel) {
@@ -155,9 +153,6 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
   },
-  changeEditorSlideShow(isShow: boolean) {
-    dispatch(changeEditorSlideShow(isShow))
-  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorIconTitleText)

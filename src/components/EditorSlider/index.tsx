@@ -7,7 +7,7 @@ import { TemplateType } from '../EditorContainer/store/state'
 import EditorIconTitleText from "./IconTitleText" //编辑部分左图右文
 import EditorPlaintext from './Plaintext'
 import PictureText from './PictureText'
-
+import Banner from "./Banner"
 import './index.less'
 
 interface IEditorBoxProps {
@@ -42,6 +42,8 @@ class EditorBox extends Component<IEditorBoxProps> {
 
   switchEditorModel(currentTempData: ITemplateModel) {
     switch (currentTempData.type) {
+      case TemplateType.Banner:
+        return  <Banner data={currentTempData as ITemplateModel}/>
       case TemplateType.IconTitleText:
         return <EditorIconTitleText data={currentTempData as ITemplateModel} />
       case TemplateType.Plaintext:

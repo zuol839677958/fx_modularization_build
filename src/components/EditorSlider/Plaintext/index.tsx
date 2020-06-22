@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { IPlaintextModel, IPageState, ITemplateModel } from '../../../store/data'
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
-import { changeEditorSlideShow } from '../store/actions'
 import { connect } from 'react-redux'
 import { Button } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
@@ -34,7 +33,7 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
 
     return (
       <Fragment>
-        <TitleBack titleArrow={false} title='纯文字模板编辑' closeEditorSlide={() => this.closeEditorSlider()} />
+        <TitleBack titleArrow={false} title='纯文字模板编辑'/>
         <div className="editor_content">
           <p>纯文字内容</p>
           <Button type="primary" shape="round"
@@ -78,9 +77,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
   },
-  changeEditorSlideShow(isShow: boolean) {
-    dispatch(changeEditorSlideShow(isShow))
-  }
+ 
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorPlaintext)

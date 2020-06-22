@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { IPageState, ITemplateModel } from '../../../store/data'
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
-import { changeEditorSlideShow } from '../store/actions'
 import { connect } from 'react-redux'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -20,7 +19,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   render() {
     return (
       <Fragment>
-        <TitleBack titleArrow={false} title='图文模板编辑' closeEditorSlide={() => this.closeEditorSlider()} />
+        <TitleBack titleArrow={false} title='图文模板编辑'  />
       </Fragment>
     )
   }
@@ -39,9 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
   },
-  changeEditorSlideShow(isShow: boolean) {
-    dispatch(changeEditorSlideShow(isShow))
-  }
+ 
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorPictureText)
