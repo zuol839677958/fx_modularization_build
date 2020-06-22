@@ -39,7 +39,11 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
 
     return (
       <Fragment>
-        <TitleBack titleArrow={tabTypeIndex === 1} title={tabTitle}/>
+        <TitleBack
+          titleArrow={tabTypeIndex === 1}
+          title={tabTitle}
+          changeTypeIndex={(index) => this.changeTabTypeIndex(index)}
+        />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
           <p>图文间距</p>
           <div className="spacing-box">
@@ -121,7 +125,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
       tabTypeIndex
     })
     if (tabTypeIndex === 0) {
-      this.setState({})
+      this.setState({ tabTitle: '图文模板编辑' })
     }
   }
 
@@ -165,7 +169,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
   },
- 
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorPictureText)

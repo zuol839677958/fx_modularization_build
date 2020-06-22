@@ -44,7 +44,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
         okText='确定'
         cancelText='取消'
         onOk={this.handleOk}
-        onCancel={() => handleModalVisible!(false)}
+        onCancel={() => handleModalVisible(false)}
       >
         <ReactQuill
           placeholder="请输入"

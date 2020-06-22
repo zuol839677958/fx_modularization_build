@@ -50,8 +50,10 @@ export interface IBannerVideoModel {
 export interface IIconTitleTextModel {
   iconUrl?: string;
   title: string;
+  titleFontColor?: string;
   background?: IBackgroundSetModel;
   text: string;
+  textFontColor?: string;
   isShow: boolean;
   sort: number;
 }
@@ -74,7 +76,8 @@ export interface ITitleTextModel {
 
 /* 纯文字模板 */
 export interface IPlaintextModel {
-  textHtml: string
+  textHtml: string;
+  fontColor?: string;
 }
 
 /* 背景设置 */

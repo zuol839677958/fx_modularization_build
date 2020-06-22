@@ -1,25 +1,25 @@
 @import '~antd/dist/antd.css';
 
 .App {
-    background: #e6e6e6;
-    min-height: 100vh;
-    overflow: hidden;
+  background: #e6e6e6;
+  min-height: 100vh;
+  overflow: hidden;
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 
-    ul,
-    li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 html {
-    overflow-x: auto;
-    overflow-y: scroll;
+  overflow-x: auto;
+  overflow-y: scroll;
 }
 
 body,
@@ -37,9 +37,9 @@ p,
 blockquote,
 th,
 td {
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -48,43 +48,43 @@ h3,
 h4,
 h4,
 h5 {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: #FFFFFF;
-    color: #666666;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    text-align: left;
+  background-color: #FFFFFF;
+  color: #666666;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  text-align: left;
 }
 
 select {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 fieldset,
 img {
-    border: 0 none;
+  border: 0 none;
 }
 
 fieldset {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 fieldset p {
-    margin: 0;
-    padding: 0 0 0 8px;
+  margin: 0;
+  padding: 0 0 0 8px;
 }
 
 legend {
-    display: none;
+  display: none;
 }
 
 address,
@@ -93,39 +93,63 @@ em,
 strong,
 th,
 i {
-    font-style: normal;
-    font-weight: 400;
+  font-style: normal;
+  font-weight: 400;
 }
 
 table caption {
-    margin-left: -1px;
+  margin-left: -1px;
 }
 
 hr {
-    border-bottom: 1px solid #FFFFFF;
-    border-top: 1px solid #E4E4E4;
-    border-width: 1px 0;
-    clear: both;
-    height: 2px;
-    margin: 5px 0;
-    overflow: hidden;
+  border-bottom: 1px solid #FFFFFF;
+  border-top: 1px solid #E4E4E4;
+  border-width: 1px 0;
+  clear: both;
+  height: 2px;
+  margin: 5px 0;
+  overflow: hidden;
 }
 
 ol,
 ul {
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
 }
 
 caption,
 th {
-    text-align: left;
+  text-align: left;
 }
 
 q:before,
 q:after,
 blockquote:before,
 blockquote:after {
-    content: ””;
+  content: ””;
+}
+
+/* 输入框加颜色选择 */
+.inputAndColor_wrap {
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  .inputAndColor_box {
+    display: flex;
+    align-items: center;
+
+    >input {
+      width: 90%;
+    }
+
+    .fontColorSelect {
+      width: 32px;
+      height: 32px;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+      border: 1px dashed #999;
+    }
+  }
 }

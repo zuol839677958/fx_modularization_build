@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { ITemplateModel, IIconTitleTextModel } from '../store/data'
+import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /**
 * 数组元素交换位置
@@ -93,6 +94,42 @@ const updateIconTitleTextItemText = (text: string, sort: number, tempData: IIcon
   return tempData
 }
 
+const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.titleFontColor = titleFontColor
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextItemTextFontColor = (textFontColor: string, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.textFontColor = textFontColor
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextItemTitleBgColor = (bgColor: string, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.background!.bgColor = bgColor
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, sort: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.background!.bgType = bgType
+    }
+  })
+  return tempData
+}
+
 const deleteIconTitleTextItem = (sort: number, tempData: IIconTitleTextModel[]) => {
   return tempData.filter(item => item.sort !== sort)
 }
@@ -119,5 +156,9 @@ export {
   updateIconTitleTextItemTitle,
   updateIconTitleTextItemText,
   updateCurrentTempData,
-  deleteIconTitleTextItem
+  deleteIconTitleTextItem,
+  updateIconTitleTextItemTitleFontColor,
+  updateIconTitleTextItemTextFontColor,
+  updateIconTitleTextItemTitleBgColor,
+  updateIconTitleTextItemTitleBgType
 }
