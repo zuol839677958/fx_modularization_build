@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import TemplateSelect from '../pages/TemplateSelect'
+import TemplateSelect from '../pages/templateSelect'
 import Home from '../pages/Home'
 import Preview from '../pages/Preview'
 
