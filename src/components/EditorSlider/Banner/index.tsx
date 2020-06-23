@@ -3,66 +3,71 @@ import { IPageState, ITemplateModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import TitleBack from '../commonEditorComponent/titleBack'
-import { Radio } from 'antd';
+import { Radio } from 'antd'
+import { BannerType } from '../../EditorContainer/store/state'
+
 import "./index.less"
-interface IEditorBanner{
-    data?: ITemplateModel;
-    typeIndex?:number;
-    topTitle?:string;
-    value?:number;
+
+interface IEditorBannerProps {
+  data?: ITemplateModel
 }
-class Banner extends Component<IEditorBanner>{
-  state:IEditorBanner ={
-    typeIndex:0,
-    topTitle:"banner",
-    value:1
+
+interface IEditorBannerState {
+  typeIndex: number
+  topTitle: string
+  bannerType: BannerType
+}
+
+class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
+  state: IEditorBannerState = {
+    typeIndex: 0,
+    topTitle: "Banner模板编辑",
+    bannerType: BannerType.SingleImage
   }
-   render(){
-    const { typeIndex,topTitle } = this.state;
-    
-     return (
+
+  render() {
+    const { typeIndex, topTitle } = this.state;
+
+    return (
       <Fragment>
-         <TitleBack
-          titleArrow={typeIndex === 1} 
+        <TitleBack
+          titleArrow={typeIndex === 1}
           title={topTitle!}
         />
-      <div className="banner-select-box">
-        <Radio.Group onChange={(e)=>{this.onChange(e.target.value)}} value={this.state.value}>
-          <Radio value={1}>图片</Radio>
-          <Radio value={2}>轮播</Radio>
-          <Radio value={3}>视频</Radio>
-        </Radio.Group>
-        <div className="img-content-box" style={{display:this.state.value===1?"block":"none"}}>
-          <div className="img-box" >
-              <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png" alt=""/>
+        <div className="banner-select-box">
+          <Radio.Group onChange={(e) => { this.onChange(e.target.value) }} value={this.state.bannerType}>
+            <Radio value={BannerType.SingleImage}>图片</Radio>
+            <Radio value={BannerType.Swiper}>轮播</Radio>
+            <Radio value={BannerType.Video}>视频</Radio>
+          </Radio.Group>
+          <div className="img-content-box" style={{ display: this.state.bannerType === BannerType.SingleImage ? "block" : "none" }}>
+            <div className="img-box" >
+              <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png" alt="" />
+            </div>
+            <div className="size-tip">图片大小≤500KB</div>
           </div>
-          <div className="size-tip">图片大小≤500KB</div>
         </div>
-      </div>
-        
       </Fragment>
-   )} 
-   onChange (e:number) {
-    console.log('radio checked', e);
-    this.setState({
-      value: e,
-    });
+    )
   }
-   closeEditorSlide(){
-    
+
+  onChange(e: number) {
+    console.log('radio checked', e)
+    this.setState({
+      bannerType: e,
+    })
   }
 }
 
 
-const mapStateToProps = (state: IPageState, ownProps: IEditorBanner) => ({
-    allTempData: state.editorContainerReducer.allTempData,
-  })
-  
-  const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-    changeTempData(allTempData: ITemplateModel[]) {
-    
-    },
-  
-  })
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(Banner)
+const mapStateToProps = (state: IPageState, ownProps: IEditorBannerProps) => ({
+  allTempData: state.editorContainerReducer.allTempData,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+  changeTempData(allTempData: ITemplateModel[]) {
+
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Banner)
