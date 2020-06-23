@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ITemplateModel, IIconTitleTextModel } from '../store/data'
+import { ITemplateModel, IIconTitleTextModel, ITitleTextModel } from '../store/data'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /**
@@ -67,7 +67,7 @@ const getResetSortList = (dataList: { sort: number }[]) => {
   return resetDataList
 }
 
-const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.isShow = isShow
@@ -76,7 +76,7 @@ const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: II
   return tempData
 }
 
-const updateIconTitleTextItemTitle = (title: string, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemTitle = (title: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.title = title
@@ -85,7 +85,7 @@ const updateIconTitleTextItemTitle = (title: string, sort: number, tempData: IIc
   return tempData
 }
 
-const updateIconTitleTextItemText = (text: string, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemText = (text: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.text = text
@@ -94,7 +94,7 @@ const updateIconTitleTextItemText = (text: string, sort: number, tempData: IIcon
   return tempData
 }
 
-const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.titleFontColor = titleFontColor
@@ -103,7 +103,7 @@ const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, sort: num
   return tempData
 }
 
-const updateIconTitleTextItemTextFontColor = (textFontColor: string, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemTextFontColor = (textFontColor: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.textFontColor = textFontColor
@@ -112,7 +112,7 @@ const updateIconTitleTextItemTextFontColor = (textFontColor: string, sort: numbe
   return tempData
 }
 
-const updateIconTitleTextItemTitleBgColor = (bgColor: string, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemTitleBgColor = (bgColor: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.background!.bgColor = bgColor
@@ -121,7 +121,7 @@ const updateIconTitleTextItemTitleBgColor = (bgColor: string, sort: number, temp
   return tempData
 }
 
-const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, sort: number, tempData: IIconTitleTextModel[]) => {
+const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.background!.bgType = bgType
@@ -130,7 +130,7 @@ const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, sort: num
   return tempData
 }
 
-const deleteIconTitleTextItem = (sort: number, tempData: IIconTitleTextModel[]) => {
+const deleteIconTitleTextItem = (sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   return tempData.filter(item => item.sort !== sort)
 }
 

@@ -68,8 +68,10 @@ export interface IPictureTextModel {
 /* 标题文字模板 */
 export interface ITitleTextModel {
   title: string;
+  titleFontColor?: string;
   background?: IBackgroundSetModel;
   text: string;
+  textFontColor?: string;
   isShow: boolean;
   sort: number;
 }
