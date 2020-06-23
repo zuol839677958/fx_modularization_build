@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { savePageHtml, changeActiveTempId } from '../EditorContainer/store/actions'
 import { changeEditorSlideShow } from '../EditorSlider/store/actions'
+import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 
 import './index.less'
 
@@ -15,6 +16,7 @@ interface IHeaderProps {
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changeActiveTempId?: (activeTempId: string) => void
   changeEditorSliderShow?: (isShow: boolean) => void
+  changeAddTemplateSliderShow?: (isShow: boolean) => void
   savePageHtml?: () => void
 }
 
@@ -25,7 +27,9 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     return (
       <div className="header-wrap">
         <div className="header-left">
-          <Button type="primary" shape="round">新增模块</Button>
+          <Button type="primary" shape="round"
+            onClick={() => this.openAddTemplateSlider()}
+          >新增模块</Button>
           <Button type="primary" shape="round"
             style={{ marginLeft: 20 }}
             onClick={() => this.setPageBackground()}
@@ -47,20 +51,29 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     )
   }
 
+  // 设置网页背景
   setPageBackground() {
     const { backgroundSetData, changeBackgroundSetData } = this.props
     backgroundSetData!.isShow = true
     changeBackgroundSetData!(backgroundSetData!)
   }
 
+  // 生成网页html代码
   async savePageHtml() {
-    const { changeEditorSliderShow, changeActiveTempId, savePageHtml } = this.props
+    const { changeEditorSliderShow, changeAddTemplateSliderShow, changeActiveTempId, savePageHtml } = this.props
     const key = 'savePageHtml'
     message.loading({ content: '正在保存页面...', key })
-    await changeEditorSliderShow!(false)
-    await changeActiveTempId!('')
-    await savePageHtml!()
+    await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
+    await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
+    await changeActiveTempId!('') // 去除遮罩编辑样式
+    await savePageHtml!() // 保存网页html代码
     message.success({ content: '保存页面成功！', key })
+  }
+
+  // 打开新增模块侧滑栏
+  openAddTemplateSlider() {
+    const { changeAddTemplateSliderShow } = this.props
+    changeAddTemplateSliderShow!(true)
   }
 }
 
@@ -80,6 +93,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   async savePageHtml() {
     await dispatch(savePageHtml())
+  },
+  async changeAddTemplateSliderShow(isShow: boolean) {
+    await dispatch(changeAddTemplateSliderShow(isShow))
   }
 })
 

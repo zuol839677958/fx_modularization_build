@@ -24,7 +24,7 @@ class EditorBox extends Component<IEditorBoxProps> {
     const currentTempData = allTempData!.filter(item => item.id === currentTemplateId)[0] as ITemplateModel
 
     return (
-      <div className="slide-content" style={{ display: isShowEditorSlider ? 'block' : 'none' }}>
+      <div className="slider-content" style={{ display: isShowEditorSlider ? 'block' : 'none' }}>
         {this.renderSliderBox(currentTempData)}
       </div>
     )
@@ -43,7 +43,7 @@ class EditorBox extends Component<IEditorBoxProps> {
   switchEditorModel(currentTempData: ITemplateModel) {
     switch (currentTempData.type) {
       case TemplateType.Banner:
-        return  <Banner data={currentTempData as ITemplateModel}/>
+        return <Banner data={currentTempData as ITemplateModel} />
       case TemplateType.IconTitleText:
         return <EditorIconTitleText data={currentTempData as ITemplateModel} />
       case TemplateType.Plaintext:
