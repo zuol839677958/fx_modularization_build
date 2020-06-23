@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
-import { IPictureTextModel, ITitleTextModel } from '../../store/data'
+import { IPictureTextModel, ITitleTextModel, IBackgroundSetModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { TemplateType } from '../../components/EditorContainer/store/state'
 import { getIsShowList } from '../../utils/utils'
+import { BackgroundSetType } from '../../components/BackgroundSet/store/state'
 
 import './index.less'
 
@@ -55,7 +56,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
             {
               tempData.type === TemplateType.LeftPictureRightText
                 ? this.renderLeftPictureRightTextTemp(tempData.tempData as IPictureTextModel)
-                : this.rnderLeftTextRightPictureTemp(tempData.tempData as IPictureTextModel)
+                : this.renderLeftTextRightPictureTemp(tempData.tempData as IPictureTextModel)
             }
           </div>
         </div>
@@ -80,7 +81,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     )
   }
 
-  rnderLeftTextRightPictureTemp(tempData: IPictureTextModel): JSX.Element {
+  renderLeftTextRightPictureTemp(tempData: IPictureTextModel): JSX.Element {
     const { spacingPercent } = tempData
     const marginRight = `${spacingPercent}%` || `${defaultSpacingPercent}%`
     const width = `${(100 - (spacingPercent || defaultSpacingPercent)) / 2}%`
@@ -104,12 +105,28 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       <Fragment>
         {filterList.map(tempData => (
           <Fragment key={tempData.sort}>
-            <h5>{tempData.title}</h5>
-            <section dangerouslySetInnerHTML={{ __html: tempData.text }}></section>
+            <h5
+              style={{ color: tempData.titleFontColor, background: this.initTitleBackground(tempData.background) }}
+            >{tempData.title}</h5>
+            <section
+              style={{ color: tempData.textFontColor }}
+              dangerouslySetInnerHTML={{ __html: tempData.text }}
+            ></section>
           </Fragment>
         ))}
       </Fragment>
     )
+  }
+
+  initTitleBackground(backgroundSet?: IBackgroundSetModel) {
+    if (!backgroundSet) return ''
+    switch (backgroundSet.bgType) {
+      case BackgroundSetType.PureColor:
+        return backgroundSet.bgColor
+      case BackgroundSetType.BackgroundImage:
+      default:
+        return ''
+    }
   }
 }
 

@@ -3,12 +3,15 @@ import { IPageState, ITemplateModel, IPictureTextModel, IIconTitleTextModel } fr
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
-import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText } from '../../../utils/utils'
-import { InputNumber, message, Input, Row, Button } from 'antd'
+import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor } from '../../../utils/utils'
+import { InputNumber, message, Input, Row, Button, Radio } from 'antd'
+import { BackgroundSetType } from '../../BackgroundSet/store/state'
+import { SketchPicker } from 'react-color'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import Draggable from '../commonEditorComponent/draggable'
 import RichTextEditor from '../../RichTextEditor'
+import FontColorSet from '../../FontColorSet'
 
 import './index.less'
 
@@ -24,18 +27,35 @@ interface IEditorPictureTextState {
   tabTitle: string
   editItemData?: IIconTitleTextModel
   richTextEditorModalVisible: boolean
+  currentFontColor: string
+  fontColorSelectModalVisible: boolean
+  fontColorChangeType?: FontColorChangeType
+}
+
+enum FontColorChangeType {
+  Titile = 1,
+  Text
 }
 
 class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictureTextState> {
   state: IEditorPictureTextState = {
     tabTypeIndex: 0,
     tabTitle: '图文模板编辑',
-    richTextEditorModalVisible: false
+    richTextEditorModalVisible: false,
+    currentFontColor: '',
+    fontColorSelectModalVisible: false
   }
 
   render() {
     const { data } = this.props
-    const { tabTypeIndex, tabTitle, editItemData, richTextEditorModalVisible } = this.state
+    const {
+      tabTypeIndex,
+      tabTitle,
+      editItemData,
+      richTextEditorModalVisible,
+      currentFontColor,
+      fontColorSelectModalVisible
+    } = this.state
 
     return (
       <Fragment>
@@ -64,16 +84,43 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           />
         </div>
         <div className="details_box" style={{ display: tabTypeIndex === 1 ? "block" : "none" }}>
-          <Row style={{ marginBottom: 20 }}>
+          <Row className="inputAndColor_wrap">
             <p>修改标题</p>
-            <Input placeholder="请输入标题" maxLength={10} value={editItemData?.title}
-              onChange={(e) => this.changeItemTitle(e.target.value)}
-            />
+            <div className="inputAndColor_box">
+              <Input placeholder="请输入标题" maxLength={10} value={editItemData?.title}
+                onChange={(e) => this.changeItemTitle(e.target.value)}
+              />
+              <div className="fontColorSelect"
+                style={{ background: editItemData?.titleFontColor }}
+                onClick={() => this.initFontColorSelectModal(FontColorChangeType.Titile, editItemData!.titleFontColor!)}
+              ></div>
+            </div>
           </Row>
-          <p>修改文字</p>
-          <Button type="primary" shape="round"
-            onClick={() => this.handleRichTextEditorModalVisible(true)}
-          >编辑内容</Button>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>修改标题背景色</p>
+            <div style={{ marginBottom: 10 }}>
+              <Radio.Group
+                value={editItemData?.background?.bgType}
+                onChange={(e) => this.changeTitleBgType(e.target.value)}
+              >
+                <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
+                <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
+              </Radio.Group>
+            </div>
+            {this.renderEditItemTitleBackgroundSet()}
+          </Row>
+          <Row className="inputAndColor_wrap">
+            <p>修改文字</p>
+            <div className="inputAndColor_box">
+              <Button type="primary" shape="round"
+                onClick={() => this.handleRichTextEditorModalVisible(true)}
+              >编辑内容</Button>
+              <div className="fontColorSelect"
+                style={{ background: editItemData?.textFontColor }}
+                onClick={() => this.initFontColorSelectModal(FontColorChangeType.Text, editItemData!.titleFontColor!)}
+              ></div>
+            </div>
+          </Row>
           <RichTextEditor
             modalVisible={richTextEditorModalVisible}
             richTextContent={editItemData?.text as string}
@@ -81,8 +128,28 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
             saveContent={(content) => this.changeItemText(content)}
           />
         </div>
+        <FontColorSet
+          modalVisible={fontColorSelectModalVisible}
+          fontColor={currentFontColor}
+          handleModalVisible={flag => this.handleFontColorSelectModalVisible(flag)}
+          handleChangeFontColor={color => this.handleChangeFontColor(color)}
+        />
       </Fragment>
     )
+  }
+
+  renderEditItemTitleBackgroundSet(): JSX.Element {
+    const { editItemData } = this.state
+    switch (editItemData?.background?.bgType) {
+      case BackgroundSetType.PureColor:
+        return <SketchPicker
+          color={editItemData?.background?.bgColor}
+          onChange={color => this.changeTitleBackgroundColor(color.hex)}
+        />
+      case BackgroundSetType.BackgroundImage:
+      default:
+        return <Fragment></Fragment>
+    }
   }
 
   changeItemTitle(title: string) {
@@ -156,6 +223,54 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   changeTxtListItemSort(dragItemStartIndex: number, dragItemEndIndex: number) {
     const { data, allTempData, changeTempData } = this.props
     swapArray((data.tempData as IPictureTextModel).titleTextList, dragItemStartIndex, dragItemEndIndex)
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  initFontColorSelectModal(fontColorChangeType: FontColorChangeType, currentFontColor: string) {
+    this.setState({
+      currentFontColor,
+      fontColorChangeType
+    })
+    this.handleFontColorSelectModalVisible(true)
+  }
+
+  handleFontColorSelectModalVisible(fontColorSelectModalVisible: boolean) {
+    this.setState({ fontColorSelectModalVisible })
+  }
+
+  handleChangeFontColor(color: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const { fontColorChangeType, editItemData } = this.state
+    if (!fontColorChangeType) return
+
+    switch (fontColorChangeType) {
+      case FontColorChangeType.Titile:
+        updateIconTitleTextItemTitleFontColor(color, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+        break
+      case FontColorChangeType.Text:
+        updateIconTitleTextItemTextFontColor(color, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+        break
+      default:
+        break
+    }
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+    this.handleFontColorSelectModalVisible(false)
+  }
+
+  changeTitleBgType(titleBgType: BackgroundSetType) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextItemTitleBgType(titleBgType, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  changeTitleBackgroundColor(color: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextItemTitleBgColor(color, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
