@@ -10,8 +10,8 @@ import './App.less'
 const App: FC = () => (
   <div className="App">
     <Router>
-      <Route exact path="/home" component={selectTemplatePage}></Route>
-      <Route exact path="/" component={Home}></Route>
+      <Route exact path="/" component={selectTemplatePage}></Route>
+      <Route exact path="/home" component={Home}></Route>
       <Route exact path="/preview" component={Preview}></Route>
     </Router>
   </div>

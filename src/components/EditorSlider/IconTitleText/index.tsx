@@ -1,13 +1,13 @@
 import React, { Component, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio } from 'antd'
 import { connect } from 'react-redux'
-import { IIconTitleTextModel, ITemplateModel, IPageState, IBackgroundSetModel } from '../../../store/data';
+import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
 import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
-import { SketchPicker, ColorResult } from 'react-color'
+import { SketchPicker } from 'react-color'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
