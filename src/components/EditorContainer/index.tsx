@@ -22,6 +22,7 @@ interface IEditorContainerProps {
   activeTempId?: string
   allTempData?: ITemplateModel[]
   isShowSlider?: boolean
+  isShowAddTemplate?: boolean
   generalPageBackground?: IBackgroundSetModel
   changeEditorSliderShow?: (isShow: boolean) => void
   changeActiveTempId?: (activeTempId: string) => void
@@ -31,10 +32,12 @@ interface IEditorContainerProps {
 
 class EditorContainer extends Component<IEditorContainerProps> {
   render() {
-    const { allTempData, isShowSlider } = this.props
+    const { allTempData, isShowSlider, isShowAddTemplate } = this.props
 
     return (
-      <div className="editor-content" style={{ paddingLeft: isShowSlider ? "340px" : "0px" }}>
+      <div className="editor-content"
+        style={{ paddingLeft: isShowAddTemplate ? '400px' : isShowSlider ? "340px" : "0px" }}
+      >
         <div className="editor-wrap">
           <div id="generalPage" className="page-wrap" style={this.initGeneralPageBackground()}>
             {this.renderAllTemplate(allTempData as ITemplateModel[])}
@@ -104,6 +107,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => 
   activeTempId: state.editorContainerReducer.activeTempId,
   allTempData: state.editorContainerReducer.allTempData,
   isShowSlider: state.editorSliderReducer.isShow,
+  isShowAddTemplate: state.addTemplateSliderReducer.isShow,
   generalPageBackground: state.editorContainerReducer.background
 })
 

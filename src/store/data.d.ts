@@ -3,11 +3,17 @@ export interface IPageState {
   editorContainerReducer: IPageModel; // 编辑生成的网页内容
   editorSliderReducer: IEditorSliderModel; // 侧滑栏编辑
   backgroundSetReducer: IBackgroundSetModel; // 网页背景以及模板背景设置
+  addTemplateSliderReducer: IAddTemplateSliderModel; // 新增模块
 }
 
 /* 侧滑栏编辑模型 */
 export interface IEditorSliderModel {
   isShow: boolean; // 是否显示侧滑栏编辑
+}
+
+/* 新增模板侧滑栏模型 */
+export interface IAddTemplateSliderModel {
+  isShow: boolean;
 }
 
 /* 生成网页模型 */

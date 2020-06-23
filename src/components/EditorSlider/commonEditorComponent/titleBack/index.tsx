@@ -14,11 +14,12 @@ interface ITitleBackProps {
   changeTypeIndex?: (index: number) => void;
   changeEditorSlideShow?: (isShow: boolean) => void
   changeActiveTempId?: (activeTempId: string) => void
+  customCloseSlider?: () => void
 }
 
 class TitleBack extends Component<ITitleBackProps> {
   render() {
-    const { title, changeTypeIndex } = this.props
+    const { title, changeTypeIndex, customCloseSlider } = this.props
 
     return (
       <div className="title-back">
@@ -26,7 +27,13 @@ class TitleBack extends Component<ITitleBackProps> {
           <i style={{ display: this.props.titleArrow ? "inline-block" : "none", marginRight: 5 }}>←</i>
           <i>{title}</i>
         </p>
-        <CloseOutlined style={{ fontSize: 14, marginTop: 2 }} onClick={() => this.closeEditorSlide()} />
+        <CloseOutlined
+          style={{ fontSize: 14, marginTop: 2 }}
+          onClick={() => {
+            if (customCloseSlider) customCloseSlider()
+            else this.closeEditorSlide()
+          }}
+        />
       </div>
     )
   }
