@@ -22,11 +22,11 @@ class templateSelect extends Component<ITemplateSelectProps> {
                     <ul>
                         <li>
                             <div className="tmp-left">
-                            <div className="img-box" >
-                                    <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png" alt=""/>
-                            </div>
-                                <div className="">
-                                    <span>预览</span><span>使用</span>    
+                                <div className="img-box" >
+                                        <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png" alt=""/>
+                                </div>
+                                <div className="preview-usered">
+                                    <span className="preview">预览</span><span className="usered" >使用</span>    
                                 </div>    
                             </div>    
                             <div className="tmp-right">
