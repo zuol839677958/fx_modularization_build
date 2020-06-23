@@ -1,92 +1,96 @@
+// 整个项目状态管理
 export interface IPageState {
-  editorContainerReducer: IPageModel;
-  editorSliderReducer: IEditorSliderModel;
-  backgroundSetReducer: IBackgroundSetModel;
+  editorContainerReducer: IPageModel; // 编辑生成的网页内容
+  editorSliderReducer: IEditorSliderModel; // 侧滑栏编辑
+  backgroundSetReducer: IBackgroundSetModel; // 网页背景以及模板背景设置
 }
 
+/* 侧滑栏编辑模型 */
 export interface IEditorSliderModel {
-  isShow: boolean;
+  isShow: boolean; // 是否显示侧滑栏编辑
 }
 
+/* 生成网页模型 */
 export interface IPageModel {
-  modeType: number;
-  pageHtml: string;
-  activeTempId: string;
-  allTempData: ITemplateModel[];
-  background?: IBackgroundSetModel;
+  modeType: number; // 专题模板类型
+  pageHtml: string; // 生成的网页html
+  activeTempId: string; // 正在编辑中的模板id
+  allTempData: ITemplateModel[]; // 所有的模板数据
+  background?: IBackgroundSetModel; // 整个网页的背景
 }
 
 export interface ITemplateModel {
-  id: string;
-  type: number;
-  sort: number;
-  isShow: boolean;
-  background?: IBackgroundSetModel;
-  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel;
+  id: string; // 模板id
+  type: number; // 模板类型
+  sort: number; // 模板排序
+  isShow: boolean; // 模板是否显示
+  background?: IBackgroundSetModel; // 模板背景
+  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel; // 模板数据
 }
 
 /* Banner模板 */
 export interface IBannerModel {
-  bannerType: number;
-  imageData: IBannerImageModel;
-  imageListData?: IBannerImageModel[];
-  videoData?: IBannerVideoModel;
+  bannerType: number; // banner类型，1->单图，2->轮播图, 3->视频
+  isFull: boolean; // 图片是否横向铺满整个网页
+  imageData: IBannerImageModel; // 单个图片数据模型
+  imageListData?: IBannerImageModel[]; // 轮播图数据模型
+  videoData?: IBannerVideoModel; // 视频数据模型
 }
 
 export interface IBannerImageModel {
-  imageUrl: string;
-  imageTitle?: string;
-  imageDesc?: string;
-  imageLinkUrl?: string;
+  imageUrl: string; // 图片链接
+  imageTitle?: string; // 图片标题
+  imageDesc?: string; // 图片描述
+  imageLinkUrl?: string; // 图片跳转链接
 }
 
 export interface IBannerVideoModel {
-  videoSrc: string;
-  videoTitle?: string;
-  videoDesc?: string;
+  videoSrc: string; // 视频资源链接
+  videoTitle?: string; // 视频标题
+  videoDesc?: string; // 视频描述
 }
 
 /* 图标标题文字模板 */
 export interface IIconTitleTextModel {
-  iconUrl?: string;
-  title: string;
-  titleFontColor?: string;
-  background?: IBackgroundSetModel;
-  text: string;
-  textFontColor?: string;
-  isShow: boolean;
-  sort: number;
+  iconUrl?: string; // 图标链接
+  title: string; // 标题
+  titleFontColor?: string; // 标题字体颜色
+  background?: IBackgroundSetModel; // 标题背景
+  text: string; // 文字内容
+  textFontColor?: string; // 文字字体颜色
+  isShow: boolean; // 是否显示此项条目
+  sort: number;  // 条目排序
 }
 
 /* 图文模板 */
 export interface IPictureTextModel {
-  picUrl: string;
-  spacingPercent?: number;
-  titleTextList: IIconTitleTextModel[];
+  picUrl: string; // 图片链接
+  spacingPercent?: number; // 图文间距
+  titleTextList: IIconTitleTextModel[]; // 标题文字条目
 }
 
 /* 标题文字模板 */
 export interface ITitleTextModel {
-  title: string;
-  titleFontColor?: string;
-  background?: IBackgroundSetModel;
-  text: string;
-  textFontColor?: string;
-  isShow: boolean;
-  sort: number;
+  title: string; // 标题
+  titleFontColor?: string; // 标题字体颜色
+  background?: IBackgroundSetModel; // 标题背景
+  text: string; // 文字内容
+  textFontColor?: string; // 文字字体颜色
+  isShow: boolean; // 是否显示此项条目
+  sort: number; // 条目排序
 }
 
 /* 纯文字模板 */
 export interface IPlaintextModel {
-  textHtml: string;
-  fontColor?: string;
+  textHtml: string; // 文本html内容
+  fontColor?: string; // 文本内容字体颜色
 }
 
 /* 背景设置 */
 export interface IBackgroundSetModel {
-  tempId?: string;
-  bgType?: number;
-  bgColor?: string;
-  bgImageUrl?: string;
-  isShow?: boolean;
+  tempId?: string; // 正在编辑中的模板id
+  bgType?: number;  // 背景类型：1->无图，2->纯色，3->背景图
+  bgColor?: string; // 纯色背景
+  bgImageUrl?: string; // 背景图链接
+  isShow?: boolean; // 是否显示背景设置弹窗
 }

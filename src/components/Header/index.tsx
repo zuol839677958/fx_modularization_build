@@ -48,7 +48,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
   }
 
   setPageBackground() {
-    let { backgroundSetData, changeBackgroundSetData } = this.props
+    const { backgroundSetData, changeBackgroundSetData } = this.props
     backgroundSetData!.isShow = true
     changeBackgroundSetData!(backgroundSetData!)
   }
