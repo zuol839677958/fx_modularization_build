@@ -23,6 +23,7 @@ const editorContainerState: ITemplateModel[] = [
     isShow: true,
     tempData: {
       bannerType: BannerType.SingleImage,
+      isFull: true,
       imageData: {
         imageUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
       }
