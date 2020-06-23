@@ -1,3 +1,4 @@
+@import (reference) "../../styles/common/PublicDefind.less";
 
 .template-select-box{
     width:100%;
@@ -8,7 +9,7 @@
     background-color: #fff;
     padding: 24px 72px 0px;
     .select-top{
-        overflow: hidden;
+        .both();
         h2{
             margin-top:24px;
             font-size:24px;
@@ -17,44 +18,64 @@
         .close-btn{
            float:right;
            cursor: pointer;
-           user-select: none;
+           .prohibit_text()
         }
 
     }
     
     .tmplate-content-list{
+        margin-top:24px;
         .list-tmp-box{
             ul{
+                .both();
                 li{
-                    overflow: hidden;
+                    .both();
                     width:25%;
+                    float:left;
+                    margin-bottom:32px;
                     .tmp-left{
                         float:left;
+                        margin-right:16px;
                         .img-box{
                             img{ 
                                 width:158px;
                                 height:208px;
                             }
-                            .preview-usered{
-                                overflow: hidden;
-                                span{
-                                    padding:11px 16px;
-                                    font-size: 16px;
-                                }
-                                .preview{
-                                    background:rgba(255,255,255,1);
-                                    border:1px solid rgba(217,217,217,1);
-                                    border-radius:4px;
-                                }
-                                .usered{
-                                    background:#1890FF;
-                                }
+                           
+                        }
+                        .preview-usered{
+                            .both();
+                            margin-top:16px;
+                            span{
+                                padding:11px 16px;
+                                font-size: 16px;
+                                cursor:pointer;
+                                .both();
+                                .border-radius(4px);
+                                .prohibit_text()
+                            }
+                            .preview{
+                                float:left;
+                                background:rgba(255,255,255,1);
+                                border:1px solid rgba(217,217,217,1);
+                                
+                            }
+                            .usered{
+                                float:right;
+                                color:#fff;
+                                background:@BG_C1;
                             }
                         }
                     }
                     .tmp-right{
                         float:left;
-                       
+                       h6{
+                           .h6();
+                           max-height:56px;
+                       }
+                       p{
+                        .h3();
+                       }
                     }
 
                 }
