@@ -7,8 +7,8 @@ const App: FC = () => (
   <div className="App">
     <Router>
       {
-        routers.map((item) => (
-          <Route exact path={item.path} component={item.component}></Route>
+        routers.map(item => (
+          <Route key={item.path as string} exact path={item.path} component={item.component}></Route>
         ))
       }
 

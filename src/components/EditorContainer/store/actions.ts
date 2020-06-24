@@ -1,5 +1,5 @@
-import { CHANGE_PAGE_TEMPLATE_DATA, CHANGE_PAGE_ACTIVE_TEMP_ID, CHANGE_PAGE_BACKGROUND, SAVE_PAGE_HTML } from './actionTypes'
-import { ITemplateModel, IBackgroundSetModel } from '../../../store/data'
+import { CHANGE_PAGE_TEMPLATE_DATA, CHANGE_PAGE_ACTIVE_TEMP_ID, CHANGE_PAGE_BACKGROUND, SAVE_PAGE_HTML, CHANGE_PAGE_DATA } from './actionTypes'
+import { ITemplateModel, IBackgroundSetModel, IPageModel } from '../../../store/data'
 
 const changeTempData = (allTempData: ITemplateModel[]) => {
   return {
@@ -22,6 +22,13 @@ const changePageBackground = (background: IBackgroundSetModel) => {
   }
 }
 
+const changePageData = (pageData: IPageModel) => {
+  return {
+    type: CHANGE_PAGE_DATA,
+    pageData
+  }
+}
+
 const savePageHtml = () => {
   const pageHtml = document.getElementById('generalPage')?.outerHTML
   return {
@@ -30,4 +37,10 @@ const savePageHtml = () => {
   }
 }
 
-export { changeTempData, changeActiveTempId, changePageBackground, savePageHtml }
+export {
+  changeTempData,
+  changeActiveTempId,
+  changePageBackground,
+  savePageHtml,
+  changePageData
+}
