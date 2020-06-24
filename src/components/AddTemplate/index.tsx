@@ -28,6 +28,9 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
           titleArrow={false}
           customCloseSlider={() => this.closeAddTemplateSlider()}
         />
+        <div className="Menu-add-box">
+          1111
+        </div>
       </div>
     )
   }

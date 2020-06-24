@@ -1,11 +1,18 @@
 import React, { FC } from 'react'
-import router from './route/router'
-
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import routers from "./routes/router"
 import './App.less'
 
 const App: FC = () => (
   <div className="App">
-    {router}
+    <Router>
+      {
+        routers.map((item) => (
+          <Route exact path={item.path} component={item.component}></Route>
+        ))
+      }
+
+    </Router>
   </div>
 )
 
