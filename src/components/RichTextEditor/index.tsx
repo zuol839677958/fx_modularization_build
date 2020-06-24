@@ -55,10 +55,8 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
               [{ list: 'ordered' }, { list: 'bullet' }],
               [{ indent: '-1' }, { indent: '+1' }],
               [{ color: [] }, { background: [] }],
-              [{ size: ['small', false, 'large', 'huge'] }],
               [{ align: [] }],
               ['clean'],
-              ['image'],
               ['link']
             ],
           }}
