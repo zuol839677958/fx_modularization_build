@@ -46,6 +46,7 @@ class Plaintext extends MasterTemplate<IPlaintextProps> {
         }}>
         {this.renderMask(maskParams)}
         <div className="general-plaintext"
+          style={{ color: (tempData.tempData as IPlaintextModel).fontColor }}
           dangerouslySetInnerHTML={{ __html: (tempData.tempData as IPlaintextModel).textHtml }}></div>
       </div>
     )
