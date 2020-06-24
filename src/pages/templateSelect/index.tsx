@@ -3,9 +3,13 @@ import { Pagination } from 'antd';
 import { Link } from 'react-router-dom';
 
 import './index.less'
-
+/**
+ * @interface ITemplateSelectProps
+ * 
+ * 
+ */
 interface ITemplateSelectProps {
-
+    
 }
 
 class templateSelect extends Component<ITemplateSelectProps> {
