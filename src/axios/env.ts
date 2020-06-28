@@ -1,13 +1,9 @@
 export enum EnvTpye {
-  Local = 1 // 本地开发环境
-}
-
-export enum EnvTypeRequestUrl {
-  '' = 1
+  Test = 'https://testmswebapi.tostar.top' // 测试环境
 }
 
 const getEnvRequestUrl = (envTpye: EnvTpye) => {
-  return EnvTypeRequestUrl[envTpye]
+  return envTpye
 }
 
 export { getEnvRequestUrl }
