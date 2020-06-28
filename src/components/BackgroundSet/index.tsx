@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { SketchPicker, ColorResult } from 'react-color'
 import { Modal, Radio } from 'antd';
-import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '../../store/data';
-import { BackgroundSetType } from './store/state';
+import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '../../store/data'
+import { BackgroundSetType } from './store/state'
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { changeBackgroundSetData } from './store/actions'
-import { changePageBackground, changeTempData } from '../EditorContainer/store/actions';
+import { changePageBackground, changeTempData } from '../EditorContainer/store/actions'
+
+import AliyunOSSUpload from '../AliyunOSSUpload'
 
 interface IBackgroundSetProps {
   backgroundSetData?: IBackgroundSetModel
@@ -85,6 +87,8 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
     switch (bgType) {
       case BackgroundSetType.PureColor:
         return this.renderSketchPicker()
+      case BackgroundSetType.BackgroundImage:
+        return this.renderImageUpload()
       case BackgroundSetType.NoneColor:
       default:
         return <Fragment></Fragment>
@@ -98,10 +102,18 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
     return (
       <div style={{ marginTop: 20 }}>
         <SketchPicker
-          width="100%"
+          width="95%"
           color={bgColor || backgroundSetData?.bgColor}
           onChange={(color: ColorResult) => this.changeBgColor(color)}
         />
+      </div>
+    )
+  }
+
+  renderImageUpload() {
+    return (
+      <div style={{ marginTop: 20 }}>
+        <AliyunOSSUpload />
       </div>
     )
   }

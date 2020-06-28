@@ -10,7 +10,8 @@ type IResponseOptions = {
   bodyMessage: string
 }
 
-axios.defaults.baseURL = getEnvRequestUrl(EnvTpye.Test)
+export const baseRequestUrl = getEnvRequestUrl(EnvTpye.Test)
+axios.defaults.baseURL = baseRequestUrl
 
 // 请求时的拦截器
 axios.interceptors.request.use(config => {
