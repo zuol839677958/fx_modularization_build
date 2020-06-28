@@ -47,12 +47,6 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
           <div className="Menu-left-list">
             <ul>
               {this.renderMenuList(addTemplateListData)}
-              {/* <li>banner</li>
-              <li>分享</li>
-              <li>文本</li>
-              <li>图文</li>
-              <li>列表</li>
-              <li>评论</li> */}
             </ul>
           </div>
           <div className="tmp-right-show">
@@ -62,6 +56,7 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       </div>
     )
   }
+
   renderContentList(addTemplateListData: IAddTemplateListDataModel[]): JSX.Element {
     if (addTemplateListData.length === 0) return <Fragment></Fragment>
 
@@ -77,9 +72,9 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       </div>
     )
   }
+
   //点击添加模板
   addTemplateModel(type: number){
-   
     Modal.confirm({
       title: '添加提示',
       icon: <ExclamationCircleOutlined />,
@@ -95,9 +90,7 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
         changeTempData!(allTempData!);
       }
     })
-    
   }
-
 
   /**
    *
