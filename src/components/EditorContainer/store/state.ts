@@ -3,9 +3,11 @@ import { BackgroundSetType } from "../../BackgroundSet/store/state"
 
 export enum TemplateType {
   Banner = 1,
+  Share,
   IconTitleText,
   LeftPictureRightText,
   LeftTextRightPicture,
+  RelatedList,
   Plaintext
 }
 

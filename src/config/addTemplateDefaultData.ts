@@ -128,10 +128,12 @@ const leftPictureRightTextDefaultData: ITemplateModel = {
   }
 }
 
-export default {
-  bannerDefaultData,
-  iconTitleTextDefaultData,
-  plainTextDefaultData,
-  leftTextRightPictureDefaultData,
-  leftPictureRightTextDefaultData
-}
+const defaultTemplateList =[
+    bannerDefaultData,
+    iconTitleTextDefaultData,
+    plainTextDefaultData,
+    leftTextRightPictureDefaultData,
+    leftPictureRightTextDefaultData
+]
+
+export { defaultTemplateList }

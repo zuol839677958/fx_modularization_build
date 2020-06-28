@@ -19,40 +19,56 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
     tempList: [
       {
         type: TemplateType.Banner,
-        tempImageUrl: ''
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175219506.png'
+      }
+    ]
+  },
+  {
+    tempName: '分享',
+    isActive: false,
+    tempList: [
+      {
+        type: TemplateType.Share,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175523692.png'
       }
     ]
   },
   {
     tempName: '文本',
-    isActive: true,
+    isActive: false,
     tempList: [
       {
         type: TemplateType.IconTitleText,
         tempImageUrl: ''
       },
-      {
-        type: TemplateType.Plaintext,
-        tempImageUrl: ''
-      }
     ]
   },
   {
     tempName: '图文',
-    isActive: true,
+    isActive: false,
     tempList: [
       {
         type: TemplateType.LeftPictureRightText,
-        tempImageUrl: ''
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175727447.png'
       },
       {
         type: TemplateType.LeftTextRightPicture,
-        tempImageUrl: ''
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175741456.png'
       }
     ]
-  }
+  },
+  {
+    tempName: '列表',
+    isActive: false,
+    tempList: [
+      {
+        type: TemplateType.RelatedList,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175523692.png'
+      }
+    ]
+  },
 ]
 
-export default {
+export {
   addTemplateListData
 }

@@ -100,3 +100,4 @@ export interface IBackgroundSetModel {
   bgImageUrl?: string; // 背景图链接
   isShow?: boolean; // 是否显示背景设置弹窗
 }
+
