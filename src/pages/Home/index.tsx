@@ -13,7 +13,7 @@ class Home extends Component<RouteComponentProps> {
       <Fragment>
         <Header {...this.props} />
         <EditorBox />
-        <EditorContainer />
+        <EditorContainer {...this.props} />
         <BackgroundSet />
         <AddTemplate />
       </Fragment>

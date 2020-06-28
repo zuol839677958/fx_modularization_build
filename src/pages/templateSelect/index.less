@@ -1,99 +1,115 @@
 @import (reference) "../../styles/common/PublicDefind.less";
 
-.template-select-box{
-    width:100%;
-    height:100%;
-    position: absolute;
-    top:0;
-    left:0;
-    background-color: #fff;
-    padding: 24px 72px 0px;
-    .select-top{
+.template-select-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  padding: 24px 72px 0px;
+
+  .select-top {
+    .both();
+
+    h2 {
+      margin-top: 24px;
+      font-size: 24px;
+      float: left;
+    }
+
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      .prohibit_text()
+    }
+
+  }
+
+  .tmplate-content-list {
+    margin-top: 24px;
+
+    .list-tmp-box {
+      ul {
         .both();
-        h2{
-            margin-top:24px;
-            font-size:24px;
-            float:left;
-        }
-        .close-btn{
-           float:right;
-           cursor: pointer;
-           .prohibit_text()
-        }
 
-    }
-    
-    .tmplate-content-list{
-        margin-top:24px;
-        .list-tmp-box{
-            ul{
+        li {
+          .both();
+          width: 25%;
+          float: left;
+          margin-bottom: 32px;
+
+          .tmp-left {
+            float: left;
+            margin-right: 16px;
+
+            .img-box {
+              img {
+                width: 158px;
+                height: 208px;
+              }
+
+            }
+
+            .preview-usered {
+              .both();
+              margin-top: 16px;
+
+              span {
+                padding: 11px 16px;
+                font-size: 16px;
+                cursor: pointer;
                 .both();
-                li{
-                    .both();
-                    width:25%;
-                    float:left;
-                    margin-bottom:32px;
-                    .tmp-left{
-                        float:left;
-                        margin-right:16px;
-                        .img-box{
-                            img{ 
-                                width:158px;
-                                height:208px;
-                            }
-                           
-                        }
-                        .preview-usered{
-                            .both();
-                            margin-top:16px;
-                            span{
-                                padding:11px 16px;
-                                font-size: 16px;
-                                cursor:pointer;
-                                .both();
-                                .border-radius(4px);
-                                .prohibit_text()
-                            }
-                            .preview{
-                                float:left;
-                                background:rgba(255,255,255,1);
-                                border:1px solid rgba(217,217,217,1);
-                                
-                            }
-                            .usered{
-                                float:right;
-                                color:#fff;
-                                background:@BG_C1;
-                            }
-                        }
-                    }
-                    .tmp-right{
-                        float:left;
-                        width:124px;
-                        max-height:172px;
-                       h6{
-                           .h6();
-                           max-height:56px;
-                       }
-                       p{
-                        .h3();
-                       }
-                    }
+                .border-radius(4px);
+                .prohibit_text()
+              }
 
-                }
+              .preview {
+                float: left;
+                background: rgba(255, 255, 255, 1);
+                border: 1px solid rgba(217, 217, 217, 1);
+
+              }
+
+              .usered {
+                float: right;
+                color: #fff;
+                background: @BG_C1;
+              }
             }
-        }
-        .tip-pagination{
-            .both();
-            .select-tip{
-                float:left;
-                color:rgba(0,0,0,0.45);
-                .h3();
-            }
-            .select-pagination{
-                float:right;
+          }
+
+          .tmp-right {
+            float: left;
+            width: 124px;
+            max-height: 172px;
+
+            h6 {
+              .h6();
             }
 
+            p {
+              .h3();
+            }
+          }
+
         }
+      }
     }
+
+    .tip-pagination {
+      .both();
+
+      .select-tip {
+        float: left;
+        color: rgba(0, 0, 0, 0.45);
+        .h3();
+      }
+
+      .select-pagination {
+        float: right;
+      }
+
+    }
+  }
 }
