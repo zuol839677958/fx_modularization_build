@@ -8,6 +8,7 @@ export enum TemplateType {
   LeftPictureRightText,
   LeftTextRightPicture,
   RelatedList,
+  CorrelationSpecial,
   Plaintext
 }
 

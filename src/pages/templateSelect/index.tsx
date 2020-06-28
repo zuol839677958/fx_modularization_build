@@ -28,7 +28,7 @@ class TemplateSelect extends Component<ITemplateSelectProps> {
                 <li>
                   <div className="tmp-left">
                     <div className="img-box" >
-                      <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png" alt="" />
+                      <img src="https://img.wbp5.com/upload/files/master/2020/06/28/163236016.png" alt="" />
                     </div>
                     <div className="preview-usered">
                       <span className="preview">预览</span>

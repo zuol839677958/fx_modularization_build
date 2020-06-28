@@ -92,6 +92,14 @@ export interface IPlaintextModel {
   fontColor?: string; // 文本内容字体颜色
 }
 
+/* 相关专题模板 */
+export interface ICorrelationSpecialModel {
+  title: string; // 文本html内容
+  imageUrl: string; // 图片链接
+  fontColor?: string; // 文本内容字体颜色
+  Summary: string; // 文本内容字体颜色
+}
+
 /* 背景设置 */
 export interface IBackgroundSetModel {
   tempId?: string; // 正在编辑中的模板id

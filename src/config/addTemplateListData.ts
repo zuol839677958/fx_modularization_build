@@ -44,6 +44,16 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
     ]
   },
   {
+    tempName: '图标标题文字',
+    isActive: false,
+    tempList: [
+      {
+        type: TemplateType.IconTitleText,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/133937984.png'
+      },
+    ]
+  },
+  {
     tempName: '图文',
     isActive: false,
     tempList: [
@@ -63,7 +73,7 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
     tempList: [
       {
         type: TemplateType.RelatedList,
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175523692.png'
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/113548499.png'
       }
     ]
   },
