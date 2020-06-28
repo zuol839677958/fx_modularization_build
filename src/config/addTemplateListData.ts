@@ -38,8 +38,8 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
     isActive: false,
     tempList: [
       {
-        type: TemplateType.IconTitleText,
-        tempImageUrl: ''
+        type: TemplateType.Plaintext,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/112347038.png'
       },
     ]
   },
