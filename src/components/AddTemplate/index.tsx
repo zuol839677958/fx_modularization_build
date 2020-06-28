@@ -6,12 +6,12 @@ import { changeAddTemplateSliderShow } from './store/actions'
 import { changeTempData } from '../EditorContainer/store/actions'
 import { addTemplateListData, IAddTemplateListDataModel } from '../../config/addTemplateListData'
 import { defaultTemplateList } from "../../config/addTemplateDefaultData"
-import TitleBack from '../EditorSlider/commonEditorComponent/titleBack'
-
-import './index.less'
 import { Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
+import TitleBack from '../EditorSlider/commonEditorComponent/titleBack'
+
+import './index.less'
 
 interface IAddTemplateProps {
   isShow?: boolean
@@ -23,7 +23,7 @@ interface IAddTemplateProps {
 
 interface IAddTemplateState {
   addTemplateListData: IAddTemplateListDataModel[]
-  defaultTemplateList:ITemplateModel[]
+  defaultTemplateList: ITemplateModel[]
 }
 
 class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
@@ -66,7 +66,7 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       <div className="right-box">
         {
           tempList.map((item, index) => (
-            <img onClick={()=>this.addTemplateModel(item.type)} key={index} src={item.tempImageUrl} alt="" />
+            <img onClick={() => this.addTemplateModel(item.type)} key={index} src={item.tempImageUrl} alt="" />
           ))
         }
       </div>
@@ -74,7 +74,7 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
   }
 
   //点击添加模板
-  addTemplateModel(type: number){
+  addTemplateModel(type: number) {
     Modal.confirm({
       title: '添加提示',
       icon: <ExclamationCircleOutlined />,
@@ -82,12 +82,11 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        const { allTempData,changeTempData } =this.props;
-        const { defaultTemplateList } =this.state
-        const currentTempData = defaultTemplateList!.filter(item => item.type=== type)[0] as ITemplateModel
-        console.log(currentTempData);
-        allTempData?.push(currentTempData);
-        changeTempData!(allTempData!);
+        const { allTempData, changeTempData } = this.props
+        const { defaultTemplateList } = this.state
+        const currentTempData = defaultTemplateList!.filter(item => item.type === type)[0] as ITemplateModel
+        allTempData!.push(currentTempData)
+        changeTempData!(allTempData!)
       }
     })
   }
@@ -110,6 +109,7 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       </Fragment>
     )
   }
+
   /**
    * @param {number} activeIndex
    * @memberof AddTemplate
@@ -125,7 +125,6 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
     })
     this.setState({ addTemplateListData })
   }
-
 
   // 关闭新增模块侧滑栏
   closeAddTemplateSlider() {
