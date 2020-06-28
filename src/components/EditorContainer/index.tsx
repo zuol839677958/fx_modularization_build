@@ -1,24 +1,26 @@
 import React, { Component, Dispatch, Fragment, CSSProperties } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
-import { ITemplateModel, IPageState, IBackgroundSetModel } from '../../store/data'
+import { ITemplateModel, IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
 import { TemplateType } from './store/state'
 import { changeEditorSlideShow } from '../EditorSlider/store/actions'
-import { changeActiveTempId, changeTempData } from './store/actions'
+import { changeActiveTempId, changeTempData, changePageData } from './store/actions'
 import { getIsShowList } from '../../utils/utils'
 import { BackgroundSetType } from '../BackgroundSet/store/state'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { IMasterTemplateProps } from '../../template/MasterTemplate'
+import { getTemplateDetail } from '../../axios/api'
 
 //模板
 import Banner from '../../template/Banner'
 import IconTitleText from '../../template/IconTitleText'
 import PictureText from '../../template/PictureText'
 import Plaintext from '../../template/Plaintext'
+import { RouteComponentProps } from 'react-router-dom'
 
 import './index.less'
 
-interface IEditorContainerProps {
+interface IEditorContainerProps extends RouteComponentProps {
   activeTempId?: string
   allTempData?: ITemplateModel[]
   isShowSlider?: boolean
@@ -28,6 +30,7 @@ interface IEditorContainerProps {
   changeActiveTempId?: (activeTempId: string) => void
   changeTempData?: (tempData: ITemplateModel[]) => void
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
+  changePageData?: (pageData: IPageModel) => void
 }
 
 class EditorContainer extends Component<IEditorContainerProps> {
@@ -45,6 +48,17 @@ class EditorContainer extends Component<IEditorContainerProps> {
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.getTemplateDetail()
+  }
+
+  async getTemplateDetail() {
+    const { tempId } = this.props.match.params as { tempId: number }
+    const res = await getTemplateDetail(tempId)
+    const { changePageData } = this.props
+    changePageData!(JSON.parse(res.Content))
   }
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
@@ -124,6 +138,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {
     dispatch(changeBackgroundSetData(backgroundSet))
   },
+  changePageData(pageData: IPageModel) {
+    dispatch(changePageData(pageData))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)

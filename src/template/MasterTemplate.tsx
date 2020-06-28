@@ -45,6 +45,8 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     const { isShowMask } = this.state
 
     if (isShowMask || params.tempId === params.activeTempId) {
+      const tempIndex = _.findIndex(params.allTempData, item => item.sort === params.tempSort)
+
       return (
         <div className="mask-box">
           <div className="action-box">
@@ -71,17 +73,17 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
 
             >背景</Button>
             <Button type="primary" shape="circle" icon={<ArrowUpOutlined />}
-              style={{ marginRight: 10 }} disabled={params.tempSort === 1}
+              style={{ marginRight: 10 }} disabled={tempIndex === 0}
               onClick={(e) => {
                 e.stopPropagation()
-                params.changeTempData(this.moveUpTemplate(params))
+                params.changeTempData(this.moveUpTemplate(params, tempIndex))
               }}
             ></Button>
             <Button type="primary" shape="circle" icon={<ArrowDownOutlined />}
-              disabled={params.tempSort === params.allTempData.length}
+              disabled={tempIndex === params.allTempData.length - 1}
               onClick={(e) => {
                 e.stopPropagation()
-                params.changeTempData(this.moveDownTemplate(params))
+                params.changeTempData(this.moveDownTemplate(params, tempIndex))
               }}
             ></Button>
           </div>
@@ -92,13 +94,13 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     }
   }
 
-  moveUpTemplate(params: IRenderMaskParams) {
-    zIndexUp(params.allTempData, params.tempSort - 1)
+  moveUpTemplate(params: IRenderMaskParams, tempIndex: number) {
+    zIndexUp(params.allTempData, tempIndex)
     return params.allTempData
   }
 
-  moveDownTemplate(params: IRenderMaskParams) {
-    zIndexDown(params.allTempData, params.tempSort - 1, params.allTempData.length)
+  moveDownTemplate(params: IRenderMaskParams, tempIndex: number) {
+    zIndexDown(params.allTempData, tempIndex, params.allTempData.length)
     return params.allTempData
   }
 

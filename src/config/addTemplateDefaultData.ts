@@ -4,7 +4,7 @@ import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /* 新增Banner模板默认数据 */
 const bannerDefaultData: ITemplateModel = {
-  id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
+  id: `${TemplateType[TemplateType.Banner]}`,
   type: TemplateType.Banner,
   sort: Date.now(),
   isShow: true,
@@ -19,7 +19,7 @@ const bannerDefaultData: ITemplateModel = {
 
 /* 新增图标标题文字模板默认数据 */
 const iconTitleTextDefaultData: ITemplateModel = {
-  id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now()}`,
+  id: `${TemplateType[TemplateType.IconTitleText]}`,
   type: TemplateType.IconTitleText,
   sort: Date.now(),
   isShow: true,
@@ -42,7 +42,7 @@ const iconTitleTextDefaultData: ITemplateModel = {
 
 /* 新增纯文字模板默认数据 */
 const plainTextDefaultData: ITemplateModel = {
-  id: `${TemplateType[TemplateType.Plaintext]}_${Date.now()}`,
+  id: `${TemplateType[TemplateType.Plaintext]}`,
   type: TemplateType.Plaintext,
   sort: Date.now(),
   isShow: true,
@@ -54,7 +54,7 @@ const plainTextDefaultData: ITemplateModel = {
 
 /* 新增左文右图模板默认数据 */
 const leftTextRightPictureDefaultData: ITemplateModel = {
-  id: `${TemplateType[TemplateType.LeftTextRightPicture]}_${Date.now()}`,
+  id: `${TemplateType[TemplateType.LeftTextRightPicture]}`,
   type: TemplateType.LeftTextRightPicture,
   sort: Date.now(),
   isShow: true,
@@ -92,7 +92,7 @@ const leftTextRightPictureDefaultData: ITemplateModel = {
 
 /* 新增左图右文模板默认数据 */
 const leftPictureRightTextDefaultData: ITemplateModel = {
-  id: `${TemplateType[TemplateType.LeftPictureRightText]}_${Date.now()}`,
+  id: `${TemplateType[TemplateType.LeftPictureRightText]}`,
   type: TemplateType.LeftPictureRightText,
   sort: Date.now(),
   isShow: true,
@@ -128,12 +128,12 @@ const leftPictureRightTextDefaultData: ITemplateModel = {
   }
 }
 
-const defaultTemplateList =[
-    bannerDefaultData,
-    iconTitleTextDefaultData,
-    plainTextDefaultData,
-    leftTextRightPictureDefaultData,
-    leftPictureRightTextDefaultData
+const defaultTemplateList = [
+  bannerDefaultData,
+  iconTitleTextDefaultData,
+  plainTextDefaultData,
+  leftTextRightPictureDefaultData,
+  leftPictureRightTextDefaultData
 ]
 
 export { defaultTemplateList }
