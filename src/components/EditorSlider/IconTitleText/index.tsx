@@ -1,8 +1,8 @@
 import React, { Component, Fragment, Dispatch } from 'react'
-import { message, Input, Row, Radio } from 'antd'
+import { message, Input, Row, Radio, Button } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -78,6 +78,13 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             handleDraggableItemChange={(dragItemStartIndex: number, dragItemEndIndex: number) =>
               this.changeItemSort(dragItemStartIndex, dragItemEndIndex)}
           />
+          <Row style={{ justifyContent: "center" }}>
+            <Button type="primary" shape="round"
+              style={{ marginTop: '50px', width: 200 }}
+              onClick={() => this.addTemplateItem()}
+              disabled={(data.tempData as IIconTitleTextModel[]).length >= 6}
+            >加一栏</Button>
+          </Row>
         </div>
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
           <Row className="inputAndColor_wrap">
@@ -128,6 +135,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     )
   }
 
+  // 更改标题背景类型
   changeTitleBgType(titleBgType: BackgroundSetType) {
     const { data, allTempData, changeTempData } = this.props
     const { editItemData } = this.state
@@ -136,6 +144,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     changeTempData!(allTempData!)
   }
 
+  // 加载正在编辑条目标题背景
   renderEditItemTitleBackgroundSet(): JSX.Element {
     const { editItemData } = this.state
     switch (editItemData?.background?.bgType) {
@@ -150,6 +159,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     }
   }
 
+  // 更改标题文本
   changeItemTitle(title: string) {
     const { data, allTempData, changeTempData } = this.props
     const { editItemData } = this.state
@@ -159,6 +169,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     this.setState({ editItemData })
   }
 
+  // 更改文字内容文本
   changeItemText(text: string) {
     const { data, allTempData, changeTempData } = this.props
     const { editItemData } = this.state
@@ -168,6 +179,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     this.setState({ editItemData })
   }
 
+  // 切换页面tab
   changeTypeIndex(typeIndex: number) {
     this.setState({ typeIndex })
     if (typeIndex === 0) {
@@ -175,6 +187,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     }
   }
 
+  // 进入条目修改详情页
   inToDetails(editItemData: IIconTitleTextModel) {
     this.setState({
       topTitle: '修改详情页',
@@ -183,6 +196,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     })
   }
 
+  // 删除条目
   deleteIconTitle(sort: number) {
     const { data, allTempData, changeTempData } = this.props;
     if ((data.tempData as IIconTitleTextModel[]).length === 1) return message.warning('最后一条请勿删除');
@@ -191,6 +205,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     changeTempData!(allTempData!)
   }
 
+  // 切换条目显示隐藏
   changeChecked(checkedState: boolean, sort: number) {
     const { data, allTempData, changeTempData } = this.props
     updateIconTitleTextItemShow(checkedState, sort, data.tempData as IIconTitleTextModel[])
@@ -198,6 +213,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     changeTempData!(allTempData!)
   }
 
+  // 切换条目排序
   changeItemSort(dragItemStartIndex: number, dragItemEndIndex: number) {
     const { data, allTempData, changeTempData } = this.props
     swapArray(data.tempData as IIconTitleTextModel[], dragItemStartIndex, dragItemEndIndex)
@@ -205,6 +221,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     changeTempData!(allTempData!)
   }
 
+  // 加载颜色选择弹窗
   initFontColorSelectModal(fontColorChangeType: FontColorChangeType, currentFontColor: string) {
     this.setState({
       currentFontColor,
@@ -213,10 +230,12 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     this.handleFontColorSelectModalVisible(true)
   }
 
+  // 处理颜色选择弹窗显示隐藏
   handleFontColorSelectModalVisible(fontColorSelectModalVisible: boolean) {
     this.setState({ fontColorSelectModalVisible })
   }
 
+  // 更改字体颜色
   handleChangeFontColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
     const { fontColorChangeType, editItemData } = this.state
@@ -237,10 +256,22 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     this.handleFontColorSelectModalVisible(false)
   }
 
+  // 更改标题背景色
   changeTitleBackgroundColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
     const { editItemData } = this.state
     updateIconTitleTextItemTitleBgColor(color, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 添加条目
+  addTemplateItem() {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData as IIconTitleTextModel[]
+    const copyItem = deepClone(tempData[0]) as IIconTitleTextModel
+    copyItem.sort = tempData.length + 1
+    tempData.push(copyItem)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

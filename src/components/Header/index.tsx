@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { Button, message } from 'antd'
-import { IPageState, IBackgroundSetModel } from '../../store/data'
+import { IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
 import { Dispatch, Action } from 'redux'
 import { connect } from 'react-redux'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
-import { savePageHtml, changeActiveTempId } from '../EditorContainer/store/actions'
+import { savePageHtml, changeActiveTempId, changePageData } from '../EditorContainer/store/actions'
 import { changeEditorSlideShow } from '../EditorSlider/store/actions'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
+import { RouteComponentProps } from 'react-router-dom'
 
 import './index.less'
 
-interface IHeaderProps {
+interface IHeaderProps extends RouteComponentProps {
+  pageHtml?: string
   backgroundSetData?: IBackgroundSetModel
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changeActiveTempId?: (activeTempId: string) => void
   changeEditorSliderShow?: (isShow: boolean) => void
   changeAddTemplateSliderShow?: (isShow: boolean) => void
   savePageHtml?: () => void
+  changePageData?: (pageData: IPageModel) => void
 }
 
 interface IHeaderState { }
@@ -27,21 +29,23 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     return (
       <div className="header-wrap">
         <div className="header-left">
-          <Button type="primary" shape="round"
+          <Button type="default" shape="round"
             onClick={() => this.openAddTemplateSlider()}
           >新增模块</Button>
-          <Button type="primary" shape="round"
+          <Button type="default" shape="round"
             style={{ marginLeft: 20 }}
             onClick={() => this.setPageBackground()}
           >设置背景</Button>
+          <Button type="default" shape="round"
+            style={{ marginLeft: 20 }}
+            onClick={() => this.getHistoryEditorPageData()}
+          >获取历史更改</Button>
         </div>
         <div className="header-center">
           <span>通用专题模块化</span>
         </div>
         <div className="header-right">
-          <Link to="/preview">
-            <Button type="default" shape="round">预览</Button>
-          </Link>
+          <Button type="default" shape="round" onClick={() => this.jumpToPreview()}>预览</Button>
           <Button type="primary" shape="round" style={{ marginLeft: 20 }}
             onClick={() => this.savePageHtml()}
           >保存</Button>
@@ -75,10 +79,26 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     const { changeAddTemplateSliderShow } = this.props
     changeAddTemplateSliderShow!(true)
   }
+
+  // 跳转至预览页面
+  jumpToPreview() {
+    const { pageHtml } = this.props
+    if (!pageHtml) return message.warning('请先保存页面')
+    this.props.history.push('/preview')
+  }
+
+  // 获取历史更改
+  getHistoryEditorPageData() {
+    const historyPageData = window.localStorage.getItem('pageEditorData')
+    if (!historyPageData) return message.warning('没有历史更改记录')
+    const { changePageData } = this.props
+    changePageData!(JSON.parse(historyPageData) as IPageModel)
+  }
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IHeaderProps) => ({
-  backgroundSetData: state.backgroundSetReducer
+  backgroundSetData: state.backgroundSetReducer,
+  pageHtml: state.editorContainerReducer.pageHtml
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
@@ -96,6 +116,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   async changeAddTemplateSliderShow(isShow: boolean) {
     await dispatch(changeAddTemplateSliderShow(isShow))
+  },
+  changePageData(pageData: IPageModel) {
+    dispatch(changePageData(pageData))
   }
 })
 
