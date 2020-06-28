@@ -11,7 +11,6 @@ const App: FC = () => (
           <Route key={item.path as string} exact path={item.path} component={item.component}></Route>
         ))
       }
-
     </Router>
   </div>
 )
