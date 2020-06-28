@@ -8,6 +8,7 @@ import { addTemplateListData, IAddTemplateListDataModel } from '../../config/add
 import { defaultTemplateList } from "../../config/addTemplateDefaultData"
 import { Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
+import { deepClone } from '../../utils/utils'
 
 import TitleBack from '../EditorSlider/commonEditorComponent/titleBack'
 
@@ -23,13 +24,11 @@ interface IAddTemplateProps {
 
 interface IAddTemplateState {
   addTemplateListData: IAddTemplateListDataModel[]
-  defaultTemplateList: ITemplateModel[]
 }
 
 class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
   state: IAddTemplateState = {
-    addTemplateListData,
-    defaultTemplateList
+    addTemplateListData
   }
 
   render() {
@@ -83,8 +82,9 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       cancelText: '取消',
       onOk: () => {
         const { allTempData, changeTempData } = this.props
-        const { defaultTemplateList } = this.state
-        const currentTempData = defaultTemplateList!.filter(item => item.type === type)[0] as ITemplateModel
+        const currentTempData = deepClone(defaultTemplateList.filter(item => item.type === type)[0] as ITemplateModel)
+        currentTempData.id = `${currentTempData.id}_${Date.now()}`
+        currentTempData.sort = Date.now()
         allTempData!.push(currentTempData)
         changeTempData!(allTempData!)
       }
