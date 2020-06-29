@@ -77,7 +77,7 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
     Modal.confirm({
       title: '添加提示',
       icon: <ExclamationCircleOutlined />,
-      content: '确定添加此模块吗？',
+      content: '确定在尾部添加此模块吗？',
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
