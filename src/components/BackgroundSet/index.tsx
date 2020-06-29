@@ -66,6 +66,8 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
     return (
       <Modal
         title={backgroundSetData?.tempId ? '设置模块背景' : '设置网页背景'}
+        centered={true}
+        getContainer={false}
         visible={backgroundSetData?.isShow}
         destroyOnClose
         okText='确定'
