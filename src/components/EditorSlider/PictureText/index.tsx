@@ -94,7 +94,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
-              <Input placeholder="请输入标题" maxLength={10} value={editItemData?.title}
+              <Input placeholder="请输入标题" value={editItemData?.title}
                 onChange={(e) => this.changeItemTitle(e.target.value)}
               />
               <div className="fontColorSelect"

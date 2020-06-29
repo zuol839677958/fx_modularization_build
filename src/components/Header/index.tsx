@@ -82,9 +82,8 @@ class Header extends Component<IHeaderProps, IHeaderState> {
 
   // 跳转至预览页面
   jumpToPreview() {
-    const { pageHtml } = this.props
-    if (!pageHtml) return message.warning('请先保存页面')
-    this.props.history.push('/preview')
+    const openWindow = window.open('about:blank') as Window;
+    openWindow.location = '/preview' as any
   }
 
   // 获取历史更改

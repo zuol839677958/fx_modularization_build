@@ -15,6 +15,7 @@ const editorContainerReducer = (state: IPageModel, action: IEditorContainerReduc
     case CHANGE_PAGE_TEMPLATE_DATA:
       const newState = {
         ...state,
+        pageHtml: document.getElementById('generalPage')?.outerHTML,
         allTempData: [...action.allTempData]
       }
       window.localStorage.setItem('pageEditorData', JSON.stringify(newState))
@@ -27,6 +28,7 @@ const editorContainerReducer = (state: IPageModel, action: IEditorContainerReduc
     case CHANGE_PAGE_BACKGROUND:
       const newState2 = {
         ...state,
+        pageHtml: document.getElementById('generalPage')?.outerHTML,
         background: action.background
       }
       window.localStorage.setItem('pageEditorData', JSON.stringify(newState2))
