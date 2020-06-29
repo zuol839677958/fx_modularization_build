@@ -50,16 +50,16 @@ class EditorContainer extends Component<IEditorContainerProps> {
     )
   }
 
-  componentDidMount() {
-    this.getTemplateDetail()
-  }
+  // componentDidMount() {
+  //   this.getTemplateDetail()
+  // }
 
-  async getTemplateDetail() {
-    const { tempId } = this.props.match.params as { tempId: number }
-    const res = await getTemplateDetail(tempId)
-    const { changePageData } = this.props
-    changePageData!(JSON.parse(res.Content))
-  }
+  // async getTemplateDetail() {
+  //   const { tempId } = this.props.match.params as { tempId: number }
+  //   const res = await getTemplateDetail(tempId)
+  //   const { changePageData } = this.props
+  //   changePageData!(JSON.parse(res.Content))
+  // }
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>

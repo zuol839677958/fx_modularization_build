@@ -56,19 +56,21 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
   renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
     if (tempDataList.length === 0) return <Fragment></Fragment>
     const filterList = getIsShowList(tempDataList) as IIconTitleTextModel[]
+    console.log(filterList)
     return (
       <Fragment>
         {
           filterList.map(tempData => (
+            
             <div className="rightContent-list" key={tempData.sort}>
               <div className="list-left">
                 <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} />
                 <span className="heading"
                   style={{ color: tempData.titleFontColor, background: this.initTitleBackground(tempData.background) }}
                 >{tempData.title}</span>
-              </div>
+              </div> 
               <div className="list-right">
-                <p className="txt" style={{ color: tempData.textFontColor }}>: {tempData.text}</p>
+                <p className="txt" style={{ color: tempData.textFontColor }}>{tempData.text}</p>
               </div>
             </div>
           ))

@@ -74,7 +74,7 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
         onCancel={this.handleCancel}
       >
         <Radio.Group value={bgType || backgroundSetData?.bgType} onChange={(e) => this.selectBgType(e.target.value)}>
-          <Radio value={BackgroundSetType.NoneColor}>无色</Radio>
+          <Radio value={BackgroundSetType.NoneColor}>无</Radio>
           <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
           <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
         </Radio.Group>

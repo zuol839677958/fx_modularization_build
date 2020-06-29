@@ -41,7 +41,7 @@ const editorContainerState: ITemplateModel[] = [
       {
         iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
         title: '人物',
-        text: 'Mahasagara',
+        text: ':Mahasagara',
         titleFontColor: '#9f3b3c',
         textFontColor: '#f0c9aa',
         background: {
@@ -54,7 +54,7 @@ const editorContainerState: ITemplateModel[] = [
       {
         iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
         title: '成绩',
-        text: '1年翻仓6倍，胜率93.91%',
+        text: ':1年翻仓6倍，胜率93.91%',
         titleFontColor: '#9f3b3c',
         textFontColor: '#f0c9aa',
         background: {
@@ -67,7 +67,7 @@ const editorContainerState: ITemplateModel[] = [
       {
         iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
         title: '特色',
-        text: '擅长做波段和中线交易',
+        text: ':擅长做波段和中线交易',
         titleFontColor: '#9f3b3c',
         textFontColor: '#f0c9aa',
         background: {

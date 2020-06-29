@@ -27,7 +27,7 @@ const iconTitleTextDefaultData: ITemplateModel = {
     {
       iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
       title: '请输入标题',
-      text: '请输入文字',
+      text: ':请输入文字',
       titleFontColor: '#9f3b3c',
       textFontColor: '#f0c9aa',
       background: {
