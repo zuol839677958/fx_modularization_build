@@ -112,7 +112,9 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     Modal.confirm({
       title: '删除提示',
       icon: <ExclamationCircleOutlined />,
+      centered: true,
       content: '确定删除此模块吗？',
+      getContainer: false,
       okText: '确认',
       cancelText: '取消',
       onOk: () => {

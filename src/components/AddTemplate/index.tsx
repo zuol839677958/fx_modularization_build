@@ -78,6 +78,8 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       title: '添加提示',
       icon: <ExclamationCircleOutlined />,
       content: '确定在尾部添加此模块吗？',
+      centered: true,
+      getContainer: false,
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
