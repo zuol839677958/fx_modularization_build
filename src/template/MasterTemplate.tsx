@@ -16,6 +16,7 @@ export interface IMasterTemplateProps {
   changeEditorSliderShow: (isShow: boolean) => void
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
+  changeAddTemplateSliderShow: (isShow: boolean) => void
 }
 
 export interface IMasterTemplateState {
@@ -33,6 +34,7 @@ export interface IRenderMaskParams {
   changeEditorSliderShow: (isShow: boolean) => void
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
+  changeAddTemplateSliderShow: (isShow: boolean) => void
 }
 
 class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
@@ -52,13 +54,15 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
           <div className="action-box">
             <Button type="default" shape="round" icon={<EditFilled />}
               style={{ marginRight: 10 }}
-              onClick={() => {
+              onClick={e => {
+                e.stopPropagation()
                 params.changeActiveTempId(params.tempId)
                 params.changeEditorSliderShow(true)
+                params.changeAddTemplateSliderShow(false)
               }}
             >编辑</Button>
             <Button type="primary" shape="round" danger icon={<DeleteFilled />}
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation()
                 this.deleteTemplate(params)
               }}
@@ -66,7 +70,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
           </div>
           <div className="sort-box">
             <Button type="primary" shape="round" style={{ marginRight: 30 }}
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation()
                 this.setTempBackground(params)
               }}
@@ -74,14 +78,14 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
             >背景</Button>
             <Button type="primary" shape="circle" icon={<ArrowUpOutlined />}
               style={{ marginRight: 10 }} disabled={tempIndex === 0}
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation()
                 params.changeTempData(this.moveUpTemplate(params, tempIndex))
               }}
             ></Button>
             <Button type="primary" shape="circle" icon={<ArrowDownOutlined />}
               disabled={tempIndex === params.allTempData.length - 1}
-              onClick={(e) => {
+              onClick={e => {
                 e.stopPropagation()
                 params.changeTempData(this.moveDownTemplate(params, tempIndex))
               }}

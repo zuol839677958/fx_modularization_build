@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { IPageState } from '../../store/data'
+import { IPageModel } from '../../store/data'
 
 import './index.less'
 
@@ -10,7 +9,8 @@ interface IPreviewProps {
 
 class Preview extends Component<IPreviewProps> {
   render() {
-    const { pageHtml } = this.props
+    const pageData = JSON.parse(localStorage.getItem('pageEditorData') as string) as IPageModel
+    const { pageHtml } = pageData
 
     return (
       <section className="preview-wrap" dangerouslySetInnerHTML={{ __html: pageHtml }}></section>
@@ -18,9 +18,4 @@ class Preview extends Component<IPreviewProps> {
   }
 }
 
-const mapStateToProps = (state: IPageState, ownProps: IPreviewProps) => ({
-  pageHtml: state.editorContainerReducer.pageHtml
-})
-
-
-export default connect(mapStateToProps)(Preview)
+export default Preview

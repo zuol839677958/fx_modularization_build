@@ -18,7 +18,8 @@ class Banner extends MasterTemplate<IBannerProps> {
       changeActiveTempId,
       changeEditorSliderShow,
       changeTempData,
-      setTempBackground
+      setTempBackground,
+      changeAddTemplateSliderShow
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -29,7 +30,8 @@ class Banner extends MasterTemplate<IBannerProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      tempBackground: tempData.background
+      tempBackground: tempData.background,
+      changeAddTemplateSliderShow
     }
 
     return (
@@ -41,6 +43,7 @@ class Banner extends MasterTemplate<IBannerProps> {
         onClick={(e) => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
+          changeAddTemplateSliderShow(false)
         }}
       >
         {this.renderMask(maskParams)}

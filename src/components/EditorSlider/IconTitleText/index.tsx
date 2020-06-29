@@ -90,7 +90,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
-              <Input placeholder="请输入标题" maxLength={10} value={editItemData?.title}
+              <Input placeholder="请输入标题" value={editItemData?.title}
                 onChange={(e) => this.changeItemTitle(e.target.value)}
               />
               <div className="fontColorSelect"
@@ -115,7 +115,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           <Row className="inputAndColor_wrap">
             <p>修改文字</p>
             <div className="inputAndColor_box">
-              <Input placeholder="请输入文字" maxLength={20} value={editItemData?.text}
+              <Input placeholder="请输入文字" value={editItemData?.text}
                 onChange={(e) => this.changeItemText(e.target.value)}
               />
               <div className="fontColorSelect"
