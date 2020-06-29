@@ -31,7 +31,7 @@ export interface ITemplateModel {
   sort: number; // 模板排序
   isShow: boolean; // 模板是否显示
   background?: IBackgroundSetModel; // 模板背景
-  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel; // 模板数据
+  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel | ICorrelationSpecialModel[]; // 模板数据
 }
 
 /* Banner模板 */
@@ -94,10 +94,10 @@ export interface IPlaintextModel {
 
 /* 相关专题模板 */
 export interface ICorrelationSpecialModel {
-  title: string; // 文本html内容
+  title: string; // 标题
   imageUrl: string; // 图片链接
   fontColor?: string; // 文本内容字体颜色
-  Summary: string; // 文本内容字体颜色
+  Summary?: string; // 描述
 }
 
 /* 背景设置 */

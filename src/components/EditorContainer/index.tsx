@@ -17,6 +17,7 @@ import Banner from '../../template/Banner'
 import IconTitleText from '../../template/IconTitleText'
 import PictureText from '../../template/PictureText'
 import Plaintext from '../../template/Plaintext'
+import CorrelationSpecial from "../../template/CorrelationSpecial"
 import { RouteComponentProps } from 'react-router-dom'
 
 import './index.less'
@@ -77,6 +78,7 @@ class EditorContainer extends Component<IEditorContainerProps> {
       <Fragment>
         {
           filterAllTempData.map(tempData => {
+            console.log(tempData);
             const masterProps: IMasterTemplateProps = {
               activeTempId: activeTempId!,
               tempData,
@@ -97,6 +99,8 @@ class EditorContainer extends Component<IEditorContainerProps> {
                 return <PictureText key={tempData.id} {...masterProps} />
               case TemplateType.Plaintext:
                 return <Plaintext key={tempData.id} {...masterProps} />
+              case TemplateType.CorrelationSpecial:
+                return <CorrelationSpecial key={tempData.id} {...masterProps}/>
               default:
                 return <Fragment></Fragment>
             }

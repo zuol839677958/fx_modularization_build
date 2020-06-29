@@ -82,13 +82,14 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       getContainer: false,
       okText: '确认',
       cancelText: '取消',
-      onOk: () => {
+      onOk: async () => {
         const { allTempData, changeTempData } = this.props
         const currentTempData = deepClone(defaultTemplateList.filter(item => item.type === type)[0] as ITemplateModel)
         currentTempData.id = `${currentTempData.id}_${Date.now()}`
         currentTempData.sort = Date.now()
         allTempData!.push(currentTempData)
-        changeTempData!(allTempData!)
+        await changeTempData!(allTempData!)
+        window.scrollTo(0, document.getElementsByTagName("body")[0].scrollHeight);
       }
     })
   }
@@ -144,8 +145,8 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeAddTemplateSliderShow(isShow: boolean) {
     dispatch(changeAddTemplateSliderShow(isShow))
   },
-  changeTempData(allTempData: ITemplateModel[]) {
-    dispatch(changeTempData(allTempData))
+  async changeTempData(allTempData: ITemplateModel[]) {
+    await dispatch(changeTempData(allTempData))
   },
 })
 
