@@ -23,7 +23,8 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       changeActiveTempId,
       changeEditorSliderShow,
       changeTempData,
-      setTempBackground
+      setTempBackground,
+      changeAddTemplateSliderShow
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -34,7 +35,8 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      tempBackground: tempData.background
+      tempBackground: tempData.background,
+      changeAddTemplateSliderShow
     }
 
     return (
@@ -45,6 +47,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
         onClick={(e) => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
+          changeAddTemplateSliderShow(false)
         }}
       >
         {this.renderMask(maskParams)}

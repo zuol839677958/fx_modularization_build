@@ -10,6 +10,7 @@ import { BackgroundSetType } from '../BackgroundSet/store/state'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { IMasterTemplateProps } from '../../template/MasterTemplate'
 import { getTemplateDetail } from '../../axios/api'
+import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 
 //模板
 import Banner from '../../template/Banner'
@@ -31,6 +32,7 @@ interface IEditorContainerProps extends RouteComponentProps {
   changeTempData?: (tempData: ITemplateModel[]) => void
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changePageData?: (pageData: IPageModel) => void
+  changeAddTemplateSliderShow?: (isShow: boolean) => void
 }
 
 class EditorContainer extends Component<IEditorContainerProps> {
@@ -63,7 +65,13 @@ class EditorContainer extends Component<IEditorContainerProps> {
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>
-    const { activeTempId, changeActiveTempId, changeTempData, changeBackgroundSetData } = this.props
+    const {
+      activeTempId,
+      changeActiveTempId,
+      changeTempData,
+      changeBackgroundSetData,
+      changeAddTemplateSliderShow
+    } = this.props
     const filterAllTempData = getIsShowList(allTempData) as ITemplateModel[]
     return (
       <Fragment>
@@ -76,7 +84,8 @@ class EditorContainer extends Component<IEditorContainerProps> {
               changeActiveTempId: (activeTempId: string) => changeActiveTempId!(activeTempId),
               changeEditorSliderShow: (isShow: boolean) => this.changeEditorSliderShow(isShow),
               changeTempData: (tempData: ITemplateModel[]) => changeTempData!(tempData),
-              setTempBackground: (backgroundSet: IBackgroundSetModel) => changeBackgroundSetData!(backgroundSet)
+              setTempBackground: (backgroundSet: IBackgroundSetModel) => changeBackgroundSetData!(backgroundSet),
+              changeAddTemplateSliderShow: (isShow: boolean) => changeAddTemplateSliderShow!(isShow)
             }
             switch (tempData.type) {
               case TemplateType.Banner:
@@ -140,7 +149,10 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   changePageData(pageData: IPageModel) {
     dispatch(changePageData(pageData))
-  }
+  },
+  changeAddTemplateSliderShow(isShow: boolean) {
+    dispatch(changeAddTemplateSliderShow(isShow))
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)

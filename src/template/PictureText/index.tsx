@@ -26,7 +26,8 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       changeActiveTempId,
       changeEditorSliderShow,
       changeTempData,
-      setTempBackground
+      setTempBackground,
+      changeAddTemplateSliderShow
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -37,7 +38,8 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      tempBackground: tempData.background
+      tempBackground: tempData.background,
+      changeAddTemplateSliderShow
     }
 
     return (
@@ -48,6 +50,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
         onClick={() => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
+          changeAddTemplateSliderShow(false)
         }}
       >
         {this.renderMask(maskParams)}
