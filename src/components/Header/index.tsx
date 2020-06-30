@@ -12,7 +12,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import './index.less'
 
 interface IHeaderProps extends RouteComponentProps {
-  pageHtml?: string
+  pageData?: IPageModel
   backgroundSetData?: IBackgroundSetModel
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changeActiveTempId?: (activeTempId: string) => void
@@ -64,13 +64,20 @@ class Header extends Component<IHeaderProps, IHeaderState> {
 
   // 生成网页html代码
   async savePageHtml() {
-    const { changeEditorSliderShow, changeAddTemplateSliderShow, changeActiveTempId, savePageHtml } = this.props
+    const {
+      pageData,
+      changeEditorSliderShow,
+      changeAddTemplateSliderShow,
+      changeActiveTempId,
+      savePageHtml
+    } = this.props
     const key = 'savePageHtml'
     message.loading({ content: '正在保存页面...', key })
     await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
     await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
     await changeActiveTempId!('') // 去除遮罩编辑样式
     await savePageHtml!() // 保存网页html代码
+    console.log('页面数据：', pageData)
     message.success({ content: '保存页面成功！', key })
   }
 
@@ -81,7 +88,9 @@ class Header extends Component<IHeaderProps, IHeaderState> {
   }
 
   // 跳转至预览页面
-  jumpToPreview() {
+  async jumpToPreview() {
+    const { savePageHtml } = this.props
+    await savePageHtml!() // 保存网页html代码
     const openWindow = window.open('about:blank') as Window;
     openWindow.location = '/preview' as any
   }
@@ -97,7 +106,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
 
 const mapStateToProps = (state: IPageState, ownProps: IHeaderProps) => ({
   backgroundSetData: state.backgroundSetReducer,
-  pageHtml: state.editorContainerReducer.pageHtml
+  pageData: state.editorContainerReducer
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({

@@ -30,7 +30,7 @@ const changePageData = (pageData: IPageModel) => {
 }
 
 const savePageHtml = () => {
-  const pageHtml = document.getElementById('generalPage')?.outerHTML
+  const pageHtml = document.getElementById('generalPage')?.outerHTML || ''
   return {
     type: SAVE_PAGE_HTML,
     pageHtml

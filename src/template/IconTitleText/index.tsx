@@ -59,7 +59,6 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
   renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
     if (tempDataList.length === 0) return <Fragment></Fragment>
     const filterList = getIsShowList(tempDataList) as IIconTitleTextModel[]
-    console.log(filterList)
     return (
       <Fragment>
         {

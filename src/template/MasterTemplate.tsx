@@ -142,6 +142,11 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
         break
       case BackgroundSetType.PureColor:
         bgCss.backgroundColor = background.bgColor
+        break
+      case BackgroundSetType.BackgroundImage:
+        bgCss.background = `url(${background.bgImageUrl}) no-repeat`
+        bgCss.backgroundSize = 'cover'
+        break
     }
     return bgCss
   }
