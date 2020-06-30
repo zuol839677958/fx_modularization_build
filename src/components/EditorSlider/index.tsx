@@ -4,10 +4,11 @@ import { IPageState, ITemplateModel } from '../../store/data'
 import { TemplateType } from '../EditorContainer/store/state'
 
 //模板
-import EditorIconTitleText from "./IconTitleText" //编辑部分左图右文
-import EditorPlaintext from './Plaintext'
+import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
+import EditorPlaintext from './Plaintext'//编辑纯文本
 import PictureText from './PictureText'
 import Banner from "./Banner"
+import CorrelationSpecial from "./CorrelationSpecial"
 import './index.less'
 
 interface IEditorBoxProps {
@@ -51,6 +52,8 @@ class EditorBox extends Component<IEditorBoxProps> {
       case TemplateType.LeftPictureRightText:
       case TemplateType.LeftTextRightPicture:
         return <PictureText data={currentTempData as ITemplateModel} />
+      case TemplateType.CorrelationSpecial:
+        return <CorrelationSpecial data={currentTempData as ITemplateModel}  />
       default:
         return <Fragment></Fragment>
     }
