@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Upload, message } from 'antd'
 import { UploadProps, RcFile, UploadChangeParam } from 'antd/lib/upload'
+import { RcCustomRequestOptions } from 'antd/lib/upload/interface'
+import { uploadImage } from '../../axios/api'
 
 interface IAliyunOSSUploadProps {
+  preImageUrl?: string
   isUploadMultiple?: boolean
+  accept?: string
+  handleUploadImageChange?: (imageUrl: string) => void
 }
 
 interface IAliyunOSSUploadState {
@@ -19,7 +24,7 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
   }
 
   render() {
-    const { isUploadMultiple } = this.props
+    const { preImageUrl, isUploadMultiple, accept } = this.props
     const { imageUrl, loading } = this.state
     const uploadButton = (
       <div>
@@ -28,17 +33,17 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
       </div>
     )
     const uploadProps: UploadProps = {
-      action: '//www.mocky.io/v2/5cc8019d300000980a055e76',
       listType: 'picture-card',
-      accept: 'image/png,image/jpeg',
+      accept: accept || 'image/png,image/jpeg',
       showUploadList: !!isUploadMultiple,
       beforeUpload: file => this.handleBeforeUpload(file),
-      onChange: info => this.handleUploadChange(info)
+      onChange: info => this.handleUploadChange(info),
+      customRequest: options => this.handleUploadFile(options)
     }
 
     return (
       <Upload {...uploadProps}>
-        {imageUrl ? <img src={imageUrl} alt="" style={{ width: '100%' }} /> : uploadButton}
+        {imageUrl || preImageUrl ? <img src={imageUrl || preImageUrl} alt="" style={{ width: '100%' }} /> : uploadButton}
       </Upload>
     )
   }
@@ -56,18 +61,23 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
     if (info.file.status === 'uploading') {
       this.setState({ loading: true })
     }
-    if (info.file.status === 'done') {
-      this.getBase64(info.file.originFileObj as Blob, imageUrl =>
-        this.setState({
-          imageUrl,
-          loading: false
-        })
-      )
-    }
     if (info.file.status === 'error') {
       message.error('上传图片失败！')
       this.setState({ loading: false })
     }
+  }
+
+  handleUploadFile = async (options: RcCustomRequestOptions) => {
+    const { handleUploadImageChange } = this.props
+    this.getBase64(options.file, imageUrl => {
+      uploadImage(imageUrl).then(resImageUrl => {
+        this.setState({
+          imageUrl: resImageUrl,
+          loading: false
+        })
+        handleUploadImageChange!(resImageUrl)
+      })
+    })
   }
 
   getBase64 = (img: Blob, callback: (imageUrl: string) => void) => {

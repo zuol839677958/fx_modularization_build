@@ -21,6 +21,7 @@ interface IBackgroundSetProps {
 interface IBackgroundSetState {
   bgType?: BackgroundSetType
   bgColor?: string
+  bgImageUrl?: string
 }
 
 class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> {
@@ -113,9 +114,16 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
   }
 
   renderImageUpload() {
+    const { backgroundSetData } = this.props
+
     return (
       <div style={{ marginTop: 20 }}>
-        <AliyunOSSUpload />
+        <AliyunOSSUpload
+          preImageUrl={backgroundSetData?.bgImageUrl}
+          handleUploadImageChange={bgImageUrl => {
+            this.setState({ bgImageUrl })
+          }}
+        />
       </div>
     )
   }

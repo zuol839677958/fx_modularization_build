@@ -13,31 +13,27 @@ interface IEditorContainerReducerAction extends Action {
 const editorContainerReducer = (state: IPageModel, action: IEditorContainerReducerAction) => {
   switch (action.type) {
     case CHANGE_PAGE_TEMPLATE_DATA:
-      const newState = {
+      return {
         ...state,
-        pageHtml: document.getElementById('generalPage')?.outerHTML,
         allTempData: [...action.allTempData]
       }
-      window.localStorage.setItem('pageEditorData', JSON.stringify(newState))
-      return newState
     case CHANGE_PAGE_ACTIVE_TEMP_ID:
       return {
         ...state,
         activeTempId: action.activeTempId
       }
     case CHANGE_PAGE_BACKGROUND:
-      const newState2 = {
+      return {
         ...state,
-        pageHtml: document.getElementById('generalPage')?.outerHTML,
         background: action.background
       }
-      window.localStorage.setItem('pageEditorData', JSON.stringify(newState2))
-      return newState2
     case SAVE_PAGE_HTML:
-      return {
+      const newState = {
         ...state,
         pageHtml: action.pageHtml
       }
+      window.localStorage.setItem('pageEditorData', JSON.stringify(newState))
+      return newState
     case CHANGE_PAGE_DATA:
       return Object.assign({}, state, action.pageData)
     default:

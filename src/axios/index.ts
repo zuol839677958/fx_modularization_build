@@ -26,7 +26,11 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use((response: AxiosResponse<IResponseOptions>) => {
   // 对响应数据做些事
   if (response.data.code === '0') {
-    return JSON.parse(response.data.bodyMessage)
+    try {
+      return JSON.parse(response.data.bodyMessage)
+    } catch {
+      return response.data.bodyMessage
+    }
   } else {
     message.error(response.data.message)
     return {}
