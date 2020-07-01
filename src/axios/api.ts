@@ -12,9 +12,13 @@ const getTemplateDetail = async (tempId: number) => {
 const uploadImage = async (Base64: string) => {
   return await axios.post('/api/Upload/UploadImage', { Base64, SiteType: 2 }) as string
 }
+const getSpeicalData = async (specialId:string) => {
+  return await axios.get(`/api/SpecialNewApi?specialId=${specialId}`) as string
+}
 
 export {
   getTemplateList,
   getTemplateDetail,
-  uploadImage
+  uploadImage,
+  getSpeicalData
 }

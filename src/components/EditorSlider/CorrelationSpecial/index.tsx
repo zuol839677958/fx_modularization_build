@@ -3,6 +3,8 @@ import { IPageState, ITemplateModel } from '../../../store/data'
 import { CloseOutlined ,PlusSquareOutlined,DeleteOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
 import { Action } from 'redux'
+import { getSpeicalData } from '../../../axios/api';
+
 import TitleBack from '../commonEditorComponent/titleBack'
 
 import "./index.less"
@@ -69,16 +71,18 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     )
   }
 
-  inputChange(e:any){
+   inputChange(e:any){
     this.setState({
       inputValue:e.target.value
     })
   }
   //搜索获取专题数据
-  searchSpecialData() {
+  async searchSpecialData() {
     let inputVal = this.state.inputValue
     if(inputVal.length <0 ){ return false };
-    alert(inputVal)
+    getSpeicalData(inputVal).then(res=>{
+      console.log(res);
+    })
   }
   //点击显示新增条目
   addSpecialTmp() {
