@@ -32,7 +32,8 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
   }
 
   render() {
-    const { typeIndex, topTitle } = this.state;
+    const { data } = this.props
+    const { typeIndex, topTitle, bannerType } = this.state
 
     return (
       <Fragment>
@@ -41,7 +42,10 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
           title={topTitle!}
         />
         <div className="banner-select-box">
-          <Radio.Group onChange={(e) => { this.changeBannerType(e.target.value) }} value={this.state.bannerType}>
+          <Radio.Group
+            value={bannerType}
+            onChange={e => { this.changeBannerType(e.target.value) }}
+          >
             <Radio value={BannerType.SingleImage}>图片</Radio>
             <Radio value={BannerType.Swiper}>轮播</Radio>
             <Radio value={BannerType.Video}>视频</Radio>
@@ -49,6 +53,13 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
           <div className="action-box">
             {this.renderBannerTypeItem()}
           </div>
+          <p>是否铺满</p>
+          <Radio.Group
+            value={(data.tempData as IBannerModel).isFull}
+            onChange={e => { this.changeBannerIsFull(e.target.value) }}>
+            <Radio value={true}>是</Radio>
+            <Radio value={false}>否</Radio>
+          </Radio.Group>
         </div>
       </Fragment>
     )
@@ -81,8 +92,16 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
-}
 
+  // 切换Banner是否铺满
+  changeBannerIsFull(isFull: boolean) {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData as IBannerModel
+    tempData.isFull = isFull
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+}
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorBannerProps) => ({
   allTempData: state.editorContainerReducer.allTempData
