@@ -2,7 +2,7 @@ import React, { Component, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -11,6 +11,7 @@ import { SketchPicker } from 'react-color'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
+import AliyunOSSUpload from '../../AliyunOSSUpload'
 
 import './index.less'
 
@@ -87,6 +88,13 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           </Row>
         </div>
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
+          <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
+            <p>修改图标</p>
+            <AliyunOSSUpload
+              preImageUrl={editItemData?.iconUrl}
+              handleUploadImageChange={imageUrl => this.changeIconUrl(imageUrl)}
+            />
+          </Row>
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
@@ -154,9 +162,23 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           onChange={color => this.changeTitleBackgroundColor(color.hex)}
         />
       case BackgroundSetType.BackgroundImage:
+        return <AliyunOSSUpload
+          preImageUrl={editItemData?.background?.bgImageUrl}
+          handleUploadImageChange={imageUrl => this.changeTitleBackgroundImageUrl(imageUrl)}
+        />
       default:
         return <Fragment></Fragment>
     }
+  }
+
+  // 更改图标链接
+  changeIconUrl(iconUrl: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextIconUrl(iconUrl, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+    this.setState({ editItemData })
   }
 
   // 更改标题文本
@@ -265,6 +287,15 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     changeTempData!(allTempData!)
   }
 
+  // 更改标题背景图
+  changeTitleBackgroundImageUrl(bgImageUrl: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
   // 添加条目
   addTemplateItem() {
     const { data, allTempData, changeTempData } = this.props
@@ -285,7 +316,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps)
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
-  },
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorIconTitleText)

@@ -3,7 +3,7 @@ import { IPageState, ITemplateModel, IPictureTextModel, ITitleTextModel } from '
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
-import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
 import { InputNumber, message, Input, Row, Button, Radio } from 'antd'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
@@ -12,6 +12,7 @@ import TitleBack from '../commonEditorComponent/titleBack'
 import Draggable from '../commonEditorComponent/draggable'
 import RichTextEditor from '../../RichTextEditor'
 import FontColorSet from '../../FontColorSet'
+import AliyunOSSUpload from '../../AliyunOSSUpload'
 
 import './index.less'
 
@@ -19,7 +20,6 @@ interface IEditorPictureTextProps {
   data: ITemplateModel
   allTempData?: ITemplateModel[]
   changeTempData?: (allTempData: ITemplateModel[]) => void
-  changeEditorSlideShow?: (isShow: boolean) => void
 }
 
 interface IEditorPictureTextState {
@@ -65,6 +65,11 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           changeTypeIndex={(index) => this.changeTabTypeIndex(index)}
         />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
+          <p>更换图片</p>
+          <AliyunOSSUpload
+            preImageUrl={(data.tempData as IPictureTextModel).picUrl}
+            handleUploadImageChange={imageUrl => this.changePictureUrl(imageUrl)}
+          />
           <p>图文间距</p>
           <div className="spacing-box">
             <InputNumber
@@ -155,6 +160,10 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           onChange={color => this.changeTitleBackgroundColor(color.hex)}
         />
       case BackgroundSetType.BackgroundImage:
+        return <AliyunOSSUpload
+          preImageUrl={editItemData?.background?.bgImageUrl}
+          handleUploadImageChange={imageUrl => this.changeTitleBackgroundImageUrl(imageUrl)}
+        />
       default:
         return <Fragment></Fragment>
     }
@@ -184,6 +193,15 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
     this.handleRichTextEditorModalVisible(false)
   }
 
+  // 更换图片
+  changePictureUrl(picUrl: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData as IPictureTextModel
+    tempData.picUrl = picUrl
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
   // 更改图文间距
   changePictureTextSpacing(spacing: number) {
     if (!Number(spacing)) return
@@ -192,12 +210,6 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
     tempData.spacingPercent = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
-  }
-
-  // 关闭侧滑栏编辑窗
-  closeEditorSlider() {
-    const { changeEditorSlideShow } = this.props
-    changeEditorSlideShow!(false)
   }
 
   // 切换页面tab
@@ -298,6 +310,15 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
     changeTempData!(allTempData!)
   }
 
+  // 更改标题背景图
+  changeTitleBackgroundImageUrl(bgImageUrl: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
   // 添加条目
   addTemplateItem() {
     const { data, allTempData, changeTempData } = this.props
@@ -317,8 +338,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorPictureTextProps) =
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
-  },
-
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorPictureText)

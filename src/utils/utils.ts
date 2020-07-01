@@ -85,6 +85,15 @@ const updateIconTitleTextItemTitle = (title: string, sort: number, tempData: IIc
   return tempData
 }
 
+const updateIconTitleTextIconUrl = (iconUrl: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+  tempData.forEach((item: IIconTitleTextModel) => {
+    if (item.sort === sort) {
+      item.iconUrl = iconUrl
+    }
+  })
+  return tempData
+}
+
 const updateIconTitleTextItemText = (text: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
@@ -116,6 +125,15 @@ const updateIconTitleTextItemTitleBgColor = (bgColor: string, sort: number, temp
   tempData.forEach(item => {
     if (item.sort === sort) {
       item.background!.bgColor = bgColor
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.background!.bgImageUrl = bgImageUrl
     }
   })
   return tempData
@@ -196,6 +214,7 @@ export {
   getIsShowList,
   getResetSortList,
   updateIconTitleTextItemShow,
+  updateIconTitleTextIconUrl,
   updateIconTitleTextItemTitle,
   updateIconTitleTextItemText,
   updateCurrentTempData,
@@ -203,6 +222,7 @@ export {
   updateIconTitleTextItemTitleFontColor,
   updateIconTitleTextItemTextFontColor,
   updateIconTitleTextItemTitleBgColor,
+  updateIconTitleTextItemTitleBgImageUrl,
   updateIconTitleTextItemTitleBgType,
   deepClone
 }

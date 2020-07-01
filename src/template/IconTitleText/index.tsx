@@ -87,6 +87,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       case BackgroundSetType.PureColor:
         return backgroundSet.bgColor
       case BackgroundSetType.BackgroundImage:
+        return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
       default:
         return ''
     }
