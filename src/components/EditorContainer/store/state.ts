@@ -167,39 +167,11 @@ const editorContainerState: ITemplateModel[] = [
     sort: 6,
     isShow: true,
     tempData: [{
+      specailId:"2222",
       title: "3年盈利540万“老司机”稳定盈利的套息交易法",
       imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
       Summary:"老司机666"
         },
-        {
-          title: "3年盈利540万“老司机”稳定盈利的套息交易法",
-          imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
-          Summary:"老司机666"
-        }
-        ,
-        {
-          title: "3年盈利540万“老司机”稳定盈利的套息交易法",
-          imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
-          Summary:"老司机666"
-        }
-        ,
-        {
-          title: "3年盈利540万“老司机”稳定盈利的套息交易法",
-          imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
-          Summary:"老司机666"
-        }
-        ,
-        {
-          title: "3年盈利540万“老司机”稳定盈利的套息交易法",
-          imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
-          Summary:"老司机666"
-        }
-        ,
-        {
-          title: "3年盈利540万“老司机”稳定盈利的套息交易法",
-          imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
-          Summary:"老司机666"
-        }
     ]
   }
 ]

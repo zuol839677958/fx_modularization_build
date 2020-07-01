@@ -14,12 +14,14 @@ interface ICorrelationSpecialProps {
 interface ICorrelationSpecialState {
   typeIndex: number
   topTitle: string
+
 }
 
 class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelationSpecialState> {
   state: ICorrelationSpecialState = {
     typeIndex: 0,
     topTitle: "列表编辑",
+
   }
 
   render() {
@@ -38,7 +40,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
             <div className="add_item_box">
                 <div className="add_head">
                      新增条目
-                    <CloseOutlined />
+                    <CloseOutlined  style={{ fontSize: '10px'}}/>
                 </div>
                 <div className="add_item_c">
                     <div className="item_number">
@@ -46,7 +48,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
                     </div>
                     <input type="text"/>
                     <div className="sure_cancel">
-                        <span>取消</span> <span>确定</span>
+                         <span className="sure_btn">确定</span><span className="cancel_Btn">取消</span>
                     </div>
                 </div>
             </div>
@@ -57,9 +59,8 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
             </div>
             <ul>
                 <li>
-                    <span>编号89757</span> 
-                    <PlusSquareOutlined />
-                    <DeleteOutlined />
+                    <i>编号89757</i> 
+                    <DeleteOutlined style={{ fontSize: '14px'}}/>
                 </li>
             </ul>
         </div>
