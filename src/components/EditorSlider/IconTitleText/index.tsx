@@ -2,7 +2,7 @@ import React, { Component, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -162,6 +162,10 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           onChange={color => this.changeTitleBackgroundColor(color.hex)}
         />
       case BackgroundSetType.BackgroundImage:
+        return <AliyunOSSUpload
+          preImageUrl={editItemData?.background?.bgImageUrl}
+          handleUploadImageChange={imageUrl => this.changeTitleBackgroundImageUrl(imageUrl)}
+        />
       default:
         return <Fragment></Fragment>
     }
@@ -283,6 +287,15 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     changeTempData!(allTempData!)
   }
 
+  // 更改标题背景图
+  changeTitleBackgroundImageUrl(bgImageUrl: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
   // 添加条目
   addTemplateItem() {
     const { data, allTempData, changeTempData } = this.props
@@ -303,7 +316,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps)
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
-  },
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorIconTitleText)

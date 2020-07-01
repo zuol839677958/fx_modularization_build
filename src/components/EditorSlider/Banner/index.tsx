@@ -1,15 +1,21 @@
 import React, { Component, Fragment, Dispatch } from 'react'
-import { IPageState, ITemplateModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import TitleBack from '../commonEditorComponent/titleBack'
 import { Radio } from 'antd'
 import { BannerType } from '../../EditorContainer/store/state'
+import { changeTempData } from '../../EditorContainer/store/actions'
+import { updateCurrentTempData } from '../../../utils/utils'
+
+import AliyunOSSUpload from '../../AliyunOSSUpload'
 
 import "./index.less"
 
 interface IEditorBannerProps {
-  data?: ITemplateModel
+  data: ITemplateModel
+  allTempData?: ITemplateModel[]
+  changeTempData?: (allTempData: ITemplateModel[]) => void
 }
 
 interface IEditorBannerState {
@@ -35,39 +41,57 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
           title={topTitle!}
         />
         <div className="banner-select-box">
-          <Radio.Group onChange={(e) => { this.onChange(e.target.value) }} value={this.state.bannerType}>
+          <Radio.Group onChange={(e) => { this.changeBannerType(e.target.value) }} value={this.state.bannerType}>
             <Radio value={BannerType.SingleImage}>图片</Radio>
             <Radio value={BannerType.Swiper}>轮播</Radio>
             <Radio value={BannerType.Video}>视频</Radio>
           </Radio.Group>
-          <div className="img-content-box" style={{ display: this.state.bannerType === BannerType.SingleImage ? "block" : "none" }}>
-            <div className="img-box" >
-              <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png" alt="" />
-            </div>
-            <div className="size-tip">图片大小≤500KB</div>
+          <div className="action-box">
+            {this.renderBannerTypeItem()}
           </div>
         </div>
       </Fragment>
     )
   }
 
-  onChange(e: number) {
-    console.log('radio checked', e)
-    this.setState({
-      bannerType: e,
-    })
+  // 切换Banner模板类型
+  changeBannerType(e: number) {
+    this.setState({ bannerType: e })
+  }
+
+  // 加载Banner模板编辑子项
+  renderBannerTypeItem() {
+    const { data } = this.props
+    const { bannerType } = this.state
+
+    switch (bannerType) {
+      case BannerType.SingleImage:
+        return <AliyunOSSUpload
+          preImageUrl={(data!.tempData as IBannerModel).imageData.imageUrl}
+          handleUploadImageChange={imageUrl => this.changeBannerSingleImageUrl(imageUrl)}
+        />
+    }
+  }
+
+  // 更换Banner单图
+  changeBannerSingleImageUrl(imageUrl: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData as IBannerModel
+    tempData.imageData.imageUrl = imageUrl
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 }
 
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorBannerProps) => ({
-  allTempData: state.editorContainerReducer.allTempData,
+  allTempData: state.editorContainerReducer.allTempData
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
-
-  },
+    dispatch(changeTempData(allTempData))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Banner)

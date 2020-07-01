@@ -16,7 +16,6 @@ interface IEditorPlaintextProps {
   data: ITemplateModel
   allTempData?: ITemplateModel[]
   changeTempData?: (allTempData: ITemplateModel[]) => void
-  changeEditorSlideShow?: (isShow: boolean) => void
 }
 
 interface IEditorPlaintextState {
@@ -88,12 +87,6 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.handleFontColorSelectModalVisible(false)
-  }
-
-  // 关闭侧滑栏编辑框
-  closeEditorSlider() {
-    const { changeEditorSlideShow } = this.props
-    changeEditorSlideShow!(false)
   }
 
   // 处理富文本编辑弹窗显示和隐藏

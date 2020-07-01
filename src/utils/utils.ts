@@ -130,6 +130,15 @@ const updateIconTitleTextItemTitleBgColor = (bgColor: string, sort: number, temp
   return tempData
 }
 
+const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+  tempData.forEach(item => {
+    if (item.sort === sort) {
+      item.background!.bgImageUrl = bgImageUrl
+    }
+  })
+  return tempData
+}
+
 const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   tempData.forEach(item => {
     if (item.sort === sort) {
@@ -213,6 +222,7 @@ export {
   updateIconTitleTextItemTitleFontColor,
   updateIconTitleTextItemTextFontColor,
   updateIconTitleTextItemTitleBgColor,
+  updateIconTitleTextItemTitleBgImageUrl,
   updateIconTitleTextItemTitleBgType,
   deepClone
 }

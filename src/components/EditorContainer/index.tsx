@@ -123,7 +123,7 @@ class EditorContainer extends Component<IEditorContainerProps> {
         bgCss.backgroundColor = generalPageBackground.bgColor
         break
       case BackgroundSetType.BackgroundImage:
-        bgCss.background = `url(${generalPageBackground.bgImageUrl}) no-repeat`
+        bgCss.background = `url(${generalPageBackground.bgImageUrl}) no-repeat center center`
         bgCss.backgroundSize = 'cover'
         break
     }
