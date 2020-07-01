@@ -78,7 +78,6 @@ class EditorContainer extends Component<IEditorContainerProps> {
       <Fragment>
         {
           filterAllTempData.map(tempData => {
-            console.log(tempData);
             const masterProps: IMasterTemplateProps = {
               activeTempId: activeTempId!,
               tempData,

@@ -14,19 +14,20 @@ interface ICorrelationSpecialProps {
 interface ICorrelationSpecialState {
   typeIndex: number
   topTitle: string
-
+  addShow:boolean
+  inputValue:string
 }
 
 class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelationSpecialState> {
   state: ICorrelationSpecialState = {
     typeIndex: 0,
     topTitle: "列表编辑",
-
+    addShow:false,
+    inputValue:""
   }
 
   render() {
     const { typeIndex, topTitle } = this.state;
-
     return (
       <Fragment>
         <TitleBack
@@ -34,21 +35,21 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
           title={topTitle!}
         />
         <div className="special_editor_box">
-            <div className="add_btn">
+            <div className="add_btn" onClick={()=>{this.addSpecialTmp()}}>
                 新增条目
             </div>
-            <div className="add_item_box">
+            <div className="add_item_box" style={{display:this.state.addShow?"block":"none"}}>
                 <div className="add_head">
                      新增条目
-                    <CloseOutlined  style={{ fontSize: '10px'}}/>
+                    <CloseOutlined  onClick={()=>{this.closeSpeacialTmp()}} style={{ fontSize: '10px'}}/>
                 </div>
                 <div className="add_item_c">
                     <div className="item_number">
                         条目编号
                     </div>
-                    <input type="text"/>
+                    <input type="text" placeholder="请输入专题编号" onChange={(e)=>this.inputChange(e)}/>
                     <div className="sure_cancel">
-                         <span className="sure_btn">确定</span><span className="cancel_Btn">取消</span>
+                         <span className="sure_btn" onClick={()=>{this.searchSpecialData()}}>确定</span><span className="cancel_Btn" onClick={()=>{this.closeSpeacialTmp()}}>取消</span>
                     </div>
                 </div>
             </div>
@@ -60,12 +61,32 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
             <ul>
                 <li>
                     <i>编号89757</i> 
-                    <DeleteOutlined style={{ fontSize: '14px'}}/>
+                    <DeleteOutlined style={{ fontSize: '14px',marginRight:"10px"}}/>
                 </li>
             </ul>
         </div>
       </Fragment>
     )
+  }
+
+  inputChange(e:any){
+    this.setState({
+      inputValue:e.target.value
+    })
+  }
+  //搜索获取专题数据
+  searchSpecialData() {
+    let inputVal = this.state.inputValue
+    if(inputVal.length <0 ){ return false };
+    alert(inputVal)
+  }
+  //点击显示新增条目
+  addSpecialTmp() {
+    this.state.addShow?this.setState({addShow:this.state.addShow}):this.setState({addShow:!this.state.addShow})
+  }
+  //关闭新增条目框
+  closeSpeacialTmp(){
+    this.setState({addShow:false})
   }
 }
 
