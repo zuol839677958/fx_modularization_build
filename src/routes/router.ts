@@ -1,7 +1,7 @@
 
 import { RouteProps } from 'react-router-dom'
 
-import TemplateSelect from '../pages/TemplateSelects'
+import TemplateSelect from '../pages/TemplateSelect'
 import Home from '../pages/Home'
 import Preview from '../pages/Preview'
 
