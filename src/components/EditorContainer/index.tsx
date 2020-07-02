@@ -90,7 +90,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
       const { tempId } = this.props.match.params as { tempId: string }
       const res = await getTemplateDetail(Number(tempId))
       const { changePageData } = this.props
-      changePageData!(JSON.parse(res.Content))
+      changePageData!(JSON.parse(res.Content!))
       this.setState({ loading: false })
     } catch (e) {
       console.warn('模板渲染错误：', e)

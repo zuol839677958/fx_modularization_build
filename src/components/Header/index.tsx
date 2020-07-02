@@ -8,6 +8,7 @@ import { savePageHtml, changeActiveTempId, changePageData } from '../EditorConta
 import { changeEditorSlideShow } from '../EditorSlider/store/actions'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 import { RouteComponentProps } from 'react-router-dom'
+import { updateTemplateData } from '../../axios/api'
 
 import './index.less'
 
@@ -77,7 +78,16 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
     await changeActiveTempId!('') // 去除遮罩编辑样式
     await savePageHtml!() // 保存网页html代码
-    console.log('页面数据：', pageData)
+    // await updateTemplateData({
+    //   TempId: 0,
+    //   Title: '牛人榜模板1',
+    //   Summary: '大图+图文+评论',
+    //   Img: 'https://img.wbp5.com/upload/files/master/2020/06/28/163236016.png',
+    //   Content: JSON.stringify(pageData),
+    //   ContentH5: '',
+    //   Describe: '',
+    //   EditType: 0
+    // })
     message.success({ content: '保存页面成功！', key })
   }
 

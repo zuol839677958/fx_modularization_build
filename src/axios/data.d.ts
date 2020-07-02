@@ -10,12 +10,12 @@ export type PageResponse<T> = {
 }
 
 export type TemplateResponseModel = {
-  TempId: number
-  Title: string
-  Img: string
-  Summary: string
-  Describe: string
-  Content: string
-  ContentH5: string
-  EditType: number
+  TempId?: number
+  Title?: string
+  Img?: string
+  Summary?: string
+  Describe?: string
+  Content?: string
+  ContentH5?: string
+  EditType?: number
 }
