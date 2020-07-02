@@ -10,9 +10,9 @@ interface ICorrelationSpecialProps extends IMasterTemplateProps { }
 interface ICorrelationSpecialState extends IMasterTemplateState { }
 
 class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
-    state: ICorrelationSpecialState = {
-        isShowMask: false
-    }
+  state: ICorrelationSpecialState = {
+    isShowMask: false
+  }
   render() {
     const {
       activeTempId,
@@ -54,30 +54,30 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
       </div>
     )
   }
-    renderCorrelationSpecialList(tempData:  ICorrelationSpecialModel[]):JSX.Element {
-       return (
-       <Fragment>
-           <div className="head-tip">
-               相关专题
+  renderCorrelationSpecialList(tempData: ICorrelationSpecialModel[]): JSX.Element {
+    return (
+      <Fragment>
+        <div className="head-tip">
+          相关专题
            </div>
-           <div className="special_list_box">
-                {
-                    tempData.map(item=>(
-                        <div className="special_list" key={item.specailId} id={"s_"+item.specailId}>
-                            <div className="special_top">
-                                <img src={item.imageUrl} alt=""/>
-                            </div>
-                            <div className="special_bottom">
-                                {item.title}
-                            </div>
-                        </div>
-                    ))
-                }
-           </div>
-     
-        </Fragment>
-        )
-      }
+        <div className="special_list_box">
+          {
+            tempData.map(item => (
+              <div className="special_list" key={item.specailId} id={"s_" + item.specailId}>
+                <div className="special_top">
+                  <img src={item.imageUrl} alt="" />
+                </div>
+                <div className="special_bottom">
+                  {item.title}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+      </Fragment>
+    )
+  }
 }
 
 export default CorrelationSpecial 

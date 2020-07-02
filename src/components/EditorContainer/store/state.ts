@@ -7,9 +7,9 @@ export enum TemplateType {
   IconTitleText,
   LeftPictureRightText,
   LeftTextRightPicture,
+  Plaintext,
   RelatedList,
-  CorrelationSpecial,
-  Plaintext
+  CorrelationSpecial
 }
 
 export enum BannerType {
