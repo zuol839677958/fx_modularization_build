@@ -71,8 +71,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
   }
 
   componentDidMount() {
-    const { isSpecial } = this.props.match.params as { isSpecial: string }
-    if (Number(isSpecial)) {
+    const { specialId } = this.props.match.params as { specialId: string }
+    if (Number(specialId)) {
       this.getSpecialDetail()
     } else {
       this.getTemplateDetail()
@@ -87,8 +87,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
   // 获取模板数据
   async getTemplateDetail() {
     try {
-      const { id } = this.props.match.params as { id: string }
-      const res = await getTemplateDetail(Number(id))
+      const { tempId } = this.props.match.params as { tempId: string }
+      const res = await getTemplateDetail(Number(tempId))
       const { changePageData } = this.props
       changePageData!(JSON.parse(res.Content))
       this.setState({ loading: false })
@@ -133,7 +133,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
               case TemplateType.Plaintext:
                 return <Plaintext key={tempData.id} {...masterProps} />
               case TemplateType.CorrelationSpecial:
-                return <CorrelationSpecial key={tempData.id} {...masterProps}/>
+                return <CorrelationSpecial key={tempData.id} {...masterProps} />
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }

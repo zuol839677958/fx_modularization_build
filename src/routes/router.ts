@@ -12,7 +12,7 @@ const routers: RouteProps[] = [
     component: TemplateSelect
   },
   {
-    path: '/Home/:isSpecial/:id',
+    path: '/Home/:specialId/:tempId',
     component: Home
   },
   {

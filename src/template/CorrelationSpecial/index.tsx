@@ -13,6 +13,7 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
   state: ICorrelationSpecialState = {
     isShowMask: false
   }
+
   render() {
     const {
       activeTempId,
@@ -54,12 +55,11 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
       </div>
     )
   }
+
   renderCorrelationSpecialList(tempData: ICorrelationSpecialModel[]): JSX.Element {
     return (
       <Fragment>
-        <div className="head-tip">
-          相关专题
-           </div>
+        <div className="head-tip">相关专题</div>
         <div className="special_list_box">
           {
             tempData.map(item => (
@@ -74,7 +74,6 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
             ))
           }
         </div>
-
       </Fragment>
     )
   }

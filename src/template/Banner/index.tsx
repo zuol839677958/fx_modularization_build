@@ -10,6 +10,10 @@ interface IBannerProps extends IMasterTemplateProps { }
 interface IBannerState extends IMasterTemplateState { }
 
 class Banner extends MasterTemplate<IBannerProps> {
+  state: IBannerState = {
+    isShowMask: false
+  }
+
   render() {
     const {
       activeTempId,
