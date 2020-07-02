@@ -92,7 +92,8 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     const { savePageHtml } = this.props
     await savePageHtml!() // 保存网页html代码
     const openWindow = window.open('about:blank') as Window;
-    openWindow.location = '/preview' as any
+    const { origin, pathname } = window.location
+    openWindow.location = `${origin}${pathname}#/preview` as any
   }
 
   // 获取历史更改
