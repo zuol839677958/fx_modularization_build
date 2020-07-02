@@ -20,6 +20,7 @@ import Plaintext from '../../template/Plaintext'
 import { RouteComponentProps } from 'react-router-dom'
 
 import './index.less'
+import { LoadingOutlined } from '@ant-design/icons'
 
 interface IEditorContainerProps extends RouteComponentProps {
   activeTempId?: string
@@ -35,33 +36,67 @@ interface IEditorContainerProps extends RouteComponentProps {
   changeAddTemplateSliderShow?: (isShow: boolean) => void
 }
 
-class EditorContainer extends Component<IEditorContainerProps> {
+interface IEditorContainerState {
+  loading: boolean
+}
+
+class EditorContainer extends Component<IEditorContainerProps, IEditorContainerState> {
+  state: IEditorContainerState = {
+    loading: true
+  }
+
   render() {
     const { allTempData, isShowSlider, isShowAddTemplate } = this.props
+    const { loading } = this.state
 
     return (
       <div className="editor-content"
         style={{ paddingLeft: isShowAddTemplate ? '400px' : isShowSlider ? "340px" : "0px" }}
       >
         <div className="editor-wrap">
-          <div id="generalPage" className="page-wrap" style={this.initGeneralPageBackground()}>
-            {this.renderAllTemplate(allTempData as ITemplateModel[])}
-          </div>
+          {
+            loading ?
+              <div className="loading-box">
+                <LoadingOutlined />
+              </div>
+              :
+              <div id="generalPage" className="page-wrap" style={this.initGeneralPageBackground()}>
+                {this.renderAllTemplate(allTempData as ITemplateModel[])}
+              </div>
+          }
         </div>
       </div>
     )
   }
 
-  // componentDidMount() {
-  //   this.getTemplateDetail()
-  // }
+  componentDidMount() {
+    console.log(this.props.match.params)
+    const { isSpecial } = this.props.match.params as { isSpecial: string }
+    if (Number(isSpecial)) {
+      this.getSpecialDetail()
+    } else {
+      this.getTemplateDetail()
+    }
+  }
 
-  // async getTemplateDetail() {
-  //   const { tempId } = this.props.match.params as { tempId: number }
-  //   const res = await getTemplateDetail(tempId)
-  //   const { changePageData } = this.props
-  //   changePageData!(JSON.parse(res.Content))
-  // }
+  // 获取专题已编辑模板数据
+  async getSpecialDetail() {
+    
+  }
+
+  // 获取模板数据
+  async getTemplateDetail() {
+    try {
+      const { id } = this.props.match.params as { id: string }
+      const res = await getTemplateDetail(Number(id))
+      const { changePageData } = this.props
+      changePageData!(JSON.parse(res.Content))
+      this.setState({ loading: false })
+    } catch (e) {
+      console.warn('模板渲染错误：', e)
+      this.setState({ loading: false })
+    }
+  }
 
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>
@@ -98,7 +133,7 @@ class EditorContainer extends Component<IEditorContainerProps> {
               case TemplateType.Plaintext:
                 return <Plaintext key={tempData.id} {...masterProps} />
               default:
-                return <Fragment></Fragment>
+                return <Fragment key={tempData.id}></Fragment>
             }
           })
         }

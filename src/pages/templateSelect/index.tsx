@@ -80,7 +80,7 @@ class TemplateSelect extends Component<ITemplateSelectProps, ITemplateSelectStat
                 </div>
                 <div className="preview-usered">
                   <span className="preview">预览</span>
-                  <Link to={`/home/${item.TempId}`}>
+                  <Link to={`/home/0/${item.TempId}`}>
                     <span className="usered">使用</span>
                   </Link>
                 </div>
