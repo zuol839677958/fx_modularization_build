@@ -70,7 +70,6 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
   }
 
   componentDidMount() {
-    console.log(this.props.match.params)
     const { isSpecial } = this.props.match.params as { isSpecial: string }
     if (Number(isSpecial)) {
       this.getSpecialDetail()
@@ -81,7 +80,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
-    
+
   }
 
   // 获取模板数据
