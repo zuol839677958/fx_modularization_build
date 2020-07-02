@@ -71,7 +71,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     )
   }
 
-   inputChange(e:any){
+   inputChange(e:any):void{
     this.setState({
       inputValue:e.target.value
     })
@@ -81,6 +81,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     let inputVal = this.state.inputValue
     if(inputVal.length <0 ){ return false };
     getSpeicalData(inputVal).then(res=>{
+      this.setState({addShow:false})
       console.log(res);
     })
   }

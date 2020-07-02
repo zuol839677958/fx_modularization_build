@@ -63,7 +63,7 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
            <div className="special_list_box">
                 {
                     tempData.map(item=>(
-                        <div className="special_list" id={"s_"+item.specailId}>
+                        <div className="special_list" key={item.specailId} id={"s_"+item.specailId}>
                             <div className="special_top">
                                 <img src={item.imageUrl} alt=""/>
                             </div>
