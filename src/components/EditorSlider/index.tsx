@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { IPageState, ITemplateModel } from '../../store/data'
 import { TemplateType } from '../EditorContainer/store/state'
 
+import './index.less'
+
 //模板
 import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
 import EditorPlaintext from './Plaintext'//编辑纯文本
 import PictureText from './PictureText'
 import Banner from "./Banner"
 import CorrelationSpecial from "./CorrelationSpecial"
-import './index.less'
 
 interface IEditorBoxProps {
   isShowEditorSlider?: boolean;
