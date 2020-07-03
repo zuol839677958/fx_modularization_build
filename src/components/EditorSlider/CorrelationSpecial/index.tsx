@@ -22,7 +22,7 @@ interface ICorrelationSpecialState {
   topTitle: string
   addShow: boolean
   inputValue: string
-  hasSpecial:boolean
+  hasSpecial: boolean
 }
 
 class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelationSpecialState> {
@@ -31,7 +31,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     topTitle: "列表编辑",
     addShow: false,
     inputValue: "",
-    hasSpecial:false
+    hasSpecial: false
   }
 
   render() {
@@ -62,7 +62,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
             </div>
           </div>
         </div>
-        <div className="action_bar" style={{display:this.state.hasSpecial?"block":"none"}}>
+        <div className="action_bar" style={{ display: this.state.hasSpecial ? "block" : "none" }}>
           <div className="action_head">
             <span>专栏编号</span><i>操作</i>
           </div>
@@ -73,6 +73,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
       </Fragment>
     )
   }
+  
   //渲染
   renderSpecailData(dataList: ICorrelationSpecialModel[]): JSX.Element {
     return (
@@ -95,14 +96,13 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     const tempData = data.tempData as ICorrelationSpecialModel[]
     const newTemdata = tempData.filter(item => item.specailId !== specailId)
     data.tempData = newTemdata
-    if(data.tempData.length ===0){
+    if (data.tempData.length === 0) {
       this.setState({
-        hasSpecial:false
+        hasSpecial: false
       })
     }
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
-
   }
 
   inputChange(e: any): void {
@@ -110,41 +110,41 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
       inputValue: e.target.value
     })
   }
+
   //搜索获取专题数据
   async searchSpecialData() {
     let inputVal = this.state.inputValue
     const { data, changeTempData, allTempData } = this.props
-    if (inputVal.length < 0) { return false };
+    if (inputVal.length < 0) return false
     const res = await getSpeicalData(inputVal)
     this.setState({ addShow: false })
-    debugger;
-    if( !res ){return message.warning("请重新输入专题编号")}
+    if (!res) { return message.warning("请重新输入专题编号") }
     //判断是否为已发布专题，未发布提示 
-    if(res.Status !== 1 ) {
+    if (res.Status !== 1) {
       return message.warning("请选择已发布专题,请重新输入专题编号")
     }
     (data?.tempData as ICorrelationSpecialModel[]).push({
-      specailId: res.SpecialId, 
+      specailId: res.SpecialId,
       title: res.Title,
       imageUrl: res.TitleImg
     })
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({
-      hasSpecial:true
+      hasSpecial: true
     })
-
   }
+
   //点击显示新增条目
   addSpecialTmp() {
     this.state.addShow ? this.setState({ addShow: this.state.addShow }) : this.setState({ addShow: !this.state.addShow })
   }
+
   //关闭新增条目框
   closeSpeacialTmp() {
     this.setState({ addShow: false })
   }
 }
-
 
 const mapStateToProps = (state: IPageState, ownProps: ICorrelationSpecialProps) => ({
   allTempData: state.editorContainerReducer.allTempData,
