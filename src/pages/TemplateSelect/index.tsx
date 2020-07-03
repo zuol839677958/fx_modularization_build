@@ -1,18 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { Pagination } from 'antd'
-import { Link } from 'react-router-dom'
+import { Pagination, message, Button } from 'antd'
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 import { getTemplateList } from '../../axios/api'
 import { PageResponse, TemplateResponseModel } from '../../axios/data'
 
 import './index.less'
 
-interface ITemplateSelectProps { }
-
 interface ITemplateSelectState {
   templateList: PageResponse<TemplateResponseModel>
 }
 
-class TemplateSelect extends Component<ITemplateSelectProps, ITemplateSelectState> {
+class TemplateSelect extends Component<RouteComponentProps, ITemplateSelectState> {
   state: ITemplateSelectState = {
     templateList: {}
   }
@@ -25,14 +23,15 @@ class TemplateSelect extends Component<ITemplateSelectProps, ITemplateSelectStat
         <div className="c-box">
           <div className="select-top">
             <h2>请选择网站模板</h2>
-            <i className="iconfont close-btn">&#xE005;</i>
+            {/* <i className="iconfont close-btn">&#xE005;</i> */}
+            <Button type="primary" shape="round" style={{ float: 'right' }}>新增模板</Button>
           </div>
           <div className="tmplate-content-list">
             <div className="list-tmp-box">
               {this.renderTemplateList()}
             </div>
             <div className="tip-pagination">
-              <div className="select-tip">注意：必需选择一个模板，才能进入下一步，暂不选择，请关闭本窗口</div>
+              <div className="select-tip">注意：必需选择一个模板，才能进入下一步</div>
               <div className="select-pagination">
                 <Pagination
                   showQuickJumper
@@ -69,6 +68,8 @@ class TemplateSelect extends Component<ITemplateSelectProps, ITemplateSelectStat
   renderTemplateList(): JSX.Element {
     const { templateList } = this.state
     if (!templateList) return <Fragment></Fragment>
+    const { specialId } = this.props.match.params as { specialId: string }
+
     return (
       <ul>
         {
@@ -79,8 +80,8 @@ class TemplateSelect extends Component<ITemplateSelectProps, ITemplateSelectStat
                   <img src={item.Img} alt={item.Title} />
                 </div>
                 <div className="preview-usered">
-                  <span className="preview">预览</span>
-                  <Link to={`/home/0/${item.TempId}`}>
+                  <span className="preview" onClick={() => this.jumpToPreview(item.Content!)}>预览</span>
+                  <Link to={`/home/${specialId}/0/${item.TempId}`}>
                     <span className="usered">使用</span>
                   </Link>
                 </div>
@@ -95,5 +96,15 @@ class TemplateSelect extends Component<ITemplateSelectProps, ITemplateSelectStat
       </ul>
     )
   }
+
+  // 跳转至预览页面
+  jumpToPreview(content: string) {
+    if (!content) return message.warning('此模板没有任何内容！')
+    localStorage.setItem('pageEditorData', content)
+    const openWindow = window.open('about:blank') as Window
+    const { origin, pathname } = window.location
+    openWindow.location = `${origin}${pathname}#/preview` as any
+  }
 }
-export default TemplateSelect
+
+export default withRouter(TemplateSelect) 

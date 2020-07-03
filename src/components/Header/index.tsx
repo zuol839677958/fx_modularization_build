@@ -78,16 +78,16 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
     await changeActiveTempId!('') // 去除遮罩编辑样式
     await savePageHtml!() // 保存网页html代码
-    // await updateTemplateData({
-    //   TempId: 0,
-    //   Title: '牛人榜模板1',
-    //   Summary: '大图+图文+评论',
-    //   Img: 'https://img.wbp5.com/upload/files/master/2020/06/28/163236016.png',
-    //   Content: JSON.stringify(pageData),
-    //   ContentH5: '',
-    //   Describe: '',
-    //   EditType: 0
-    // })
+    await updateTemplateData({
+      TempId: 0,
+      Title: '牛人榜模板1',
+      Summary: '大图+图文+评论',
+      Img: 'https://img.wbp5.com/upload/files/master/2020/06/28/163236016.png',
+      Content: JSON.stringify(pageData),
+      ContentH5: '',
+      Describe: '',
+      EditType: 0
+    })
     message.success({ content: '保存页面成功！', key })
   }
 
@@ -101,7 +101,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
   async jumpToPreview() {
     const { savePageHtml } = this.props
     await savePageHtml!() // 保存网页html代码
-    const openWindow = window.open('about:blank') as Window;
+    const openWindow = window.open('about:blank') as Window
     const { origin, pathname } = window.location
     openWindow.location = `${origin}${pathname}#/preview` as any
   }

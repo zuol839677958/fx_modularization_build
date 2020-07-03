@@ -71,8 +71,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
   }
 
   componentDidMount() {
-    const { specialId } = this.props.match.params as { specialId: string }
-    if (Number(specialId)) {
+    const { hasContent } = this.props.match.params as { hasContent: string }
+    if (Number(hasContent)) {
       this.getSpecialDetail()
     } else {
       this.getTemplateDetail()
@@ -81,7 +81,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
-
+    const { specialId } = this.props.match.params as { specialId: string }
   }
 
   // 获取模板数据

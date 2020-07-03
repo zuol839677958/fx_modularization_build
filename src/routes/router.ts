@@ -8,11 +8,11 @@ import Preview from '../pages/Preview'
 
 const routers: RouteProps[] = [
   {
-    path: '/',
+    path: '/:specialId',
     component: TemplateSelect
   },
   {
-    path: '/Home/:specialId/:tempId',
+    path: '/Home/:specialId/:hasContent/:tempId?',
     component: Home
   },
   {
