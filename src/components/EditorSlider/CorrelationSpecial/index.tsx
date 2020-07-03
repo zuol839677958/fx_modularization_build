@@ -124,7 +124,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
       return message.warning("请选择已发布专题,请重新输入专题编号")
     }
     (data?.tempData as ICorrelationSpecialModel[]).push({
-      specailId: res.SpecialId,
+      specailId: res.SpecialId, 
       title: res.Title,
       imageUrl: res.TitleImg
     })
