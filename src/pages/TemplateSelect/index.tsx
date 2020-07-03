@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Pagination, message, Button } from 'antd'
+import { Pagination, message } from 'antd'
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 import { getTemplateList } from '../../axios/api'
 import { PageResponse, TemplateResponseModel } from '../../axios/data'

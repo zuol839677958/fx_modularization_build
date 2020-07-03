@@ -1,6 +1,6 @@
 import React, { Component, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
-import { CloseOutlined, PlusSquareOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { updateCurrentTempData } from '../../../utils/utils';
 import { message } from 'antd';
 import { connect } from 'react-redux'
