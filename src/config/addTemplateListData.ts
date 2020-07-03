@@ -23,16 +23,16 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
       }
     ]
   },
-  {
-    tempName: '分享',
-    isActive: false,
-    tempList: [
-      {
-        type: TemplateType.Share,
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175523692.png'
-      }
-    ]
-  },
+  // {
+  //   tempName: '分享',
+  //   isActive: false,
+  //   tempList: [
+  //     {
+  //       type: TemplateType.Share,
+  //       tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175523692.png'
+  //     }
+  //   ]
+  // },
   {
     tempName: '文本',
     isActive: false,
@@ -72,7 +72,7 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
     isActive: false,
     tempList: [
       {
-        type: TemplateType.RelatedList,
+        type: TemplateType.CorrelationSpecial,
         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/113548499.png'
       }
     ]
