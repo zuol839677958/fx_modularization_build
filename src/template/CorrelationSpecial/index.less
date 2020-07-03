@@ -1,35 +1,40 @@
 @import (reference) "../../styles/common/PublicDefind.less";
-.correlationSpecial_box{
+
+.correlationSpecial_box {
     position: relative;
     width: 100%;
-    .head-tip{
+    padding: 20px 0;
+
+    .head-tip {
         .h5();
-        color:#fff;
-        width:@DefindWidth;
-        margin:0px auto;
-        padding: 10px 0; 
+        color: #fff;
+        width: @DefindWidth;
+        margin: 0px auto 10px;
     }
-    .special_list_box{
+
+    .special_list_box {
         .both();
-        width:@DefindWidth;
-        margin:0 auto;
-        .special_list{
-           float:left;
-           height:216px;
-           width:25%;
-           .special_top{
-            img{
-                width:220px;
-                height:146px;
+        width: @DefindWidth;
+        margin: 0 auto;
+
+        .special_list {
+            float: left;
+            width: 25%;
+
+            .special_top {
+                img {
+                    width: 220px;
+                    height: 146px;
+                }
             }
-           }
-           .special_bottom{
-               width:220px;
-               background:#fff;
-               padding: 10px;
-               .box-sizing();
-               color:@F_C4;
-           }
-         }
+
+            .special_bottom {
+                width: 220px;
+                background: #fff;
+                padding: 10px;
+                .box-sizing();
+                color: @F_C4;
+            }
+        }
     }
 }
