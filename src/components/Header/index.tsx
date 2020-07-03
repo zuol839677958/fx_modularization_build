@@ -156,11 +156,18 @@ class Header extends Component<IHeaderProps, IHeaderState> {
   }
 
   // 获取历史更改
-  getHistoryEditorPageData() {
+  async getHistoryEditorPageData() {
     const historyPageData = window.localStorage.getItem('pageEditorData')
     if (!historyPageData) return message.warning('没有历史更改记录')
-    const { changePageData } = this.props
-    changePageData!(JSON.parse(historyPageData) as IPageModel)
+    const {
+      changePageData,
+      changeEditorSliderShow,
+      changeAddTemplateSliderShow,
+      changeActiveTempId } = this.props
+    await changePageData!(JSON.parse(historyPageData) as IPageModel)
+    await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
+    await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
+    changeActiveTempId!('') // 去除遮罩编辑样式
   }
 }
 
@@ -185,8 +192,8 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   async changeAddTemplateSliderShow(isShow: boolean) {
     await dispatch(changeAddTemplateSliderShow(isShow))
   },
-  changePageData(pageData: IPageModel) {
-    dispatch(changePageData(pageData))
+  async changePageData(pageData: IPageModel) {
+    await dispatch(changePageData(pageData))
   }
 })
 

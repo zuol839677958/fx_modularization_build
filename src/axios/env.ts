@@ -20,11 +20,11 @@ const getEnvRequestUrl = () => {
 const getSepecialLinkUrl = () => {
   switch (env) {
     case EnvTpye.Test:
-      return ''
+      return 'https://wwwtestolv4.tostar.top/special/'
     case EnvTpye.Pre:
-      return ''
+      return 'https://wwwpreolv4.tostar.top/special/'
     case EnvTpye.Product:
-      return ''
+      return 'https://www.fx110.com/special/'
   }
 }
 

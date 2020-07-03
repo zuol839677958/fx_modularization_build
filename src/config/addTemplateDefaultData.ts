@@ -127,6 +127,7 @@ const leftPictureRightTextDefaultData: ITemplateModel = {
     ]
   }
 }
+
 /* 新增纯文字模板默认数据 */
 const defaultSpecialData: ITemplateModel = {
   id: `${TemplateType[TemplateType.CorrelationSpecial]}`,

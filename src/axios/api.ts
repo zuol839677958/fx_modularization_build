@@ -1,5 +1,5 @@
 import { axios } from './index'
-import { PageResponse, TemplateResponseModel, TemplateSpecialModel,UpdateSpecialContentOptions } from './data'
+import { PageResponse, TemplateResponseModel, TemplateSpecialModel, UpdateSpecialContentOptions } from './data'
 
 const getTemplateList = async () => {
   return await axios.get('/api/SpecialTemp/GetPaged') as PageResponse<TemplateResponseModel>

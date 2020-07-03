@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { ICorrelationSpecialModel } from '../../store/data'
+import { getSepecialLinkUrl } from '../../axios/env'
 
 import './index.less'
 
@@ -61,22 +62,20 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
       <Fragment>
         <div className="head-tip">相关专题</div>
         <div className="special_list_box">
-            {
-              tempData.map(item => (
-                <div className="special_list" key={item.specailId} id={"s_" + item.specailId} >
-                  <a href={"https://www.fx110.com/special/" + item.specailId} target="_blank"  rel="noopener noreferrer">
+          {
+            tempData.map(item => (
+              <div className="special_list" key={item.specailId} id={"s_" + item.specailId} >
+                <a href={`${getSepecialLinkUrl()}${item.specailId}`} target="_blank" rel="noopener noreferrer">
                   <div className="special_top">
                     <img src={item.imageUrl} alt="" />
                   </div>
                   <div className="special_bottom">
                     {item.title}
                   </div>
-                  </a>
-                </div>
-              ))
-            }
-         
-        
+                </a>
+              </div>
+            ))
+          }
         </div>
       </Fragment>
     )
