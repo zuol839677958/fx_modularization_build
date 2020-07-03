@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { getEnvRequestUrl, EnvTpye } from './env'
+import { getEnvRequestUrl } from './env'
 import { message } from 'antd'
 
 type IResponseOptions = {
@@ -10,7 +10,7 @@ type IResponseOptions = {
   bodyMessage: string
 }
 
-export const baseRequestUrl = getEnvRequestUrl(EnvTpye.Test)
+export const baseRequestUrl = getEnvRequestUrl()
 axios.defaults.baseURL = baseRequestUrl
 
 // 请求时的拦截器

@@ -1,10 +1,28 @@
 export enum EnvTpye {
-  Test = 'https://testmswebapi.tostar.top' // 测试环境
+  Test, // 测试环境
+  Pre, // 预发布
+  Product // 正式环境
 }
 
-
-const getEnvRequestUrl = (envTpye: EnvTpye) => {
-  return envTpye
+export enum RequestUrl {
+  'https://testmswebapi.tostar.top',
 }
 
-export { getEnvRequestUrl }
+export enum SpecialLinkUrl {
+  '',
+}
+
+export const env = EnvTpye.Test
+
+const getEnvRequestUrl = () => {
+  return RequestUrl[env]
+}
+
+const getSepecialLinkUrl = () => {
+  return SpecialLinkUrl[env]
+}
+
+export {
+  getEnvRequestUrl,
+  getSepecialLinkUrl
+}
