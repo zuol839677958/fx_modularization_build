@@ -1,3 +1,5 @@
+import { type } from "os"
+
 export type PageResponse<T> = {
   ExtraInfo?: any
   HasNextPage?: boolean
@@ -18,4 +20,11 @@ export type TemplateResponseModel = {
   Content?: string
   ContentH5?: string
   EditType?: number
+}
+
+export type UpdateSpecialContentOptions = {
+  SpecialId: number
+  Content?: string
+  ContentH5?: string
+  EditType: number
 }

@@ -1,5 +1,5 @@
 import { axios } from './index'
-import { PageResponse, TemplateResponseModel } from './data'
+import { PageResponse, TemplateResponseModel, UpdateSpecialContentOptions } from './data'
 
 const getTemplateList = async () => {
   return await axios.get('/api/SpecialTemp/GetPaged') as PageResponse<TemplateResponseModel>
@@ -21,10 +21,15 @@ const updateTemplateData = async (tempData: TemplateResponseModel) => {
   return await axios.post('/api/SpecialTemp/SaveTemp', tempData)
 }
 
+const updateSpecialContent = async (tempData: UpdateSpecialContentOptions) => {
+  return await axios.post('/api/SpecialApi/EditContent', tempData)
+}
+
 export {
   getTemplateList,
   getTemplateDetail,
   uploadImage,
   getSpeicalData,
-  updateTemplateData
+  updateTemplateData,
+  updateSpecialContent
 }

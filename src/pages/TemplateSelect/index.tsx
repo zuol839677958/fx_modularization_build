@@ -24,7 +24,7 @@ class TemplateSelect extends Component<RouteComponentProps, ITemplateSelectState
           <div className="select-top">
             <h2>请选择网站模板</h2>
             {/* <i className="iconfont close-btn">&#xE005;</i> */}
-            <Button type="primary" shape="round" style={{ float: 'right' }}>新增模板</Button>
+            {/* <Button type="primary" shape="round" style={{ float: 'right' }}>新增模板</Button> */}
           </div>
           <div className="tmplate-content-list">
             <div className="list-tmp-box">
