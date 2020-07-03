@@ -61,18 +61,22 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
       <Fragment>
         <div className="head-tip">相关专题</div>
         <div className="special_list_box">
-          {
-            tempData.map(item => (
-              <div className="special_list" key={item.specailId} id={"s_" + item.specailId}>
-                <div className="special_top">
-                  <img src={item.imageUrl} alt="" />
+            {
+              tempData.map(item => (
+                <div className="special_list" key={item.specailId} id={"s_" + item.specailId}>
+                  <a href={"https://www.fx110.com/special/" + item.specailId} target="_blank">
+                  <div className="special_top">
+                    <img src={item.imageUrl} alt="" />
+                  </div>
+                  <div className="special_bottom">
+                    {item.title}
+                  </div>
+                  </a>
                 </div>
-                <div className="special_bottom">
-                  {item.title}
-                </div>
-              </div>
-            ))
-          }
+              ))
+            }
+         
+        
         </div>
       </Fragment>
     )

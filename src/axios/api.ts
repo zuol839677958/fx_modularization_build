@@ -1,5 +1,5 @@
 import { axios } from './index'
-import { PageResponse, TemplateResponseModel } from './data'
+import { PageResponse, TemplateResponseModel, TemplateSpecialModel } from './data'
 
 const getTemplateList = async () => {
   return await axios.get('/api/SpecialTemp/GetPaged') as PageResponse<TemplateResponseModel>
@@ -14,7 +14,7 @@ const uploadImage = async (Base64: string) => {
 }
 
 const getSpeicalData = async (specialId: string) => {
-  return await axios.get(`/api/SpecialNewApi?specialId=${specialId}`) as any
+  return await axios.get(`/api/SpecialNewApi?specialId=${specialId}`) as TemplateSpecialModel
 }
 
 const updateTemplateData = async (tempData: TemplateResponseModel) => {

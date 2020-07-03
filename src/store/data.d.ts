@@ -94,11 +94,11 @@ export interface IPlaintextModel {
 
 /* 相关专题模板 */
 export interface ICorrelationSpecialModel {
-  specailId:string;//专题id
+  specailId:number;//专题id
   title: string; // 标题
   imageUrl: string; // 图片链接
   fontColor?: string; // 文本内容字体颜色
-  Summary?: string; // 描述
+  summary?: string; // 描述
 }
 
 /* 背景设置 */

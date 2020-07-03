@@ -43,7 +43,7 @@ interface IEditorContainerState {
 
 class EditorContainer extends Component<IEditorContainerProps, IEditorContainerState> {
   state: IEditorContainerState = {
-    loading: true
+    loading: false
   }
 
   render() {
@@ -70,14 +70,14 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
     )
   }
 
-  componentDidMount() {
-    const { specialId } = this.props.match.params as { specialId: string }
-    if (Number(specialId)) {
-      this.getSpecialDetail()
-    } else {
-      this.getTemplateDetail()
-    }
-  }
+  // componentDidMount() {
+  //   const { specialId } = this.props.match.params as { specialId: string }
+  //   if (Number(specialId)) {
+  //     this.getSpecialDetail()
+  //   } else {
+  //     this.getTemplateDetail()
+  //   }
+  // }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
