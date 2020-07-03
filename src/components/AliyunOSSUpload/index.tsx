@@ -43,7 +43,11 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
 
     return (
       <Upload {...uploadProps}>
-        {preImageUrl || imageUrl ? <img src={preImageUrl || imageUrl} alt="" style={{ width: '100%' }} /> : uploadButton}
+        {
+          (preImageUrl || imageUrl) && !loading
+            ? <img src={preImageUrl || imageUrl} alt="" style={{ width: '100%' }} />
+            : uploadButton
+        }
       </Upload>
     )
   }

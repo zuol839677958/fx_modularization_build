@@ -8,15 +8,18 @@ import Preview from '../pages/Preview'
 
 const routers: RouteProps[] = [
   {
-    path: '/',
+    path: '/temp/:specialId',
+    exact: true,
     component: TemplateSelect
   },
   {
-    path: '/Home/:specialId/:tempId',
+    path: '/home/:specialId/:hasContent/:tempId?',
+    exact: true,
     component: Home
   },
   {
-    path: '/Preview',
+    path: '/preview',
+    exact: true,
     component: Preview
   }
 ]

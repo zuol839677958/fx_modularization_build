@@ -9,7 +9,7 @@ import { getIsShowList } from '../../utils/utils'
 import { BackgroundSetType } from '../BackgroundSet/store/state'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { IMasterTemplateProps } from '../../template/MasterTemplate'
-import { getTemplateDetail } from '../../axios/api'
+import { getTemplateDetail, getSpeicalData } from '../../axios/api'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 
 //模板
@@ -22,6 +22,7 @@ import { RouteComponentProps } from 'react-router-dom'
 
 import './index.less'
 import { LoadingOutlined } from '@ant-design/icons'
+import { message } from 'antd'
 
 interface IEditorContainerProps extends RouteComponentProps {
   activeTempId?: string
@@ -70,18 +71,28 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
     )
   }
 
-  // componentDidMount() {
-  //   const { specialId } = this.props.match.params as { specialId: string }
-  //   if (Number(specialId)) {
-  //     this.getSpecialDetail()
-  //   } else {
-  //     this.getTemplateDetail()
-  //   }
-  // }
+  componentDidMount() {
+    const { hasContent } = this.props.match.params as { hasContent: string }
+    if (Number(hasContent)) {
+      this.getSpecialDetail()
+    } else {
+      this.getTemplateDetail()
+    }
+  }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
-
+    try {
+      const { specialId } = this.props.match.params as { specialId: string }
+      const res = await getSpeicalData(specialId)
+      const { changePageData } = this.props
+      changePageData!(JSON.parse(res.Content!))
+      this.setState({ loading: false })
+    } catch (e) {
+      console.warn('模板渲染错误：', e)
+      message.error('专题网页解析错误！')
+      this.setState({ loading: false })
+    }
   }
 
   // 获取模板数据
@@ -94,6 +105,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
       this.setState({ loading: false })
     } catch (e) {
       console.warn('模板渲染错误：', e)
+      message.error('模板解析错误！')
       this.setState({ loading: false })
     }
   }

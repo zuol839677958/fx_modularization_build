@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, message } from 'antd'
+import { Button, message, Modal } from 'antd'
 import { IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
 import { Dispatch, Action } from 'redux'
 import { connect } from 'react-redux'
@@ -8,7 +8,8 @@ import { savePageHtml, changeActiveTempId, changePageData } from '../EditorConta
 import { changeEditorSlideShow } from '../EditorSlider/store/actions'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 import { RouteComponentProps } from 'react-router-dom'
-import { updateTemplateData } from '../../axios/api'
+import { updateTemplateData, updateSpecialContent } from '../../axios/api'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 import './index.less'
 
@@ -27,6 +28,8 @@ interface IHeaderState { }
 
 class Header extends Component<IHeaderProps, IHeaderState> {
   render() {
+    const { tempId } = this.props.match.params as { tempId: string }
+
     return (
       <div className="header-wrap">
         <div className="header-left">
@@ -48,8 +51,15 @@ class Header extends Component<IHeaderProps, IHeaderState> {
         <div className="header-right">
           <Button type="default" shape="round" onClick={() => this.jumpToPreview()}>预览</Button>
           <Button type="primary" shape="round" style={{ marginLeft: 20 }}
-            onClick={() => this.savePageHtml()}
+            onClick={() => this.saveSpecialPageData()}
           >保存</Button>
+          {
+            tempId
+              ? <Button type="primary" shape="round" style={{ marginLeft: 20 }}
+                onClick={() => this.updateTemplateData()}
+              >更新模板</Button>
+              : null
+          }
           <Button type="link" style={{ marginLeft: 20 }}>帮助说明</Button>
         </div>
       </div>
@@ -63,32 +73,71 @@ class Header extends Component<IHeaderProps, IHeaderState> {
     changeBackgroundSetData!(backgroundSetData!)
   }
 
-  // 生成网页html代码
-  async savePageHtml() {
+  // 保存至专题网页数据
+  async saveSpecialPageData() {
+    Modal.confirm({
+      title: '保存提示',
+      icon: <ExclamationCircleOutlined />,
+      centered: true,
+      content: '确定保存此专题网页吗？',
+      getContainer: false,
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const key = 'savePageHtml'
+        message.loading({ content: '正在保存页面...', key })
+        await this.handleSavePageAction()
+        const { pageData } = this.props
+        const { specialId } = this.props.match.params as { specialId: string }
+        await updateSpecialContent({
+          SpecialId: Number(specialId),
+          Content: JSON.stringify(pageData),
+          EditType: 1
+        })
+        message.success({ content: '保存页面成功！', key })
+      }
+    })
+  }
+
+  // 更新模板
+  async updateTemplateData() {
+    Modal.confirm({
+      title: '更新提示',
+      icon: <ExclamationCircleOutlined />,
+      centered: true,
+      content: '确定更新此模板吗？',
+      getContainer: false,
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const key = 'updateTemplate'
+        message.loading({ content: '正在更新模板...', key })
+        await this.handleSavePageAction()
+        const { tempId } = this.props.match.params as { tempId: string }
+        const { pageData } = this.props
+        await updateTemplateData({
+          TempId: Number(tempId),
+          Content: JSON.stringify(pageData),
+          EditType: 1
+        })
+        message.success({ content: '更新模板成功！', key })
+      }
+    })
+  }
+
+  // 处理保存页面动作
+  async handleSavePageAction() {
     const {
-      pageData,
       changeEditorSliderShow,
       changeAddTemplateSliderShow,
       changeActiveTempId,
       savePageHtml
     } = this.props
-    const key = 'savePageHtml'
-    message.loading({ content: '正在保存页面...', key })
+
     await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
     await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
     await changeActiveTempId!('') // 去除遮罩编辑样式
     await savePageHtml!() // 保存网页html代码
-    // await updateTemplateData({
-    //   TempId: 0,
-    //   Title: '牛人榜模板1',
-    //   Summary: '大图+图文+评论',
-    //   Img: 'https://img.wbp5.com/upload/files/master/2020/06/28/163236016.png',
-    //   Content: JSON.stringify(pageData),
-    //   ContentH5: '',
-    //   Describe: '',
-    //   EditType: 0
-    // })
-    message.success({ content: '保存页面成功！', key })
   }
 
   // 打开新增模块侧滑栏
@@ -101,7 +150,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
   async jumpToPreview() {
     const { savePageHtml } = this.props
     await savePageHtml!() // 保存网页html代码
-    const openWindow = window.open('about:blank') as Window;
+    const openWindow = window.open('about:blank') as Window
     const { origin, pathname } = window.location
     openWindow.location = `${origin}${pathname}#/preview` as any
   }
