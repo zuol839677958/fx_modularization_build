@@ -72,7 +72,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
             >删除</Button>
           </div>
           <div className="sort-box">
-            <Button type="primary" shape="round" style={{ marginRight: 30 }}
+            <Button type="default" shape="round" style={{ marginRight: 30 }}
               onClick={e => {
                 e.stopPropagation()
                 this.setTempBackground(params)
