@@ -59,6 +59,7 @@ export interface IBannerVideoModel {
 /* 图标标题文字模板 */
 export interface IIconTitleTextModel {
   iconUrl?: string; // 图标链接
+  hasIcon?: boolean; // 是否显示图标
   title: string; // 标题
   titleFontColor?: string; // 标题字体颜色
   background?: IBackgroundSetModel; // 标题背景

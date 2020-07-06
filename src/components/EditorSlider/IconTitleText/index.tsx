@@ -2,7 +2,7 @@ import React, { Component, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -88,18 +88,29 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           </Row>
         </div>
         <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
-          <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
-            <p>修改图标</p>
-            <AliyunOSSUpload
-              preImageUrl={editItemData?.iconUrl}
-              handleUploadImageChange={imageUrl => this.changeIconUrl(imageUrl)}
-            />
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>是否显示图标</p>
+            <Radio.Group
+              value={editItemData?.hasIcon || false}
+              onChange={e => this.changeIconIsShow(e.target.value)}
+            >
+              <Radio value={true}>是</Radio>
+              <Radio value={false}>否</Radio>
+            </Radio.Group>
           </Row>
+          {editItemData?.hasIcon
+            ? <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
+              <p>修改图标</p>
+              <AliyunOSSUpload
+                preImageUrl={editItemData?.iconUrl}
+                handleUploadImageChange={imageUrl => this.changeIconUrl(imageUrl)}
+              />
+            </Row> : null}
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入标题" value={editItemData?.title}
-                onChange={(e) => this.changeItemTitle(e.target.value)}
+                onChange={e => this.changeItemTitle(e.target.value)}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.titleFontColor }}
@@ -112,7 +123,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             <div style={{ marginBottom: 10 }}>
               <Radio.Group
                 value={editItemData?.background?.bgType}
-                onChange={(e) => this.changeTitleBgType(e.target.value)}
+                onChange={e => this.changeTitleBgType(e.target.value)}
               >
                 <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
                 <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
@@ -124,7 +135,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             <p>修改文字</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入文字" value={editItemData?.text}
-                onChange={(e) => this.changeItemText(e.target.value)}
+                onChange={e => this.changeItemText(e.target.value)}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.textFontColor }}
@@ -141,6 +152,15 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
         />
       </Fragment >
     )
+  }
+
+  // 切换图标显示隐藏
+  changeIconIsShow(hasIcon: boolean) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextIconIsShow(hasIcon, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 更改标题背景类型
