@@ -1,1 +1,2 @@
-export const IS_INIT_SLIDE = 'IS_INIT_SLIDE'
+export const IS_INIT_SLIDER = 'IS_INIT_SLIDER'
+export const CHANGE_SLIDER_TAB = 'CHANGE_SLIDER_TAB'

@@ -9,6 +9,7 @@ export interface IPageState {
 /* 侧滑栏编辑模型 */
 export interface IEditorSliderModel {
   isShow: boolean; // 是否显示侧滑栏编辑
+  tabTypeIndex: number; // 编辑页面索引
 }
 
 /* 新增模板侧滑栏模型 */
@@ -37,7 +38,8 @@ export interface ITemplateModel {
 /* Banner模板 */
 export interface IBannerModel {
   bannerType: number; // banner类型，1->单图，2->轮播图, 3->视频
-  isFull: boolean; // 图片是否横向铺满整个网页
+  isFull: boolean; // 是否横向铺满整个网页
+  widthPercent?: number; // 宽度百分比
   imageData: IBannerImageModel; // 单个图片数据模型
   imageListData?: IBannerImageModel[]; // 轮播图数据模型
   videoData?: IBannerVideoModel; // 视频数据模型

@@ -5,7 +5,7 @@ import { Dispatch, Action } from 'redux'
 import { connect } from 'react-redux'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { savePageHtml, changeActiveTempId, changePageData } from '../EditorContainer/store/actions'
-import { changeEditorSlideShow } from '../EditorSlider/store/actions'
+import { changeEditorSliderShow } from '../EditorSlider/store/actions'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 import { RouteComponentProps } from 'react-router-dom'
 import { updateTemplateData, updateSpecialContent } from '../../axios/api'
@@ -181,7 +181,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
     dispatch(changeBackgroundSetData(backgroundSet))
   },
   async changeEditorSliderShow(isShow: boolean) {
-    await dispatch(changeEditorSlideShow(isShow))
+    await dispatch(changeEditorSliderShow(isShow))
   },
   async changeActiveTempId(activeTempId: string) {
     await dispatch(changeActiveTempId(activeTempId))

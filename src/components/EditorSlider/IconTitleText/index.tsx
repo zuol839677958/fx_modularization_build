@@ -12,6 +12,7 @@ import { SketchPicker } from 'react-color'
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
+import { changeEditorSliderTab } from '../store/actions'
 
 import './index.less'
 
@@ -19,12 +20,12 @@ interface IEditorIconTitleTextProps {
   isShow?: boolean
   data: ITemplateModel
   allTempData?: ITemplateModel[]
-  titleArrow?: boolean
+  tabTypeIndex?: number
   changeTempData?: (tempData: ITemplateModel[]) => void
+  changeTabTypeIndex?: (tabTypeIndex: number) => void
 }
 
 interface IEditorIconTitleTextState {
-  typeIndex: number
   sort: number
   topTitle: string
   title: string
@@ -42,7 +43,6 @@ enum FontColorChangeType {
 class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
   state: IEditorIconTitleTextState = {
     sort: 1,
-    typeIndex: 0,
     topTitle: "图标标题文字模板编辑",
     title: "条目管理",
     currentFontColor: '',
@@ -50,9 +50,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   render() {
-    const { data } = this.props;
+    const { data, tabTypeIndex } = this.props;
     const {
-      typeIndex,
       title,
       topTitle,
       editItemData,
@@ -63,11 +62,11 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     return (
       <Fragment>
         <TitleBack
-          titleArrow={typeIndex === 1}
+          titleArrow={tabTypeIndex === 1}
           title={topTitle!}
-          changeTypeIndex={(index) => this.changeTypeIndex(index)}
+          changeTypeIndex={index => this.changeTypeIndex(index)}
         />
-        <div className="item-Manage-content" style={{ display: typeIndex === 0 ? "block" : "none" }}>
+        <div className="item-Manage-content" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
           <div className="item-Manage">
             <p>{title}</p>
           </div>
@@ -87,7 +86,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             >加一栏</Button>
           </Row>
         </div>
-        <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
+        <div className="second-Manage-content" style={{ display: tabTypeIndex === 1 ? "block" : "none" }}>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>是否显示图标</p>
             <Radio.Group
@@ -222,18 +221,20 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 切换页面tab
-  changeTypeIndex(typeIndex: number) {
-    this.setState({ typeIndex })
-    if (typeIndex === 0) {
+  changeTypeIndex(tabTypeIndex: number) {
+    const { changeTabTypeIndex } = this.props
+    changeTabTypeIndex!(tabTypeIndex)
+    if (tabTypeIndex === 0) {
       this.setState({ topTitle: '图标标题文字模板编辑' })
     }
   }
 
   // 进入条目修改详情页
   inToDetails(editItemData: IIconTitleTextModel) {
+    const { changeTabTypeIndex } = this.props
+    changeTabTypeIndex!(1)
     this.setState({
       topTitle: '修改详情页',
-      typeIndex: 1,
       editItemData
     })
   }
@@ -331,11 +332,15 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
 const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps) => ({
   currentTemplateId: state.editorContainerReducer.activeTempId,
   allTempData: state.editorContainerReducer.allTempData,
+  tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
+  },
+  changeTabTypeIndex(tabTypeIndex: number) {
+    dispatch(changeEditorSliderTab(tabTypeIndex))
   }
 })
 

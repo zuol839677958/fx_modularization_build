@@ -17,6 +17,7 @@ export interface IMasterTemplateProps {
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
   changeAddTemplateSliderShow: (isShow: boolean) => void
+  changeEditorSliderTab: (tabTypeIndex: number) => void
 }
 
 export interface IMasterTemplateState {
@@ -35,6 +36,7 @@ export interface IRenderMaskParams {
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
   changeAddTemplateSliderShow: (isShow: boolean) => void
+  changeEditorSliderTab: (tabTypeIndex: number) => void
 }
 
 class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
@@ -59,6 +61,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
                 params.changeActiveTempId(params.tempId)
                 params.changeEditorSliderShow(true)
                 params.changeAddTemplateSliderShow(false)
+                params.changeEditorSliderTab(0)
               }}
             >编辑</Button>
             <Button type="primary" shape="round" danger icon={<DeleteFilled />}

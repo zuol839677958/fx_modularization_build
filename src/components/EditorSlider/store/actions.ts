@@ -1,10 +1,17 @@
-import { IS_INIT_SLIDE } from './actionTypes'
+import { IS_INIT_SLIDER, CHANGE_SLIDER_TAB } from './actionTypes'
 
-const changeEditorSlideShow = (isShow: boolean) => {
+const changeEditorSliderShow = (isShow: boolean) => {
   return {
-    type: IS_INIT_SLIDE,
+    type: IS_INIT_SLIDER,
     isShow
   }
 }
 
-export { changeEditorSlideShow }
+const changeEditorSliderTab = (tabTypeIndex: number) => {
+  return {
+    type: CHANGE_SLIDER_TAB,
+    tabTypeIndex
+  }
+}
+
+export { changeEditorSliderShow, changeEditorSliderTab }

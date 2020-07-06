@@ -3,7 +3,7 @@ import { IPageState, ITemplateModel, IBannerModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import TitleBack from '../commonEditorComponent/titleBack'
-import { Radio } from 'antd'
+import { Radio, Row, Slider } from 'antd'
 import { BannerType } from '../../EditorContainer/store/state'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { updateCurrentTempData } from '../../../utils/utils'
@@ -53,13 +53,25 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
           <div className="action-box">
             {this.renderBannerTypeItem()}
           </div>
-          <p>是否铺满</p>
-          <Radio.Group
-            value={(data.tempData as IBannerModel).isFull}
-            onChange={e => { this.changeBannerIsFull(e.target.value) }}>
-            <Radio value={true}>是</Radio>
-            <Radio value={false}>否</Radio>
-          </Radio.Group>
+          <Row style={{ flexDirection: 'column', marginBottom: 20 }}>
+            <p>是否铺满</p>
+            <Radio.Group
+              value={(data.tempData as IBannerModel).isFull}
+              onChange={e => { this.changeBannerIsFull(e.target.value) }}>
+              <Radio value={true}>是</Radio>
+              <Radio value={false}>否</Radio>
+            </Radio.Group>
+          </Row>
+          <Row style={{ flexDirection: 'column', marginBottom: 20 }}>
+            <p>宽度(%)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={1}
+              max={100}
+              value={(data.tempData as IBannerModel).widthPercent || 100}
+              onChange={value => this.changeBannerWidth(value as number)}
+            />
+          </Row>
         </div>
       </Fragment>
     )
@@ -98,6 +110,15 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData as IBannerModel
     tempData.isFull = isFull
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 更改Banner宽度
+  changeBannerWidth(widthPercent: number) {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData as IBannerModel
+    tempData.widthPercent = widthPercent
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

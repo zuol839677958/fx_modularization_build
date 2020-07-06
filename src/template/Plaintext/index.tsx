@@ -22,7 +22,8 @@ class Plaintext extends MasterTemplate<IPlaintextProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -34,7 +35,8 @@ class Plaintext extends MasterTemplate<IPlaintextProps> {
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     }
 
     return (
@@ -46,6 +48,7 @@ class Plaintext extends MasterTemplate<IPlaintextProps> {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
           changeAddTemplateSliderShow(false)
+          changeEditorSliderTab(0)
         }}>
         {this.renderMask(maskParams)}
         <div className="general-plaintext"

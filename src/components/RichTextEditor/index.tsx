@@ -40,6 +40,8 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
         title="编辑内容"
         width={1000}
         visible={modalVisible}
+        centered={true}
+        getContainer={false}
         destroyOnClose
         okText='确定'
         cancelText='取消'
@@ -60,7 +62,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
               ['link']
             ],
           }}
-          value={content || richTextContent}
+          value={richTextContent || content}
           onChange={this.handleEditorContentChange}
           style={{ width: '100%', height: '500px', marginBottom: 40 }}
         />
