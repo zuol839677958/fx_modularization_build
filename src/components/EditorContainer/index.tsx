@@ -149,6 +149,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
                 return <Plaintext key={tempData.id} {...masterProps} />
               case TemplateType.CorrelationSpecial:
                 return <CorrelationSpecial key={tempData.id} {...masterProps} />
+              case TemplateType.Share:
+                return <Share key={tempData.id} {...masterProps} />
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }

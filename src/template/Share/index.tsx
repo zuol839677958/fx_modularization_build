@@ -1,7 +1,7 @@
 
 import React, { Fragment } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { ICorrelationSpecialModel } from '../../store/data'
+
 
 import './index.less'
 
@@ -23,7 +23,8 @@ class Share extends MasterTemplate<IShareProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -35,7 +36,8 @@ class Share extends MasterTemplate<IShareProps> {
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     }
 
     return (
@@ -48,6 +50,7 @@ class Share extends MasterTemplate<IShareProps> {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
           changeAddTemplateSliderShow(false)
+          changeEditorSliderTab(0)
         }}
       >
         {this.renderMask(maskParams)}
