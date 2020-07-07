@@ -172,6 +172,17 @@ const editorContainerState: ITemplateModel[] = [
       imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
       },
     ]
+  },
+  {
+    id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
+    type: TemplateType.Share,
+    sort: 7,
+    isShow: true,
+    tempData:[
+      {type:1,},
+      {type:2,}
+    ] 
+    
   }
 ]
 

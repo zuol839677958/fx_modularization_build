@@ -47,8 +47,8 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
             onChange={e => { this.changeBannerType(e.target.value) }}
           >
             <Radio value={BannerType.SingleImage}>图片</Radio>
-            <Radio value={BannerType.Swiper}>轮播</Radio>
-            <Radio value={BannerType.Video}>视频</Radio>
+            {/* <Radio value={BannerType.Swiper}>轮播</Radio>
+            <Radio value={BannerType.Video}>视频</Radio> */}
           </Radio.Group>
           <div className="action-box">
             {this.renderBannerTypeItem()}

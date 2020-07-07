@@ -24,7 +24,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-
+const Version = Date.now();
 const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
@@ -173,12 +173,12 @@ module.exports = function(webpackEnv) {
             // There will be one main bundle, and one file per asynchronous chunk.
             // In development, it does not produce real files.
             filename: isEnvProduction ?
-                'static/js/[name].js' : isEnvDevelopment && 'static/js/bundle.js',
+                'static/js/[name].js?v='+Version+'' : isEnvDevelopment && 'static/js/bundle.js?v='+Version+'',
             // TODO: remove this when upgrading to webpack 5
             futureEmitAssets: true,
             // There are also additional JS chunk files if you use code splitting.
             chunkFilename: isEnvProduction ?
-                'static/js/[name].chunk.js' : isEnvDevelopment && 'static/js/[name].chunk.js',
+                'static/js/[name].chunk.js?v='+Version+'' : isEnvDevelopment && 'static/js/[name].chunk.js?v='+Version+'',
             // webpack uses `publicPath` to determine where the app is being served from.
             // It requires a trailing slash, or the file assets will get an incorrect path.
             // We inferred the "public path" (such as / or /my-project) from homepage.

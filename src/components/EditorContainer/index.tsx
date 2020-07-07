@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ITemplateModel, IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
 import { TemplateType } from './store/state'
+import { LoadingOutlined } from '@ant-design/icons'
+import { message } from 'antd'
 import { changeEditorSlideShow } from '../EditorSlider/store/actions'
 import { changeActiveTempId, changeTempData, changePageData } from './store/actions'
 import { getIsShowList } from '../../utils/utils'
@@ -11,18 +13,17 @@ import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
 import { IMasterTemplateProps } from '../../template/MasterTemplate'
 import { getTemplateDetail, getSpeicalData } from '../../axios/api'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
-
+import { RouteComponentProps } from 'react-router-dom'
 //模板
 import Banner from '../../template/Banner'
 import IconTitleText from '../../template/IconTitleText'
 import PictureText from '../../template/PictureText'
 import Plaintext from '../../template/Plaintext'
 import CorrelationSpecial from "../../template/CorrelationSpecial"
-import { RouteComponentProps } from 'react-router-dom'
+import Share from "../../template/Share"
 
 import './index.less'
-import { LoadingOutlined } from '@ant-design/icons'
-import { message } from 'antd'
+
 
 interface IEditorContainerProps extends RouteComponentProps {
   activeTempId?: string
@@ -71,14 +72,14 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
     )
   }
 
-  componentDidMount() {
-    const { hasContent } = this.props.match.params as { hasContent: string }
-    if (Number(hasContent)) {
-      this.getSpecialDetail()
-    } else {
-      this.getTemplateDetail()
-    }
-  }
+  // componentDidMount() {
+  //   const { hasContent } = this.props.match.params as { hasContent: string }
+  //   if (Number(hasContent)) {
+  //     this.getSpecialDetail()
+  //   } else {
+  //     this.getTemplateDetail()
+  //   }
+  // }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {

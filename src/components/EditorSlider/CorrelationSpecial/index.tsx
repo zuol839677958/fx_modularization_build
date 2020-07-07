@@ -55,7 +55,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
               <div className="item_number">
                 条目编号
                     </div>
-              <input type="text" placeholder="请输入专题编号" onChange={(e) => this.inputChange(e)} />
+              <input type="text" placeholder="请输入专题编号" value={this.state.inputValue} onChange={(e) => this.inputChange(e)} />
               <div className="sure_cancel">
                 <span className="sure_btn" onClick={() => { this.searchSpecialData() }}>确定</span><span className="cancel_Btn" onClick={() => { this.closeSpeacialTmp() }}>取消</span>
               </div>
@@ -117,7 +117,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     const { data, changeTempData, allTempData } = this.props
     if (inputVal.length < 0) return false
     const res = await getSpeicalData(inputVal)
-    this.setState({ addShow: false })
+    this.setState({ addShow: false,inputValue: "" })
     if (!res) { return message.warning("请重新输入专题编号") }
     //判断是否为已发布专题，未发布提示 
     if (res.Status !== 1) {
