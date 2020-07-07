@@ -23,7 +23,8 @@ class Banner extends MasterTemplate<IBannerProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -35,19 +36,21 @@ class Banner extends MasterTemplate<IBannerProps> {
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     }
 
     return (
       <div id={tempData.id}
         className={`banner_box ${(tempData.tempData as IBannerModel).isFull ? 'isFull' : ''}`}
-        style={this.initTempBackground(tempData.background)}
+        style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
           changeAddTemplateSliderShow(false)
+          changeEditorSliderTab(0)
         }}
       >
         {this.renderMask(maskParams)}
@@ -59,15 +62,16 @@ class Banner extends MasterTemplate<IBannerProps> {
   renderBannerTemplate(tempData: IBannerModel): JSX.Element {
     switch (tempData.bannerType) {
       case BannerType.SingleImage:
-        return this.renderSingleImage(tempData.imageData)
+        return this.renderSingleImage(tempData.imageData, tempData.widthPercent)
       default:
         return <Fragment></Fragment>
     }
   }
 
-  renderSingleImage(imageData: IBannerImageModel): JSX.Element {
+  renderSingleImage(imageData: IBannerImageModel, widthPercent?: number): JSX.Element {
     return (
       <img
+        style={{ width: `${widthPercent || 100}%` }}
         src={imageData.imageUrl}
         title={imageData.imageTitle}
         alt={imageData.imageDesc}

@@ -4,9 +4,10 @@ import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
 import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
-import { InputNumber, message, Input, Row, Button, Radio } from 'antd'
+import { message, Input, Row, Button, Radio, Slider } from 'antd'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
+import { changeEditorSliderTab } from '../store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import Draggable from '../commonEditorComponent/draggable'
@@ -19,11 +20,12 @@ import './index.less'
 interface IEditorPictureTextProps {
   data: ITemplateModel
   allTempData?: ITemplateModel[]
+  tabTypeIndex?: number
   changeTempData?: (allTempData: ITemplateModel[]) => void
+  changeTabTypeIndex?: (tabTypeIndex: number) => void
 }
 
 interface IEditorPictureTextState {
-  tabTypeIndex: number
   tabTitle: string
   editItemData?: ITitleTextModel
   richTextEditorModalVisible: boolean
@@ -39,7 +41,6 @@ enum FontColorChangeType {
 
 class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictureTextState> {
   state: IEditorPictureTextState = {
-    tabTypeIndex: 0,
     tabTitle: '图文模板编辑',
     richTextEditorModalVisible: false,
     currentFontColor: '',
@@ -47,9 +48,8 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   }
 
   render() {
-    const { data } = this.props
+    const { data, tabTypeIndex } = this.props
     const {
-      tabTypeIndex,
       tabTitle,
       editItemData,
       richTextEditorModalVisible,
@@ -62,21 +62,33 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
         <TitleBack
           titleArrow={tabTypeIndex === 1}
           title={tabTitle}
-          changeTypeIndex={(index) => this.changeTabTypeIndex(index)}
+          changeTypeIndex={index => this.changeTabTypeIndex(index)}
         />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <p>更换图片</p>
           <AliyunOSSUpload
             preImageUrl={(data.tempData as IPictureTextModel).picUrl}
             handleUploadImageChange={imageUrl => this.changePictureUrl(imageUrl)}
           />
-          <p>图文间距</p>
+          <p>图文间距(%)</p>
           <div className="spacing-box">
-            <InputNumber
+            <Slider
+              style={{ width: '100%' }}
+              min={1}
+              max={100}
               value={(data.tempData as IPictureTextModel).spacingPercent}
-              onChange={(value) => this.changePictureTextSpacing(value as number)}
+              onChange={value => this.changePictureTextSpacing(value as number)}
             />
-            <span>%</span>
           </div>
           <p>条目管理</p>
           <Draggable
@@ -169,6 +181,14 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
     }
   }
 
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
   // 更改标题文本
   changeItemTitle(title: string) {
     const { data, allTempData, changeTempData } = this.props
@@ -214,9 +234,8 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
 
   // 切换页面tab
   changeTabTypeIndex(tabTypeIndex: number) {
-    this.setState({
-      tabTypeIndex
-    })
+    const { changeTabTypeIndex } = this.props
+    changeTabTypeIndex!(tabTypeIndex)
     if (tabTypeIndex === 0) {
       this.setState({ tabTitle: '图文模板编辑' })
     }
@@ -224,8 +243,9 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
 
   // 进入条目编辑详情页
   initEditDetails(itemData: ITitleTextModel) {
+    const { changeTabTypeIndex } = this.props
+    changeTabTypeIndex!(1)
     this.setState({
-      tabTypeIndex: 1,
       tabTitle: '修改详情页',
       editItemData: itemData
     })
@@ -333,11 +353,15 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorPictureTextProps) => ({
   allTempData: state.editorContainerReducer.allTempData,
+  tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
+  },
+  changeTabTypeIndex(tabTypeIndex: number) {
+    dispatch(changeEditorSliderTab(tabTypeIndex))
   }
 })
 

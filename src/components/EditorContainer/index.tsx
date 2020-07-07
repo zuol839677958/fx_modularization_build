@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ITemplateModel, IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
 import { TemplateType } from './store/state'
-import { LoadingOutlined } from '@ant-design/icons'
-import { message } from 'antd'
-import { changeEditorSlideShow } from '../EditorSlider/store/actions'
+import { message, Spin } from 'antd'
+import { changeEditorSliderShow, changeEditorSliderTab } from '../EditorSlider/store/actions'
 import { changeActiveTempId, changeTempData, changePageData } from './store/actions'
 import { getIsShowList } from '../../utils/utils'
 import { BackgroundSetType } from '../BackgroundSet/store/state'
@@ -37,6 +36,7 @@ interface IEditorContainerProps extends RouteComponentProps {
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changePageData?: (pageData: IPageModel) => void
   changeAddTemplateSliderShow?: (isShow: boolean) => void
+  changeEditorSliderTab?: (tabTypeIndex: number) => void
 }
 
 interface IEditorContainerState {
@@ -45,7 +45,7 @@ interface IEditorContainerState {
 
 class EditorContainer extends Component<IEditorContainerProps, IEditorContainerState> {
   state: IEditorContainerState = {
-    loading: false
+    loading: true
   }
 
   render() {
@@ -60,7 +60,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
           {
             loading ?
               <div className="loading-box">
-                <LoadingOutlined />
+                <Spin size="large" />
               </div>
               :
               <div id="generalPage" className="page-wrap" style={this.initGeneralPageBackground()}>
@@ -118,7 +118,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
       changeActiveTempId,
       changeTempData,
       changeBackgroundSetData,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const filterAllTempData = getIsShowList(allTempData) as ITemplateModel[]
     return (
@@ -133,7 +134,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
               changeEditorSliderShow: (isShow: boolean) => this.changeEditorSliderShow(isShow),
               changeTempData: (tempData: ITemplateModel[]) => changeTempData!(tempData),
               setTempBackground: (backgroundSet: IBackgroundSetModel) => changeBackgroundSetData!(backgroundSet),
-              changeAddTemplateSliderShow: (isShow: boolean) => changeAddTemplateSliderShow!(isShow)
+              changeAddTemplateSliderShow: (isShow: boolean) => changeAddTemplateSliderShow!(isShow),
+              changeEditorSliderTab: (tabTypeIndex: number) => changeEditorSliderTab!(tabTypeIndex)
             }
             switch (tempData.type) {
               case TemplateType.Banner:
@@ -191,7 +193,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => 
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeEditorSliderShow(isShow: boolean) {
-    dispatch(changeEditorSlideShow(isShow))
+    dispatch(changeEditorSliderShow(isShow))
   },
   changeActiveTempId(activeTempId: string) {
     dispatch(changeActiveTempId(activeTempId))
@@ -208,6 +210,9 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeAddTemplateSliderShow(isShow: boolean) {
     dispatch(changeAddTemplateSliderShow(isShow))
   },
+  changeEditorSliderTab(tabTypeIndex: number) {
+    dispatch(changeEditorSliderTab(tabTypeIndex))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorContainer)

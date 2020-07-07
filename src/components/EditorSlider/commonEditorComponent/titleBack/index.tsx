@@ -1,6 +1,6 @@
 import React, { Component, Dispatch } from 'react'
 import { CloseOutlined } from '@ant-design/icons';
-import { changeEditorSlideShow } from '../../store/actions';
+import { changeEditorSliderShow } from '../../store/actions';
 import { connect } from 'react-redux';
 import { Action } from 'redux';
 import { IPageState } from '../../../../store/data';
@@ -54,7 +54,7 @@ const mapStateToProps = (state: IPageState, ownProps: ITitleBackProps) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeEditorSlideShow(isShow: boolean) {
-    dispatch(changeEditorSlideShow(isShow))
+    dispatch(changeEditorSliderShow(isShow))
   },
   changeActiveTempId(activeTempId: string) {
     dispatch(changeActiveTempId(activeTempId))

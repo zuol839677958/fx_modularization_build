@@ -1,8 +1,8 @@
 import React, { Component, Fragment, Dispatch } from 'react'
-import { message, Input, Row, Radio, Button } from 'antd'
+import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -12,6 +12,7 @@ import { SketchPicker } from 'react-color'
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
+import { changeEditorSliderTab } from '../store/actions'
 
 import './index.less'
 
@@ -19,12 +20,12 @@ interface IEditorIconTitleTextProps {
   isShow?: boolean
   data: ITemplateModel
   allTempData?: ITemplateModel[]
-  titleArrow?: boolean
+  tabTypeIndex?: number
   changeTempData?: (tempData: ITemplateModel[]) => void
+  changeTabTypeIndex?: (tabTypeIndex: number) => void
 }
 
 interface IEditorIconTitleTextState {
-  typeIndex: number
   sort: number
   topTitle: string
   title: string
@@ -42,7 +43,6 @@ enum FontColorChangeType {
 class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
   state: IEditorIconTitleTextState = {
     sort: 1,
-    typeIndex: 0,
     topTitle: "图标标题文字模板编辑",
     title: "条目管理",
     currentFontColor: '',
@@ -50,9 +50,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   render() {
-    const { data } = this.props;
+    const { data, tabTypeIndex } = this.props;
     const {
-      typeIndex,
       title,
       topTitle,
       editItemData,
@@ -63,11 +62,21 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
     return (
       <Fragment>
         <TitleBack
-          titleArrow={typeIndex === 1}
+          titleArrow={tabTypeIndex === 1}
           title={topTitle!}
-          changeTypeIndex={(index) => this.changeTypeIndex(index)}
+          changeTypeIndex={index => this.changeTypeIndex(index)}
         />
-        <div className="item-Manage-content" style={{ display: typeIndex === 0 ? "block" : "none" }}>
+        <div className="item-Manage-content" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <div className="item-Manage">
             <p>{title}</p>
           </div>
@@ -87,19 +96,30 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             >加一栏</Button>
           </Row>
         </div>
-        <div className="second-Manage-content" style={{ display: typeIndex === 1 ? "block" : "none" }}>
-          <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
-            <p>修改图标</p>
-            <AliyunOSSUpload
-              preImageUrl={editItemData?.iconUrl}
-              handleUploadImageChange={imageUrl => this.changeIconUrl(imageUrl)}
-            />
+        <div className="second-Manage-content" style={{ display: tabTypeIndex === 1 ? "block" : "none" }}>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>是否显示图标</p>
+            <Radio.Group
+              value={editItemData?.hasIcon || false}
+              onChange={e => this.changeIconIsShow(e.target.value)}
+            >
+              <Radio value={true}>是</Radio>
+              <Radio value={false}>否</Radio>
+            </Radio.Group>
           </Row>
+          {editItemData?.hasIcon
+            ? <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
+              <p>修改图标</p>
+              <AliyunOSSUpload
+                preImageUrl={editItemData?.iconUrl}
+                handleUploadImageChange={imageUrl => this.changeIconUrl(imageUrl)}
+              />
+            </Row> : null}
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入标题" value={editItemData?.title}
-                onChange={(e) => this.changeItemTitle(e.target.value)}
+                onChange={e => this.changeItemTitle(e.target.value)}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.titleFontColor }}
@@ -112,7 +132,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             <div style={{ marginBottom: 10 }}>
               <Radio.Group
                 value={editItemData?.background?.bgType}
-                onChange={(e) => this.changeTitleBgType(e.target.value)}
+                onChange={e => this.changeTitleBgType(e.target.value)}
               >
                 <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
                 <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
@@ -124,7 +144,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             <p>修改文字</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入文字" value={editItemData?.text}
-                onChange={(e) => this.changeItemText(e.target.value)}
+                onChange={e => this.changeItemText(e.target.value)}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.textFontColor }}
@@ -141,6 +161,23 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
         />
       </Fragment >
     )
+  }
+
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 切换图标显示隐藏
+  changeIconIsShow(hasIcon: boolean) {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemData } = this.state
+    updateIconTitleTextIconIsShow(hasIcon, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 更改标题背景类型
@@ -202,18 +239,20 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 切换页面tab
-  changeTypeIndex(typeIndex: number) {
-    this.setState({ typeIndex })
-    if (typeIndex === 0) {
+  changeTypeIndex(tabTypeIndex: number) {
+    const { changeTabTypeIndex } = this.props
+    changeTabTypeIndex!(tabTypeIndex)
+    if (tabTypeIndex === 0) {
       this.setState({ topTitle: '图标标题文字模板编辑' })
     }
   }
 
   // 进入条目修改详情页
   inToDetails(editItemData: IIconTitleTextModel) {
+    const { changeTabTypeIndex } = this.props
+    changeTabTypeIndex!(1)
     this.setState({
       topTitle: '修改详情页',
-      typeIndex: 1,
       editItemData
     })
   }
@@ -311,11 +350,15 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
 const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps) => ({
   currentTemplateId: state.editorContainerReducer.activeTempId,
   allTempData: state.editorContainerReducer.allTempData,
+  tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeTempData(allTempData: ITemplateModel[]) {
     dispatch(changeTempData(allTempData))
+  },
+  changeTabTypeIndex(tabTypeIndex: number) {
+    dispatch(changeEditorSliderTab(tabTypeIndex))
   }
 })
 

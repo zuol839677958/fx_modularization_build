@@ -27,7 +27,8 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -39,18 +40,20 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     }
 
     return (
       <div id={tempData.id} className="pictureText_box"
-        style={this.initTempBackground(tempData.background)}
+        style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={() => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
           changeAddTemplateSliderShow(false)
+          changeEditorSliderTab(0)
         }}
       >
         {this.renderMask(maskParams)}

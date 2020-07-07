@@ -24,7 +24,8 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -36,18 +37,20 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     }
 
     return (
       <div id={tempData.id} className="iconTitleText_box"
-        style={this.initTempBackground(tempData.background)}
+        style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
           changeAddTemplateSliderShow(false)
+          changeEditorSliderTab(0)
         }}
       >
         {this.renderMask(maskParams)}
@@ -63,14 +66,13 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       <Fragment>
         {
           filterList.map(tempData => (
-            
             <div className="rightContent-list" key={tempData.sort}>
               <div className="list-left">
-                <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} />
+                {tempData.hasIcon ? <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} /> : null}
                 <span className="heading"
                   style={{ color: tempData.titleFontColor, background: this.initTitleBackground(tempData.background) }}
                 >{tempData.title}</span>
-              </div> 
+              </div>
               <div className="list-right">
                 <p className="txt" style={{ color: tempData.textFontColor }}>{tempData.text}</p>
               </div>

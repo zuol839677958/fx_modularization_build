@@ -24,7 +24,8 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
       changeEditorSliderShow,
       changeTempData,
       setTempBackground,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     } = this.props
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
@@ -36,19 +37,21 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
       changeTempData,
       setTempBackground,
       tempBackground: tempData.background,
-      changeAddTemplateSliderShow
+      changeAddTemplateSliderShow,
+      changeEditorSliderTab
     }
 
     return (
       <div id={tempData.id}
         className={`correlationSpecial_box`}
-        style={this.initTempBackground(tempData.background)}
+        style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
           changeActiveTempId(tempData.id)
           changeEditorSliderShow(true)
           changeAddTemplateSliderShow(false)
+          changeEditorSliderTab(0)
         }}
       >
         {this.renderMask(maskParams)}

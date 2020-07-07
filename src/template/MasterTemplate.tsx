@@ -17,6 +17,7 @@ export interface IMasterTemplateProps {
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
   changeAddTemplateSliderShow: (isShow: boolean) => void
+  changeEditorSliderTab: (tabTypeIndex: number) => void
 }
 
 export interface IMasterTemplateState {
@@ -35,6 +36,7 @@ export interface IRenderMaskParams {
   changeTempData: (allTempData: ITemplateModel[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
   changeAddTemplateSliderShow: (isShow: boolean) => void
+  changeEditorSliderTab: (tabTypeIndex: number) => void
 }
 
 class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
@@ -59,6 +61,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
                 params.changeActiveTempId(params.tempId)
                 params.changeEditorSliderShow(true)
                 params.changeAddTemplateSliderShow(false)
+                params.changeEditorSliderTab(0)
               }}
             >编辑</Button>
             <Button type="primary" shape="round" danger icon={<DeleteFilled />}
@@ -69,7 +72,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
             >删除</Button>
           </div>
           <div className="sort-box">
-            <Button type="primary" shape="round" style={{ marginRight: 30 }}
+            <Button type="default" shape="round" style={{ marginRight: 30 }}
               onClick={e => {
                 e.stopPropagation()
                 this.setTempBackground(params)
@@ -134,8 +137,10 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     params.setTempBackground(backgroundSet)
   }
 
-  initTempBackground(background?: IBackgroundSetModel): CSSProperties {
+  // 渲染模板背景
+  initTempBackground(background?: IBackgroundSetModel, spacing?: number): CSSProperties {
     let bgCss: CSSProperties = {}
+    bgCss = this.initTempSpacing(spacing)
     if (!background) return bgCss
     switch (background.bgType) {
       case BackgroundSetType.NoneColor:
@@ -148,6 +153,14 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
         bgCss.backgroundSize = 'cover'
         break
     }
+    return bgCss
+  }
+
+  // 渲染模板间距
+  initTempSpacing(spacing?: number) {
+    let bgCss: CSSProperties = {}
+    if (spacing === void 0) return bgCss
+    bgCss.padding = `${spacing}px 0px`
     return bgCss
   }
 }

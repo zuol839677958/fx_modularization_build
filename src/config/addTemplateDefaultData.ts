@@ -26,6 +26,7 @@ const iconTitleTextDefaultData: ITemplateModel = {
   tempData: [
     {
       iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+      hasIcon: true,
       title: '请输入标题',
       text: ':请输入文字',
       titleFontColor: '#9f3b3c',
