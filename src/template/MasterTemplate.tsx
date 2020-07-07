@@ -137,8 +137,10 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     params.setTempBackground(backgroundSet)
   }
 
-  initTempBackground(background?: IBackgroundSetModel): CSSProperties {
+  // 渲染模板背景
+  initTempBackground(background?: IBackgroundSetModel, spacing?: number): CSSProperties {
     let bgCss: CSSProperties = {}
+    bgCss = this.initTempSpacing(spacing)
     if (!background) return bgCss
     switch (background.bgType) {
       case BackgroundSetType.NoneColor:
@@ -151,6 +153,14 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
         bgCss.backgroundSize = 'cover'
         break
     }
+    return bgCss
+  }
+
+  // 渲染模板间距
+  initTempSpacing(spacing?: number) {
+    let bgCss: CSSProperties = {}
+    if (spacing === void 0) return bgCss
+    bgCss.padding = `${spacing}px 0px`
     return bgCss
   }
 }

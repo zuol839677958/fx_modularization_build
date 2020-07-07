@@ -65,6 +65,16 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           changeTypeIndex={index => this.changeTabTypeIndex(index)}
         />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <p>更换图片</p>
           <AliyunOSSUpload
             preImageUrl={(data.tempData as IPictureTextModel).picUrl}
@@ -169,6 +179,14 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
       default:
         return <Fragment></Fragment>
     }
+  }
+
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 更改标题文本

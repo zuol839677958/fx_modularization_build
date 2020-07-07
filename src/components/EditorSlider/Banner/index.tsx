@@ -42,6 +42,16 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
           title={topTitle!}
         />
         <div className="banner-select-box">
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing || 0}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <Radio.Group
             value={bannerType}
             onChange={e => { this.changeBannerType(e.target.value) }}
@@ -75,6 +85,14 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
         </div>
       </Fragment>
     )
+  }
+
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 切换Banner模板类型

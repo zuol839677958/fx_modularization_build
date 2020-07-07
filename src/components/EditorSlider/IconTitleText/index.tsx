@@ -1,5 +1,5 @@
 import React, { Component, Fragment, Dispatch } from 'react'
-import { message, Input, Row, Radio, Button } from 'antd'
+import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
 import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow } from '../../../utils/utils'
@@ -67,6 +67,16 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           changeTypeIndex={index => this.changeTypeIndex(index)}
         />
         <div className="item-Manage-content" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <div className="item-Manage">
             <p>{title}</p>
           </div>
@@ -151,6 +161,14 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
         />
       </Fragment >
     )
+  }
+
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 切换图标显示隐藏

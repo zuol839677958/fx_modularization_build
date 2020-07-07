@@ -2,7 +2,7 @@ import React, { Component, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { updateCurrentTempData } from '../../../utils/utils';
-import { message } from 'antd';
+import { message, Row, Slider } from 'antd';
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
@@ -35,7 +35,9 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
   }
 
   render() {
-    const { typeIndex, topTitle } = this.state;
+    const { data } = this.props
+    const { typeIndex, topTitle } = this.state
+
     return (
       <Fragment>
         <TitleBack
@@ -43,18 +45,28 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
           title={topTitle!}
         />
         <div className="special_editor_box">
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <div className="add_btn" onClick={() => { this.addSpecialTmp() }}>
             新增条目
-            </div>
+          </div>
           <div className="add_item_box" style={{ display: this.state.addShow ? "block" : "none" }}>
             <div className="add_head">
               新增条目
-                    <CloseOutlined onClick={() => { this.closeSpeacialTmp() }} style={{ fontSize: '10px' }} />
+              <CloseOutlined onClick={() => { this.closeSpeacialTmp() }} style={{ fontSize: '10px' }} />
             </div>
             <div className="add_item_c">
               <div className="item_number">
                 条目编号
-                    </div>
+              </div>
               <input type="text" placeholder="请输入专题编号" onChange={(e) => this.inputChange(e)} />
               <div className="sure_cancel">
                 <span className="sure_btn" onClick={() => { this.searchSpecialData() }}>确定</span><span className="cancel_Btn" onClick={() => { this.closeSpeacialTmp() }}>取消</span>
@@ -73,7 +85,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
       </Fragment>
     )
   }
-  
+
   //渲染
   renderSpecailData(dataList: ICorrelationSpecialModel[]): JSX.Element {
     return (
@@ -88,6 +100,14 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
         }
       </Fragment>
     )
+  }
+
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   //删除专题

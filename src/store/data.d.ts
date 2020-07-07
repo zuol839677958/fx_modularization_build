@@ -31,6 +31,7 @@ export interface ITemplateModel {
   type: number; // 模板类型
   sort: number; // 模板排序
   isShow: boolean; // 模板是否显示
+  spacing?: number; // 模板间距
   background?: IBackgroundSetModel; // 模板背景
   tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel | ICorrelationSpecialModel[]; // 模板数据
 }

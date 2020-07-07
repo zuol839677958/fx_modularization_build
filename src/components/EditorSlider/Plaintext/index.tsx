@@ -3,7 +3,7 @@ import { IPlaintextModel, IPageState, ITemplateModel } from '../../../store/data
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
-import { Button, Row } from 'antd'
+import { Button, Row, Slider } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -39,6 +39,16 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
       <Fragment>
         <TitleBack titleArrow={false} title='纯文字模板编辑' />
         <div className="editor_content">
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>模板间距(像素)</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={0}
+              max={200}
+              value={data.spacing}
+              onChange={value => this.changeTempSpacing(value as number)}
+            />
+          </Row>
           <Row className="inputAndColor_wrap">
             <p>纯文字内容</p>
             <div className="inputAndColor_box">
@@ -66,6 +76,14 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
         />
       </Fragment>
     )
+  }
+
+  // 更改模板间距
+  changeTempSpacing(spacing: number) {
+    const { data, allTempData, changeTempData } = this.props
+    data.spacing = spacing
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 打开颜色选择弹窗

@@ -43,7 +43,7 @@ class Banner extends MasterTemplate<IBannerProps> {
     return (
       <div id={tempData.id}
         className={`banner_box ${(tempData.tempData as IBannerModel).isFull ? 'isFull' : ''}`}
-        style={this.initTempBackground(tempData.background)}
+        style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
