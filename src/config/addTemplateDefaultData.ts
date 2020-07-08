@@ -1,5 +1,5 @@
 import { ITemplateModel } from '../store/data'
-import { BannerType, TemplateType } from '../components/EditorContainer/store/state'
+import { BannerType, TemplateType, SharePositionType } from '../components/EditorContainer/store/state'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /* 新增Banner模板默认数据 */
@@ -14,6 +14,19 @@ const bannerDefaultData: ITemplateModel = {
     imageData: {
       imageUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
     }
+  }
+}
+
+/* 新增分享模板默认数据 */
+const shareDefaultData: ITemplateModel = {
+  id: `${TemplateType[TemplateType.Share]}`,
+  type: TemplateType.Share,
+  sort: Date.now(),
+  isShow: true,
+  tempData: {
+    isTW: false,
+    labelFontColor: '#fff',
+    positionType: SharePositionType.Right
   }
 }
 
@@ -140,6 +153,7 @@ const defaultSpecialData: ITemplateModel = {
 
 const defaultTemplateList = [
   bannerDefaultData,
+  shareDefaultData,
   iconTitleTextDefaultData,
   plainTextDefaultData,
   leftTextRightPictureDefaultData,

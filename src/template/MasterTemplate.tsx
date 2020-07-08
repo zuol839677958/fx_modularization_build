@@ -23,6 +23,7 @@ export interface IMasterTemplateProps {
 export interface IMasterTemplateState {
   isShowMask: boolean
   bgModalVisible?: boolean
+  [key: string]: any
 }
 
 export interface IRenderMaskParams {

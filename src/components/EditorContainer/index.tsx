@@ -72,14 +72,14 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
     )
   }
 
-  // componentDidMount() {
-  //   const { hasContent } = this.props.match.params as { hasContent: string }
-  //   if (Number(hasContent)) {
-  //     this.getSpecialDetail()
-  //   } else {
-  //     this.getTemplateDetail()
-  //   }
-  // }
+  componentDidMount() {
+    const { hasContent } = this.props.match.params as { hasContent: string }
+    if (Number(hasContent)) {
+      this.getSpecialDetail()
+    } else {
+      this.getTemplateDetail()
+    }
+  }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
@@ -114,6 +114,9 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>
     const {
+      history,
+      location,
+      match,
       activeTempId,
       changeActiveTempId,
       changeTempData,
@@ -140,6 +143,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
             switch (tempData.type) {
               case TemplateType.Banner:
                 return <Banner key={tempData.id} {...masterProps} />
+              case TemplateType.Share:
+                return <Share key={tempData.id} history={history} location={location} match={match} {...masterProps} />
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} {...masterProps} />
               case TemplateType.LeftPictureRightText:
@@ -149,8 +154,6 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
                 return <Plaintext key={tempData.id} {...masterProps} />
               case TemplateType.CorrelationSpecial:
                 return <CorrelationSpecial key={tempData.id} {...masterProps} />
-              case TemplateType.Share:
-                return <Share key={tempData.id} {...masterProps} />
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }

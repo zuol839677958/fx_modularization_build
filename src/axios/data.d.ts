@@ -17,21 +17,23 @@ export type TemplateResponseModel = {
   Img?: string
   Summary?: string
   Describe?: string
-  Content?: string 
+  Content?: string
   ContentH5?: string
   EditType?: number
 }
+
 export type TemplateSpecialModel = {
-  SpecialId:number
-  Title:string
-  TitleImg:string
-  TitleImgR:string
-  TitleImgS:string
-  Summary?:string
+  SpecialId: number
+  Title: string
+  TitleImg: string
+  TitleImgR: string
+  TitleImgS: string
+  Summary?: string
   Content?: string
   ContentH5?: string
-  Status:number;//专题类型是否已经发布 1为已经发布 
+  Status: number; //专题类型是否已经发布 1为已经发布 
 }
+
 export type UpdateSpecialContentOptions = {
   SpecialId: number
   Content?: string
