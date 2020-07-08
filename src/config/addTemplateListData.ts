@@ -23,16 +23,21 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
       }
     ]
   },
-  // {
-  //   tempName: '分享',
-  //   isActive: false,
-  //   tempList: [
-  //     {
-  //       type: TemplateType.Share,
-  //       tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175523692.png'
-  //     }
-  //   ]
-  // },
+  {
+    tempName: '分享',
+    isActive: false,
+    tempList: [
+      {
+        type: TemplateType.Share,
+
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/08/143125955.png'
+      },
+      {
+        type: TemplateType.Share,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/08/143205706.png'
+      }
+    ]
+  },
   {
     tempName: '文本',
     isActive: false,
