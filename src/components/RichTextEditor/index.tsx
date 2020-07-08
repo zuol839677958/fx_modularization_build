@@ -24,6 +24,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
   handleOk = () => {
     let { saveContent } = this.props
     const { content } = this.state
+    this.setState({ content: '' })
     saveContent!(content)
   }
 
@@ -46,7 +47,10 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
         okText='确定'
         cancelText='取消'
         onOk={this.handleOk}
-        onCancel={() => handleModalVisible(false)}
+        onCancel={() => {
+          this.setState({ content: '' })
+          handleModalVisible(false)
+        }}
       >
         <ReactQuill
           placeholder="请输入"
@@ -62,7 +66,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
               ['link']
             ],
           }}
-          value={richTextContent || content}
+          value={content || richTextContent}
           onChange={this.handleEditorContentChange}
           style={{ width: '100%', height: '500px', marginBottom: 40 }}
         />

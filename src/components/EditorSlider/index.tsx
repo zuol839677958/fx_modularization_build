@@ -10,6 +10,7 @@ import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
 import EditorPlaintext from './Plaintext'//编辑纯文本
 import PictureText from './PictureText'
 import Banner from "./Banner"
+import Share from "./Share"
 import CorrelationSpecial from "./CorrelationSpecial"
 
 interface IEditorBoxProps {
@@ -46,6 +47,8 @@ class EditorBox extends Component<IEditorBoxProps> {
     switch (currentTempData.type) {
       case TemplateType.Banner:
         return <Banner data={currentTempData as ITemplateModel} />
+      case TemplateType.Share:
+        return <Share data={currentTempData as ITemplateModel} />
       case TemplateType.IconTitleText:
         return <EditorIconTitleText data={currentTempData as ITemplateModel} />
       case TemplateType.Plaintext:
@@ -54,7 +57,7 @@ class EditorBox extends Component<IEditorBoxProps> {
       case TemplateType.LeftTextRightPicture:
         return <PictureText data={currentTempData as ITemplateModel} />
       case TemplateType.CorrelationSpecial:
-        return <CorrelationSpecial data={currentTempData as ITemplateModel}  />
+        return <CorrelationSpecial data={currentTempData as ITemplateModel} />
       default:
         return <Fragment></Fragment>
     }

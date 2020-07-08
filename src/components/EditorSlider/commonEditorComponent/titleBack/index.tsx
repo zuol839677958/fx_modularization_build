@@ -19,12 +19,14 @@ interface ITitleBackProps {
 
 class TitleBack extends Component<ITitleBackProps> {
   render() {
-    const { title, changeTypeIndex, customCloseSlider } = this.props
+    const { title, titleArrow, changeTypeIndex, customCloseSlider } = this.props
 
     return (
       <div className="title-back">
-        <p onClick={() => changeTypeIndex!(0)}>
-          <i style={{ display: this.props.titleArrow ? "inline-block" : "none", marginRight: 5 }}>←</i>
+        <p onClick={() => {
+          if (titleArrow) changeTypeIndex!(0)
+        }}>
+          <i style={{ display: titleArrow ? "inline-block" : "none", marginRight: 5 }}>←</i>
           <i>{title}</i>
         </p>
         <CloseOutlined
