@@ -114,6 +114,9 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
   renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>
     const {
+      history,
+      location,
+      match,
       activeTempId,
       changeActiveTempId,
       changeTempData,
@@ -141,7 +144,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
               case TemplateType.Banner:
                 return <Banner key={tempData.id} {...masterProps} />
               case TemplateType.Share:
-                return <Share key={tempData.id} {...masterProps} />
+                return <Share key={tempData.id} history={history} location={location} match={match} {...masterProps} />
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} {...masterProps} />
               case TemplateType.LeftPictureRightText:
@@ -151,7 +154,6 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
                 return <Plaintext key={tempData.id} {...masterProps} />
               case TemplateType.CorrelationSpecial:
                 return <CorrelationSpecial key={tempData.id} {...masterProps} />
-            
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }
