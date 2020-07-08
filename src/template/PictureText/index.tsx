@@ -78,7 +78,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     return (
       <Fragment>
         <div className="general-img" style={{ width, marginRight }}>
-          <img src={tempData.picUrl} alt="" />
+          <img data-viewer={tempData.picUrl} src={tempData.picUrl} alt="" />
         </div>
         <div className="general-txt" style={{ width }}>
           {this.renderTemplateItem(tempData.titleTextList)}
@@ -98,7 +98,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
           {this.renderTemplateItem(tempData.titleTextList)}
         </div>
         <div className="general-img" style={{ width }}>
-          <img src={tempData.picUrl} alt="" />
+          <img data-viewer={tempData.picUrl} src={tempData.picUrl} alt="" />
         </div>
       </Fragment>
     )

@@ -69,9 +69,12 @@ class Banner extends MasterTemplate<IBannerProps> {
   }
 
   renderSingleImage(imageData: IBannerImageModel, widthPercent?: number): JSX.Element {
+    const { tempData } = this.props
+
     return (
       <img
         style={{ width: `${widthPercent || 100}%` }}
+        data-viewer={(tempData.tempData as IBannerModel).isFull ? '' : imageData.imageUrl}
         src={imageData.imageUrl}
         title={imageData.imageTitle}
         alt={imageData.imageDesc}
