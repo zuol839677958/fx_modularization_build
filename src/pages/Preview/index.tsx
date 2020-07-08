@@ -11,6 +11,7 @@ interface IPreviewProps {
 class Preview extends Component<IPreviewProps> {
   componentDidMount() {
     const ele: Element = document.querySelector(".share_box")!
+    if (!ele) return
     const script1 = document.createElement("script")
     script1.src = 'https://js.wbp5.com/script/public/jquery/jquery-1.8.3.min.js'
     ele.appendChild(script1)
