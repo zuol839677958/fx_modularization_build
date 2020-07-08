@@ -84,7 +84,6 @@ class Share extends MasterTemplate<IShareProps> {
                       <i className="qq_div2 facebook bg_i" title="facebook" data-bshare='{type:"facebook",url:"",title:"",summary:"（分享至@FX110）",images:""}'></i>
                       <i className="qq_div3 twitter bg_i" title="twitter" data-bshare='{type:"twitter",url:"",title:"",summary:"",images:""}'></i>
                   </span>
-                  <script src="~/Scripts/SharedViewmin/twShare.js?v=ded726c262"></script>
               </div>
 
           </div>
