@@ -179,8 +179,7 @@ const editorContainerState: ITemplateModel[] = [
     sort: 7,
     isShow: true,
     tempData:[
-      {type:1,},
-      {type:2,}
+     
     ] 
     
   }
