@@ -59,6 +59,13 @@ export interface IBannerVideoModel {
   videoDesc?: string; // 视频描述
 }
 
+/* 分享模板 */
+export interface IShareModel {
+  isTW?: boolean;
+  labelFontColor?: string;
+  positionType?: number;
+}
+
 /* 图标标题文字模板 */
 export interface IIconTitleTextModel {
   iconUrl?: string; // 图标链接
