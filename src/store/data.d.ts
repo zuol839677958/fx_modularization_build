@@ -61,9 +61,9 @@ export interface IBannerVideoModel {
 
 /* 分享模板 */
 export interface IShareModel {
-  isTW?: boolean;
-  labelFontColor?: string;
-  positionType?: number;
+  isTW?: boolean; // 是否是台湾版
+  labelFontColor?: string; // 分享的字体颜色
+  positionType?: number; // 分享的位置：居左，居中，居右
 }
 
 /* 图标标题文字模板 */

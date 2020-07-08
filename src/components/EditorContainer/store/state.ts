@@ -18,6 +18,12 @@ export enum BannerType {
   Video
 }
 
+export enum SharePositionType {
+  Left = 1,
+  Center,
+  Right
+}
+
 const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
@@ -33,9 +39,20 @@ const editorContainerState: ITemplateModel[] = [
     }
   },
   {
+    id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
+    type: TemplateType.Share,
+    sort: 2,
+    isShow: true,
+    tempData: {
+      isTW: false,
+      labelFontColor: '#fff',
+      positionType: SharePositionType.Right
+    }
+  },
+  {
     id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now()}`,
     type: TemplateType.IconTitleText,
-    sort: 2,
+    sort: 3,
     isShow: true,
     tempData: [
       {
@@ -82,7 +99,7 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.Plaintext]}_${Date.now()}`,
     type: TemplateType.Plaintext,
-    sort: 3,
+    sort: 4,
     isShow: true,
     tempData: {
       textHtml: 'Mahasagara，汇聊号“521667”，总盈利率排名第49，获胜率高达93.91%擅长做波段和中线1年时间。 内将资金翻仓6倍，因眼光精准、下手果决而闻名。',
@@ -92,7 +109,7 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.LeftPictureRightText]}_${Date.now()}`,
     type: TemplateType.LeftPictureRightText,
-    sort: 4,
+    sort: 5,
     isShow: true,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
@@ -124,11 +141,11 @@ const editorContainerState: ITemplateModel[] = [
         }
       ]
     }
-  }, 
+  },
   {
     id: `${TemplateType[TemplateType.LeftTextRightPicture]}_${Date.now()}`,
     type: TemplateType.LeftTextRightPicture,
-    sort: 5,
+    sort: 6,
     isShow: true,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
@@ -164,24 +181,15 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.CorrelationSpecial]}_${Date.now()}`,
     type: TemplateType.CorrelationSpecial,
-    sort: 6,
-    isShow: true,
-    tempData: [{
-      specailId:2222,
-      title: "3年盈利540万“老司机”稳定盈利的套息交易法",
-      imageUrl:"https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png" , 
-      },
-    ]
-  },
-  {
-    id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
-    type: TemplateType.Share,
     sort: 7,
     isShow: true,
-    tempData:[
-     
-    ] 
-    
+    tempData: [
+      {
+        specailId: 2222,
+        title: "3年盈利540万“老司机”稳定盈利的套息交易法",
+        imageUrl: "https://img.wbp5.com/upload/files/master/2020/06/29/162203374.png",
+      }
+    ]
   }
 ]
 

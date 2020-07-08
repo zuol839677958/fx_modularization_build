@@ -9,8 +9,6 @@ interface IPreviewProps {
 }
 
 class Preview extends Component<IPreviewProps> {
-
-
   componentDidMount() {
     const ele: Element = document.querySelector(".share_box")!
     const script1 = document.createElement("script")
@@ -24,8 +22,8 @@ class Preview extends Component<IPreviewProps> {
       script3.src = 'https://js.wbp5.com/script/public/QRCode/generate.min.js'
       ele.appendChild(script3)
       const script4 = document.createElement("script")
-      script4.src = 'https://www.fx110.com.tw/Scripts/SharedViewmin/twShare.js';
-      ele.appendChild(script4);
+      script4.src = 'https://www.fx110.com.tw/Scripts/SharedViewmin/twShare.js'
+      ele.appendChild(script4)
     }
   }
 
