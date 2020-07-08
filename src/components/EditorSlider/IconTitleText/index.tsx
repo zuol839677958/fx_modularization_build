@@ -134,6 +134,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
                 value={editItemData?.background?.bgType}
                 onChange={e => this.changeTitleBgType(e.target.value)}
               >
+                <Radio value={BackgroundSetType.NoneColor}>无</Radio>
                 <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
                 <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
               </Radio.Group>

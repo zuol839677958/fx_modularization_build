@@ -127,6 +127,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
                 value={editItemData?.background?.bgType}
                 onChange={(e) => this.changeTitleBgType(e.target.value)}
               >
+                <Radio value={BackgroundSetType.NoneColor}>纯色</Radio>
                 <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
                 <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
               </Radio.Group>

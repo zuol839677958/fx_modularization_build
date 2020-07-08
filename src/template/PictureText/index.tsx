@@ -127,6 +127,8 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   initTitleBackground(backgroundSet?: IBackgroundSetModel) {
     if (!backgroundSet) return ''
     switch (backgroundSet.bgType) {
+      case BackgroundSetType.NoneColor:
+        return 'none'
       case BackgroundSetType.PureColor:
         return backgroundSet.bgColor
       case BackgroundSetType.BackgroundImage:
