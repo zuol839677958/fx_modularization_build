@@ -20,6 +20,9 @@ class Preview extends Component<IPreviewProps> {
     let script1 = document.createElement("script");
     script1.src = 'https://js.wbp5.com/script/public/QRCode/generate.min.js';
     s.appendChild(script1);
+    let script3= document.createElement("script");
+    script3.src = 'https://www.fx110.com.tw/Scripts/SharedViewmin/twShare.js';
+    s.appendChild(script3);
  }
 
 

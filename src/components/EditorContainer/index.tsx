@@ -140,6 +140,8 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
             switch (tempData.type) {
               case TemplateType.Banner:
                 return <Banner key={tempData.id} {...masterProps} />
+              case TemplateType.Share:
+                return <Share key={tempData.id} {...masterProps} />
               case TemplateType.IconTitleText:
                 return <IconTitleText key={tempData.id} {...masterProps} />
               case TemplateType.LeftPictureRightText:
@@ -149,8 +151,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
                 return <Plaintext key={tempData.id} {...masterProps} />
               case TemplateType.CorrelationSpecial:
                 return <CorrelationSpecial key={tempData.id} {...masterProps} />
-              case TemplateType.Share:
-                return <Share key={tempData.id} {...masterProps} />
+            
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }
