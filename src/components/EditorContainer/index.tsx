@@ -72,14 +72,14 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
     )
   }
 
-  // componentDidMount() {
-  //   const { hasContent } = this.props.match.params as { hasContent: string }
-  //   if (Number(hasContent)) {
-  //     this.getSpecialDetail()
-  //   } else {
-  //     this.getTemplateDetail()
-  //   }
-  // }
+  componentDidMount() {
+    const { hasContent } = this.props.match.params as { hasContent: string }
+    if (Number(hasContent)) {
+      this.getSpecialDetail()
+    } else {
+      this.getTemplateDetail()
+    }
+  }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
