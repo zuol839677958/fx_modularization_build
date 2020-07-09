@@ -42,7 +42,7 @@ class Banner extends MasterTemplate<IBannerProps> {
 
     return (
       <div id={tempData.id}
-        className={`banner_box ${(tempData.tempData as IBannerModel).isFull ? 'isFull' : ''}`}
+        className="banner_box"
         style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
@@ -72,13 +72,15 @@ class Banner extends MasterTemplate<IBannerProps> {
     const { tempData } = this.props
 
     return (
-      <img
-        style={{ width: `${widthPercent || 100}%` }}
-        data-viewer={(tempData.tempData as IBannerModel).isFull ? '' : imageData.imageUrl}
-        src={imageData.imageUrl}
-        title={imageData.imageTitle}
-        alt={imageData.imageDesc}
-      ></img>
+      <div className={`img-box ${(tempData.tempData as IBannerModel).isFull ? 'isFull' : ''}`}>
+        <img
+          style={{ width: `${widthPercent || 100}%` }}
+          data-viewer={(tempData.tempData as IBannerModel).isFull ? '' : imageData.imageUrl}
+          src={imageData.imageUrl}
+          title={imageData.imageTitle}
+          alt={imageData.imageDesc}
+        ></img>
+      </div>
     )
   }
 }

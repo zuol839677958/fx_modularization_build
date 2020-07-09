@@ -22,7 +22,6 @@ interface ICorrelationSpecialState {
   topTitle: string
   addShow: boolean
   inputValue: string
-  hasSpecial: boolean
 }
 
 class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelationSpecialState> {
@@ -31,7 +30,6 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     topTitle: "列表编辑",
     addShow: false,
     inputValue: "",
-    hasSpecial: false
   }
 
   render() {
@@ -74,12 +72,12 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
             </div>
           </div>
         </div>
-        <div className="action_bar" style={{ display: this.state.hasSpecial ? "block" : "none" }}>
+        <div className="action_bar" style={{ display: (data?.tempData as ICorrelationSpecialModel[]).length > 0 ? "block" : "none" }}>
           <div className="action_head">
             <span>专栏编号</span><i>操作</i>
           </div>
           <ul>
-            {this.renderSpecailData(this.props.data?.tempData as ICorrelationSpecialModel[])}
+            {this.renderSpecailData(data?.tempData as ICorrelationSpecialModel[])}
           </ul>
         </div>
       </Fragment>
@@ -116,11 +114,6 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     const tempData = data.tempData as ICorrelationSpecialModel[]
     const newTemdata = tempData.filter(item => item.specailId !== specailId)
     data.tempData = newTemdata
-    if (data.tempData.length === 0) {
-      this.setState({
-        hasSpecial: false
-      })
-    }
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -137,7 +130,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     const { data, changeTempData, allTempData } = this.props
     if (inputVal.length < 0) return false
     const res = await getSpeicalData(inputVal)
-    this.setState({ addShow: false,inputValue: "" })
+    this.setState({ addShow: false, inputValue: "" })
     if (!res) { return message.warning("请重新输入专题编号") }
     //判断是否为已发布专题，未发布提示 
     if (res.Status !== 1) {
@@ -150,9 +143,6 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     })
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
-    this.setState({
-      hasSpecial: true
-    })
   }
 
   //点击显示新增条目
