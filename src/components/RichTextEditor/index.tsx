@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import ReactQuill from 'react-quill'
+import ReactQuill, { Quill } from 'react-quill'
 import { Modal } from 'antd'
 import 'react-quill/dist/quill.snow.css'
 
 import './index.less'
+
+const fontSizeStyle = Quill.import('attributors/style/size')
+fontSizeStyle.whitelist = ['10px', '12px', '14px', '16px', '20px', '24px', '36px', '48px']
+Quill.register(fontSizeStyle, true)
 
 interface IRichTextEditorProps {
   modalVisible: boolean
@@ -35,6 +39,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
   render() {
     const { modalVisible, richTextContent, handleModalVisible } = this.props
     const { content } = this.state
+    this.renderEditorTitle()
 
     return (
       <Modal
@@ -59,6 +64,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
             toolbar: [
               ['underline', 'strike'],
               [{ color: [] }, { background: [] }],
+              [{ size: fontSizeStyle.whitelist }],
               [{ align: [] }],
               ['clean'],
               ['link']
@@ -70,6 +76,21 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
         />
       </Modal>
     )
+  }
+
+  renderEditorTitle() {
+    document.querySelector('.ql-underline')?.setAttribute('title', '下划线')
+    document.querySelector('.ql-strike')?.setAttribute('title', '中划线')
+    document.querySelector('.ql-color')?.setAttribute('title', '字体颜色')
+    document.querySelector('.ql-background')?.setAttribute('title', '字体背景色')
+    document.querySelector('.ql-size')?.setAttribute('title', '字体大小')
+    document.querySelector('.ql-align')?.setAttribute('title', '字体对齐方式')
+    document.querySelectorAll('.ql-align .ql-picker-item')[0]?.setAttribute('title', '居左对齐')
+    document.querySelectorAll('.ql-align .ql-picker-item')[1]?.setAttribute('title', '居中对齐')
+    document.querySelectorAll('.ql-align .ql-picker-item')[2]?.setAttribute('title', '居右对齐')
+    document.querySelectorAll('.ql-align .ql-picker-item')[3]?.setAttribute('title', '两端对齐')
+    document.querySelector('.ql-clean')?.setAttribute('title', '清除样式')
+    document.querySelector('.ql-link')?.setAttribute('title', '超链接')
   }
 }
 
