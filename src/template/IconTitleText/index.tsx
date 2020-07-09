@@ -70,7 +70,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
               <div className="list-left">
                 {tempData.hasIcon ? <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} /> : null}
                 <span className="heading"
-                  style={{ color: tempData.titleFontColor, background: this.initTitleBackground(tempData.background) }}
+                  style={{ color: tempData.titleFontColor, padding: this.initTitlePadding(tempData.background), background: this.initTitleBackground(tempData.background) }}
                 >{tempData.title}</span>
               </div>
               <div className="list-right">
@@ -95,6 +95,10 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       default:
         return ''
     }
+  }
+
+  initTitlePadding(backgroundSet?: IBackgroundSetModel) {
+    if (backgroundSet?.bgType === BackgroundSetType.NoneColor) return '0px'
   }
 }
 

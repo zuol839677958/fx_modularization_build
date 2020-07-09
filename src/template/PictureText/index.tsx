@@ -112,7 +112,7 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
         {filterList.map(tempData => (
           <Fragment key={tempData.sort}>
             <h5
-              style={{ color: tempData.titleFontColor, background: this.initTitleBackground(tempData.background) }}
+              style={{ color: tempData.titleFontColor, padding: this.initTitlePadding(tempData.background), background: this.initTitleBackground(tempData.background) }}
             >{tempData.title}</h5>
             <section
               style={{ color: tempData.textFontColor }}
@@ -136,6 +136,10 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
       default:
         return ''
     }
+  }
+
+  initTitlePadding(backgroundSet?: IBackgroundSetModel) {
+    if (backgroundSet?.bgType === BackgroundSetType.NoneColor) return '0px'
   }
 }
 
