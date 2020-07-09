@@ -34,6 +34,8 @@ class FontColorSet extends Component<IFontColorSetProps, IFontColorSetState> {
       <Modal
         title='设置字体颜色'
         visible={modalVisible}
+        centered={true}
+        getContainer={false}
         destroyOnClose
         okText='确定'
         cancelText='取消'
