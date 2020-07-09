@@ -19,19 +19,26 @@
 
         .special_list {
             float: left;
-            width: 25%;
+            width: 288px;
             margin-bottom:14px;
+            margin-right:10px;
+            &:hover {
+                .box-shadow(-1px;3px;20px;#ddd);
+                transform: scale(1.01);
+                .opacity(.8);
+            }
             .special_top {
                 img {
-                    width: 220px;
-                    height: 146px;
+                    width: 288px;
+                    height: 192px;
                     vertical-align: top;
                 }
             }
 
             .special_bottom {
-                width: 220px;
+                width: 288px;
                 background: #fff;
+                font-size: 12px;
                 padding: 10px;
                 .box-sizing();
                 color: @F_C4;
