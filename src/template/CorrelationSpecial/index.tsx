@@ -73,7 +73,9 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
                     <img src={item.imageUrl} alt="" />
                   </div>
                   <div className="special_bottom">
-                    {item.title}
+                    <span>
+                      {item.title}
+                    </span>
                   </div>
                 </a>
               </div>

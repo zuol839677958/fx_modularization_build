@@ -36,14 +36,25 @@
             }
 
             .special_bottom {
+                
+                height: 56px;
+                min-height:56px;
                 width: 288px;
                 background: #fff;
                 font-size: 12px;
                 padding: 10px;
                 .box-sizing();
                 color: @F_C4;
-                min-height:56px;
+                span{
+                    display: block;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    display:-webkit-box; 
+                    -webkit-box-orient:vertical;
+                    -webkit-line-clamp:2; 
+                }
             }
+            
         }
     }
 }
