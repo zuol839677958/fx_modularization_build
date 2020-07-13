@@ -129,6 +129,8 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     let inputVal = this.state.inputValue
     const { data, changeTempData, allTempData } = this.props
     if (inputVal.length < 0) return false
+    if ((data.tempData as ICorrelationSpecialModel[]).some(item => item.specailId === Number(inputVal)))
+      return message.warning("已存在此专题，请勿重复添加")
     const res = await getSpeicalData(inputVal)
     this.setState({ addShow: false, inputValue: "" })
     if (!res) { return message.warning("请重新输入专题编号") }
