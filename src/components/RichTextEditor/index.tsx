@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactQuill, { Quill } from 'react-quill'
-import { Modal } from 'antd'
+import { Modal, message } from 'antd'
 import 'react-quill/dist/quill.snow.css'
 
 import './index.less'
@@ -26,10 +26,10 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
   }
 
   handleOk = () => {
-    let { saveContent } = this.props
+    const { saveContent, richTextContent } = this.props
     const { content } = this.state
     this.setState({ content: '' })
-    saveContent!(content)
+    saveContent!(content || richTextContent)
   }
 
   handleEditorContentChange = (content: string) => {
