@@ -54,7 +54,9 @@ class Banner extends MasterTemplate<IBannerProps> {
         }}
       >
         {this.renderMask(maskParams)}
-        {this.renderBannerTemplate(tempData.tempData as IBannerModel)}
+        <div className={`banner-container ${(tempData.tempData as IBannerModel).isFull ? 'isFull' : ''}`}>
+          {this.renderBannerTemplate(tempData.tempData as IBannerModel)}
+        </div>
       </div>
     )
   }
@@ -63,24 +65,33 @@ class Banner extends MasterTemplate<IBannerProps> {
     switch (tempData.bannerType) {
       case BannerType.SingleImage:
         return this.renderSingleImage(tempData.imageData, tempData.widthPercent)
+      case BannerType.Swiper:
+        return this.renderSwiper()
+      case BannerType.Video:
       default:
         return <Fragment></Fragment>
     }
   }
 
+  // 渲染单图Banner
   renderSingleImage(imageData: IBannerImageModel, widthPercent?: number): JSX.Element {
     const { tempData } = this.props
 
     return (
-      <div className={`img-box ${(tempData.tempData as IBannerModel).isFull ? 'isFull' : ''}`}>
-        <img
-          style={{ width: `${widthPercent || 100}%` }}
-          data-viewer={(tempData.tempData as IBannerModel).isFull ? '' : imageData.imageUrl}
-          src={imageData.imageUrl}
-          title={imageData.imageTitle}
-          alt={imageData.imageDesc}
-        ></img>
-      </div>
+      <img
+        style={{ width: `${widthPercent || 100}%` }}
+        data-viewer={(tempData.tempData as IBannerModel).isFull ? '' : imageData.imageUrl}
+        src={imageData.imageUrl}
+        title={imageData.imageTitle}
+        alt={imageData.imageDesc}
+      ></img>
+    )
+  }
+
+  // 渲染轮播图Banner
+  renderSwiper() {
+    return (
+      <div></div>
     )
   }
 }

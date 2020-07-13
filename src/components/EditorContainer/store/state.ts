@@ -43,6 +43,7 @@ const editorContainerState: ITemplateModel[] = [
     type: TemplateType.Share,
     sort: 2,
     isShow: true,
+    spacing: 20,
     tempData: {
       isTW: false,
       labelFontColor: '#fff',
@@ -54,6 +55,7 @@ const editorContainerState: ITemplateModel[] = [
     type: TemplateType.IconTitleText,
     sort: 3,
     isShow: true,
+    spacing: 20,
     tempData: [
       {
         iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
@@ -101,6 +103,7 @@ const editorContainerState: ITemplateModel[] = [
     type: TemplateType.Plaintext,
     sort: 4,
     isShow: true,
+    spacing: 20,
     tempData: {
       textHtml: 'Mahasagara，汇聊号“521667”，总盈利率排名第49，获胜率高达93.91%擅长做波段和中线1年时间。 内将资金翻仓6倍，因眼光精准、下手果决而闻名。',
       fontColor: '#fff'
@@ -111,6 +114,7 @@ const editorContainerState: ITemplateModel[] = [
     type: TemplateType.LeftPictureRightText,
     sort: 5,
     isShow: true,
+    spacing: 50,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
       spacingPercent: 2,
@@ -147,6 +151,7 @@ const editorContainerState: ITemplateModel[] = [
     type: TemplateType.LeftTextRightPicture,
     sort: 6,
     isShow: true,
+    spacing: 50,
     tempData: {
       picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
       spacingPercent: 2,
@@ -183,6 +188,7 @@ const editorContainerState: ITemplateModel[] = [
     type: TemplateType.CorrelationSpecial,
     sort: 7,
     isShow: true,
+    spacing: 20,
     tempData: [
       {
         specailId: 2222,
