@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactQuill, { Quill } from 'react-quill'
-import { Modal, message } from 'antd'
+import { Modal } from 'antd'
 import 'react-quill/dist/quill.snow.css'
 
 import './index.less'
