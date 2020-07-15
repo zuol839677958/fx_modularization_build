@@ -4,7 +4,7 @@ export enum EnvTpye {
   Product // 正式环境
 }
 
-let env: EnvTpye = 1
+let env: EnvTpye = 4
 
 const getEnvRequestUrl = () => {
   checkDomain()
@@ -32,8 +32,8 @@ const getSepecialLinkUrl = () => {
 
 const checkDomain = () => {
   const domain = window.location.origin
-  if (domain.indexOf('spadminspreolv2.wbp5.com') > -1) env = EnvTpye.Pre
-  else if (domain.indexOf('spadminsdcdn.wbp5.com') > -1) env = EnvTpye.Product
+  if (domain.indexOf('spadminspre') > -1) env = EnvTpye.Pre
+  else if (domain.indexOf('spadminsdcdn') > -1) env = EnvTpye.Product
   else env = EnvTpye.Test
 }
 
