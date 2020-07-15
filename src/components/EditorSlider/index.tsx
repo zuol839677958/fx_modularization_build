@@ -1,0 +1,73 @@
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { IPageState, ITemplateModel } from '../../store/data'
+import { TemplateType } from '../EditorContainer/store/state'
+
+import './index.less'
+
+//模板
+import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
+import EditorPlaintext from './Plaintext'//编辑纯文本
+import PictureText from './PictureText'
+import Banner from "./Banner"
+import Share from "./Share"
+import CorrelationSpecial from "./CorrelationSpecial"
+
+interface IEditorBoxProps {
+  isShowEditorSlider?: boolean;
+  title?: string;
+  allTempData?: ITemplateModel[]
+  currentTemplateId?: string;
+}
+
+class EditorBox extends Component<IEditorBoxProps> {
+  render() {
+    const { isShowEditorSlider, currentTemplateId, allTempData } = this.props
+    if (!currentTemplateId) return null
+    const currentTempData = allTempData!.filter(item => item.id === currentTemplateId)[0] as ITemplateModel
+
+    return (
+      <div className="slider-content" style={{ display: isShowEditorSlider ? 'block' : 'none' }}>
+        {this.renderSliderBox(currentTempData)}
+      </div>
+    )
+  }
+
+  renderSliderBox(currentTempData: ITemplateModel): JSX.Element {
+    return (
+      <Fragment>
+        {
+          this.switchEditorModel(currentTempData)
+        }
+      </Fragment>
+    )
+  }
+
+  switchEditorModel(currentTempData: ITemplateModel) {
+    switch (currentTempData.type) {
+      case TemplateType.Banner:
+        return <Banner data={currentTempData as ITemplateModel} />
+      case TemplateType.Share:
+        return <Share data={currentTempData as ITemplateModel} />
+      case TemplateType.IconTitleText:
+        return <EditorIconTitleText data={currentTempData as ITemplateModel} />
+      case TemplateType.Plaintext:
+        return <EditorPlaintext data={currentTempData as ITemplateModel} />
+      case TemplateType.LeftPictureRightText:
+      case TemplateType.LeftTextRightPicture:
+        return <PictureText data={currentTempData as ITemplateModel} />
+      case TemplateType.CorrelationSpecial:
+        return <CorrelationSpecial data={currentTempData as ITemplateModel} />
+      default:
+        return <Fragment></Fragment>
+    }
+  }
+}
+
+const mapStateToProps = (state: IPageState, ownProps: IEditorBoxProps) => ({
+  currentTemplateId: state.editorContainerReducer.activeTempId,
+  allTempData: state.editorContainerReducer.allTempData,
+  isShowEditorSlider: state.editorSliderReducer.isShow
+})
+
+export default connect(mapStateToProps)(EditorBox)

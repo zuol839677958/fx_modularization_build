@@ -1,0 +1,59 @@
+@import (reference) "../../styles/common/PublicDefind.less";
+
+.correlationSpecial_box {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+
+    .head-tip {
+        .h5();
+        color: #fff;
+        width: @DefindWidth;
+        margin: 0px auto 10px;
+    }
+
+    .special_list_box {
+        .both();
+        width: @DefindWidth;
+        margin: 0 auto;
+
+        .special_list {
+            float: left;
+            width: 288px;
+            margin-bottom:14px;
+            margin-right:10px;
+            &:hover {
+                .box-shadow(-1px;3px;20px;#ddd);
+                transform: scale(1.01);
+                .opacity(.8);
+            }
+            .special_top {
+                img {
+                    width: 288px;
+                    height: 192px;
+                    vertical-align: top;
+                }
+            }
+
+            .special_bottom {
+                height: 56px;
+                min-height:56px;
+                width: 288px;
+                background: #fff;
+                font-size: 12px;
+                padding: 10px;
+                .box-sizing();
+                color: @F_C4;
+                span{
+                    display: block;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    display:-webkit-box; 
+                    -webkit-box-orient:vertical;
+                    -webkit-line-clamp:2; 
+                }
+            }
+            
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+  "short_name": "通用专题模块化",
+  "name": "通用专题模块化编辑",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
