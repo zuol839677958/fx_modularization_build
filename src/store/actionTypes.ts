@@ -1,0 +1,2 @@
+export const ADD_COUNT = 'ADD_COUNT'
+export const CLOSE_EDITOR_BOX ="CLOSE_EDITOR_BOX"

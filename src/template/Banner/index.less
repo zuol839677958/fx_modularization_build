@@ -1,0 +1,23 @@
+@import (reference) "../../styles/common/PublicDefind.less";
+
+.banner_box {
+  position: relative;
+  text-align: center;
+
+  .banner-container {
+    width: @DefindWidth;
+    margin: 0 auto;
+    text-align: center;
+
+    &.isFull {
+      width: 100%;
+    }
+
+    &>img {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      vertical-align: top;
+    }
+  }
+}

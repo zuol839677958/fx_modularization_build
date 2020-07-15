@@ -1,0 +1,91 @@
+@import (reference) "../../styles/common/PublicDefind.less";
+
+.share_box {
+  position: relative;
+  padding: 20px 0;
+
+  .share_content {
+    width: @DefindWidth;
+    margin: 0 auto;
+
+    .mainland_share {
+      .share {
+        display: inline-block;
+        font-size: 12px;
+        color: #929292;
+        line-height: 30px;
+        height: 30px;
+
+        em {
+          vertical-align: middle;
+          color: #fff;
+        }
+
+        .bg_i {
+          background: url(https://www.fx110.com/Images/1.0.0/BaiLen/down.png) no-repeat;
+          display: inline-block;
+          vertical-align: middle;
+          width: 22px;
+          height: 22px;
+          cursor: pointer;
+          margin: -2px 0 0 5px;
+          /*.transition(background-position-y,.5s);*/
+        }
+
+        .weixin {
+          background-position: -47px -24px;
+        }
+
+        .weibo {
+          background-position: -47px -120px;
+        }
+
+        .qzone {
+          background-position: -47px -72px;
+        }
+      }
+    }
+
+    .tw_share {
+      .share {
+        display: inline-block;
+        font-size: 12px;
+        color: #929292;
+        line-height: 30px;
+        height: 30px;
+
+        em {
+          vertical-align: middle;
+          color: #fff;
+        }
+
+        .bg_i {
+          background: url(https://imgs.wbp5.com/api/secrecymaster/html_up/2019/4/20190408193655605.png) no-repeat;
+          display: inline-block;
+          vertical-align: middle;
+          width: 22px;
+          height: 22px;
+          cursor: pointer;
+          margin: -2px 0 0 5px;
+          /*.transition(background-position-y,.5s);*/
+        }
+
+        .line {
+          background-position: -13px -1px;
+        }
+
+        .facebook {
+          background-position: -59px -1px;
+        }
+
+        .twitter {
+          background-position: -102px -1px;
+        }
+      }
+    }
+  }
+}
+
+#QRcode {
+  box-sizing: content-box !important;
+}
