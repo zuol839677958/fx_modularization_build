@@ -32,9 +32,9 @@ const getSepecialLinkUrl = () => {
 
 const checkDomain = () => {
   const domain = window.location.origin
-  if (domain.indexOf('spadminspre') > -1) env = EnvTpye.Pre
+  if (domain.indexOf('localhost') > -1 || domain.indexOf('spadminstest') > -1) env = EnvTpye.Test
+  else if (domain.indexOf('spadminspre') > -1) env = EnvTpye.Pre
   else if (domain.indexOf('spadminsdcdn') > -1) env = EnvTpye.Product
-  else if (domain.indexOf('localhost') > -1 || domain.indexOf('spadminstest') > -1) env = EnvTpye.Test
 }
 
 export {
