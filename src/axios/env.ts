@@ -4,9 +4,10 @@ export enum EnvTpye {
   Product // 正式环境
 }
 
-const env: EnvTpye = 1
+let env: EnvTpye = 1
 
 const getEnvRequestUrl = () => {
+  checkDomain()
   switch (env) {
     case EnvTpye.Test:
       return 'https://testmswebapi.tostar.top'
@@ -18,6 +19,7 @@ const getEnvRequestUrl = () => {
 }
 
 const getSepecialLinkUrl = () => {
+  checkDomain()
   switch (env) {
     case EnvTpye.Test:
       return 'https://wwwtestolv4.tostar.top/special/'
@@ -26,6 +28,13 @@ const getSepecialLinkUrl = () => {
     case EnvTpye.Product:
       return 'https://www.fx110.com/special/'
   }
+}
+
+const checkDomain = () => {
+  const domain = window.location.origin
+  if (domain.indexOf('spadminspreolv2.wbp5.com')) env = EnvTpye.Pre
+  else if (domain.indexOf('spadminsdcdn.wbp5.com')) env = EnvTpye.Product
+  else env = EnvTpye.Test
 }
 
 export {
