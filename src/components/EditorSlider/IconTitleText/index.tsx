@@ -74,7 +74,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={(value:number) => this.changeTempSpacing(value)}
             />
           </Row>
           <div className="item-Manage">

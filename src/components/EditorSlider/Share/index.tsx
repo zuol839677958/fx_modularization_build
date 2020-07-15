@@ -35,7 +35,7 @@ class EditorShare extends Component<IEditorShareProps, IEditorShareState> {
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={(value:number) => this.changeTempSpacing(value)}
             />
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>

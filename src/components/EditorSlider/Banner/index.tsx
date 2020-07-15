@@ -49,7 +49,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
               min={0}
               max={200}
               value={data.spacing || 0}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={(value: number) => this.changeTempSpacing(value as number)}
             />
           </Row>
           <Radio.Group
@@ -79,7 +79,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
               min={1}
               max={100}
               value={(data.tempData as IBannerModel).widthPercent || 100}
-              onChange={value => this.changeBannerWidth(value as number)}
+              onChange={(value: number) => this.changeBannerWidth(value as number)}
             />
           </Row>
         </div>
