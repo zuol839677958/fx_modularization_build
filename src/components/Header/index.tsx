@@ -14,6 +14,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import './index.less'
 
 interface IHeaderProps extends RouteComponentProps {
+  isMobile?: boolean
   pageData?: IPageModel
   backgroundSetData?: IBackgroundSetModel
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
