@@ -4,7 +4,7 @@ export enum EnvTpye {
   Product // 正式环境
 }
 
-const env: EnvTpye = 1
+const env: EnvTpye = 2
 
 const getEnvRequestUrl = () => {
   switch (env) {
