@@ -29,7 +29,6 @@ class Banner extends MasterTemplate<IBannerProps> {
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
       activeTempId,
-      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       changeEditorSliderShow,

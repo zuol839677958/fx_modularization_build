@@ -10,11 +10,11 @@ import './MasterTemplate.less'
 
 export interface IMasterTemplateProps {
   activeTempId: string
-  tempData: ITemplateModel
-  allTempData: ITemplateModel[]
+  tempData: ITemplateModel<any>
+  allTempData: ITemplateModel<any>[]
   changeActiveTempId: (activeTempId: string) => void
   changeEditorSliderShow: (isShow: boolean) => void
-  changeTempData: (allTempData: ITemplateModel[]) => void
+  changeTempData: (allTempData: ITemplateModel<any>[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
   changeAddTemplateSliderShow: (isShow: boolean) => void
   changeEditorSliderTab: (tabTypeIndex: number) => void
@@ -29,12 +29,11 @@ export interface IMasterTemplateState {
 export interface IRenderMaskParams {
   tempId: string
   activeTempId: string
-  tempSort: number
   tempBackground?: IBackgroundSetModel
-  allTempData: ITemplateModel[]
+  allTempData: ITemplateModel<any>[]
   changeActiveTempId: (activeTempId: string) => void
   changeEditorSliderShow: (isShow: boolean) => void
-  changeTempData: (allTempData: ITemplateModel[]) => void
+  changeTempData: (allTempData: ITemplateModel<any>[]) => void
   setTempBackground: (backgroundSet: IBackgroundSetModel) => void
   changeAddTemplateSliderShow: (isShow: boolean) => void
   changeEditorSliderTab: (tabTypeIndex: number) => void
@@ -50,7 +49,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     const { isShowMask } = this.state
 
     if (isShowMask || params.tempId === params.activeTempId) {
-      const tempIndex = _.findIndex(params.allTempData, item => item.sort === params.tempSort)
+      const tempIndex = _.findIndex(params.allTempData, item => item.id === params.tempId)
 
       return (
         <div className="mask-box">
@@ -110,13 +109,15 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
 
   // 向上移动模块
   moveUpTemplate(params: IRenderMaskParams, tempIndex: number) {
-    zIndexUp(params.allTempData, tempIndex)
+    const activeTempId = zIndexUp(params.allTempData, tempIndex, true)
+    if (activeTempId) params.changeActiveTempId(activeTempId)
     return params.allTempData
   }
 
   // 向下移动模块
   moveDownTemplate(params: IRenderMaskParams, tempIndex: number) {
-    zIndexDown(params.allTempData, tempIndex, params.allTempData.length)
+    const activeTempId = zIndexDown(params.allTempData, tempIndex, params.allTempData.length, true)
+    if (activeTempId) params.changeActiveTempId(activeTempId)
     return params.allTempData
   }
 

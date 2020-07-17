@@ -16,7 +16,7 @@ import CorrelationSpecial from "./CorrelationSpecial"
 interface IEditorBoxProps {
   isShowEditorSlider?: boolean;
   title?: string;
-  allTempData?: ITemplateModel[]
+  allTempData?: ITemplateModel<any>[]
   currentTemplateId?: string;
 }
 
@@ -24,7 +24,7 @@ class EditorBox extends Component<IEditorBoxProps> {
   render() {
     const { isShowEditorSlider, currentTemplateId, allTempData } = this.props
     if (!currentTemplateId) return null
-    const currentTempData = allTempData!.filter(item => item.id === currentTemplateId)[0] as ITemplateModel
+    const currentTempData = allTempData!.filter(item => item.id === currentTemplateId)[0] as ITemplateModel<any>
 
     return (
       <div className="slider-content" style={{ display: isShowEditorSlider ? 'block' : 'none' }}>
@@ -33,7 +33,7 @@ class EditorBox extends Component<IEditorBoxProps> {
     )
   }
 
-  renderSliderBox(currentTempData: ITemplateModel): JSX.Element {
+  renderSliderBox(currentTempData: ITemplateModel<any>): JSX.Element {
     return (
       <Fragment>
         {
@@ -43,21 +43,21 @@ class EditorBox extends Component<IEditorBoxProps> {
     )
   }
 
-  switchEditorModel(currentTempData: ITemplateModel) {
+  switchEditorModel(currentTempData: ITemplateModel<any>) {
     switch (currentTempData.type) {
       case TemplateType.Banner:
-        return <Banner data={currentTempData as ITemplateModel} />
+        return <Banner data={currentTempData} />
       case TemplateType.Share:
-        return <Share data={currentTempData as ITemplateModel} />
+        return <Share data={currentTempData} />
       case TemplateType.IconTitleText:
-        return <EditorIconTitleText data={currentTempData as ITemplateModel} />
+        return <EditorIconTitleText data={currentTempData} />
       case TemplateType.Plaintext:
-        return <EditorPlaintext data={currentTempData as ITemplateModel} />
+        return <EditorPlaintext data={currentTempData} />
       case TemplateType.LeftPictureRightText:
       case TemplateType.LeftTextRightPicture:
-        return <PictureText data={currentTempData as ITemplateModel} />
+        return <PictureText data={currentTempData} />
       case TemplateType.CorrelationSpecial:
-        return <CorrelationSpecial data={currentTempData as ITemplateModel} />
+        return <CorrelationSpecial data={currentTempData} />
       default:
         return <Fragment></Fragment>
     }

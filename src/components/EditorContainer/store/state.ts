@@ -24,11 +24,10 @@ export enum SharePositionType {
   Right
 }
 
-const editorContainerState: ITemplateModel[] = [
+const editorContainerState: ITemplateModel<any>[] = [
   {
     id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
     type: TemplateType.Banner,
-    sort: 1,
     isShow: true,
     tempData: {
       bannerType: BannerType.SingleImage,
@@ -41,7 +40,6 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
     type: TemplateType.Share,
-    sort: 2,
     isShow: true,
     spacing: 20,
     tempData: {
@@ -53,7 +51,6 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now()}`,
     type: TemplateType.IconTitleText,
-    sort: 3,
     isShow: true,
     spacing: 20,
     tempData: [
@@ -67,8 +64,7 @@ const editorContainerState: ITemplateModel[] = [
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 1
+        isShow: true
       },
       {
         iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
@@ -80,8 +76,7 @@ const editorContainerState: ITemplateModel[] = [
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 2
+        isShow: true
       },
       {
         iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
@@ -93,15 +88,13 @@ const editorContainerState: ITemplateModel[] = [
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 3
+        isShow: true
       }
     ]
   },
   {
     id: `${TemplateType[TemplateType.Plaintext]}_${Date.now()}`,
     type: TemplateType.Plaintext,
-    sort: 4,
     isShow: true,
     spacing: 20,
     tempData: {
@@ -112,7 +105,6 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.LeftPictureRightText]}_${Date.now()}`,
     type: TemplateType.LeftPictureRightText,
-    sort: 5,
     isShow: true,
     spacing: 50,
     tempData: {
@@ -128,8 +120,7 @@ const editorContainerState: ITemplateModel[] = [
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
-          isShow: true,
-          sort: 1
+          isShow: true
         },
         {
           title: '从事背景',
@@ -140,8 +131,7 @@ const editorContainerState: ITemplateModel[] = [
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
-          isShow: true,
-          sort: 2
+          isShow: true
         }
       ]
     }
@@ -149,7 +139,6 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.LeftTextRightPicture]}_${Date.now()}`,
     type: TemplateType.LeftTextRightPicture,
-    sort: 6,
     isShow: true,
     spacing: 50,
     tempData: {
@@ -165,8 +154,7 @@ const editorContainerState: ITemplateModel[] = [
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
-          isShow: true,
-          sort: 1
+          isShow: true
         },
         {
           title: '他初入市场的亏损经历？',
@@ -177,8 +165,7 @@ const editorContainerState: ITemplateModel[] = [
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
-          isShow: true,
-          sort: 2
+          isShow: true
         }
       ]
     }
@@ -186,7 +173,6 @@ const editorContainerState: ITemplateModel[] = [
   {
     id: `${TemplateType[TemplateType.CorrelationSpecial]}_${Date.now()}`,
     type: TemplateType.CorrelationSpecial,
-    sort: 7,
     isShow: true,
     spacing: 20,
     tempData: [

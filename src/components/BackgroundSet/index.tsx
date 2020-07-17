@@ -15,7 +15,7 @@ interface IBackgroundSetProps {
   pageData?: IPageModel
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changePageBackground?: (background: IBackgroundSetModel) => void
-  changeTempData?: (tempData: ITemplateModel[]) => void
+  changeTempData?: (tempData: ITemplateModel<any>[]) => void
 }
 
 interface IBackgroundSetState {
@@ -141,7 +141,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changePageBackground(background: IBackgroundSetModel) {
     dispatch(changePageBackground(background))
   },
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   }
 })

@@ -26,13 +26,13 @@ import './index.less'
 
 interface IEditorContainerProps extends RouteComponentProps {
   activeTempId?: string
-  allTempData?: ITemplateModel[]
+  allTempData?: ITemplateModel<any>[]
   isShowSlider?: boolean
   isShowAddTemplate?: boolean
   generalPageBackground?: IBackgroundSetModel
   changeEditorSliderShow?: (isShow: boolean) => void
   changeActiveTempId?: (activeTempId: string) => void
-  changeTempData?: (tempData: ITemplateModel[]) => void
+  changeTempData?: (tempData: ITemplateModel<any>[]) => void
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changePageData?: (pageData: IPageModel) => void
   changeAddTemplateSliderShow?: (isShow: boolean) => void
@@ -64,7 +64,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
               </div>
               :
               <div id="generalPage" className="page-wrap" style={this.initGeneralPageBackground()}>
-                {this.renderAllTemplate(allTempData as ITemplateModel[])}
+                {this.renderAllTemplate(allTempData as ITemplateModel<any>[])}
               </div>
           }
         </div>
@@ -111,7 +111,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
     }
   }
 
-  renderAllTemplate(allTempData: ITemplateModel[]): JSX.Element {
+  renderAllTemplate(allTempData: ITemplateModel<any>[]): JSX.Element {
     if (allTempData.length === 0) return <Fragment></Fragment>
     const {
       history,
@@ -124,7 +124,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
       changeAddTemplateSliderShow,
       changeEditorSliderTab
     } = this.props
-    const filterAllTempData = getIsShowList(allTempData) as ITemplateModel[]
+    const filterAllTempData = getIsShowList(allTempData) as ITemplateModel<any>[]
     return (
       <Fragment>
         {
@@ -135,7 +135,7 @@ class EditorContainer extends Component<IEditorContainerProps, IEditorContainerS
               allTempData: filterAllTempData,
               changeActiveTempId: (activeTempId: string) => changeActiveTempId!(activeTempId),
               changeEditorSliderShow: (isShow: boolean) => this.changeEditorSliderShow(isShow),
-              changeTempData: (tempData: ITemplateModel[]) => changeTempData!(tempData),
+              changeTempData: (tempData: ITemplateModel<any>[]) => changeTempData!(tempData),
               setTempBackground: (backgroundSet: IBackgroundSetModel) => changeBackgroundSetData!(backgroundSet),
               changeAddTemplateSliderShow: (isShow: boolean) => changeAddTemplateSliderShow!(isShow),
               changeEditorSliderTab: (tabTypeIndex: number) => changeEditorSliderTab!(tabTypeIndex)
@@ -203,7 +203,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeActiveTempId(activeTempId: string) {
     dispatch(changeActiveTempId(activeTempId))
   },
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   },
   changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {

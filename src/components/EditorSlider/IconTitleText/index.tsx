@@ -18,10 +18,10 @@ import './index.less'
 
 interface IEditorIconTitleTextProps {
   isShow?: boolean
-  data: ITemplateModel
-  allTempData?: ITemplateModel[]
+  data: ITemplateModel<IIconTitleTextModel[]>
+  allTempData?: ITemplateModel<any>[]
   tabTypeIndex?: number
-  changeTempData?: (tempData: ITemplateModel[]) => void
+  changeTempData?: (tempData: ITemplateModel<any>[]) => void
   changeTabTypeIndex?: (tabTypeIndex: number) => void
 }
 
@@ -29,6 +29,7 @@ interface IEditorIconTitleTextState {
   sort: number
   topTitle: string
   title: string
+  editItemIndex?: number
   editItemData?: IIconTitleTextModel
   currentFontColor: string
   fontColorSelectModalVisible: boolean
@@ -92,7 +93,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
             <Button type="primary" shape="round"
               style={{ marginTop: '50px', width: 200 }}
               onClick={() => this.addTemplateItem()}
-              disabled={(data.tempData as IIconTitleTextModel[]).length >= 6}
+              disabled={data.tempData.length >= 6}
             >加一栏</Button>
           </Row>
         </div>
@@ -175,8 +176,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 切换图标显示隐藏
   changeIconIsShow(hasIcon: boolean) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextIconIsShow(hasIcon, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex } = this.state
+    updateIconTitleTextIconIsShow(hasIcon, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -184,8 +185,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改标题背景类型
   changeTitleBgType(titleBgType: BackgroundSetType) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitleBgType(titleBgType, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleBgType(titleBgType, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -212,8 +213,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改图标链接
   changeIconUrl(iconUrl: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextIconUrl(iconUrl, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex, editItemData } = this.state
+    updateIconTitleTextIconUrl(iconUrl, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({ editItemData })
@@ -222,8 +223,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改标题文本
   changeItemTitle(title: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitle(title, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex, editItemData } = this.state
+    updateIconTitleTextItemTitle(title, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({ editItemData })
@@ -232,8 +233,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改文字内容文本
   changeItemText(text: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemText(text, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex, editItemData } = this.state
+    updateIconTitleTextItemText(text, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({ editItemData })
@@ -249,11 +250,12 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 进入条目修改详情页
-  inToDetails = (draggableData: IDraggableData) => {
+  inToDetails = (draggableData: IDraggableData, draggableIndex: number) => {
     const { changeTabTypeIndex } = this.props
     changeTabTypeIndex!(1)
     this.setState({
       topTitle: '修改详情页',
+      editItemIndex: draggableIndex,
       editItemData: draggableData as IIconTitleTextModel
     })
   }
@@ -261,8 +263,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 复制条目
   copyTemplateItem = (draggableData: IDraggableData, draggableIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    if ((data.tempData as IIconTitleTextModel[]).length >= 6) return message.warning('已超过条目最大限制！')
-    const tempData = deepClone(data.tempData as IIconTitleTextModel[])
+    if (data.tempData.length >= 6) return message.warning('已超过条目最大限制！')
+    const tempData = deepClone(data.tempData)
     insertItemToArray(tempData, draggableIndex, draggableData)
     data.tempData = tempData
     updateCurrentTempData(data, allTempData!)
@@ -270,18 +272,18 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 删除条目
-  deleteIconTitle = (sort: number) => {
+  deleteIconTitle = (draggableIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    if ((data.tempData as IIconTitleTextModel[]).length === 1) return message.warning('最后一条请勿删除')
-    data.tempData = deleteIconTitleTextItem(sort, data.tempData as IIconTitleTextModel[])
+    if (data.tempData.length === 1) return message.warning('最后一条请勿删除')
+    data.tempData = deleteIconTitleTextItem(draggableIndex, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 切换条目显示隐藏
-  changeChecked = (checkedState: boolean, sort: number) => {
+  changeChecked = (checkedState: boolean, draggableIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    updateIconTitleTextItemShow(checkedState, sort, data.tempData as IIconTitleTextModel[])
+    updateIconTitleTextItemShow(checkedState, draggableIndex, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -289,7 +291,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 切换条目排序
   changeItemSort = (dragItemStartIndex: number, dragItemEndIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    swapArray(data.tempData as IIconTitleTextModel[], dragItemStartIndex, dragItemEndIndex)
+    swapArray(data.tempData, dragItemStartIndex, dragItemEndIndex)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -311,15 +313,15 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改字体颜色
   handleChangeFontColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { fontColorChangeType, editItemData } = this.state
+    const { fontColorChangeType, editItemIndex } = this.state
     if (!fontColorChangeType) return
 
     switch (fontColorChangeType) {
       case FontColorChangeType.Titile:
-        updateIconTitleTextItemTitleFontColor(color, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+        updateIconTitleTextItemTitleFontColor(color, editItemIndex!, data.tempData)
         break
       case FontColorChangeType.Text:
-        updateIconTitleTextItemTextFontColor(color, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+        updateIconTitleTextItemTextFontColor(color, editItemIndex!, data.tempData)
         break
       default:
         break
@@ -332,8 +334,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改标题背景色
   changeTitleBackgroundColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitleBgColor(color, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleBgColor(color, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -341,8 +343,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 更改标题背景图
   changeTitleBackgroundImageUrl(bgImageUrl: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemData!.sort, data.tempData as IIconTitleTextModel[])
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -350,9 +352,8 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   // 添加条目
   addTemplateItem() {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IIconTitleTextModel[]
-    const copyItem = deepClone(tempData[0]) as IIconTitleTextModel
-    copyItem.sort = tempData.length + 1
+    const tempData = data.tempData
+    const copyItem = deepClone(tempData[0])
     tempData.push(copyItem)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -366,7 +367,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps)
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   },
   changeTabTypeIndex(tabTypeIndex: number) {

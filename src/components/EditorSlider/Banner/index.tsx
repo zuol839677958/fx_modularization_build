@@ -13,9 +13,9 @@ import AliyunOSSUpload from '../../AliyunOSSUpload'
 import "./index.less"
 
 interface IEditorBannerProps {
-  data: ITemplateModel
-  allTempData?: ITemplateModel[]
-  changeTempData?: (allTempData: ITemplateModel[]) => void
+  data: ITemplateModel<IBannerModel>
+  allTempData?: ITemplateModel<any>[]
+  changeTempData?: (allTempData: ITemplateModel<any>[]) => void
 }
 
 interface IEditorBannerState {
@@ -66,7 +66,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
           <Row style={{ flexDirection: 'column', marginBottom: 20 }}>
             <p>是否铺满</p>
             <Radio.Group
-              value={(data.tempData as IBannerModel).isFull}
+              value={data.tempData.isFull}
               onChange={e => { this.changeBannerIsFull(e.target.value) }}>
               <Radio value={true}>是</Radio>
               <Radio value={false}>否</Radio>
@@ -78,7 +78,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
               style={{ width: '100%' }}
               min={1}
               max={100}
-              value={(data.tempData as IBannerModel).widthPercent || 100}
+              value={data.tempData.widthPercent || 100}
               onChange={value => this.changeBannerWidth(value as number)}
             />
           </Row>
@@ -108,7 +108,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
     switch (bannerType) {
       case BannerType.SingleImage:
         return <AliyunOSSUpload
-          preImageUrl={(data!.tempData as IBannerModel).imageData.imageUrl}
+          preImageUrl={data!.tempData.imageData.imageUrl}
           handleUploadImageChange={imageUrl => this.changeBannerSingleImageUrl(imageUrl)}
         />
     }
@@ -117,7 +117,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
   // 更换Banner单图
   changeBannerSingleImageUrl(imageUrl: string) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IBannerModel
+    const tempData = data.tempData
     tempData.imageData.imageUrl = imageUrl
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -126,7 +126,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
   // 切换Banner是否铺满
   changeBannerIsFull(isFull: boolean) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IBannerModel
+    const tempData = data.tempData
     tempData.isFull = isFull
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -135,7 +135,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
   // 更改Banner宽度
   changeBannerWidth(widthPercent: number) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IBannerModel
+    const tempData = data.tempData
     tempData.widthPercent = widthPercent
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -147,7 +147,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorBannerProps) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   }
 })

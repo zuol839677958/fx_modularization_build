@@ -3,7 +3,7 @@ import { IPageModel, ITemplateModel, IBackgroundSetModel } from '../../../store/
 import { Action } from 'redux'
 
 interface IEditorContainerReducerAction extends Action {
-  allTempData: ITemplateModel[]
+  allTempData: ITemplateModel<any>[]
   activeTempId: string
   background: IBackgroundSetModel
   pageHtml: string

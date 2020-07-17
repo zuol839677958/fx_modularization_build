@@ -26,14 +26,13 @@ export interface IPageModel {
   background?: IBackgroundSetModel; // 整个网页的背景
 }
 
-export interface ITemplateModel {
+export interface ITemplateModel<T> {
   id: string; // 模板id
   type: number; // 模板类型
-  sort: number; // 模板排序
   isShow: boolean; // 模板是否显示
   spacing?: number; // 模板间距
   background?: IBackgroundSetModel; // 模板背景
-  tempData: IBannerModel | IIconTitleTextModel[] | IPictureTextModel | IPlaintextModel | ICorrelationSpecialModel[] | IShareModel; // 模板数据
+  tempData: T; // 模板数据
 }
 
 /* Banner模板 */
@@ -76,7 +75,6 @@ export interface IIconTitleTextModel {
   text: string; // 文字内容
   textFontColor?: string; // 文字字体颜色
   isShow: boolean; // 是否显示此项条目
-  sort: number;  // 条目排序
 }
 
 /* 图文模板 */
@@ -94,7 +92,6 @@ export interface ITitleTextModel {
   text: string; // 文字内容
   textFontColor?: string; // 文字字体颜色
   isShow: boolean; // 是否显示此项条目
-  sort: number; // 条目排序
 }
 
 /* 纯文字模板 */

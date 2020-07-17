@@ -30,7 +30,6 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
       activeTempId,
-      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       changeEditorSliderShow,
@@ -65,8 +64,8 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
     return (
       <Fragment>
         {
-          filterList.map(tempData => (
-            <div className="rightContent-list" key={tempData.sort}>
+          filterList.map((tempData, index) => (
+            <div className="rightContent-list" key={index}>
               <div className="list-left">
                 {tempData.hasIcon ? <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} /> : null}
                 <span className="heading"

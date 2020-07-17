@@ -13,9 +13,9 @@ import FontColorSet from '../../FontColorSet'
 import './index.less'
 
 interface IEditorPlaintextProps {
-  data: ITemplateModel
-  allTempData?: ITemplateModel[]
-  changeTempData?: (allTempData: ITemplateModel[]) => void
+  data: ITemplateModel<IPlaintextModel>
+  allTempData?: ITemplateModel<any>[]
+  changeTempData?: (allTempData: ITemplateModel<any>[]) => void
 }
 
 interface IEditorPlaintextState {
@@ -56,15 +56,15 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
                 onClick={() => this.handleRichTextEditorModalVisible(true)}
               >编辑内容</Button>
               <div className="fontColorSelect"
-                style={{ background: (data.tempData as IPlaintextModel).fontColor }}
-                onClick={() => this.initFontColorSelectModal((data.tempData as IPlaintextModel).fontColor!)}
+                style={{ background: data.tempData.fontColor }}
+                onClick={() => this.initFontColorSelectModal(data.tempData.fontColor!)}
               ></div>
             </div>
           </Row>
         </div>
         <RichTextEditor
           modalVisible={richTextEditorModalVisible}
-          richTextContent={(data.tempData as IPlaintextModel).textHtml}
+          richTextContent={data.tempData.textHtml}
           handleModalVisible={(flag: boolean) => this.handleRichTextEditorModalVisible(flag)}
           saveContent={(content: string) => this.saveRichTextContent(content)}
         />
@@ -100,7 +100,7 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
   // 改变字体颜色
   handleChangeFontColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IPlaintextModel
+    const tempData = data.tempData
     tempData.fontColor = color
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -115,7 +115,7 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
   // 保存富文本内容
   saveRichTextContent(content: string) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IPlaintextModel
+    const tempData = data.tempData
     tempData.textHtml = content
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -128,7 +128,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorPlaintextProps) => 
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   }
 })
