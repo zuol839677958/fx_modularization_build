@@ -12,10 +12,11 @@ export interface IDraggableData {
 
 interface IDraggableProps {
   data: IDraggableData[]
-  handleEditItem: (itemData: IDraggableData) => void
-  handleDeleteItem: (itemSort: number) => void
-  handleIsShowItem: (checked: boolean, itemSort: number) => void
-  handleDraggableItemChange: (dragItemStartIndex: number, dragItemEndIndex: number) => void
+  handleEditItem?: (itemData: IDraggableData) => void
+  handleCopyItem?: (itemData: IDraggableData, itemIndex: number) => void
+  handleDeleteItem?: (itemSort: number) => void
+  handleIsShowItem?: (checked: boolean, itemSort: number) => void
+  handleDraggableItemChange?: (dragItemStartIndex: number, dragItemEndIndex: number) => void
 }
 
 let dragItemStartIndex = 0
@@ -54,6 +55,7 @@ class Draggable extends Component<IDraggableProps> {
                 <span>{draggableData.title}</span>
                 <div className="right">
                   <i className="iconfont amend" onClick={() => this.handleEditItem(draggableData)}>&#xE00C;</i>
+                  <i className="iconfont copy" onClick={() => this.handleCopyItem(draggableData, index)}>&#xE022;</i>
                   <i className="iconfont recycle" onClick={() => this.handleDeleteItem(draggableData.sort)}>&#xE009;</i>
                 </div>
               </div>
@@ -67,17 +69,22 @@ class Draggable extends Component<IDraggableProps> {
 
   handleEditItem(itemData: IDraggableData) {
     const { handleEditItem } = this.props
-    handleEditItem(itemData)
+    handleEditItem!(itemData)
+  }
+
+  handleCopyItem(itemData: IDraggableData, itemIndex: number) {
+    const { handleCopyItem } = this.props
+    handleCopyItem!(itemData, itemIndex)
   }
 
   handleDeleteItem(itemSort: number) {
     const { handleDeleteItem } = this.props
-    handleDeleteItem(itemSort)
+    handleDeleteItem!(itemSort)
   }
 
   handleIsShowItem(checked: boolean, itemSort: number) {
     const { handleIsShowItem } = this.props
-    handleIsShowItem(checked, itemSort)
+    handleIsShowItem!(checked, itemSort)
   }
 
   handleDragOver(e: React.DragEvent<HTMLUListElement>) {
@@ -86,7 +93,7 @@ class Draggable extends Component<IDraggableProps> {
 
   handleDrop() {
     const { handleDraggableItemChange } = this.props
-    handleDraggableItemChange(dragItemStartIndex, dragItemEndIndex)
+    handleDraggableItemChange!(dragItemStartIndex, dragItemEndIndex)
   }
 }
 

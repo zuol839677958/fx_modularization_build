@@ -1,8 +1,8 @@
 import React, { Component, Fragment, CSSProperties } from 'react'
 import { Button, Modal } from 'antd'
-import { EditFilled, DeleteFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+import { EditFilled, DeleteFilled, CopyFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { ITemplateModel, IBackgroundSetModel } from '../store/data'
-import { zIndexDown, zIndexUp } from '../utils/utils'
+import { zIndexDown, zIndexUp, insertItemToArray, deepClone } from '../utils/utils'
 import _ from 'lodash'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
@@ -65,6 +65,13 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
                 params.changeEditorSliderTab(0)
               }}
             >编辑</Button>
+            <Button type="primary" shape="round" icon={<CopyFilled />}
+              style={{ marginRight: 10 }}
+              onClick={e => {
+                e.stopPropagation()
+                this.copyTemplate(params, tempIndex)
+              }}
+            >复制</Button>
             <Button type="primary" shape="round" danger icon={<DeleteFilled />}
               onClick={e => {
                 e.stopPropagation()
@@ -78,7 +85,6 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
                 e.stopPropagation()
                 this.setTempBackground(params)
               }}
-
             >背景</Button>
             <Button type="primary" shape="circle" icon={<ArrowUpOutlined />}
               style={{ marginRight: 10 }} disabled={tempIndex === 0}
@@ -102,16 +108,38 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     }
   }
 
+  // 向上移动模块
   moveUpTemplate(params: IRenderMaskParams, tempIndex: number) {
     zIndexUp(params.allTempData, tempIndex)
     return params.allTempData
   }
 
+  // 向下移动模块
   moveDownTemplate(params: IRenderMaskParams, tempIndex: number) {
     zIndexDown(params.allTempData, tempIndex, params.allTempData.length)
     return params.allTempData
   }
 
+  // 复制模块
+  copyTemplate(params: IRenderMaskParams, tempIndex: number) {
+    Modal.confirm({
+      title: '复制提示',
+      icon: <ExclamationCircleOutlined />,
+      centered: true,
+      content: '确定复制此模块吗？',
+      getContainer: false,
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => {
+        const copyTemp = deepClone(_.filter(params.allTempData, item => item.id === params.tempId)[0])
+        copyTemp.id = `${copyTemp.id.split('_')[0]}_${Date.now()}`
+        insertItemToArray(params.allTempData, tempIndex, copyTemp)
+        params.changeTempData(params.allTempData)
+      }
+    })
+  }
+
+  // 删除模块
   deleteTemplate(params: IRenderMaskParams) {
     Modal.confirm({
       title: '删除提示',
@@ -129,6 +157,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     })
   }
 
+  // 设置模块背景
   setTempBackground(params: IRenderMaskParams) {
     const backgroundSet: IBackgroundSetModel = {
       tempId: params.tempId,

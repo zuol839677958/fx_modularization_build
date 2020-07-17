@@ -2,7 +2,7 @@ import React, { Component, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow, insertItemToArray } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -82,11 +82,11 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
           </div>
           <Draggable
             data={data.tempData as IDraggableData[]}
-            handleEditItem={(itemData: IDraggableData) => this.inToDetails(itemData as IIconTitleTextModel)}
-            handleDeleteItem={(itemSort: number) => this.deleteIconTitle(itemSort)}
-            handleIsShowItem={(checked: boolean, itemSort: number) => this.changeChecked(checked, itemSort)}
-            handleDraggableItemChange={(dragItemStartIndex: number, dragItemEndIndex: number) =>
-              this.changeItemSort(dragItemStartIndex, dragItemEndIndex)}
+            handleCopyItem={this.copyTemplateItem}
+            handleEditItem={this.inToDetails}
+            handleDeleteItem={this.deleteIconTitle}
+            handleIsShowItem={this.changeChecked}
+            handleDraggableItemChange={this.changeItemSort}
           />
           <Row style={{ justifyContent: "center" }}>
             <Button type="primary" shape="round"
@@ -249,26 +249,37 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 进入条目修改详情页
-  inToDetails(editItemData: IIconTitleTextModel) {
+  inToDetails = (draggableData: IDraggableData) => {
     const { changeTabTypeIndex } = this.props
     changeTabTypeIndex!(1)
     this.setState({
       topTitle: '修改详情页',
-      editItemData
+      editItemData: draggableData as IIconTitleTextModel
     })
   }
 
+  // 复制条目
+  copyTemplateItem = (draggableData: IDraggableData, draggableIndex: number) => {
+    const { data, allTempData, changeTempData } = this.props
+    if ((data.tempData as IIconTitleTextModel[]).length >= 6) return message.warning('已超过条目最大限制！')
+    const tempData = deepClone(data.tempData as IIconTitleTextModel[])
+    insertItemToArray(tempData, draggableIndex, draggableData)
+    data.tempData = tempData
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
   // 删除条目
-  deleteIconTitle(sort: number) {
-    const { data, allTempData, changeTempData } = this.props;
-    if ((data.tempData as IIconTitleTextModel[]).length === 1) return message.warning('最后一条请勿删除');
+  deleteIconTitle = (sort: number) => {
+    const { data, allTempData, changeTempData } = this.props
+    if ((data.tempData as IIconTitleTextModel[]).length === 1) return message.warning('最后一条请勿删除')
     data.tempData = deleteIconTitleTextItem(sort, data.tempData as IIconTitleTextModel[])
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 切换条目显示隐藏
-  changeChecked(checkedState: boolean, sort: number) {
+  changeChecked = (checkedState: boolean, sort: number) => {
     const { data, allTempData, changeTempData } = this.props
     updateIconTitleTextItemShow(checkedState, sort, data.tempData as IIconTitleTextModel[])
     updateCurrentTempData(data, allTempData!)
@@ -276,7 +287,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 切换条目排序
-  changeItemSort(dragItemStartIndex: number, dragItemEndIndex: number) {
+  changeItemSort = (dragItemStartIndex: number, dragItemEndIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
     swapArray(data.tempData as IIconTitleTextModel[], dragItemStartIndex, dragItemEndIndex)
     updateCurrentTempData(data, allTempData!)

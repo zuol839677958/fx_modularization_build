@@ -61,10 +61,14 @@ const getIsShowList = (dataList: { isShow: boolean, sort: number, id?: string, t
 
 const getResetSortList = (dataList: { sort: number }[]) => {
   if (dataList.length === 0) return
-  const resetDataList = dataList.map((item, index) => (
+  dataList.forEach((item, index) => (
     item.sort = index + 1
   ))
-  return resetDataList
+}
+
+const insertItemToArray = (arr: any[], index: number, item: any) => {
+  arr.splice(index, 0, item)
+  getResetSortList(arr)
 }
 
 const updateIconTitleTextItemShow = (isShow: boolean, sort: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
@@ -222,6 +226,7 @@ export {
   zIndexBottom,
   getIsShowList,
   getResetSortList,
+  insertItemToArray,
   updateIconTitleTextItemShow,
   updateIconTitleTextIconIsShow,
   updateIconTitleTextIconUrl,
