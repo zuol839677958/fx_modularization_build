@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export type PageResponse<T> = {
   ExtraInfo?: any
   HasNextPage?: boolean
