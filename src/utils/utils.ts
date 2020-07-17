@@ -139,7 +139,8 @@ const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, itemIndex
 
 const deleteIconTitleTextItem = (itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
   const newTempData = deepClone(tempData) as IIconTitleTextModel[]
-  return newTempData.splice(itemIndex, 1)
+  newTempData.splice(itemIndex, 1)
+  return newTempData
 }
 
 const updateCurrentTempData = (currentTempData: ITemplateModel<any>, allTempData: ITemplateModel<any>[]) => {
