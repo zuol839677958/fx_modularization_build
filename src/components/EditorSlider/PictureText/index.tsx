@@ -86,7 +86,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
             <Slider
               style={{ width: '100%' }}
               min={1}
-              max={100}
+              max={50}
               value={data.tempData.spacingPercent}
               onChange={value => this.changePictureTextSpacing(value as number)}
             />
