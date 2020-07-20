@@ -1,12 +1,21 @@
 
 import { RouteProps } from 'react-router-dom'
+import { lazy } from 'react';
 
-import TemplateSelect from '../pages/TemplateSelect'
-import Home from '../pages/Home'
-import Preview from '../pages/Preview'
+
+
+const TemplateSelect = lazy(() => import(/* webpackChunkName: "TemplateSelect" */"../pages/TemplateSelect"))
+const Home = lazy(() => import(/* webpackChunkName: "Home" */"../pages/Home"))
+const Preview = lazy(() => import(/* webpackChunkName: "Preview" */"../pages/Preview"))
+
 
 
 const routers: RouteProps[] = [
+  {
+    path: '/',
+    exact: true,
+    component: TemplateSelect
+  },
   {
     path: '/temp/:specialId',
     exact: true,

@@ -151,7 +151,8 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
+
+         params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
         params.changeActiveTempId('')
         params.changeEditorSliderShow(false)
       }

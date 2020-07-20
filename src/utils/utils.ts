@@ -31,6 +31,17 @@ const swapArray = (
 //上移 将当前数组index索引与前面一个元素互换位置，向数组前面移动一位
 const zIndexUp = (arr: any[], index: number, hasType?: boolean) => {
   if (index !== 0) return swapArray(arr, index, index - 1, hasType)
+  // if (index <= 0) return;
+  // let thatIndex = index;
+
+  // while (thatIndex >= 0) {
+  //   --thatIndex;
+  //   if (thatIndex < 0 || arr[thatIndex].isShow) break;
+  // }
+
+  // thatIndex = Math.max(0,thatIndex);
+
+  // [arr[thatIndex], arr[index]] = [arr[index], arr[thatIndex]];
 }
 
 //下移 将当前数组index索引与后面一个元素互换位置，向数组后面移动一位
