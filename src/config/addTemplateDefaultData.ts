@@ -1,12 +1,11 @@
-import { ITemplateModel } from '../store/data'
+import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../store/data'
 import { BannerType, TemplateType, SharePositionType } from '../components/EditorContainer/store/state'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /* 新增Banner模板默认数据 */
-const bannerDefaultData: ITemplateModel = {
+const bannerDefaultData: ITemplateModel<IBannerModel> = {
   id: `${TemplateType[TemplateType.Banner]}`,
   type: TemplateType.Banner,
-  sort: Date.now(),
   isShow: true,
   tempData: {
     bannerType: BannerType.SingleImage,
@@ -18,10 +17,9 @@ const bannerDefaultData: ITemplateModel = {
 }
 
 /* 新增分享模板默认数据 */
-const shareDefaultData: ITemplateModel = {
+const shareDefaultData: ITemplateModel<IShareModel> = {
   id: `${TemplateType[TemplateType.Share]}`,
   type: TemplateType.Share,
-  sort: Date.now(),
   isShow: true,
   tempData: {
     isTW: false,
@@ -31,10 +29,9 @@ const shareDefaultData: ITemplateModel = {
 }
 
 /* 新增图标标题文字模板默认数据 */
-const iconTitleTextDefaultData: ITemplateModel = {
+const iconTitleTextDefaultData: ITemplateModel<IIconTitleTextModel[]> = {
   id: `${TemplateType[TemplateType.IconTitleText]}`,
   type: TemplateType.IconTitleText,
-  sort: Date.now(),
   isShow: true,
   tempData: [
     {
@@ -48,17 +45,15 @@ const iconTitleTextDefaultData: ITemplateModel = {
         bgType: BackgroundSetType.PureColor,
         bgColor: '#f0c9aa'
       },
-      isShow: true,
-      sort: 1
+      isShow: true
     }
   ]
 }
 
 /* 新增纯文字模板默认数据 */
-const plainTextDefaultData: ITemplateModel = {
+const plainTextDefaultData: ITemplateModel<IPlaintextModel> = {
   id: `${TemplateType[TemplateType.Plaintext]}`,
   type: TemplateType.Plaintext,
-  sort: Date.now(),
   isShow: true,
   tempData: {
     textHtml: '请输入文字',
@@ -67,10 +62,9 @@ const plainTextDefaultData: ITemplateModel = {
 }
 
 /* 新增左文右图模板默认数据 */
-const leftTextRightPictureDefaultData: ITemplateModel = {
+const leftTextRightPictureDefaultData: ITemplateModel<IPictureTextModel> = {
   id: `${TemplateType[TemplateType.LeftTextRightPicture]}`,
   type: TemplateType.LeftTextRightPicture,
-  sort: Date.now(),
   isShow: true,
   tempData: {
     picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
@@ -85,8 +79,7 @@ const leftTextRightPictureDefaultData: ITemplateModel = {
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 1
+        isShow: true
       },
       {
         title: '请输入标题',
@@ -97,18 +90,16 @@ const leftTextRightPictureDefaultData: ITemplateModel = {
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 2
+        isShow: true
       }
     ]
   }
 }
 
 /* 新增左图右文模板默认数据 */
-const leftPictureRightTextDefaultData: ITemplateModel = {
+const leftPictureRightTextDefaultData: ITemplateModel<IPictureTextModel> = {
   id: `${TemplateType[TemplateType.LeftPictureRightText]}`,
   type: TemplateType.LeftPictureRightText,
-  sort: Date.now(),
   isShow: true,
   tempData: {
     picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
@@ -123,8 +114,7 @@ const leftPictureRightTextDefaultData: ITemplateModel = {
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 1
+        isShow: true
       },
       {
         title: '请输入标题',
@@ -135,18 +125,16 @@ const leftPictureRightTextDefaultData: ITemplateModel = {
           bgType: BackgroundSetType.PureColor,
           bgColor: '#f0c9aa'
         },
-        isShow: true,
-        sort: 2
+        isShow: true
       }
     ]
   }
 }
 
-/* 新增纯文字模板默认数据 */
-const defaultSpecialData: ITemplateModel = {
+/* 新增相关专题模板默认数据 */
+const defaultSpecialData: ITemplateModel<ICorrelationSpecialModel[]> = {
   id: `${TemplateType[TemplateType.CorrelationSpecial]}`,
   type: TemplateType.CorrelationSpecial,
-  sort: Date.now(),
   isShow: true,
   tempData: []
 }

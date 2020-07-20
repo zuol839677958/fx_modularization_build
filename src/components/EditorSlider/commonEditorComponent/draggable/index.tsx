@@ -4,7 +4,6 @@ import { Checkbox } from 'antd'
 import './index.less'
 
 export interface IDraggableData {
-  sort: number
   title: string
   isShow: boolean
   [key: string]: any
@@ -12,10 +11,11 @@ export interface IDraggableData {
 
 interface IDraggableProps {
   data: IDraggableData[]
-  handleEditItem: (itemData: IDraggableData) => void
-  handleDeleteItem: (itemSort: number) => void
-  handleIsShowItem: (checked: boolean, itemSort: number) => void
-  handleDraggableItemChange: (dragItemStartIndex: number, dragItemEndIndex: number) => void
+  handleEditItem?: (itemData: IDraggableData, itemIndex: number) => void
+  handleCopyItem?: (itemData: IDraggableData, itemIndex: number) => void
+  handleDeleteItem?: (itemIndex: number) => void
+  handleIsShowItem?: (checked: boolean, itemIndex: number) => void
+  handleDraggableItemChange?: (dragItemStartIndex: number, dragItemEndIndex: number) => void
 }
 
 let dragItemStartIndex = 0
@@ -41,7 +41,7 @@ class Draggable extends Component<IDraggableProps> {
         onDragOver={(e) => this.handleDragOver(e)}>
         {
           draggableDataList.map((draggableData, index: number) => (
-            <li key={draggableData.sort} draggable={true}
+            <li key={index} draggable={true}
               onDragStart={() => {
                 dragItemStartIndex = index
               }}
@@ -53,11 +53,12 @@ class Draggable extends Component<IDraggableProps> {
                 <i className="iconfont">&#xE011;</i>
                 <span>{draggableData.title}</span>
                 <div className="right">
-                  <i className="iconfont amend" onClick={() => this.handleEditItem(draggableData)}>&#xE00C;</i>
-                  <i className="iconfont recycle" onClick={() => this.handleDeleteItem(draggableData.sort)}>&#xE009;</i>
+                  <i className="iconfont amend" onClick={() => this.handleEditItem(draggableData, index)}>&#xE00C;</i>
+                  <i className="iconfont copy" onClick={() => this.handleCopyItem(draggableData, index)}>&#xE022;</i>
+                  <i className="iconfont recycle" onClick={() => this.handleDeleteItem(index)}>&#xE009;</i>
                 </div>
               </div>
-              <Checkbox checked={draggableData.isShow} onChange={(e) => this.handleIsShowItem(e.target.checked, draggableData.sort)} />
+              <Checkbox checked={draggableData.isShow} onChange={(e) => this.handleIsShowItem(e.target.checked, index)} />
             </li>
           ))
         }
@@ -65,19 +66,24 @@ class Draggable extends Component<IDraggableProps> {
     )
   }
 
-  handleEditItem(itemData: IDraggableData) {
+  handleEditItem(itemData: IDraggableData, itemIndex: number) {
     const { handleEditItem } = this.props
-    handleEditItem(itemData)
+    handleEditItem!(itemData, itemIndex)
   }
 
-  handleDeleteItem(itemSort: number) {
+  handleCopyItem(itemData: IDraggableData, itemIndex: number) {
+    const { handleCopyItem } = this.props
+    handleCopyItem!(itemData, itemIndex)
+  }
+
+  handleDeleteItem(itemIndex: number) {
     const { handleDeleteItem } = this.props
-    handleDeleteItem(itemSort)
+    handleDeleteItem!(itemIndex)
   }
 
-  handleIsShowItem(checked: boolean, itemSort: number) {
+  handleIsShowItem(checked: boolean, itemIndex: number) {
     const { handleIsShowItem } = this.props
-    handleIsShowItem(checked, itemSort)
+    handleIsShowItem!(checked, itemIndex)
   }
 
   handleDragOver(e: React.DragEvent<HTMLUListElement>) {
@@ -86,7 +92,7 @@ class Draggable extends Component<IDraggableProps> {
 
   handleDrop() {
     const { handleDraggableItemChange } = this.props
-    handleDraggableItemChange(dragItemStartIndex, dragItemEndIndex)
+    handleDraggableItemChange!(dragItemStartIndex, dragItemEndIndex)
   }
 }
 

@@ -40,7 +40,6 @@ class Share extends MasterTemplate<IShareProps> {
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
       activeTempId,
-      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       changeEditorSliderShow,

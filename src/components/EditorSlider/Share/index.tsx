@@ -13,9 +13,9 @@ import TitleBack from '../commonEditorComponent/titleBack'
 import './index.less'
 
 interface IEditorShareProps {
-  data: ITemplateModel
-  allTempData?: ITemplateModel[]
-  changeTempData?: (allTempData: ITemplateModel[]) => void
+  data: ITemplateModel<IShareModel>
+  allTempData?: ITemplateModel<any>[]
+  changeTempData?: (allTempData: ITemplateModel<any>[]) => void
 }
 
 interface IEditorShareState { }
@@ -41,7 +41,7 @@ class EditorShare extends Component<IEditorShareProps, IEditorShareState> {
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>分享显示位置</p>
             <Radio.Group
-              value={(data.tempData as IShareModel).positionType}
+              value={data.tempData.positionType}
               onChange={e => this.changeTempPosition(e.target.value)}
             >
               <Radio value={SharePositionType.Left}>居左</Radio>
@@ -52,7 +52,7 @@ class EditorShare extends Component<IEditorShareProps, IEditorShareState> {
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>分享字体颜色</p>
             <SketchPicker
-              color={(data.tempData as IShareModel).labelFontColor}
+              color={data.tempData.labelFontColor}
               onChange={color => this.changeShareLabelFontColor(color.hex)}
             />
           </Row>
@@ -72,7 +72,7 @@ class EditorShare extends Component<IEditorShareProps, IEditorShareState> {
   // 切换分享显示位置
   changeTempPosition(postionType: SharePositionType) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IShareModel
+    const tempData = data.tempData
     tempData.positionType = postionType
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -81,7 +81,7 @@ class EditorShare extends Component<IEditorShareProps, IEditorShareState> {
   // 更改分享字体颜色
   changeShareLabelFontColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IShareModel
+    const tempData = data.tempData
     tempData.labelFontColor = color
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -93,7 +93,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorShareProps) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   }
 })

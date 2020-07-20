@@ -12,9 +12,9 @@ import TitleBack from '../commonEditorComponent/titleBack'
 import "./index.less"
 
 interface ICorrelationSpecialProps {
-  data: ITemplateModel
-  allTempData?: ITemplateModel[]
-  changeTempData?: (tempData: ITemplateModel[]) => void
+  data: ITemplateModel<ICorrelationSpecialModel[]>
+  allTempData?: ITemplateModel<any>[]
+  changeTempData?: (tempData: ITemplateModel<any>[]) => void
 }
 
 interface ICorrelationSpecialState {
@@ -72,12 +72,12 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
             </div>
           </div>
         </div>
-        <div className="action_bar" style={{ display: (data?.tempData as ICorrelationSpecialModel[]).length > 0 ? "block" : "none" }}>
+        <div className="action_bar" style={{ display: data?.tempData.length > 0 ? "block" : "none" }}>
           <div className="action_head">
             <span>专栏编号</span><i>操作</i>
           </div>
           <ul>
-            {this.renderSpecailData(data?.tempData as ICorrelationSpecialModel[])}
+            {this.renderSpecailData(data?.tempData)}
           </ul>
         </div>
       </Fragment>
@@ -111,7 +111,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
   //删除专题
   deleteSpecialTemp(specailId: number) {
     const { data, changeTempData, allTempData } = this.props
-    const tempData = data.tempData as ICorrelationSpecialModel[]
+    const tempData = data.tempData
     const newTemdata = tempData.filter(item => item.specailId !== specailId)
     data.tempData = newTemdata
     updateCurrentTempData(data, allTempData!)
@@ -129,7 +129,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
     let inputVal = this.state.inputValue
     const { data, changeTempData, allTempData } = this.props
     if (inputVal.length < 0) return false
-    if ((data.tempData as ICorrelationSpecialModel[]).some(item => item.specailId === Number(inputVal)))
+    if (data.tempData.some(item => item.specailId === Number(inputVal)))
       return message.warning("已存在此专题，请勿重复添加")
     const res = await getSpeicalData(inputVal)
     this.setState({ addShow: false, inputValue: "" })
@@ -163,7 +163,7 @@ const mapStateToProps = (state: IPageState, ownProps: ICorrelationSpecialProps) 
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   }
 })

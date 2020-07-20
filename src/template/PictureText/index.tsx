@@ -33,7 +33,6 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
       activeTempId,
-      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       changeEditorSliderShow,
@@ -109,8 +108,8 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     const filterList = getIsShowList(tempDataList) as ITitleTextModel[]
     return (
       <Fragment>
-        {filterList.map(tempData => (
-          <Fragment key={tempData.sort}>
+        {filterList.map((tempData, index) => (
+          <Fragment key={index}>
             <h5
               style={{ color: tempData.titleFontColor, padding: this.initTitlePadding(tempData.background), background: this.initTitleBackground(tempData.background) }}
             >{tempData.title}</h5>

@@ -3,14 +3,14 @@ import { IPageState, ITemplateModel, IPictureTextModel, ITitleTextModel } from '
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
-import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl, insertItemToArray } from '../../../utils/utils'
 import { message, Input, Row, Button, Radio, Slider } from 'antd'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
 import { changeEditorSliderTab } from '../store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
-import Draggable from '../commonEditorComponent/draggable'
+import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import RichTextEditor from '../../RichTextEditor'
 import FontColorSet from '../../FontColorSet'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
@@ -18,15 +18,16 @@ import AliyunOSSUpload from '../../AliyunOSSUpload'
 import './index.less'
 
 interface IEditorPictureTextProps {
-  data: ITemplateModel
-  allTempData?: ITemplateModel[]
+  data: ITemplateModel<IPictureTextModel>
+  allTempData?: ITemplateModel<any>[]
   tabTypeIndex?: number
-  changeTempData?: (allTempData: ITemplateModel[]) => void
+  changeTempData?: (allTempData: ITemplateModel<any>[]) => void
   changeTabTypeIndex?: (tabTypeIndex: number) => void
 }
 
 interface IEditorPictureTextState {
   tabTitle: string
+  editItemIndex?: number
   editItemData?: ITitleTextModel
   richTextEditorModalVisible: boolean
   currentFontColor: string
@@ -77,7 +78,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           </Row>
           <p>更换图片</p>
           <AliyunOSSUpload
-            preImageUrl={(data.tempData as IPictureTextModel).picUrl}
+            preImageUrl={data.tempData.picUrl}
             handleUploadImageChange={imageUrl => this.changePictureUrl(imageUrl)}
           />
           <p>图文间距(%)</p>
@@ -86,24 +87,24 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
               style={{ width: '100%' }}
               min={1}
               max={100}
-              value={(data.tempData as IPictureTextModel).spacingPercent}
+              value={data.tempData.spacingPercent}
               onChange={value => this.changePictureTextSpacing(value as number)}
             />
           </div>
           <p>条目管理</p>
           <Draggable
-            data={(data.tempData as IPictureTextModel).titleTextList}
-            handleEditItem={(itemData) => this.initEditDetails(itemData as ITitleTextModel)}
-            handleDeleteItem={(itemSort) => this.deleteTxtListItem(itemSort)}
-            handleIsShowItem={(checked, itemSort) => this.checkedTxtListItem(checked, itemSort)}
-            handleDraggableItemChange={(dragItemStartIndex, dragItemEndIndex) =>
-              this.changeTxtListItemSort(dragItemStartIndex, dragItemEndIndex)}
+            data={data.tempData.titleTextList}
+            handleCopyItem={this.copyTemplateItem}
+            handleEditItem={this.initEditDetails}
+            handleDeleteItem={this.deleteTxtListItem}
+            handleIsShowItem={this.checkedTxtListItem}
+            handleDraggableItemChange={this.changeTxtListItemSort}
           />
           <Row style={{ justifyContent: "center" }}>
             <Button type="primary" shape="round"
               style={{ marginTop: '50px', width: 200 }}
               onClick={() => this.addTemplateItem()}
-              disabled={(data.tempData as IPictureTextModel).titleTextList.length >= 6}
+              disabled={data.tempData.titleTextList.length >= 6}
             >加一栏</Button>
           </Row>
         </div>
@@ -149,15 +150,15 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
           <RichTextEditor
             modalVisible={richTextEditorModalVisible}
             richTextContent={editItemData?.text as string}
-            handleModalVisible={(flag) => this.handleRichTextEditorModalVisible(flag)}
-            saveContent={(content) => this.changeItemText(content)}
+            handleModalVisible={this.handleRichTextEditorModalVisible}
+            saveContent={this.changeItemText}
           />
         </div>
         <FontColorSet
           modalVisible={fontColorSelectModalVisible}
           fontColor={currentFontColor}
-          handleModalVisible={flag => this.handleFontColorSelectModalVisible(flag)}
-          handleChangeFontColor={color => this.handleChangeFontColor(color)}
+          handleModalVisible={this.handleFontColorSelectModalVisible}
+          handleChangeFontColor={this.handleChangeFontColor}
         />
       </Fragment>
     )
@@ -193,22 +194,22 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   // 更改标题文本
   changeItemTitle(title: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitle(title, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitle(title, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 处理富文本编辑弹窗显示隐藏
-  handleRichTextEditorModalVisible(richTextEditorModalVisible: boolean) {
+  handleRichTextEditorModalVisible = (richTextEditorModalVisible: boolean) => {
     this.setState({ richTextEditorModalVisible })
   }
 
   // 更改文字内容文本
-  changeItemText(text: string) {
+  changeItemText = (text: string) => {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemText(text, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemText(text, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.handleRichTextEditorModalVisible(false)
@@ -217,7 +218,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   // 更换图片
   changePictureUrl(picUrl: string) {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IPictureTextModel
+    const tempData = data.tempData
     tempData.picUrl = picUrl
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -227,7 +228,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   changePictureTextSpacing(spacing: number) {
     if (!Number(spacing)) return
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IPictureTextModel
+    const tempData = data.tempData
     tempData.spacingPercent = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -243,37 +244,49 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   }
 
   // 进入条目编辑详情页
-  initEditDetails(itemData: ITitleTextModel) {
+  initEditDetails = (draggableData: IDraggableData, draggableIndex: number) => {
     const { changeTabTypeIndex } = this.props
     changeTabTypeIndex!(1)
     this.setState({
       tabTitle: '修改详情页',
-      editItemData: itemData
+      editItemIndex: draggableIndex,
+      editItemData: draggableData as ITitleTextModel
     })
   }
 
-  // 删除条目
-  deleteTxtListItem(itemSort: number) {
+  // 复制条目
+  copyTemplateItem = (draggableData: IDraggableData, draggableIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    const tempData = data.tempData as IPictureTextModel
+    if (data.tempData.titleTextList.length >= 6) return message.warning('已超过条目最大限制！')
+    const tempData = deepClone(data.tempData)
+    insertItemToArray(tempData.titleTextList, draggableIndex, draggableData)
+    data.tempData = tempData
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 删除条目
+  deleteTxtListItem = (draggableIndex: number) => {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData
     if (tempData.titleTextList.length === 1) return message.warning('最后一条请勿删除')
-    tempData.titleTextList = deleteIconTitleTextItem(itemSort, tempData.titleTextList)
+    tempData.titleTextList = deleteIconTitleTextItem(draggableIndex, tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 切换条目显示隐藏
-  checkedTxtListItem(checked: boolean, itemSort: number) {
+  checkedTxtListItem = (checked: boolean, draggableIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    updateIconTitleTextItemShow(checked, itemSort, (data.tempData as IPictureTextModel).titleTextList)
+    updateIconTitleTextItemShow(checked, draggableIndex, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 更改条目排序
-  changeTxtListItemSort(dragItemStartIndex: number, dragItemEndIndex: number) {
+  changeTxtListItemSort = (dragItemStartIndex: number, dragItemEndIndex: number) => {
     const { data, allTempData, changeTempData } = this.props
-    swapArray((data.tempData as IPictureTextModel).titleTextList, dragItemStartIndex, dragItemEndIndex)
+    swapArray(data.tempData.titleTextList, dragItemStartIndex, dragItemEndIndex)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -288,22 +301,22 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   }
 
   // 处理颜色选择弹窗显示隐藏
-  handleFontColorSelectModalVisible(fontColorSelectModalVisible: boolean) {
+  handleFontColorSelectModalVisible = (fontColorSelectModalVisible: boolean) => {
     this.setState({ fontColorSelectModalVisible })
   }
 
   // 更改字体颜色
-  handleChangeFontColor(color: string) {
+  handleChangeFontColor = (color: string) => {
     const { data, allTempData, changeTempData } = this.props
-    const { fontColorChangeType, editItemData } = this.state
+    const { fontColorChangeType, editItemIndex } = this.state
     if (!fontColorChangeType) return
 
     switch (fontColorChangeType) {
       case FontColorChangeType.Titile:
-        updateIconTitleTextItemTitleFontColor(color, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+        updateIconTitleTextItemTitleFontColor(color, editItemIndex!, data.tempData.titleTextList)
         break
       case FontColorChangeType.Text:
-        updateIconTitleTextItemTextFontColor(color, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+        updateIconTitleTextItemTextFontColor(color, editItemIndex!, data.tempData.titleTextList)
         break
       default:
         break
@@ -316,8 +329,8 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   // 更改标题背景类型
   changeTitleBgType(titleBgType: BackgroundSetType) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitleBgType(titleBgType, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleBgType(titleBgType, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -325,8 +338,8 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   // 更改标题背景色
   changeTitleBackgroundColor(color: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitleBgColor(color, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleBgColor(color, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -334,8 +347,8 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   // 更改标题背景图
   changeTitleBackgroundImageUrl(bgImageUrl: string) {
     const { data, allTempData, changeTempData } = this.props
-    const { editItemData } = this.state
-    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemData!.sort, (data.tempData as IPictureTextModel).titleTextList)
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -343,9 +356,8 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   // 添加条目
   addTemplateItem() {
     const { data, allTempData, changeTempData } = this.props
-    const { titleTextList } = (data.tempData as IPictureTextModel)
-    const copyItem = deepClone(titleTextList[0]) as ITitleTextModel
-    copyItem.sort = titleTextList.length + 1
+    const { titleTextList } = data.tempData
+    const copyItem = deepClone(titleTextList[0])
     titleTextList.push(copyItem)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
@@ -358,7 +370,7 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorPictureTextProps) =
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeTempData(allTempData: ITemplateModel[]) {
+  changeTempData(allTempData: ITemplateModel<any>[]) {
     dispatch(changeTempData(allTempData))
   },
   changeTabTypeIndex(tabTypeIndex: number) {

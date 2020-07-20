@@ -16,9 +16,9 @@ import './index.less'
 
 interface IAddTemplateProps {
   isShow?: boolean
-  allTempData?: ITemplateModel[]
-  defaultTemplateList?: ITemplateModel[]
-  changeTempData?: (tempData: ITemplateModel[]) => void
+  allTempData?: ITemplateModel<any>[]
+  defaultTemplateList?: ITemplateModel<any>[]
+  changeTempData?: (tempData: ITemplateModel<any>[]) => void
   changeAddTemplateSliderShow?: (isShow: boolean) => void
 }
 
@@ -84,12 +84,11 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       cancelText: '取消',
       onOk: async () => {
         const { allTempData, changeTempData } = this.props
-        const currentTempData = deepClone(defaultTemplateList.filter(item => item.type === type)[0] as ITemplateModel)
+        const currentTempData = deepClone(defaultTemplateList.filter(item => item.type === type)[0]) as ITemplateModel<any>
         currentTempData.id = `${currentTempData.id}_${Date.now()}`
-        currentTempData.sort = Date.now()
         allTempData!.push(currentTempData)
         await changeTempData!(allTempData!)
-        window.scrollTo(0, document.getElementsByTagName("body")[0].scrollHeight);
+        window.scrollTo(0, document.getElementsByTagName("body")[0].scrollHeight)
       }
     })
   }
@@ -145,7 +144,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeAddTemplateSliderShow(isShow: boolean) {
     dispatch(changeAddTemplateSliderShow(isShow))
   },
-  async changeTempData(allTempData: ITemplateModel[]) {
+  async changeTempData(allTempData: ITemplateModel<any>[]) {
     await dispatch(changeTempData(allTempData))
   },
 })

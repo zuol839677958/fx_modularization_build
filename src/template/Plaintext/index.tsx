@@ -28,7 +28,6 @@ class Plaintext extends MasterTemplate<IPlaintextProps> {
     const maskParams: IRenderMaskParams = {
       tempId: tempData.id,
       activeTempId,
-      tempSort: tempData.sort,
       allTempData,
       changeActiveTempId,
       changeEditorSliderShow,
