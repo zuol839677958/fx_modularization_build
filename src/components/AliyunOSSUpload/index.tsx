@@ -53,9 +53,9 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
   }
 
   handleBeforeUpload = (file: RcFile) => {
-    const isLt2M = file.size / 1024 / 1024 < 2
+    const isLt2M = file.size / 1024 / 1024 < 0.3
     if (!isLt2M) {
-      message.warning('上传的图片必须小于2MB！');
+      message.warning('上传的图片必须小于300KB！');
     }
     return isLt2M
   }
