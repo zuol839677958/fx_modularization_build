@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, PureComponent } from 'react'
 import { Pagination, message } from 'antd'
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom'
 import { getTemplateList } from '../../axios/api'
@@ -10,7 +10,7 @@ interface ITemplateSelectState {
   templateList: PageResponse<TemplateResponseModel>
 }
 
-class TemplateSelect extends Component<RouteComponentProps, ITemplateSelectState> {
+class TemplateSelect extends PureComponent<RouteComponentProps, ITemplateSelectState> {
   state: ITemplateSelectState = {
     templateList: {}
   }
