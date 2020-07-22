@@ -72,7 +72,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={(value:number) => this.changeTempSpacing(value)}
             />
           </Row>
           <p>更换图片</p>
@@ -87,7 +87,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
               min={1}
               max={100}
               value={(data.tempData as IPictureTextModel).spacingPercent}
-              onChange={value => this.changePictureTextSpacing(value as number)}
+              onChange={(value:number) => this.changePictureTextSpacing(value)}
             />
           </div>
           <p>条目管理</p>
