@@ -60,7 +60,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
               >保存为模板</Button>
               : null
           }
-          <Button type="link" style={{ marginLeft: 20 }}>帮助说明</Button>
+          <Button type="link" style={{ marginLeft: 20 }}><a href="https://docs.qq.com/doc/DRmtBV21udnJMT0h1" target="_blank" rel="noopener noreferrer">帮助说明</a></Button>
         </div>
       </div>
     )
