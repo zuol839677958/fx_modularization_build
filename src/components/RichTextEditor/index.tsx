@@ -65,7 +65,7 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
               ['bold', 'underline', 'strike'],
               [{ color: [] }, { background: [] }],
               [{ size: fontSizeStyle.whitelist }],
-              [{ align: [] }],
+              [{ align: [] }, { indent: '-1' }, { indent: '+1' }],
               ['clean'],
               ['link', 'image']
             ],
