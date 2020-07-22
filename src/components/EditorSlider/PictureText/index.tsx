@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { IPageState, ITemplateModel, IPictureTextModel, ITitleTextModel } from '../../../store/data'
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -40,7 +40,7 @@ enum FontColorChangeType {
   Text
 }
 
-class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictureTextState> {
+class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPictureTextState> {
   state: IEditorPictureTextState = {
     tabTitle: '图文模板编辑',
     richTextEditorModalVisible: false,

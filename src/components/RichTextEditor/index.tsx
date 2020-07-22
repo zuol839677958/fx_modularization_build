@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import BraftEditor, { EditorState } from 'braft-editor'
 import { Modal } from 'antd'
 
@@ -16,7 +16,7 @@ interface IRichTextEditorState {
   content: string
 }
 
-class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorState> {
+class RichTextEditor extends PureComponent<IRichTextEditorProps, IRichTextEditorState> {
   state: IRichTextEditorState = {
     content: BraftEditor.createEditorState('')
   }

@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, IBannerModel, IBannerVideoModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
@@ -23,7 +23,7 @@ interface IEditorBannerState {
   topTitle: string
 }
 
-class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
+class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
   state: IEditorBannerState = {
     typeIndex: 0,
     topTitle: "Banner模板编辑"

@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
@@ -41,7 +41,7 @@ enum FontColorChangeType {
   Text
 }
 
-class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
+class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
   state: IEditorIconTitleTextState = {
     sort: 1,
     topTitle: "图标标题文字模板编辑",

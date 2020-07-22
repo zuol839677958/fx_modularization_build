@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Upload, message } from 'antd'
 import { UploadProps, RcFile, UploadChangeParam } from 'antd/lib/upload'
@@ -17,7 +17,7 @@ interface IAliyunOSSUploadState {
   loading: boolean
 }
 
-class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadState> {
+class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUploadState> {
   state: IAliyunOSSUploadState = {
     imageUrl: '',
     loading: false

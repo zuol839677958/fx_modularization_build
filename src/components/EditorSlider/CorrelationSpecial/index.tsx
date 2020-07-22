@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { updateCurrentTempData } from '../../../utils/utils';
@@ -24,7 +24,7 @@ interface ICorrelationSpecialState {
   inputValue: string
 }
 
-class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelationSpecialState> {
+class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrelationSpecialState> {
   state: ICorrelationSpecialState = {
     typeIndex: 0,
     topTitle: "列表编辑",

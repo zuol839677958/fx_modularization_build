@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { IPlaintextModel, IPageState, ITemplateModel } from '../../../store/data'
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -24,7 +24,7 @@ interface IEditorPlaintextState {
   fontColorSelectModalVisible: boolean
 }
 
-class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextState> {
+class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaintextState> {
   state: IEditorPlaintextState = {
     richTextEditorModalVisible: false,
     currentFontColor: '',

@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { IPageModel } from '../../store/data'
+import { message } from 'antd'
 
 import './index.less'
-import { message } from 'antd'
 
 interface IPreviewProps {
   pageHtml: string
 }
 
-class Preview extends Component<IPreviewProps> {
+class Preview extends PureComponent<IPreviewProps> {
   componentDidMount() {
     const ele: Element = document.querySelector(".share_box")!
     if (!ele) return

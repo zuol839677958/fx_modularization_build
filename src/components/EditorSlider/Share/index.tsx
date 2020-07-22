@@ -1,4 +1,4 @@
-import React, { Component, Dispatch, Fragment } from 'react'
+import React, { PureComponent, Dispatch, Fragment } from 'react'
 import { ITemplateModel, IPageState, IShareModel } from '../../../store/data'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { Action } from 'redux'
@@ -20,7 +20,7 @@ interface IEditorShareProps {
 
 interface IEditorShareState { }
 
-class EditorShare extends Component<IEditorShareProps, IEditorShareState> {
+class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
   render() {
     const { data } = this.props
 
