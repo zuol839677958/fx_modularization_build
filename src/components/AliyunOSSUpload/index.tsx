@@ -34,7 +34,7 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
     )
     const uploadProps: UploadProps = {
       listType: 'picture-card',
-      accept: accept || 'image/png,image/jpeg',
+      accept: accept || 'image/png,image/jpeg,image/gif',
       showUploadList: !!isUploadMultiple,
       beforeUpload: file => this.handleBeforeUpload(file),
       onChange: info => this.handleUploadChange(info),
@@ -53,9 +53,9 @@ class AliyunOSSUpload extends Component<IAliyunOSSUploadProps, IAliyunOSSUploadS
   }
 
   handleBeforeUpload = (file: RcFile) => {
-    const isLt2M = file.size / 1024 / 1024 < 0.3
+    const isLt2M = file.size / 1024 / 1024 < 0.5
     if (!isLt2M) {
-      message.warning('上传的图片必须小于300KB！');
+      message.warning('上传的图片必须小于500KB！');
     }
     return isLt2M
   }
