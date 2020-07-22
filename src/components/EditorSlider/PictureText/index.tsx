@@ -113,7 +113,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
             <p>修改标题</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入标题" value={editItemData?.title}
-                onChange={(e) => this.changeItemTitle(e.target.value)}
+                onChange={e => this.changeItemTitle(e.target.value)}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.titleFontColor }}
@@ -126,7 +126,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
             <div style={{ marginBottom: 10 }}>
               <Radio.Group
                 value={editItemData?.background?.bgType}
-                onChange={(e) => this.changeTitleBgType(e.target.value)}
+                onChange={e => this.changeTitleBgType(e.target.value)}
               >
                 <Radio value={BackgroundSetType.NoneColor}>无</Radio>
                 <Radio value={BackgroundSetType.PureColor}>纯色</Radio>

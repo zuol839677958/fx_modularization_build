@@ -1,9 +1,9 @@
 import React, { Component, Fragment, Dispatch } from 'react'
-import { IPageState, ITemplateModel, IBannerModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IBannerVideoModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import TitleBack from '../commonEditorComponent/titleBack'
-import { Radio, Row, Slider } from 'antd'
+import { Radio, Row, Slider, Input } from 'antd'
 import { BannerType } from '../../EditorContainer/store/state'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { updateCurrentTempData } from '../../../utils/utils'
@@ -21,19 +21,17 @@ interface IEditorBannerProps {
 interface IEditorBannerState {
   typeIndex: number
   topTitle: string
-  bannerType: BannerType
 }
 
 class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
   state: IEditorBannerState = {
     typeIndex: 0,
-    topTitle: "Banner模板编辑",
-    bannerType: BannerType.SingleImage
+    topTitle: "Banner模板编辑"
   }
 
   render() {
     const { data } = this.props
-    const { typeIndex, topTitle, bannerType } = this.state
+    const { typeIndex, topTitle } = this.state
 
     return (
       <Fragment>
@@ -53,12 +51,12 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
             />
           </Row>
           <Radio.Group
-            value={bannerType}
-            onChange={e => { this.changeBannerType(e.target.value) }}
+            value={data.tempData.bannerType}
+            onChange={e => this.changeBannerType(e.target.value)}
           >
             <Radio value={BannerType.SingleImage}>图片</Radio>
-            {/* <Radio value={BannerType.Swiper}>轮播</Radio>
-            <Radio value={BannerType.Video}>视频</Radio> */}
+            {/* <Radio value={BannerType.Swiper}>轮播</Radio> */}
+            <Radio value={BannerType.Video}>视频</Radio>
           </Radio.Group>
           <div className="action-box">
             {this.renderBannerTypeItem()}
@@ -97,25 +95,51 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
 
   // 切换Banner模板类型
   changeBannerType(e: number) {
-    this.setState({ bannerType: e })
+    const { data, allTempData, changeTempData } = this.props
+    data.tempData.bannerType = e
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 加载Banner模板编辑子项
   renderBannerTypeItem() {
     const { data } = this.props
-    const { bannerType } = this.state
 
-    switch (bannerType) {
+    switch (data.tempData.bannerType) {
       case BannerType.SingleImage:
         return <AliyunOSSUpload
           preImageUrl={data!.tempData.imageData.imageUrl}
           handleUploadImageChange={imageUrl => this.changeBannerSingleImageUrl(imageUrl)}
         />
+      case BannerType.Video:
+        return this.renderVedioEditor(data.tempData.videoData)
     }
   }
 
+  // 渲染视频编辑项
+  renderVedioEditor(videoData?: IBannerVideoModel) {
+    return (
+      <Fragment>
+        <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+          <p>视频封面</p>
+          <AliyunOSSUpload
+            preImageUrl={videoData?.poster}
+            handleUploadImageChange={this.changeVideoPoster}
+          />
+        </Row>
+        <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+          <p>视频链接地址</p>
+          <Input placeholder="请输入视频链接地址"
+            value={videoData?.videoSrc}
+            onChange={e => this.changeVideoSrc(e.target.value)}
+          />
+        </Row>
+      </Fragment>
+    )
+  }
+
   // 更换Banner单图
-  changeBannerSingleImageUrl(imageUrl: string) {
+  changeBannerSingleImageUrl = (imageUrl: string) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.imageData.imageUrl = imageUrl
@@ -137,6 +161,33 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.widthPercent = widthPercent
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 更改视频封面
+  changeVideoPoster = (poster: string) => {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData
+    if (tempData.videoData) tempData.videoData!.poster = poster
+    else tempData.videoData = {
+      poster,
+      videoSrc: ''
+    }
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+
+  // 更改视频链接地址
+  changeVideoSrc(videoSrc: string) {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData
+    if (tempData.videoData) tempData.videoData!.videoSrc = videoSrc
+    else tempData.videoData = {
+      poster: '',
+      videoSrc
+    }
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

@@ -62,12 +62,12 @@ class RichTextEditor extends Component<IRichTextEditorProps, IRichTextEditorStat
           theme="snow"
           modules={{
             toolbar: [
-              ['underline', 'strike'],
+              ['bold', 'underline', 'strike'],
               [{ color: [] }, { background: [] }],
               [{ size: fontSizeStyle.whitelist }],
               [{ align: [] }],
               ['clean'],
-              ['link']
+              ['link', 'image']
             ],
           }}
           value={content || richTextContent}

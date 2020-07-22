@@ -54,6 +54,7 @@ export interface IBannerImageModel {
 
 export interface IBannerVideoModel {
   videoSrc: string; // 视频资源链接
+  poster: string; // 视频封面图
   videoTitle?: string; // 视频标题
   videoDesc?: string; // 视频描述
 }

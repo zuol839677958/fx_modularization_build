@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { IBannerModel, IBannerImageModel } from '../../store/data'
+import { IBannerModel, IBannerImageModel, IBannerVideoModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { BannerType } from '../../components/EditorContainer/store/state'
 
@@ -67,6 +67,7 @@ class Banner extends MasterTemplate<IBannerProps> {
       case BannerType.Swiper:
         return this.renderSwiper()
       case BannerType.Video:
+        return this.renderVideo(tempData.videoData, tempData.widthPercent)
       default:
         return <Fragment></Fragment>
     }
@@ -91,6 +92,18 @@ class Banner extends MasterTemplate<IBannerProps> {
   renderSwiper() {
     return (
       <div></div>
+    )
+  }
+
+  // 渲染视频Banner
+  renderVideo(videoData?: IBannerVideoModel, widthPercent?: number) {
+    return (
+      <video
+        style={{ width: `${widthPercent || 100}%` }}
+        controls
+        poster={videoData?.poster}
+        src={videoData?.videoSrc}
+      />
     )
   }
 }
