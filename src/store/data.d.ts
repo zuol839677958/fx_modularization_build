@@ -71,6 +71,7 @@ export interface IIconTitleTextModel {
   iconUrl?: string; // 图标链接
   hasIcon?: boolean; // 是否显示图标
   title: string; // 标题
+  titleFontSize?: number; // 标题字体大小
   titleFontColor?: string; // 标题字体颜色
   background?: IBackgroundSetModel; // 标题背景
   text: string; // 文字内容
@@ -83,16 +84,6 @@ export interface IPictureTextModel {
   picUrl: string; // 图片链接
   spacingPercent?: number; // 图文间距
   titleTextList: IIconTitleTextModel[]; // 标题文字条目
-}
-
-/* 标题文字模板 */
-export interface ITitleTextModel {
-  title: string; // 标题
-  titleFontColor?: string; // 标题字体颜色
-  background?: IBackgroundSetModel; // 标题背景
-  text: string; // 文字内容
-  textFontColor?: string; // 文字字体颜色
-  isShow: boolean; // 是否显示此项条目
 }
 
 /* 纯文字模板 */

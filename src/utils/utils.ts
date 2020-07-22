@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ITemplateModel, IIconTitleTextModel, ITitleTextModel } from '../store/data'
+import { ITemplateModel, IIconTitleTextModel } from '../store/data'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /**
@@ -58,7 +58,7 @@ const insertItemToArray = (arr: any[], index: number, item: any) => {
   arr.splice(index, 0, item)
 }
 
-const updateIconTitleTextItemShow = (isShow: boolean, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemShow = (isShow: boolean, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.isShow = isShow
@@ -67,7 +67,7 @@ const updateIconTitleTextItemShow = (isShow: boolean, itemIndex: number, tempDat
   return tempData
 }
 
-const updateIconTitleTextItemTitle = (title: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTitle = (title: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.title = title
@@ -76,7 +76,16 @@ const updateIconTitleTextItemTitle = (title: string, itemIndex: number, tempData
   return tempData
 }
 
-const updateIconTitleTextIconIsShow = (hasIcon: boolean, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTitleFontSize = (titleFontSize: number, itemIndex: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach((item, index) => {
+    if (index === itemIndex) {
+      item.titleFontSize = titleFontSize
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextIconIsShow = (hasIcon: boolean, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item: IIconTitleTextModel, index) => {
     if (index === itemIndex) {
       item.hasIcon = hasIcon
@@ -85,7 +94,7 @@ const updateIconTitleTextIconIsShow = (hasIcon: boolean, itemIndex: number, temp
   return tempData
 }
 
-const updateIconTitleTextIconUrl = (iconUrl: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextIconUrl = (iconUrl: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item: IIconTitleTextModel, index) => {
     if (index === itemIndex) {
       item.iconUrl = iconUrl
@@ -94,7 +103,7 @@ const updateIconTitleTextIconUrl = (iconUrl: string, itemIndex: number, tempData
   return tempData
 }
 
-const updateIconTitleTextItemText = (text: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemText = (text: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.text = text
@@ -103,7 +112,7 @@ const updateIconTitleTextItemText = (text: string, itemIndex: number, tempData: 
   return tempData
 }
 
-const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.titleFontColor = titleFontColor
@@ -112,7 +121,7 @@ const updateIconTitleTextItemTitleFontColor = (titleFontColor: string, itemIndex
   return tempData
 }
 
-const updateIconTitleTextItemTextFontColor = (textFontColor: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTextFontColor = (textFontColor: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.textFontColor = textFontColor
@@ -121,7 +130,7 @@ const updateIconTitleTextItemTextFontColor = (textFontColor: string, itemIndex: 
   return tempData
 }
 
-const updateIconTitleTextItemTitleBgColor = (bgColor: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTitleBgColor = (bgColor: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.background!.bgColor = bgColor
@@ -130,7 +139,7 @@ const updateIconTitleTextItemTitleBgColor = (bgColor: string, itemIndex: number,
   return tempData
 }
 
-const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.background!.bgImageUrl = bgImageUrl
@@ -139,7 +148,7 @@ const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, itemIndex: n
   return tempData
 }
 
-const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
       item.background!.bgType = bgType
@@ -148,7 +157,7 @@ const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, itemIndex
   return tempData
 }
 
-const deleteIconTitleTextItem = (itemIndex: number, tempData: IIconTitleTextModel[] | ITitleTextModel[]) => {
+const deleteIconTitleTextItem = (itemIndex: number, tempData: IIconTitleTextModel[]) => {
   const newTempData = deepClone(tempData) as IIconTitleTextModel[]
   newTempData.splice(itemIndex, 1)
   return newTempData
@@ -217,6 +226,7 @@ export {
   updateIconTitleTextIconIsShow,
   updateIconTitleTextIconUrl,
   updateIconTitleTextItemTitle,
+  updateIconTitleTextItemTitleFontSize,
   updateIconTitleTextItemText,
   updateCurrentTempData,
   deleteIconTitleTextItem,
