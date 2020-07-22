@@ -1,5 +1,5 @@
 import { IPageModel } from "./data"
-//  import { editorContainerState } from '../components/EditorContainer/store/state'
+// import { editorContainerState } from '../components/EditorContainer/store/state'
 import { editorSliderState } from '../components/EditorSlider/store/state'
 import { backgroundSetState, BackgroundSetType } from '../components/BackgroundSet/store/state'
 import { addTemplateSliderState } from '../components/AddTemplate/store/state'
@@ -13,7 +13,7 @@ const editorContainerReducer: IPageModel = {
     bgColor: '#9f3b3c'
   },
   allTempData: []
-  //  allTempData: editorContainerState
+  // allTempData: editorContainerState
 }
 
 const editorSliderReducer = editorSliderState

@@ -57,7 +57,7 @@ class Header extends Component<IHeaderProps, IHeaderState> {
             tempId
               ? <Button type="primary" shape="round" style={{ marginLeft: 20 }}
                 onClick={() => this.updateTemplateData()}
-              >更新模板</Button>
+              >保存为模板</Button>
               : null
           }
           <Button type="link" style={{ marginLeft: 20 }}>帮助说明</Button>
@@ -68,7 +68,11 @@ class Header extends Component<IHeaderProps, IHeaderState> {
 
   // 设置网页背景
   setPageBackground() {
-    const { backgroundSetData, changeBackgroundSetData } = this.props
+    const { backgroundSetData, pageData, changeBackgroundSetData } = this.props
+    backgroundSetData!.tempId = ''
+    backgroundSetData!.bgType = pageData?.background?.bgType
+    backgroundSetData!.bgColor = pageData?.background?.bgColor
+    backgroundSetData!.bgImageUrl = pageData?.background?.bgImageUrl
     backgroundSetData!.isShow = true
     changeBackgroundSetData!(backgroundSetData!)
   }

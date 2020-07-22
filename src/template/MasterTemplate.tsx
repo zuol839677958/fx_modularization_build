@@ -151,8 +151,7 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-
-         params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
+        params.changeTempData(_.filter(params.allTempData, item => item.id !== params.tempId))
         params.changeActiveTempId('')
         params.changeEditorSliderShow(false)
       }
@@ -164,7 +163,9 @@ class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
     const backgroundSet: IBackgroundSetModel = {
       tempId: params.tempId,
       isShow: true,
-      ...params.tempBackground
+      bgType: params.tempBackground?.bgType || BackgroundSetType.NoneColor,
+      bgColor: params.tempBackground?.bgColor,
+      bgImageUrl: params.tempBackground?.bgImageUrl
     }
     params.setTempBackground(backgroundSet)
   }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { SketchPicker, ColorResult } from 'react-color'
-import { Modal, Radio } from 'antd';
+import { Modal, Radio, Button } from 'antd';
 import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '../../store/data'
 import { BackgroundSetType } from './store/state'
 import { Dispatch, Action } from 'redux';
@@ -27,29 +27,41 @@ interface IBackgroundSetState {
 class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> {
   state: IBackgroundSetState = {}
 
-  handleOk = () => {
+  handleOk = async () => {
     const { backgroundSetData, pageData, changePageBackground, changeTempData } = this.props
+    const { bgType, bgColor, bgImageUrl } = this.state
     if (!backgroundSetData?.tempId) {
-      changePageBackground!({ ...this.state })
+      await changePageBackground!({
+        bgType: bgType || pageData?.background?.bgType || BackgroundSetType.NoneColor,
+        bgColor,
+        bgImageUrl
+      })
+      this.handleCancel()
     } else {
-      const allTempData = pageData!.allTempData
+      const allTempData = pageData!.allTempData as ITemplateModel<any>[]
       allTempData.forEach(item => {
         if (item.id === backgroundSetData!.tempId) {
-          item.background = { ...this.state }
+          item.background = {
+            bgType: bgType || item.background?.bgType || BackgroundSetType.NoneColor,
+            bgColor,
+            bgImageUrl
+          }
         }
       })
-      changeTempData!(allTempData)
+      await changeTempData!(allTempData)
+      this.handleCancel()
     }
-    this.handleCancel()
   }
 
-  handleCancel = () => {
+  handleCancel = async () => {
     const { backgroundSetData, changeBackgroundSetData } = this.props
-    backgroundSetData!.tempId = ''
     backgroundSetData!.isShow = false
-    backgroundSetData!.bgColor = ''
-    backgroundSetData!.bgImageUrl = ''
-    changeBackgroundSetData!(backgroundSetData!)
+    await changeBackgroundSetData!(backgroundSetData!)
+    this.setState({
+      bgType: undefined,
+      bgColor: '',
+      bgImageUrl: ''
+    })
   }
 
   selectBgType = (value: BackgroundSetType) => {
@@ -58,6 +70,12 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
 
   changeBgColor = (color: ColorResult) => {
     this.setState({ bgColor: color.hex })
+  }
+
+  // 还原成模板默认颜色
+  changeOriginalBgColor = () => {
+    const { pageData } = this.props
+    this.setState({ bgColor: pageData?.background?.bgColor })
   }
 
   render() {
@@ -76,7 +94,10 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
         onOk={this.handleOk}
         onCancel={this.handleCancel}
       >
-        <Radio.Group value={bgType || backgroundSetData?.bgType} onChange={(e) => this.selectBgType(e.target.value)}>
+        <Radio.Group
+          value={bgType || backgroundSetData?.bgType || BackgroundSetType.NoneColor}
+          onChange={(e) => this.selectBgType(e.target.value)}
+        >
           <Radio value={BackgroundSetType.NoneColor}>无</Radio>
           <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
           <Radio value={BackgroundSetType.BackgroundImage}>背景图</Radio>
@@ -107,8 +128,11 @@ class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> 
         <SketchPicker
           width="95%"
           color={bgColor || backgroundSetData?.bgColor}
-          onChange={(color: ColorResult) => this.changeBgColor(color)}
+          onChange={this.changeBgColor}
         />
+        {backgroundSetData?.tempId ?
+          <Button style={{ marginTop: 10 }} type="primary" onClick={this.changeOriginalBgColor}>还原</Button>
+          : null}
       </div>
     )
   }
@@ -135,14 +159,14 @@ const mapStateToProps = (state: IPageState, ownProps: IBackgroundSetProps) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {
-    dispatch(changeBackgroundSetData(backgroundSet))
+  async changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {
+    await dispatch(changeBackgroundSetData(backgroundSet))
   },
-  changePageBackground(background: IBackgroundSetModel) {
-    dispatch(changePageBackground(background))
+  async changePageBackground(background: IBackgroundSetModel) {
+    await dispatch(changePageBackground(background))
   },
-  changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+  async changeTempData(allTempData: ITemplateModel<any>[]) {
+    await dispatch(changeTempData(allTempData))
   }
 })
 
