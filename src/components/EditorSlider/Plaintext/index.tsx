@@ -80,7 +80,7 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: SliderValue) {
+  changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
     data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
