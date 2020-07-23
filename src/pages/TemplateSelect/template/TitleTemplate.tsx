@@ -1,9 +1,5 @@
 import React, { memo } from "react"
 
-
-
-
-
 /**
  * 标题
  * @param {Object} props 父级传过来的对象

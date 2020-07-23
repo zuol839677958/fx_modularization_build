@@ -54,7 +54,7 @@ class RichTextEditor extends PureComponent<IRichTextEditorProps, IRichTextEditor
     return controls.map(item => ({ key: item } as ControlType))
   }
 
-  getFontFamilies = () => {
+  getFontFamilies = () => { 
     const fontFamilies = [
       {
         name: '宋体',
