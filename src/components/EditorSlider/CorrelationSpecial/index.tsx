@@ -50,7 +50,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={(value:number) => this.changeTempSpacing(value)}
             />
           </Row>
           <div className="add_btn" onClick={() => { this.addSpecialTmp() }}>
