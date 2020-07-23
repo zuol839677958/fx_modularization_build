@@ -1,9 +1,10 @@
 import RenderTemplateList from "./ItemTemplate";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState, memo } from "react";
 import TipTemplate from "./TipTemplate";
 import PaginationTemplate from "./PaginationTemplate";
 import { PageResponse, TemplateResponseModel } from "../../../axios/data";
 import { getTemplateList } from '../../../axios/api'
+
 
 interface matchModel {
     params: any
@@ -28,7 +29,7 @@ export const ContentContext = createContext<matchModel>({ params: {} });
 function ContentTempate() {
 
     let [TemplateList, setTemplateList] = useState<PageResponse<TemplateResponseModel>>();
-    
+
     useEffect(() => {
         (async function getTemplate() {
             const data: PageResponse<TemplateResponseModel>
@@ -51,4 +52,4 @@ function ContentTempate() {
     </div>)
 }
 
-export default ContentTempate;
+export default memo(ContentTempate);
