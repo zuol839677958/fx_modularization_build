@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import TitleTemplate from "./template/TitleTemplate"
-import './index.less'
 import ContentTempate, { ContentContext } from './template/ContentTemplate'
+
+import './index.less'
 
 /**
  * 模板选择页面
@@ -11,12 +12,7 @@ import ContentTempate, { ContentContext } from './template/ContentTemplate'
  * @return {jsxComponent} jsxComponent
  */
 
-// interface ITemplateSelectState {
-//   templateList: PageResponse<TemplateResponseModel> // 模板
-// }
-
-function TemplateSelect(props: RouteComponentProps) {
-
+const TemplateSelect: FC<RouteComponentProps> = (props: RouteComponentProps) => {
   return (
     <div className="template-select-box">
       <div className="c-box">
@@ -32,6 +28,5 @@ function TemplateSelect(props: RouteComponentProps) {
     </div>
   )
 }
-
 
 export default withRouter(TemplateSelect) 
