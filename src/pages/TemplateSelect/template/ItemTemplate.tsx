@@ -107,4 +107,4 @@ function TemplateSelectTemplateList(props: PageResponse<TemplateResponseModel> |
 }
 
 
-export default TemplateSelectTemplateList;
+export default memo(TemplateSelectTemplateList);
