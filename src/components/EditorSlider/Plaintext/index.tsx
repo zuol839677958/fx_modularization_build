@@ -5,6 +5,7 @@ import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
 import { Button, Row, Slider } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
+import { SliderValue } from 'antd/lib/slider'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import RichTextEditor from '../../RichTextEditor'
@@ -46,7 +47,7 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <Row className="inputAndColor_wrap">
@@ -79,9 +80,9 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing(spacing: SliderValue) {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

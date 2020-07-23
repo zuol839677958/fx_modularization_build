@@ -7,6 +7,7 @@ import { updateCurrentTempData } from '../../../utils/utils'
 import { SketchPicker } from 'react-color'
 import { Row, Slider, Radio } from 'antd'
 import { SharePositionType } from '../../EditorContainer/store/state'
+import { SliderValue } from 'antd/lib/slider'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 
@@ -35,7 +36,7 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
@@ -62,9 +63,9 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing(spacing: SliderValue) {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

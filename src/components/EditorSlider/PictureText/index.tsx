@@ -74,7 +74,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <p>更换图片</p>
@@ -195,9 +195,9 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

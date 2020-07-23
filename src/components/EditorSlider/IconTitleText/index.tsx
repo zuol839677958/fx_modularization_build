@@ -8,6 +8,7 @@ import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
+import { SliderValue } from 'antd/lib/slider'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
@@ -75,7 +76,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <div className="item-Manage">
@@ -166,9 +167,9 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing(spacing: SliderValue) {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
