@@ -55,10 +55,10 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
               <Button type="primary" shape="round"
                 onClick={() => this.handleRichTextEditorModalVisible(true)}
               >编辑内容</Button>
-              <div className="fontColorSelect"
+              {/* <div className="fontColorSelect"
                 style={{ background: data.tempData.fontColor }}
                 onClick={() => this.initFontColorSelectModal(data.tempData.fontColor!)}
-              ></div>
+              ></div> */}
             </div>
           </Row>
         </div>

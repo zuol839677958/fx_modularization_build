@@ -152,10 +152,10 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
               <Button type="primary" shape="round"
                 onClick={() => this.handleRichTextEditorModalVisible(true)}
               >编辑内容</Button>
-              <div className="fontColorSelect"
+              {/* <div className="fontColorSelect"
                 style={{ background: editItemData?.textFontColor }}
                 onClick={() => this.initFontColorSelectModal(FontColorChangeType.Text, editItemData!.titleFontColor!)}
-              ></div>
+              ></div> */}
             </div>
           </Row>
           <RichTextEditor
