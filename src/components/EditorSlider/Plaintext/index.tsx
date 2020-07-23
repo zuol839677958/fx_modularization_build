@@ -1,10 +1,11 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { IPlaintextModel, IPageState, ITemplateModel } from '../../../store/data'
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
 import { Button, Row, Slider } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
+import { SliderValue } from 'antd/lib/slider'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import RichTextEditor from '../../RichTextEditor'
@@ -24,7 +25,7 @@ interface IEditorPlaintextState {
   fontColorSelectModalVisible: boolean
 }
 
-class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextState> {
+class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaintextState> {
   state: IEditorPlaintextState = {
     richTextEditorModalVisible: false,
     currentFontColor: '',
@@ -46,7 +47,7 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <Row className="inputAndColor_wrap">
@@ -55,10 +56,10 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
               <Button type="primary" shape="round"
                 onClick={() => this.handleRichTextEditorModalVisible(true)}
               >编辑内容</Button>
-              <div className="fontColorSelect"
+              {/* <div className="fontColorSelect"
                 style={{ background: data.tempData.fontColor }}
                 onClick={() => this.initFontColorSelectModal(data.tempData.fontColor!)}
-              ></div>
+              ></div> */}
             </div>
           </Row>
         </div>
@@ -79,9 +80,9 @@ class EditorPlaintext extends Component<IEditorPlaintextProps, IEditorPlaintextS
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing(spacing: SliderValue) {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

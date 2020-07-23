@@ -1,13 +1,14 @@
-import React, { Component, Fragment } from 'react'
-import { IPageState, ITemplateModel, IPictureTextModel, ITitleTextModel } from '../../../store/data'
+import React, { PureComponent, Fragment } from 'react'
+import { IPageState, ITemplateModel, IPictureTextModel, IIconTitleTextModel } from '../../../store/data'
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
-import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl, insertItemToArray } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl, insertItemToArray, updateIconTitleTextItemTitleFontSize } from '../../../utils/utils'
 import { message, Input, Row, Button, Radio, Slider } from 'antd'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
 import { changeEditorSliderTab } from '../store/actions'
+import { SliderValue } from 'antd/lib/slider'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
@@ -28,7 +29,7 @@ interface IEditorPictureTextProps {
 interface IEditorPictureTextState {
   tabTitle: string
   editItemIndex?: number
-  editItemData?: ITitleTextModel
+  editItemData?: IIconTitleTextModel
   richTextEditorModalVisible: boolean
   currentFontColor: string
   fontColorSelectModalVisible: boolean
@@ -40,7 +41,7 @@ enum FontColorChangeType {
   Text
 }
 
-class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictureTextState> {
+class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPictureTextState> {
   state: IEditorPictureTextState = {
     tabTitle: '图文模板编辑',
     richTextEditorModalVisible: false,
@@ -73,7 +74,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <p>更换图片</p>
@@ -122,6 +123,16 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
             </div>
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>修改标题字体大小</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={10}
+              max={50}
+              value={editItemData?.titleFontSize}
+              onChange={this.changeItemTitleFontSize}
+            />
+          </Row>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>修改标题背景色</p>
             <div style={{ marginBottom: 10 }}>
               <Radio.Group
@@ -141,10 +152,10 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
               <Button type="primary" shape="round"
                 onClick={() => this.handleRichTextEditorModalVisible(true)}
               >编辑内容</Button>
-              <div className="fontColorSelect"
+              {/* <div className="fontColorSelect"
                 style={{ background: editItemData?.textFontColor }}
                 onClick={() => this.initFontColorSelectModal(FontColorChangeType.Text, editItemData!.titleFontColor!)}
-              ></div>
+              ></div> */}
             </div>
           </Row>
           <RichTextEditor
@@ -184,9 +195,9 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -196,6 +207,15 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
     updateIconTitleTextItemTitle(title, editItemIndex!, data.tempData.titleTextList)
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 更改标题文字大小
+  changeItemTitleFontSize = (titleFontSize: SliderValue) => {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleFontSize(titleFontSize as number, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -250,7 +270,7 @@ class EditorPictureText extends Component<IEditorPictureTextProps, IEditorPictur
     this.setState({
       tabTitle: '修改详情页',
       editItemIndex: draggableIndex,
-      editItemData: draggableData as ITitleTextModel
+      editItemData: draggableData as IIconTitleTextModel
     })
   }
 

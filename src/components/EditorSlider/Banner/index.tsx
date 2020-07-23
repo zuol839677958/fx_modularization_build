@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, IBannerModel, IBannerVideoModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
@@ -7,6 +7,7 @@ import { Radio, Row, Slider, Input } from 'antd'
 import { BannerType } from '../../EditorContainer/store/state'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { updateCurrentTempData } from '../../../utils/utils'
+import { SliderValue } from 'antd/lib/slider'
 
 import AliyunOSSUpload from '../../AliyunOSSUpload'
 
@@ -23,7 +24,7 @@ interface IEditorBannerState {
   topTitle: string
 }
 
-class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
+class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
   state: IEditorBannerState = {
     typeIndex: 0,
     topTitle: "Banner模板编辑"
@@ -47,7 +48,7 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
               min={0}
               max={200}
               value={data.spacing || 0}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <Radio.Group
@@ -86,9 +87,9 @@ class Banner extends Component<IEditorBannerProps, IEditorBannerState> {
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

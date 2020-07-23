@@ -1,4 +1,4 @@
-import React, { Component, Fragment, CSSProperties } from 'react'
+import React, { PureComponent, Fragment, CSSProperties } from 'react'
 import { Button, Modal } from 'antd'
 import { EditFilled, DeleteFilled, CopyFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { ITemplateModel, IBackgroundSetModel } from '../store/data'
@@ -39,7 +39,7 @@ export interface IRenderMaskParams {
   changeEditorSliderTab: (tabTypeIndex: number) => void
 }
 
-class MasterTemplate<P> extends Component<P, IMasterTemplateState> {
+class MasterTemplate<P> extends PureComponent<P, IMasterTemplateState> {
   state: IMasterTemplateState = {
     isShowMask: false,
     bgModalVisible: true

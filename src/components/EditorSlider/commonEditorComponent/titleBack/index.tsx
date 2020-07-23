@@ -1,4 +1,4 @@
-import React, { Component, Dispatch } from 'react'
+import React, { PureComponent, Dispatch } from 'react'
 import { CloseOutlined } from '@ant-design/icons';
 import { changeEditorSliderShow } from '../../store/actions';
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ interface ITitleBackProps {
   customCloseSlider?: () => void
 }
 
-class TitleBack extends Component<ITitleBackProps> {
+class TitleBack extends PureComponent<ITitleBackProps> {
   render() {
     const { title, titleArrow, changeTypeIndex, customCloseSlider } = this.props
 

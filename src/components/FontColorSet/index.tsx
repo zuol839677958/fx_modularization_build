@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Modal } from 'antd'
 import { SketchPicker, ColorResult } from 'react-color'
 
@@ -13,7 +13,7 @@ interface IFontColorSetState {
   color?: string
 }
 
-class FontColorSet extends Component<IFontColorSetProps, IFontColorSetState> {
+class FontColorSet extends PureComponent<IFontColorSetProps, IFontColorSetState> {
   state: IFontColorSetState = {}
 
   handleOk = () => {

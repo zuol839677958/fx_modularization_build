@@ -1,4 +1,4 @@
-import React, { Component, Dispatch, Fragment, CSSProperties } from 'react'
+import React, { PureComponent, Dispatch, Fragment, CSSProperties } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { ITemplateModel, IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
@@ -43,7 +43,7 @@ interface IEditorContainerState {
   loading: boolean
 }
 
-class EditorContainer extends Component<IEditorContainerProps, IEditorContainerState> {
+class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContainerState> {
   state: IEditorContainerState = {
     loading: false
   }

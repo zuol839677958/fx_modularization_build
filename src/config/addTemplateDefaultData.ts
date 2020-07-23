@@ -73,6 +73,7 @@ const leftTextRightPictureDefaultData: ITemplateModel<IPictureTextModel> = {
       {
         title: '请输入标题',
         text: '请输入文字',
+        titleFontSize: 28,
         titleFontColor: '#9f3b3c',
         textFontColor: '#fff',
         background: {
@@ -84,6 +85,7 @@ const leftTextRightPictureDefaultData: ITemplateModel<IPictureTextModel> = {
       {
         title: '请输入标题',
         text: '请输入文字',
+        titleFontSize: 28,
         titleFontColor: '#9f3b3c',
         textFontColor: '#fff',
         background: {
@@ -108,6 +110,7 @@ const leftPictureRightTextDefaultData: ITemplateModel<IPictureTextModel> = {
       {
         title: '请输入标题',
         text: '请输入文字',
+        titleFontSize: 28,
         titleFontColor: '#9f3b3c',
         textFontColor: '#fff',
         background: {
@@ -119,6 +122,7 @@ const leftPictureRightTextDefaultData: ITemplateModel<IPictureTextModel> = {
       {
         title: '请输入标题',
         text: '请输入文字',
+        titleFontSize: 28,
         titleFontColor: '#9f3b3c',
         textFontColor: '#fff',
         background: {

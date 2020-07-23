@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { Checkbox } from 'antd'
 
 import './index.less'
@@ -21,7 +21,7 @@ interface IDraggableProps {
 let dragItemStartIndex = 0
 let dragItemEndIndex = 0
 
-class Draggable extends Component<IDraggableProps> {
+class Draggable extends PureComponent<IDraggableProps> {
   render() {
     const { data } = this.props
 

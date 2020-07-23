@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Button, message, Modal } from 'antd'
 import { IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
 import { Dispatch, Action } from 'redux'
@@ -26,7 +26,7 @@ interface IHeaderProps extends RouteComponentProps {
 
 interface IHeaderState { }
 
-class Header extends Component<IHeaderProps, IHeaderState> {
+class Header extends PureComponent<IHeaderProps, IHeaderState> {
   render() {
     const { tempId } = this.props.match.params as { tempId: string }
 

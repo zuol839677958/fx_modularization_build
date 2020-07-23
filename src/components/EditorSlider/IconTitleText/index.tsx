@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
@@ -8,6 +8,7 @@ import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
+import { SliderValue } from 'antd/lib/slider'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
@@ -41,7 +42,7 @@ enum FontColorChangeType {
   Text
 }
 
-class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
+class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
   state: IEditorIconTitleTextState = {
     sort: 1,
     topTitle: "图标标题文字模板编辑",
@@ -75,7 +76,7 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <div className="item-Manage">
@@ -166,9 +167,9 @@ class EditorIconTitleText extends Component<IEditorIconTitleTextProps, IEditorIc
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing(spacing: SliderValue) {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

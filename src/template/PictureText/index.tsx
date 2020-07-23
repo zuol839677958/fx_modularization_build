@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { IPictureTextModel, ITitleTextModel, IBackgroundSetModel } from '../../store/data'
+import { IPictureTextModel, IIconTitleTextModel, IBackgroundSetModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { TemplateType } from '../../components/EditorContainer/store/state'
 import { getIsShowList } from '../../utils/utils'
@@ -103,15 +103,20 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
     )
   }
 
-  renderTemplateItem(tempDataList: ITitleTextModel[]): JSX.Element {
+  renderTemplateItem(tempDataList: IIconTitleTextModel[]): JSX.Element {
     if (tempDataList.length === 0) return <Fragment></Fragment>
-    const filterList = getIsShowList(tempDataList) as ITitleTextModel[]
+    const filterList = getIsShowList(tempDataList) as IIconTitleTextModel[]
     return (
       <Fragment>
         {filterList.map((tempData, index) => (
           <Fragment key={index}>
             <h5
-              style={{ color: tempData.titleFontColor, padding: this.initTitlePadding(tempData.background), background: this.initTitleBackground(tempData.background) }}
+              style={{
+                fontSize: tempData.titleFontSize,
+                color: tempData.titleFontColor,
+                padding: this.initTitlePadding(tempData.background),
+                background: this.initTitleBackground(tempData.background)
+              }}
             >{tempData.title}</h5>
             <section
               style={{ color: tempData.textFontColor }}

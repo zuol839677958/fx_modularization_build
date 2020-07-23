@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { IPageState, ITemplateModel } from '../../store/data'
 import { Dispatch, Action } from 'redux'
@@ -26,7 +26,7 @@ interface IAddTemplateState {
   addTemplateListData: IAddTemplateListDataModel[]
 }
 
-class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
+class AddTemplate extends PureComponent<IAddTemplateProps, IAddTemplateState> {
   state: IAddTemplateState = {
     addTemplateListData
   }

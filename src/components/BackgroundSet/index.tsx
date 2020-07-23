@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { SketchPicker, ColorResult } from 'react-color'
 import { Modal, Radio, Button } from 'antd';
 import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '../../store/data'
@@ -24,7 +24,7 @@ interface IBackgroundSetState {
   bgImageUrl?: string
 }
 
-class BackgroundSet extends Component<IBackgroundSetProps, IBackgroundSetState> {
+class BackgroundSet extends PureComponent<IBackgroundSetProps, IBackgroundSetState> {
   state: IBackgroundSetState = {}
 
   handleOk = async () => {

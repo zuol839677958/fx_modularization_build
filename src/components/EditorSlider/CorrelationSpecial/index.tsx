@@ -1,4 +1,4 @@
-import React, { Component, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
 import { updateCurrentTempData } from '../../../utils/utils';
@@ -7,6 +7,8 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
 import { changeTempData } from '../../EditorContainer/store/actions';
+import { SliderValue } from 'antd/lib/slider'
+
 import TitleBack from '../commonEditorComponent/titleBack'
 
 import "./index.less"
@@ -24,7 +26,7 @@ interface ICorrelationSpecialState {
   inputValue: string
 }
 
-class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelationSpecialState> {
+class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrelationSpecialState> {
   state: ICorrelationSpecialState = {
     typeIndex: 0,
     topTitle: "列表编辑",
@@ -50,7 +52,7 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
               min={0}
               max={200}
               value={data.spacing}
-              onChange={value => this.changeTempSpacing(value as number)}
+              onChange={this.changeTempSpacing}
             />
           </Row>
           <div className="add_btn" onClick={() => { this.addSpecialTmp() }}>
@@ -101,9 +103,9 @@ class CorrelationSpecial extends Component<ICorrelationSpecialProps, ICorrelatio
   }
 
   // 更改模板间距
-  changeTempSpacing(spacing: number) {
+  changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
+    data.spacing = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

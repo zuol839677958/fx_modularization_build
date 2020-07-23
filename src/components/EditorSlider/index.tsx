@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { IPageState, ITemplateModel } from '../../store/data'
 import { TemplateType } from '../EditorContainer/store/state'
@@ -20,7 +20,7 @@ interface IEditorBoxProps {
   currentTemplateId?: string;
 }
 
-class EditorBox extends Component<IEditorBoxProps> {
+class EditorBox extends PureComponent<IEditorBoxProps> {
   render() {
     const { isShowEditorSlider, currentTemplateId, allTempData } = this.props
     if (!currentTemplateId) return null
