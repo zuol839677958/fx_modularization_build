@@ -78,7 +78,7 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
               min={1}
               max={100}
               value={data.tempData.widthPercent || 100}
-              onChange={value => this.changeBannerWidth(value as number)}
+              onChange={this.changeBannerWidth}
             />
           </Row>
         </div>
@@ -158,10 +158,10 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
   }
 
   // 更改Banner宽度
-  changeBannerWidth(widthPercent: number) {
+  changeBannerWidth = (widthPercent: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    tempData.widthPercent = widthPercent
+    tempData.widthPercent = widthPercent as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
