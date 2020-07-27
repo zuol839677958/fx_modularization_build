@@ -45,7 +45,7 @@ interface IEditorContainerState {
 
 class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContainerState> {
   state: IEditorContainerState = {
-    loading: false
+    loading: true
   }
 
   render() {

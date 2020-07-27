@@ -68,6 +68,7 @@ const leftTextRightPictureDefaultData: ITemplateModel<IPictureTextModel> = {
   isShow: true,
   tempData: {
     picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+    picWidthPercent: 49,
     spacingPercent: 2,
     titleTextList: [
       {
@@ -105,6 +106,7 @@ const leftPictureRightTextDefaultData: ITemplateModel<IPictureTextModel> = {
   isShow: true,
   tempData: {
     picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
+    picWidthPercent: 49,
     spacingPercent: 2,
     titleTextList: [
       {
