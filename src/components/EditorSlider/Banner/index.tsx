@@ -133,7 +133,7 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
           <p>视频链接地址</p>
           <Input placeholder="请输入视频链接地址"
             value={videoData?.videoSrc}
-            onChange={e => this.changeVideoSrc(e.target.value)}
+            onChange={this.changeVideoSrc}
           />
         </Row>
       </Fragment>
@@ -182,13 +182,13 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
 
 
   // 更改视频链接地址
-  changeVideoSrc(videoSrc: string) {
+  changeVideoSrc = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    if (tempData.videoData) tempData.videoData!.videoSrc = videoSrc
+    if (tempData.videoData) tempData.videoData!.videoSrc = e.target.value
     else tempData.videoData = {
       poster: '',
-      videoSrc
+      videoSrc: e.target.value
     }
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
