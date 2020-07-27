@@ -82,12 +82,14 @@ export interface IIconTitleTextModel {
   background?: IBackgroundSetModel; // 标题背景
   text: string; // 文字内容
   textFontColor?: string; // 文字字体颜色
+  positionType?: number; // 文字显示的位置：居左，居中，居右
   isShow: boolean; // 是否显示此项条目
 }
 
 /* 图文模板 */
 export interface IPictureTextModel {
   picUrl: string; // 图片链接
+  picWidthPercent?: number // 图片宽度百分比
   spacingPercent?: number; // 图文间距
   titleTextList: IIconTitleTextModel[]; // 标题文字条目
 }

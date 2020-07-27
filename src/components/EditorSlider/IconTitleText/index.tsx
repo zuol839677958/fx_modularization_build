@@ -1,8 +1,8 @@
-import React, { PureComponent, Fragment, Dispatch } from 'react'
+import React, { PureComponent, Fragment, Dispatch, HtmlHTMLAttributes } from 'react'
 import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow, insertItemToArray } from '../../../utils/utils'
+import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow, insertItemToArray, updateIconTitleTextPositionType } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -16,6 +16,8 @@ import AliyunOSSUpload from '../../AliyunOSSUpload'
 import { changeEditorSliderTab } from '../store/actions'
 
 import './index.less'
+import { TemplatePositionType } from '../../EditorContainer/store/state';
+import { RadioChangeEvent } from 'antd/lib/radio';
 
 interface IEditorIconTitleTextProps {
   isShow?: boolean
@@ -100,10 +102,21 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
         </div>
         <div className="second-Manage-content" style={{ display: tabTypeIndex === 1 ? "block" : "none" }}>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>文字显示位置</p>
+            <Radio.Group
+              value={editItemData?.positionType}
+              onChange={this.changeTextPositionType}
+            >
+              <Radio value={TemplatePositionType.Left}>居左</Radio>
+              <Radio value={TemplatePositionType.Center}>居中</Radio>
+              <Radio value={TemplatePositionType.Right}>居右</Radio>
+            </Radio.Group>
+          </Row>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>是否显示图标</p>
             <Radio.Group
               value={editItemData?.hasIcon || false}
-              onChange={e => this.changeIconIsShow(e.target.value)}
+              onChange={this.changeIconIsShow}
             >
               <Radio value={true}>是</Radio>
               <Radio value={false}>否</Radio>
@@ -114,14 +127,14 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
               <p>修改图标</p>
               <AliyunOSSUpload
                 preImageUrl={editItemData?.iconUrl}
-                handleUploadImageChange={imageUrl => this.changeIconUrl(imageUrl)}
+                handleUploadImageChange={this.changeIconUrl}
               />
             </Row> : null}
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入标题" value={editItemData?.title}
-                onChange={e => this.changeItemTitle(e.target.value)}
+                onChange={this.changeItemTitle}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.titleFontColor }}
@@ -134,7 +147,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
             <div style={{ marginBottom: 10 }}>
               <Radio.Group
                 value={editItemData?.background?.bgType}
-                onChange={e => this.changeTitleBgType(e.target.value)}
+                onChange={this.changeTitleBgType}
               >
                 <Radio value={BackgroundSetType.NoneColor}>无</Radio>
                 <Radio value={BackgroundSetType.PureColor}>纯色</Radio>
@@ -147,7 +160,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
             <p>修改文字</p>
             <div className="inputAndColor_box">
               <Input placeholder="请输入文字" value={editItemData?.text}
-                onChange={e => this.changeItemText(e.target.value)}
+                onChange={this.changeItemText}
               />
               <div className="fontColorSelect"
                 style={{ background: editItemData?.textFontColor }}
@@ -174,20 +187,29 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
     changeTempData!(allTempData!)
   }
 
-  // 切换图标显示隐藏
-  changeIconIsShow(hasIcon: boolean) {
+  // 切换文字显示位置：居左，居中，居右
+  changeTextPositionType = (e: RadioChangeEvent) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextIconIsShow(hasIcon, editItemIndex!, data.tempData)
+    updateIconTitleTextPositionType(e.target.value, editItemIndex!, data.tempData)
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 切换图标显示隐藏
+  changeIconIsShow = (e: RadioChangeEvent) => {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemIndex } = this.state
+    updateIconTitleTextIconIsShow(e.target.value, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 更改标题背景类型
-  changeTitleBgType(titleBgType: BackgroundSetType) {
+  changeTitleBgType = (e: RadioChangeEvent) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextItemTitleBgType(titleBgType, editItemIndex!, data.tempData)
+    updateIconTitleTextItemTitleBgType(e.target.value, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -212,7 +234,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 更改图标链接
-  changeIconUrl(iconUrl: string) {
+  changeIconUrl = (iconUrl: string) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex, editItemData } = this.state
     updateIconTitleTextIconUrl(iconUrl, editItemIndex!, data.tempData)
@@ -222,20 +244,20 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 更改标题文本
-  changeItemTitle(title: string) {
+  changeItemTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex, editItemData } = this.state
-    updateIconTitleTextItemTitle(title, editItemIndex!, data.tempData)
+    updateIconTitleTextItemTitle(e.target.value, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({ editItemData })
   }
 
   // 更改文字内容文本
-  changeItemText(text: string) {
+  changeItemText = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex, editItemData } = this.state
-    updateIconTitleTextItemText(text, editItemIndex!, data.tempData)
+    updateIconTitleTextItemText(e.target.value, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({ editItemData })

@@ -9,6 +9,7 @@ interface IAliyunOSSUploadProps {
   preImageUrl?: string
   isUploadMultiple?: boolean
   accept?: string
+  uploadTip?: string
   handleUploadImageChange?: (imageUrl: string) => void
 }
 
@@ -24,12 +25,12 @@ class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUpl
   }
 
   render() {
-    const { preImageUrl, isUploadMultiple, accept } = this.props
+    const { preImageUrl, isUploadMultiple, accept, uploadTip } = this.props
     const { imageUrl, loading } = this.state
     const uploadButton = (
       <div>
         {loading ? <LoadingOutlined /> : <PlusOutlined />}
-        <div className="ant-upload-text" style={{ marginTop: 5 }}>{loading ? '正在上传中...' : '上传'}</div>
+        <div className="ant-upload-text" style={{ marginTop: 5 }}>{loading ? '正在上传中...' : `${uploadTip || '上传'}`}</div>
       </div>
     )
     const uploadProps: UploadProps = {

@@ -19,7 +19,7 @@ export enum BannerType {
   Video
 }
 
-export enum SharePositionType {
+export enum TemplatePositionType {
   Left = 1,
   Center,
   Right
@@ -59,7 +59,7 @@ const editorContainerState: ITemplateModel<
       tempData: {
         isTW: false,
         labelFontColor: '#fff',
-        positionType: SharePositionType.Right
+        positionType: TemplatePositionType.Right
       }
     },
     {
@@ -78,6 +78,7 @@ const editorContainerState: ITemplateModel<
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
+          positionType: TemplatePositionType.Left,
           isShow: true
         },
         {
@@ -90,6 +91,7 @@ const editorContainerState: ITemplateModel<
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
+          positionType: TemplatePositionType.Left,
           isShow: true
         },
         {
@@ -102,6 +104,7 @@ const editorContainerState: ITemplateModel<
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
+          positionType: TemplatePositionType.Left,
           isShow: true
         }
       ]
@@ -123,6 +126,7 @@ const editorContainerState: ITemplateModel<
       spacing: 50,
       tempData: {
         picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
+        picWidthPercent: 49,
         spacingPercent: 2,
         titleTextList: [
           {
@@ -159,6 +163,7 @@ const editorContainerState: ITemplateModel<
       spacing: 50,
       tempData: {
         picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+        picWidthPercent: 49,
         spacingPercent: 2,
         titleTextList: [
           {

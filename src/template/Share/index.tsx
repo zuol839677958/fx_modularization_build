@@ -2,10 +2,11 @@
 import React, { CSSProperties } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { IShareModel } from '../../store/data'
-import { SharePositionType } from '../../components/EditorContainer/store/state'
+import { TemplatePositionType } from '../../components/EditorContainer/store/state'
 import { getSpeicalData } from '../../axios/api'
 import { RouteComponentProps } from 'react-router-dom'
 import { getSepecialLinkUrl } from '../../axios/env'
+import { initTemplatePositionStyle } from '../../utils/utils'
 
 import './index.less'
 
@@ -86,23 +87,8 @@ class Share extends MasterTemplate<IShareProps> {
     })
   }
 
-  initSharePositionStyle(positionType: SharePositionType): CSSProperties {
-    let bgCss: CSSProperties = {}
-    switch (positionType) {
-      case SharePositionType.Left:
-        bgCss.textAlign = 'left'
-        break
-      case SharePositionType.Center:
-        bgCss.textAlign = 'center'
-        break
-      case SharePositionType.Right:
-        bgCss.textAlign = 'right'
-        break
-      default:
-        bgCss.textAlign = 'right'
-        break
-    }
-    return bgCss
+  initSharePositionStyle(positionType: TemplatePositionType): CSSProperties {
+    return initTemplatePositionStyle(positionType)
   }
 
   renderMainLandShareTemp(): JSX.Element {

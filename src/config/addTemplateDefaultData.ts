@@ -1,5 +1,5 @@
 import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../store/data'
-import { BannerType, TemplateType, SharePositionType } from '../components/EditorContainer/store/state'
+import { BannerType, TemplateType, TemplatePositionType } from '../components/EditorContainer/store/state'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /* 新增Banner模板默认数据 */
@@ -24,7 +24,7 @@ const shareDefaultData: ITemplateModel<IShareModel> = {
   tempData: {
     isTW: false,
     labelFontColor: '#fff',
-    positionType: SharePositionType.Right
+    positionType: TemplatePositionType.Right
   }
 }
 
@@ -45,6 +45,7 @@ const iconTitleTextDefaultData: ITemplateModel<IIconTitleTextModel[]> = {
         bgType: BackgroundSetType.PureColor,
         bgColor: '#f0c9aa'
       },
+      positionType: TemplatePositionType.Left,
       isShow: true
     }
   ]
@@ -68,6 +69,7 @@ const leftTextRightPictureDefaultData: ITemplateModel<IPictureTextModel> = {
   isShow: true,
   tempData: {
     picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+    picWidthPercent: 49,
     spacingPercent: 2,
     titleTextList: [
       {
@@ -105,6 +107,7 @@ const leftPictureRightTextDefaultData: ITemplateModel<IPictureTextModel> = {
   isShow: true,
   tempData: {
     picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
+    picWidthPercent: 49,
     spacingPercent: 2,
     titleTextList: [
       {

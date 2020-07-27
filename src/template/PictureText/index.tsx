@@ -12,6 +12,7 @@ interface IPictureTextProps extends IMasterTemplateProps { }
 interface IPictureTextState extends IMasterTemplateState { }
 
 const defaultSpacingPercent = 2
+const defaultPicWidthPercent = 49
 
 class PictureText extends MasterTemplate<IPictureTextProps> {
   state: IPictureTextState = {
@@ -70,16 +71,17 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   }
 
   renderLeftPictureRightTextTemp(tempData: IPictureTextModel): JSX.Element {
-    const { spacingPercent } = tempData
-    const marginRight = `${spacingPercent}%` || `${defaultSpacingPercent}%`
-    const width = `${(100 - (spacingPercent || defaultSpacingPercent)) / 2}%`
+    const { spacingPercent, picWidthPercent } = tempData
+    const marginRight = spacingPercent || defaultSpacingPercent
+    const picWidth = picWidthPercent || defaultPicWidthPercent
+    const txtListWidth = 100 - picWidth - marginRight
 
     return (
       <Fragment>
-        <div className="general-img" style={{ width, marginRight }}>
+        <div className="general-img" style={{ width: `${picWidth}%`, marginRight: `${marginRight}%` }}>
           <img data-viewer={tempData.picUrl} src={tempData.picUrl} alt="" />
         </div>
-        <div className="general-txt" style={{ width }}>
+        <div className="general-txt" style={{ width: `${txtListWidth}%` }}>
           {this.renderTemplateItem(tempData.titleTextList)}
         </div>
       </Fragment>
@@ -87,16 +89,17 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   }
 
   renderLeftTextRightPictureTemp(tempData: IPictureTextModel): JSX.Element {
-    const { spacingPercent } = tempData
-    const marginRight = `${spacingPercent}%` || `${defaultSpacingPercent}%`
-    const width = `${(100 - (spacingPercent || defaultSpacingPercent)) / 2}%`
+    const { spacingPercent, picWidthPercent } = tempData
+    const marginRight = spacingPercent || defaultSpacingPercent
+    const picWidth = picWidthPercent || defaultPicWidthPercent
+    const txtListWidth = 100 - picWidth - marginRight
 
     return (
       <Fragment>
-        <div className="general-txt" style={{ width, marginRight }}>
+        <div className="general-txt" style={{ width: `${txtListWidth}%`, marginRight: `${marginRight}%` }}>
           {this.renderTemplateItem(tempData.titleTextList)}
         </div>
-        <div className="general-img" style={{ width }}>
+        <div className="general-img" style={{ width: `${picWidth}%` }}>
           <img data-viewer={tempData.picUrl} src={tempData.picUrl} alt="" />
         </div>
       </Fragment>

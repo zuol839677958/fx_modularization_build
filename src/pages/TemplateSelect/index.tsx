@@ -12,7 +12,7 @@ import './index.less'
  * @return {jsxComponent} jsxComponent
  */
 
-const TemplateSelect: FC<RouteComponentProps> = (props: RouteComponentProps) => {
+const TemplateSelect: FC<RouteComponentProps> = props => {
   return (
     <div className="template-select-box">
       <div className="c-box">

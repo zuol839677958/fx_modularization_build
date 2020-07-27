@@ -64,7 +64,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
         <TitleBack
           titleArrow={tabTypeIndex === 1}
           title={tabTitle}
-          changeTypeIndex={index => this.changeTabTypeIndex(index)}
+          changeTypeIndex={this.changeTabTypeIndex}
         />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
@@ -80,8 +80,18 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
           <p>更换图片</p>
           <AliyunOSSUpload
             preImageUrl={data.tempData.picUrl}
-            handleUploadImageChange={imageUrl => this.changePictureUrl(imageUrl)}
+            handleUploadImageChange={this.changePictureUrl}
           />
+          <p>图片宽度(%)</p>
+          <div className="spacing-box">
+            <Slider
+              style={{ width: '100%' }}
+              min={10}
+              max={100}
+              value={data.tempData.picWidthPercent}
+              onChange={this.changePictureWidthPercent}
+            />
+          </div>
           <p>图文间距(%)</p>
           <div className="spacing-box">
             <Slider
@@ -89,7 +99,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
               min={1}
               max={50}
               value={data.tempData.spacingPercent}
-              onChange={value => this.changePictureTextSpacing(value as number)}
+              onChange={this.changePictureTextSpacing}
             />
           </div>
           <p>条目管理</p>
@@ -104,7 +114,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
           <Row style={{ justifyContent: "center" }}>
             <Button type="primary" shape="round"
               style={{ marginTop: '50px', width: 200 }}
-              onClick={() => this.addTemplateItem()}
+              onClick={this.addTemplateItem}
               disabled={data.tempData.titleTextList.length >= 6}
             >加一栏</Button>
           </Row>
@@ -236,7 +246,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   // 更换图片
-  changePictureUrl(picUrl: string) {
+  changePictureUrl = (picUrl: string) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.picUrl = picUrl
@@ -244,18 +254,26 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
     changeTempData!(allTempData!)
   }
 
-  // 更改图文间距
-  changePictureTextSpacing(spacing: number) {
-    if (!Number(spacing)) return
+  // 更改图片宽度
+  changePictureWidthPercent = (picWidthPercent: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    tempData.spacingPercent = spacing
+    tempData.picWidthPercent = picWidthPercent as number
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 更改图文间距
+  changePictureTextSpacing = (spacing: SliderValue) => {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData
+    tempData.spacingPercent = spacing as number
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 切换页面tab
-  changeTabTypeIndex(tabTypeIndex: number) {
+  changeTabTypeIndex = (tabTypeIndex: number) => {
     const { changeTabTypeIndex } = this.props
     changeTabTypeIndex!(tabTypeIndex)
     if (tabTypeIndex === 0) {
@@ -374,7 +392,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   // 添加条目
-  addTemplateItem() {
+  addTemplateItem = () => {
     const { data, allTempData, changeTempData } = this.props
     const { titleTextList } = data.tempData
     const copyItem = deepClone(titleTextList[0])

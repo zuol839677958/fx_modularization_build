@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import { ITemplateModel, IIconTitleTextModel } from '../store/data'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
+import { TemplatePositionType } from '../components/EditorContainer/store/state';
+import { CSSProperties } from 'react';
 
 /**
 * 数组元素交换位置
@@ -89,6 +91,15 @@ const updateIconTitleTextIconIsShow = (hasIcon: boolean, itemIndex: number, temp
   tempData.forEach((item: IIconTitleTextModel, index) => {
     if (index === itemIndex) {
       item.hasIcon = hasIcon
+    }
+  })
+  return tempData
+}
+
+const updateIconTitleTextPositionType = (positionType: number, itemIndex: number, tempData: IIconTitleTextModel[]) => {
+  tempData.forEach((item: IIconTitleTextModel, index) => {
+    if (index === itemIndex) {
+      item.positionType = positionType
     }
   })
   return tempData
@@ -216,6 +227,25 @@ const deepClone = (data: any) => {
   return obj
 }
 
+const initTemplatePositionStyle = (positionType: TemplatePositionType): CSSProperties => {
+  let bgCss: CSSProperties = {}
+  switch (positionType) {
+    case TemplatePositionType.Left:
+      bgCss.textAlign = 'left'
+      break
+    case TemplatePositionType.Center:
+      bgCss.textAlign = 'center'
+      break
+    case TemplatePositionType.Right:
+      bgCss.textAlign = 'right'
+      break
+    default:
+      bgCss.textAlign = 'left'
+      break
+  }
+  return bgCss
+}
+
 export {
   swapArray,
   zIndexUp,
@@ -224,6 +254,7 @@ export {
   insertItemToArray,
   updateIconTitleTextItemShow,
   updateIconTitleTextIconIsShow,
+  updateIconTitleTextPositionType,
   updateIconTitleTextIconUrl,
   updateIconTitleTextItemTitle,
   updateIconTitleTextItemTitleFontSize,
@@ -235,5 +266,6 @@ export {
   updateIconTitleTextItemTitleBgColor,
   updateIconTitleTextItemTitleBgImageUrl,
   updateIconTitleTextItemTitleBgType,
-  deepClone
+  deepClone,
+  initTemplatePositionStyle
 }
