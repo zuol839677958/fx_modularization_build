@@ -1,4 +1,4 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel } from "../../../store/data"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel } from "../../../store/data"
 import { BackgroundSetType } from "../../BackgroundSet/store/state"
 
 export enum TemplateType {
@@ -9,7 +9,8 @@ export enum TemplateType {
   LeftTextRightPicture,
   Plaintext,
   RelatedList,
-  CorrelationSpecial
+  CorrelationSpecial,
+  Audio
 }
 
 export enum BannerType {
@@ -23,6 +24,11 @@ export enum SharePositionType {
   Center,
   Right
 }
+export enum AudioPositionType {
+  Left = 1,
+  Center,
+  Right
+}
 
 const editorContainerState: ITemplateModel<
   IBannerModel
@@ -31,6 +37,7 @@ const editorContainerState: ITemplateModel<
   | IPictureTextModel
   | IShareModel
   | ICorrelationSpecialModel
+  | IAudioModel
 >[] = [
     {
       id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
@@ -187,6 +194,16 @@ const editorContainerState: ITemplateModel<
       isShow: true,
       spacing: 20,
       tempData: []
+    },
+    {
+      id: `${TemplateType[TemplateType.Audio]}_${Date.now()}`,
+      type: TemplateType.Audio,
+      isShow: true,
+      spacing: 20,
+      tempData: {
+        audioUrl:"https://file.wbp5.com/upload/files/2020/07/24/024311228495.mp3",
+        positionType: SharePositionType.Center
+    }
     }
   ]
 

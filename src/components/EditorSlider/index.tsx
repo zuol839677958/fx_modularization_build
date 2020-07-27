@@ -8,10 +8,11 @@ import './index.less'
 //模板
 import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
 import EditorPlaintext from './Plaintext'//编辑纯文本
-import PictureText from './PictureText'
-import Banner from "./Banner"
-import Share from "./Share"
-import CorrelationSpecial from "./CorrelationSpecial"
+import PictureText from './PictureText'//图文模块
+import Banner from "./Banner"//banner模块
+import Share from "./Share"//分享模块
+import CorrelationSpecial from "./CorrelationSpecial"//专题列表
+import Audio from "./Audio"//音频模块
 
 interface IEditorBoxProps {
   isShowEditorSlider?: boolean;
@@ -58,6 +59,8 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
         return <PictureText data={currentTempData} />
       case TemplateType.CorrelationSpecial:
         return <CorrelationSpecial data={currentTempData} />
+      case TemplateType.Audio:
+        return <Audio data={currentTempData} />
       default:
         return <Fragment></Fragment>
     }
