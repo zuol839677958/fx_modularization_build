@@ -125,6 +125,7 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
           <p>视频封面</p>
           <AliyunOSSUpload
             preImageUrl={videoData?.poster}
+            uploadTip="上传视频封面"
             handleUploadImageChange={this.changeVideoPoster}
           />
         </Row>
