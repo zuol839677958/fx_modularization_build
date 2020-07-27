@@ -13,6 +13,7 @@ import { IMasterTemplateProps } from '../../template/MasterTemplate'
 import { getTemplateDetail, getSpeicalData } from '../../axios/api'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 import { RouteComponentProps } from 'react-router-dom'
+
 //模板
 import Banner from '../../template/Banner'
 import IconTitleText from '../../template/IconTitleText'
@@ -22,7 +23,6 @@ import CorrelationSpecial from "../../template/CorrelationSpecial"
 import Share from "../../template/Share"
 
 import './index.less'
-
 
 interface IEditorContainerProps extends RouteComponentProps {
   activeTempId?: string
