@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { updateCurrentTempData } from '../../../utils/utils'
 import { SketchPicker } from 'react-color'
 import { Row, Slider, Radio } from 'antd'
-import { SharePositionType } from '../../EditorContainer/store/state'
+import { TemplatePositionType } from '../../EditorContainer/store/state'
 import { SliderValue } from 'antd/lib/slider'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -45,9 +45,9 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
               value={data.tempData.positionType}
               onChange={e => this.changeTempPosition(e.target.value)}
             >
-              <Radio value={SharePositionType.Left}>居左</Radio>
-              <Radio value={SharePositionType.Center}>居中</Radio>
-              <Radio value={SharePositionType.Right}>居右</Radio>
+              <Radio value={TemplatePositionType.Left}>居左</Radio>
+              <Radio value={TemplatePositionType.Center}>居中</Radio>
+              <Radio value={TemplatePositionType.Right}>居右</Radio>
             </Radio.Group>
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
@@ -71,7 +71,7 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
   }
 
   // 切换分享显示位置
-  changeTempPosition(postionType: SharePositionType) {
+  changeTempPosition(postionType: TemplatePositionType) {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.positionType = postionType

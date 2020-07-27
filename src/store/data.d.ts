@@ -76,6 +76,7 @@ export interface IIconTitleTextModel {
   background?: IBackgroundSetModel; // 标题背景
   text: string; // 文字内容
   textFontColor?: string; // 文字字体颜色
+  positionType?: number; // 文字显示的位置：居左，居中，居右
   isShow: boolean; // 是否显示此项条目
 }
 

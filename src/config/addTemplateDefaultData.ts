@@ -1,5 +1,5 @@
 import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../store/data'
-import { BannerType, TemplateType, SharePositionType } from '../components/EditorContainer/store/state'
+import { BannerType, TemplateType, TemplatePositionType } from '../components/EditorContainer/store/state'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
 /* 新增Banner模板默认数据 */
@@ -24,7 +24,7 @@ const shareDefaultData: ITemplateModel<IShareModel> = {
   tempData: {
     isTW: false,
     labelFontColor: '#fff',
-    positionType: SharePositionType.Right
+    positionType: TemplatePositionType.Right
   }
 }
 
@@ -45,6 +45,7 @@ const iconTitleTextDefaultData: ITemplateModel<IIconTitleTextModel[]> = {
         bgType: BackgroundSetType.PureColor,
         bgColor: '#f0c9aa'
       },
+      positionType: TemplatePositionType.Left,
       isShow: true
     }
   ]

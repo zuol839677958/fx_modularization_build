@@ -18,7 +18,7 @@ export enum BannerType {
   Video
 }
 
-export enum SharePositionType {
+export enum TemplatePositionType {
   Left = 1,
   Center,
   Right
@@ -52,7 +52,7 @@ const editorContainerState: ITemplateModel<
       tempData: {
         isTW: false,
         labelFontColor: '#fff',
-        positionType: SharePositionType.Right
+        positionType: TemplatePositionType.Right
       }
     },
     {
@@ -71,6 +71,7 @@ const editorContainerState: ITemplateModel<
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
+          positionType: TemplatePositionType.Left,
           isShow: true
         },
         {
@@ -83,6 +84,7 @@ const editorContainerState: ITemplateModel<
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
+          positionType: TemplatePositionType.Left,
           isShow: true
         },
         {
@@ -95,6 +97,7 @@ const editorContainerState: ITemplateModel<
             bgType: BackgroundSetType.PureColor,
             bgColor: '#f0c9aa'
           },
+          positionType: TemplatePositionType.Left,
           isShow: true
         }
       ]

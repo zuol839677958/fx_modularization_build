@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { IIconTitleTextModel, IBackgroundSetModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { getIsShowList } from '../../utils/utils'
+import { getIsShowList, initTemplatePositionStyle } from '../../utils/utils'
 import { BackgroundSetType } from '../../components/BackgroundSet/store/state'
 
 import './index.less'
@@ -65,7 +65,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
       <Fragment>
         {
           filterList.map((tempData, index) => (
-            <div className="rightContent-list" key={index}>
+            <div className="rightContent-list" key={index} style={initTemplatePositionStyle(tempData.positionType!)}>
               <div className="list-left">
                 {tempData.hasIcon ? <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} /> : null}
                 <span className="heading"
