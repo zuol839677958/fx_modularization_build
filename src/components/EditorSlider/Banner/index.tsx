@@ -180,7 +180,6 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
     changeTempData!(allTempData!)
   }
 
-
   // 更改视频链接地址
   changeVideoSrc = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { data, allTempData, changeTempData } = this.props

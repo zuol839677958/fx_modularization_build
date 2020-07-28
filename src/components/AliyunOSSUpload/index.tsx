@@ -1,9 +1,10 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import { Upload, message } from 'antd'
+import { Upload, message, Checkbox } from 'antd'
 import { UploadProps, RcFile, UploadChangeParam } from 'antd/lib/upload'
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface'
 import { uploadImage } from '../../axios/api'
+import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 interface IAliyunOSSUploadProps {
   preImageUrl?: string
@@ -16,17 +17,19 @@ interface IAliyunOSSUploadProps {
 interface IAliyunOSSUploadState {
   imageUrl: string
   loading: boolean
+  hasWatermark: boolean
 }
 
 class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUploadState> {
   state: IAliyunOSSUploadState = {
     imageUrl: '',
-    loading: false
+    loading: false,
+    hasWatermark: false
   }
 
   render() {
     const { preImageUrl, isUploadMultiple, accept, uploadTip } = this.props
-    const { imageUrl, loading } = this.state
+    const { imageUrl, loading, hasWatermark } = this.state
     const uploadButton = (
       <div>
         {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -43,13 +46,19 @@ class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUpl
     }
 
     return (
-      <Upload {...uploadProps}>
-        {
-          (preImageUrl || imageUrl) && !loading
-            ? <img src={preImageUrl || imageUrl} alt="" style={{ width: '100%' }} />
-            : uploadButton
-        }
-      </Upload>
+      <Fragment>
+        <Upload {...uploadProps}>
+          {
+            (preImageUrl || imageUrl) && !loading
+              ? <img src={preImageUrl || imageUrl} alt="" style={{ width: '100%' }} />
+              : uploadButton
+          }
+        </Upload>
+        <Checkbox style={{ marginBottom: 10 }}
+          checked={hasWatermark}
+          onChange={this.handleHasWatermark}
+        >是否显示水印</Checkbox>
+      </Fragment>
     )
   }
 
@@ -74,8 +83,9 @@ class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUpl
 
   handleUploadFile = async (options: RcCustomRequestOptions) => {
     const { handleUploadImageChange } = this.props
+    const { hasWatermark } = this.state
     this.getBase64(options.file, imageUrl => {
-      uploadImage(imageUrl).then(resImageUrl => {
+      uploadImage(imageUrl, hasWatermark ? 1 : 0).then(resImageUrl => {
         this.setState({
           imageUrl: resImageUrl,
           loading: false
@@ -83,6 +93,10 @@ class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUpl
         handleUploadImageChange!(resImageUrl)
       })
     })
+  }
+
+  handleHasWatermark = (e: CheckboxChangeEvent) => {
+    this.setState({ hasWatermark: e.target.checked })
   }
 
   getBase64 = (img: Blob, callback: (imageUrl: string) => void) => {
