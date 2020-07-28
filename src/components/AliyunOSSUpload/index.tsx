@@ -54,10 +54,7 @@ class AliyunOSSUpload extends PureComponent<IAliyunOSSUploadProps, IAliyunOSSUpl
               : uploadButton
           }
         </Upload>
-        <Checkbox style={{ marginBottom: 10 }}
-          checked={hasWatermark}
-          onChange={this.handleHasWatermark}
-        >是否显示水印</Checkbox>
+        <Checkbox checked={hasWatermark} onChange={this.handleHasWatermark}>是否显示水印</Checkbox>
       </Fragment>
     )
   }

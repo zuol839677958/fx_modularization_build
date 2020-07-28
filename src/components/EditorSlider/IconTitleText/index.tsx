@@ -1,14 +1,16 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
-import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';
+import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data'
 import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow, insertItemToArray, updateIconTitleTextPositionType } from '../../../utils/utils'
 import TitleBack from "../commonEditorComponent/titleBack"
 import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
-import { SketchPicker } from 'react-color'
+import { SketchPicker, ColorResult } from 'react-color'
 import { SliderValue } from 'antd/lib/slider'
+import { TemplatePositionType } from '../../EditorContainer/store/state'
+import { RadioChangeEvent } from 'antd/lib/radio'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
@@ -16,8 +18,6 @@ import AliyunOSSUpload from '../../AliyunOSSUpload'
 import { changeEditorSliderTab } from '../store/actions'
 
 import './index.less'
-import { TemplatePositionType } from '../../EditorContainer/store/state';
-import { RadioChangeEvent } from 'antd/lib/radio';
 
 interface IEditorIconTitleTextProps {
   isShow?: boolean
@@ -172,8 +172,8 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
         <FontColorSet
           modalVisible={fontColorSelectModalVisible}
           fontColor={currentFontColor}
-          handleModalVisible={flag => this.handleFontColorSelectModalVisible(flag)}
-          handleChangeFontColor={color => this.handleChangeFontColor(color)}
+          handleModalVisible={this.handleFontColorSelectModalVisible}
+          handleChangeFontColor={this.handleChangeFontColor}
         />
       </Fragment >
     )
@@ -221,12 +221,12 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
       case BackgroundSetType.PureColor:
         return <SketchPicker
           color={editItemData?.background?.bgColor}
-          onChange={color => this.changeTitleBackgroundColor(color.hex)}
+          onChange={this.changeTitleBackgroundColor}
         />
       case BackgroundSetType.BackgroundImage:
         return <AliyunOSSUpload
           preImageUrl={editItemData?.background?.bgImageUrl}
-          handleUploadImageChange={imageUrl => this.changeTitleBackgroundImageUrl(imageUrl)}
+          handleUploadImageChange={this.changeTitleBackgroundImageUrl}
         />
       default:
         return <Fragment></Fragment>
@@ -329,12 +329,12 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 处理颜色选择弹窗显示隐藏
-  handleFontColorSelectModalVisible(fontColorSelectModalVisible: boolean) {
+  handleFontColorSelectModalVisible = (fontColorSelectModalVisible: boolean) => {
     this.setState({ fontColorSelectModalVisible })
   }
 
   // 更改字体颜色
-  handleChangeFontColor(color: string) {
+  handleChangeFontColor = (color: string) => {
     const { data, allTempData, changeTempData } = this.props
     const { fontColorChangeType, editItemIndex } = this.state
     if (!fontColorChangeType) return
@@ -355,16 +355,16 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 更改标题背景色
-  changeTitleBackgroundColor(color: string) {
+  changeTitleBackgroundColor = (color: ColorResult) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextItemTitleBgColor(color, editItemIndex!, data.tempData)
+    updateIconTitleTextItemTitleBgColor(color.hex, editItemIndex!, data.tempData)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 更改标题背景图
-  changeTitleBackgroundImageUrl(bgImageUrl: string) {
+  changeTitleBackgroundImageUrl = (bgImageUrl: string) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
     updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemIndex!, data.tempData)

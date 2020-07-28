@@ -54,6 +54,7 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
         }}
       >
         {this.renderMask(maskParams)}
+        <div className="head-tip" style={{ color: tempData.fontColor }}>相关专题</div>
         {this.renderCorrelationSpecialList(tempData.tempData as ICorrelationSpecialModel[])}
       </div>
     )
@@ -62,7 +63,6 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
   renderCorrelationSpecialList(tempData: ICorrelationSpecialModel[]): JSX.Element {
     return (
       <Fragment>
-        <div className="head-tip">相关专题</div>
         <div className="special_list_box">
           {
             tempData.map(item => (

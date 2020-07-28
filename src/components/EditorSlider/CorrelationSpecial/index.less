@@ -1,7 +1,7 @@
 @import (reference) "../../../styles/common/PublicDefind.less";
 
 .special_editor_box {
-  padding: 16px 18px 10px 24px;
+  padding: 16px 18px 40px 24px;
   .slider_scroll();
 
   p {
@@ -88,55 +88,54 @@
     }
   }
 
-}
+  .action_bar {
+    padding: 16px 18px 0px 24px;
 
-.action_bar {
-  padding: 16px 18px 0px 24px;
-
-  .action_head {
-    .both();
-
-    span,
-    i {
-      color: @F_C4;
-      .h2();
-      .opacity(0.65);
-    }
-
-    span {
-      float: left;
-      margin-left: 16px;
-    }
-
-    i {
-      float: right;
-      margin-right: 24px;
-    }
-  }
-
-  ul {
-    li {
-      width: 100%;
-      height: 32px;
-      line-height: 32px;
-      padding: 0 18px;
-      background: rgba(250, 250, 250, 1);
-      .border-radius(4px);
+    .action_head {
       .both();
-      margin-top: 8px;
 
+      span,
       i {
-        float: left;
-        width: 180px;
-        .ellipsis();
+        color: @F_C4;
+        .h2();
+        .opacity(0.65);
       }
 
       span {
+        float: left;
+        margin-left: 16px;
+      }
+
+      i {
         float: right;
-        line-height: 32px;
+        margin-right: 24px;
       }
     }
+
+    ul {
+      li {
+        width: 100%;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 18px;
+        background: rgba(250, 250, 250, 1);
+        .border-radius(4px);
+        .both();
+        margin-top: 8px;
+
+        i {
+          float: left;
+          width: 180px;
+          .ellipsis();
+        }
+
+        span {
+          float: right;
+          line-height: 32px;
+        }
+      }
+    }
+
+
   }
-
-
 }

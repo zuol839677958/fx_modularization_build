@@ -1,13 +1,14 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
-import { CloseOutlined, DeleteOutlined } from '@ant-design/icons';
-import { updateCurrentTempData } from '../../../utils/utils';
+import { CloseOutlined, DeleteOutlined } from '@ant-design/icons'
+import { updateCurrentTempData } from '../../../utils/utils'
 import { message, Row, Slider } from 'antd';
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
-import { changeTempData } from '../../EditorContainer/store/actions';
+import { changeTempData } from '../../EditorContainer/store/actions'
 import { SliderValue } from 'antd/lib/slider'
+import { SketchPicker, ColorResult } from 'react-color'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 
@@ -29,7 +30,7 @@ interface ICorrelationSpecialState {
 class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrelationSpecialState> {
   state: ICorrelationSpecialState = {
     typeIndex: 0,
-    topTitle: "列表编辑",
+    topTitle: "相关专题模板编辑",
     addShow: false,
     inputValue: "",
   }
@@ -55,6 +56,13 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
               onChange={this.changeTempSpacing}
             />
           </Row>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>标签字体颜色</p>
+            <SketchPicker
+              color={data.fontColor || '#fff'}
+              onChange={this.changeFontColor}
+            />
+          </Row>
           <div className="add_btn" onClick={() => { this.addSpecialTmp() }}>
             新增条目
           </div>
@@ -73,14 +81,14 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
               </div>
             </div>
           </div>
-        </div>
-        <div className="action_bar" style={{ display: data?.tempData.length > 0 ? "block" : "none" }}>
-          <div className="action_head">
-            <span>专栏编号</span><i>操作</i>
+          <div className="action_bar" style={{ display: data?.tempData.length > 0 ? "block" : "none" }}>
+            <div className="action_head">
+              <span>专栏编号</span><i>操作</i>
+            </div>
+            <ul>
+              {this.renderSpecailData(data?.tempData)}
+            </ul>
           </div>
-          <ul>
-            {this.renderSpecailData(data?.tempData)}
-          </ul>
         </div>
       </Fragment>
     )
@@ -94,7 +102,10 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
           dataList.map((item) => (
             <li key={item.specailId}>
               <i>{item.specailId}</i>
-              <DeleteOutlined style={{ fontSize: '14px', marginRight: "10px" }} onClick={() => { this.deleteSpecialTemp(item.specailId) }} />
+              <DeleteOutlined
+                style={{ fontSize: '14px', marginRight: "10px" }}
+                onClick={() => { this.deleteSpecialTemp(item.specailId) }}
+              />
             </li>
           ))
         }
@@ -106,6 +117,14 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
   changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
     data.spacing = spacing as number
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
+  }
+
+  // 更改文字颜色
+  changeFontColor = (color: ColorResult) => {
+    const { data, changeTempData, allTempData } = this.props
+    data.fontColor = color.hex
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -140,7 +159,7 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
     if (res.Status !== 1) {
       return message.warning("请选择已发布专题,请重新输入专题编号")
     }
-    (data?.tempData as ICorrelationSpecialModel[]).push({
+    data?.tempData.push({
       specailId: res.SpecialId,
       title: res.Title,
       imageUrl: res.TitleImg

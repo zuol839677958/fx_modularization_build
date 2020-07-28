@@ -31,6 +31,7 @@ export interface ITemplateModel<T> {
   type: number; // 模板类型
   isShow: boolean; // 模板是否显示
   spacing?: number; // 模板间距
+  fontColor?: string; // 模板字体颜色
   background?: IBackgroundSetModel; // 模板背景
   tempData: T; // 模板数据
 }
@@ -102,7 +103,7 @@ export interface IPlaintextModel {
 
 /* 相关专题模板 */
 export interface ICorrelationSpecialModel {
-  specailId: number;//专题id
+  specailId: number; //专题id
   title: string; // 标题
   imageUrl: string; // 图片链接
   fontColor?: string; // 文本内容字体颜色

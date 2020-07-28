@@ -82,7 +82,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
             preImageUrl={data.tempData.picUrl}
             handleUploadImageChange={this.changePictureUrl}
           />
-          <p>图片宽度(%)</p>
+          <p style={{ marginTop: 20 }}>图片宽度(%)</p>
           <div className="spacing-box">
             <Slider
               style={{ width: '100%' }}
