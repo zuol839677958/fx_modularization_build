@@ -28,7 +28,8 @@ interface IHeaderState { }
 
 class Header extends PureComponent<IHeaderProps, IHeaderState> {
   render() {
-    const { tempId } = this.props.match.params as { tempId: string }
+    const isShowSaveTempBtn = window.location.href.includes('code=sukeji666')
+    const isShowGetHistoryBtn = window.location.href.includes('history=1')
 
     return (
       <div className="header-wrap">
@@ -40,10 +41,14 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
             style={{ marginLeft: 20 }}
             onClick={() => this.setPageBackground()}
           >设置背景</Button>
-          <Button type="default" shape="round"
-            style={{ marginLeft: 20 }}
-            onClick={() => this.getHistoryEditorPageData()}
-          >获取历史更改</Button>
+          {
+            isShowGetHistoryBtn
+              ? <Button type="default" shape="round"
+                style={{ marginLeft: 20 }}
+                onClick={() => this.getHistoryEditorPageData()}
+              >获取历史更改</Button>
+              : null
+          }
         </div>
         <div className="header-center">
           <span>通用专题模块化</span>
@@ -54,7 +59,7 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
             onClick={() => this.saveSpecialPageData()}
           >保存</Button>
           {
-            tempId
+            isShowSaveTempBtn
               ? <Button type="primary" shape="round" style={{ marginLeft: 20 }}
                 onClick={() => this.updateTemplateData()}
               >保存为模板</Button>

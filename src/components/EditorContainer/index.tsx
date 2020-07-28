@@ -126,7 +126,6 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
       changeEditorSliderTab
     } = this.props
     const filterAllTempData = getIsShowList(allTempData) as ITemplateModel<any>[]
-    console.log(filterAllTempData)
     return (
       <Fragment>
         {
