@@ -122,16 +122,14 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
     return (
       <Fragment>
         <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-          <p>视频封面</p>
+          <p>视频封面图</p>
           <AliyunOSSUpload
             preImageUrl={videoData?.poster}
-            uploadTip="上传视频封面"
+            uploadTip="上传视频封面图"
             handleUploadImageChange={this.changeVideoPoster}
           />
-        </Row>
-        <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-          <p>视频链接地址</p>
-          <Input placeholder="请输入视频链接地址"
+          <p style={{ marginTop: 10 }}>视频地址</p>
+          <Input placeholder="请输入视频地址"
             value={videoData?.videoSrc}
             onChange={this.changeVideoSrc}
           />
