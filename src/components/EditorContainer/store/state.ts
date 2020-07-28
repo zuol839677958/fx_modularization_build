@@ -1,4 +1,4 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel } from "../../../store/data"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel } from "../../../store/data"
 import { BackgroundSetType } from "../../BackgroundSet/store/state"
 
 export enum TemplateType {
@@ -9,7 +9,8 @@ export enum TemplateType {
   LeftTextRightPicture,
   Plaintext,
   RelatedList,
-  CorrelationSpecial
+  CorrelationSpecial,
+  Audio
 }
 
 export enum BannerType {
@@ -23,14 +24,21 @@ export enum TemplatePositionType {
   Center,
   Right
 }
+export enum AudioPositionType {
+  Left = 1,
+  Center,
+  Right
+}
 
-const editorContainerState: ITemplateModel<
+const 
+editorContainerState: ITemplateModel<
   IBannerModel
   | IIconTitleTextModel[]
   | IPlaintextModel
   | IPictureTextModel
   | IShareModel
   | ICorrelationSpecialModel
+  | IAudioModel
 >[] = [
     {
       id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
@@ -42,6 +50,16 @@ const editorContainerState: ITemplateModel<
         imageData: {
           imageUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
         }
+      }
+    },
+    {
+      id: `${TemplateType[TemplateType.Audio]}_${Date.now()}`,
+      type: TemplateType.Audio,
+      isShow: true,
+      spacing: 20,
+      tempData: {
+        audioUrl:"https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
+        positionType: TemplatePositionType.Center
       }
     },
     {
@@ -192,7 +210,8 @@ const editorContainerState: ITemplateModel<
       isShow: true,
       spacing: 20,
       tempData: []
-    }
+    },
+  
   ]
 
 export {

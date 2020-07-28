@@ -66,6 +66,12 @@ export interface IShareModel {
   positionType?: number; // 分享的位置：居左，居中，居右
 }
 
+/* 音频模板 */
+export interface IAudioModel {
+  audioUrl?:string;//音频链接
+  positionType?: number; // 分享的位置：居左，居中，居右
+}
+
 /* 图标标题文字模板 */
 export interface IIconTitleTextModel {
   iconUrl?: string; // 图标链接

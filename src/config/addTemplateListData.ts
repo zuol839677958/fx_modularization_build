@@ -81,6 +81,16 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
       }
     ]
   },
+  {
+    tempName: '音频',
+    isActive: false,
+    tempList: [
+      {
+        type: TemplateType.Audio,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/28/095536782.png'
+      }
+    ]
+  }
 ]
 
 export {
