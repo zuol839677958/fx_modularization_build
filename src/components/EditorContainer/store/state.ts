@@ -30,7 +30,8 @@ export enum AudioPositionType {
   Right
 }
 
-const editorContainerState: ITemplateModel<
+const 
+editorContainerState: ITemplateModel<
   IBannerModel
   | IIconTitleTextModel[]
   | IPlaintextModel
@@ -49,6 +50,16 @@ const editorContainerState: ITemplateModel<
         imageData: {
           imageUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
         }
+      }
+    },
+    {
+      id: `${TemplateType[TemplateType.Audio]}_${Date.now()}`,
+      type: TemplateType.Audio,
+      isShow: true,
+      spacing: 20,
+      tempData: {
+        audioUrl:"https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
+        positionType: TemplatePositionType.Center
       }
     },
     {
@@ -200,16 +211,7 @@ const editorContainerState: ITemplateModel<
       spacing: 20,
       tempData: []
     },
-    {
-      id: `${TemplateType[TemplateType.Audio]}_${Date.now()}`,
-      type: TemplateType.Audio,
-      isShow: true,
-      spacing: 20,
-      tempData: {
-        audioUrl:"https://file.wbp5.com/upload/files/2020/07/24/024311228495.mp3",
-        positionType: SharePositionType.Center
-    }
-    }
+  
   ]
 
 export {

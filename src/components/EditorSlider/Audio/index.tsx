@@ -5,7 +5,7 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { updateCurrentTempData } from '../../../utils/utils'
 import { Row, Slider, Radio, Input } from 'antd'
-import { SharePositionType } from '../../EditorContainer/store/state'
+import { TemplatePositionType } from '../../EditorContainer/store/state'
 import { SliderValue } from 'antd/lib/slider'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -44,9 +44,9 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
               value={data.tempData.positionType}
               onChange={e => this.changeTempPosition(e.target.value)}
             >
-              <Radio value={SharePositionType.Left}>居左</Radio>
-              <Radio value={SharePositionType.Center}>居中</Radio>
-              <Radio value={SharePositionType.Right}>居右</Radio>
+              <Radio value={TemplatePositionType.Left}>居左</Radio>
+              <Radio value={TemplatePositionType.Center}>居中</Radio>
+              <Radio value={TemplatePositionType.Right}>居右</Radio>
             </Radio.Group>
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
@@ -65,7 +65,7 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
     let inputVal = e.target.value
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    if (tempData.audioUrl) tempData.audioUrl = inputVal
+    tempData.audioUrl = inputVal
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -79,15 +79,13 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
   }
 
   // 切换音频按钮显示位置
-  changeTempPosition(postionType: SharePositionType) {
+  changeTempPosition(postionType: TemplatePositionType) {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.positionType = postionType
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
-
- 
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorAudioProps) => ({

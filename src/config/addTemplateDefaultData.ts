@@ -1,4 +1,4 @@
-import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../store/data'
+import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel } from '../store/data'
 import { BannerType, TemplateType, TemplatePositionType } from '../components/EditorContainer/store/state'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
@@ -27,6 +27,18 @@ const shareDefaultData: ITemplateModel<IShareModel> = {
     positionType: TemplatePositionType.Right
   }
 }
+
+/* 新增音频模板默认数据 */
+const audioDefaultData: ITemplateModel<IAudioModel> = {
+  id: `${TemplateType[TemplateType.Audio]}`,
+  type: TemplateType.Audio,
+  isShow: true,
+  tempData: {
+    audioUrl:"",
+    positionType:2
+  }
+}
+
 
 /* 新增图标标题文字模板默认数据 */
 const iconTitleTextDefaultData: ITemplateModel<IIconTitleTextModel[]> = {
@@ -148,6 +160,7 @@ const defaultSpecialData: ITemplateModel<ICorrelationSpecialModel[]> = {
 
 const defaultTemplateList = [
   bannerDefaultData,
+  audioDefaultData,
   shareDefaultData,
   iconTitleTextDefaultData,
   plainTextDefaultData,

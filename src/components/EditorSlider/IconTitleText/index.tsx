@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment, Dispatch, HtmlHTMLAttributes } from 'react'
+import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data';

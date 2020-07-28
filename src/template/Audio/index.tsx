@@ -59,7 +59,7 @@ class Audio extends MasterTemplate<IAudioProps> {
       >
         {this.renderMask(maskParams)}
         <div className="share_content">
-            <div className="">
+            <div className="audio_box_c">
                 <div className ="audioBox" style={this.initSharePositionStyle((tempData.tempData as IAudioModel).positionType!)}>
                     <audio className="audio-js" controls preload="auto" src={tempData.tempData.audioUrl}>" /&gt;</audio>
                 </div>
