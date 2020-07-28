@@ -1,17 +1,17 @@
 
 
-import React , { CSSProperties } from 'react'
+import React, { CSSProperties } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { AudioPositionType } from '../../components/EditorContainer/store/state'
+import { IAudioModel } from '../../store/data'
 
 import './index.less'
-import { IAudioModel } from '../../store/data'
 
 interface IAudioProps extends IMasterTemplateProps { }
 
 interface IAudioState extends IMasterTemplateState {
   audioUrl?: string
-  isShowMask:boolean
+  isShowMask: boolean
 }
 
 class Audio extends MasterTemplate<IAudioProps> {
@@ -59,11 +59,11 @@ class Audio extends MasterTemplate<IAudioProps> {
       >
         {this.renderMask(maskParams)}
         <div className="share_content">
-            <div className="audio_box_c">
-                <div className ="audioBox" style={this.initSharePositionStyle((tempData.tempData as IAudioModel).positionType!)}>
-                    <audio className="audio-js" controls preload="auto" src={tempData.tempData.audioUrl}>" /&gt;</audio>
-                </div>
+          <div className="audio_box_c">
+            <div className="audioBox" style={this.initSharePositionStyle((tempData.tempData as IAudioModel).positionType!)}>
+              <audio className="audio-js" controls preload="auto" src={tempData.tempData.audioUrl}>" /&gt;</audio>
             </div>
+          </div>
         </div>
       </div>
     )
@@ -89,7 +89,7 @@ class Audio extends MasterTemplate<IAudioProps> {
 
 
 
- 
+
 }
 
 export default Audio 
