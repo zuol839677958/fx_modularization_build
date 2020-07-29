@@ -8,9 +8,9 @@ import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { SliderValue } from 'antd/lib/slider'
-import { SketchPicker, ColorResult } from 'react-color'
 
 import TitleBack from '../commonEditorComponent/titleBack'
+import FontColorSet from '../../FontColorSet'
 
 import "./index.less"
 
@@ -25,6 +25,8 @@ interface ICorrelationSpecialState {
   topTitle: string
   addShow: boolean
   inputValue: string
+  currentFontColor: string
+  fontColorSelectModalVisible: boolean
 }
 
 class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrelationSpecialState> {
@@ -33,11 +35,13 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
     topTitle: "相关专题模板编辑",
     addShow: false,
     inputValue: "",
+    currentFontColor: '',
+    fontColorSelectModalVisible: false
   }
 
   render() {
     const { data } = this.props
-    const { typeIndex, topTitle } = this.state
+    const { typeIndex, topTitle, currentFontColor, fontColorSelectModalVisible } = this.state
 
     return (
       <Fragment>
@@ -58,10 +62,10 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>标签字体颜色</p>
-            <SketchPicker
-              color={data.fontColor || '#fff'}
-              onChange={this.changeFontColor}
-            />
+            <div className="fontColorSelect"
+              style={{ background: data.fontColor, marginLeft: 0 }}
+              onClick={this.initFontColorSelectModal}
+            ></div>
           </Row>
           <div className="add_btn" onClick={() => { this.addSpecialTmp() }}>
             新增条目
@@ -90,6 +94,12 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
             </ul>
           </div>
         </div>
+        <FontColorSet
+          modalVisible={fontColorSelectModalVisible}
+          fontColor={currentFontColor}
+          handleModalVisible={this.handleFontColorSelectModalVisible}
+          handleChangeFontColor={this.changeFontColor}
+        />
       </Fragment>
     )
   }
@@ -113,6 +123,18 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
     )
   }
 
+  // 打开颜色选择弹窗
+  initFontColorSelectModal = () => {
+    const { data } = this.props
+    this.setState({ currentFontColor: data.fontColor || '' })
+    this.handleFontColorSelectModalVisible(true)
+  }
+
+  // 处理颜色选择弹框显示和隐藏
+  handleFontColorSelectModalVisible = (fontColorSelectModalVisible: boolean) => {
+    this.setState({ fontColorSelectModalVisible })
+  }
+
   // 更改模板间距
   changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
@@ -122,11 +144,12 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
   }
 
   // 更改文字颜色
-  changeFontColor = (color: ColorResult) => {
+  changeFontColor = (color: string) => {
     const { data, changeTempData, allTempData } = this.props
-    data.fontColor = color.hex
+    data.fontColor = color
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
+    this.handleFontColorSelectModalVisible(false)
   }
 
   //删除专题
