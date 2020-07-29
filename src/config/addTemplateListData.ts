@@ -43,7 +43,7 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
     tempList: [
       {
         type: TemplateType.Plaintext,
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/112347038.png'
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/29/101545330.png'
       },
     ]
   },
