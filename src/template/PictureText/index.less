@@ -60,6 +60,9 @@
         section {
           font-size: 16px;
           line-height: 1.5;
+          word-break: break-all;
+          white-space: normal;
+          min-height: 18px;
 
           strong {
             font-weight: bold;
@@ -68,6 +71,14 @@
           &:last-child {
             margin-bottom: 0px;
           }
+        }
+
+        ol>li {
+          list-style: decimal;
+        }
+
+        ul>li {
+          list-style: disc;
         }
       }
     }
