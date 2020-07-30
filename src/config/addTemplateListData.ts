@@ -90,6 +90,16 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/28/095536782.png'
       }
     ]
+  },
+  {
+    tempName: '双图',
+    isActive: false,
+    tempList: [
+      {
+        type: TemplateType.MorePicture,
+        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/30/140046775.png'
+      }
+    ]
   }
 ]
 
