@@ -46,7 +46,7 @@ class Audio extends MasterTemplate<IAudioProps> {
 
     return (
       <div id={tempData.id}
-        className="share_box"
+        className="audio_box"
         style={this.initTempBackground(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
@@ -58,7 +58,7 @@ class Audio extends MasterTemplate<IAudioProps> {
         }}
       >
         {this.renderMask(maskParams)}
-        <div className="share_content">
+        <div className="audio_content">
           <div className="audio_box_c">
             <div className="audioBox" style={this.initSharePositionStyle((tempData.tempData as IAudioModel).positionType!)}>
               <audio className="audio-js" controls preload="auto" src={tempData.tempData.audioUrl}>" /&gt;</audio>

@@ -22,6 +22,7 @@ import Plaintext from '../../template/Plaintext'
 import CorrelationSpecial from "../../template/CorrelationSpecial"
 import Share from "../../template/Share"
 import Audio from "../../template/Audio"
+import MorePicture from "../../template/MorePicture"
 
 import './index.less'
 
@@ -73,14 +74,14 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
     )
   }
 
-  componentDidMount() {
-    const { hasContent } = this.props.match.params as { hasContent: string }
-    if (Number(hasContent)) {
-      this.getSpecialDetail()
-    } else {
-      this.getTemplateDetail()
-    }
-  }
+  // componentDidMount() {
+  //   const { hasContent } = this.props.match.params as { hasContent: string }
+  //   if (Number(hasContent)) {
+  //     this.getSpecialDetail()
+  //   } else {
+  //     this.getTemplateDetail()
+  //   }
+  // }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {
@@ -157,6 +158,8 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
                 return <CorrelationSpecial key={tempData.id} {...masterProps} />
               case TemplateType.Audio:
                  return <Audio key={tempData.id} {...masterProps} />
+              case TemplateType.MorePicture:
+                 return <MorePicture  key={tempData.id} {...masterProps}/>
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }

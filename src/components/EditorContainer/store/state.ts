@@ -1,4 +1,4 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel } from "../../../store/data"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from "../../../store/data"
 import { BackgroundSetType } from "../../BackgroundSet/store/state"
 
 export enum TemplateType {
@@ -10,7 +10,8 @@ export enum TemplateType {
   Plaintext,
   RelatedList,
   CorrelationSpecial,
-  Audio
+  Audio,
+  MorePicture
 }
 
 export enum BannerType {
@@ -39,6 +40,7 @@ editorContainerState: ITemplateModel<
   | IShareModel
   | ICorrelationSpecialModel
   | IAudioModel
+  | IMorePictureModel[]
 >[] = [
     {
       id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
@@ -210,6 +212,24 @@ editorContainerState: ITemplateModel<
       isShow: true,
       spacing: 20,
       tempData: []
+    },
+    {
+      id: `${TemplateType[TemplateType.MorePicture]}_${Date.now()}`,
+      type: TemplateType.MorePicture,
+      isShow: true,
+      spacing: 20,
+      tempData: [
+        {
+          picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg", 
+          picWidthPercent: 49,
+          spacingPercent:20
+        },
+        {
+          picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png",
+          picWidthPercent: 49, 
+          spacingPercent:20
+        }
+    ]
     },
   
   ]

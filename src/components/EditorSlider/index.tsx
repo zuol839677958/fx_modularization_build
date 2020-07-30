@@ -13,6 +13,7 @@ import Banner from "./Banner"//banner模块
 import Share from "./Share"//分享模块
 import CorrelationSpecial from "./CorrelationSpecial"//专题列表
 import Audio from "./Audio"//音频模块
+import EditorMorePicture from "./MorePicture" //双图模板
 
 interface IEditorBoxProps {
   isShowEditorSlider?: boolean;
@@ -61,6 +62,8 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
         return <CorrelationSpecial data={currentTempData} />
       case TemplateType.Audio:
         return <Audio data={currentTempData} />
+      case TemplateType.MorePicture:
+        return <EditorMorePicture data={currentTempData}/>
       default:
         return <Fragment></Fragment>
     }

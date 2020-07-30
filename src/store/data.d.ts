@@ -69,8 +69,14 @@ export interface IShareModel {
 
 /* 音频模板 */
 export interface IAudioModel {
-  audioUrl?:string;//音频链接
+  audioUrl?: string;//音频链接
   positionType?: number; // 分享的位置：居左，居中，居右
+}
+/* 多图模板 */
+export interface IMorePictureModel {
+  picUrl: string; // 图片链接
+  picWidthPercent?: number // 图片宽度百分比
+  spacingPercent?: number; // 图文间距
 }
 
 /* 图标标题文字模板 */
