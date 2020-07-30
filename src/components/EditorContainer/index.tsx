@@ -47,7 +47,7 @@ interface IEditorContainerState {
 
 class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContainerState> {
   state: IEditorContainerState = {
-    loading: false
+    loading: true
   }
 
   render() {
@@ -74,14 +74,14 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
     )
   }
 
-  // componentDidMount() {
-  //   const { hasContent } = this.props.match.params as { hasContent: string }
-  //   if (Number(hasContent)) {
-  //     this.getSpecialDetail()
-  //   } else {
-  //     this.getTemplateDetail()
-  //   }
-  // }
+  componentDidMount() {
+    const { hasContent } = this.props.match.params as { hasContent: string }
+    if (Number(hasContent)) {
+      this.getSpecialDetail()
+    } else {
+      this.getTemplateDetail()
+    }
+  }
 
   // 获取专题已编辑模板数据
   async getSpecialDetail() {

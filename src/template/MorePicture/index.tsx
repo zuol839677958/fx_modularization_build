@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { IMorePictureModel } from '../../store/data'
+
 import './index.less'
 
 interface IMorePictureProps extends IMasterTemplateProps { }
@@ -50,31 +51,25 @@ class MorePicture extends MasterTemplate<IMorePictureProps> {
         }}
       >
         {this.renderMask(maskParams)}
-            <div className="more_pic_box">
-                {/* <div className="first_img">
-                    <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg" alt=""/>
-                </div>
-                <div>
-                    <img src="https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg" alt=""/>
-                </div> */}
-                {this.renderMorePicList(tempData.tempData as IMorePictureModel[])}
-            </div>
+        <div className="more_pic_box">
+          {this.renderMorePicList(tempData.tempData as IMorePictureModel[])}
+        </div>
       </div>
     )
   }
-    renderMorePicList =(tempDataList:IMorePictureModel[] ): JSX.Element=>{
-        return(
-            <Fragment>
-                {
-                 tempDataList.map((item,index)=>(
-                    <div key={index} className={index=== 0?"first_img":""}>
-                         <img data-viewer={item.picUrl} src={item.picUrl} alt=""/>
-                    </div>
-                  ))
-                }
-            </Fragment>
-        )
-    }
+  renderMorePicList = (tempDataList: IMorePictureModel[]): JSX.Element => {
+    return (
+      <Fragment>
+        {
+          tempDataList.map((item, index) => (
+            <div key={index} className={index === 0 ? "first_img" : ""}>
+              <img data-viewer={item.picUrl} src={item.picUrl} alt="" />
+            </div>
+          ))
+        }
+      </Fragment>
+    )
+  }
 }
 
 export default MorePicture
