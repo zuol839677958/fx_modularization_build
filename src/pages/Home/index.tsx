@@ -3,7 +3,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 
 import EditorContainer from '../../components/EditorContainer'
 import Header from '../../components/Header'
-import EditorBox from '../../components/EditorSlider'
+import EditorSlider from '../../components/EditorSlider'
 import BackgroundSet from '../../components/BackgroundSet'
 import AddTemplate from '../../components/AddTemplate'
 
@@ -12,7 +12,7 @@ class Home extends PureComponent<RouteComponentProps> {
     return (
       <Fragment>
         <Header {...this.props} />
-        <EditorBox />
+        <EditorSlider />
         <EditorContainer {...this.props} />
         <BackgroundSet />
         <AddTemplate />

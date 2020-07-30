@@ -25,14 +25,14 @@ export enum TemplatePositionType {
   Center,
   Right
 }
+
 export enum AudioPositionType {
   Left = 1,
   Center,
   Right
 }
 
-const 
-editorContainerState: ITemplateModel<
+const editorContainerState: ITemplateModel<
   IBannerModel
   | IIconTitleTextModel[]
   | IPlaintextModel
@@ -60,7 +60,7 @@ editorContainerState: ITemplateModel<
       isShow: true,
       spacing: 20,
       tempData: {
-        audioUrl:"https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
+        audioUrl: "https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
         positionType: TemplatePositionType.Center
       }
     },
@@ -220,18 +220,17 @@ editorContainerState: ITemplateModel<
       spacing: 20,
       tempData: [
         {
-          picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg", 
+          picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg",
           picWidthPercent: 49,
-          spacingPercent:20
+          spacingPercent: 20
         },
         {
           picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png",
-          picWidthPercent: 49, 
-          spacingPercent:20
+          picWidthPercent: 49,
+          spacingPercent: 20
         }
-    ]
+      ]
     },
-  
   ]
 
 export {
