@@ -18,7 +18,7 @@ class Home extends PureComponent<RouteComponentProps> {
         <AddTemplate />
       </Fragment>
     )
-  }
+  } 
 }
 
 export default withRouter(Home)
