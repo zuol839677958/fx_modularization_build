@@ -32,7 +32,7 @@ export enum AudioPositionType {
   Right
 }
 
-const editorContainerState: ITemplateModel<
+const editorContainerMobileState: ITemplateModel<
   IBannerModel
   | IIconTitleTextModel[]
   | IPlaintextModel
@@ -234,5 +234,5 @@ const editorContainerState: ITemplateModel<
   ]
 
 export {
-  editorContainerState
+  editorContainerMobileState
 }

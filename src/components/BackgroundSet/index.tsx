@@ -7,15 +7,20 @@ import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
 import { changeBackgroundSetData } from './store/actions'
 import { changePageBackground, changeTempData } from '../EditorContainer/store/actions'
+import { changeMobilePageBackground, changeMobileTempData } from '../EditorContainerMobile/store/actions'
 
 import AliyunOSSUpload from '../AliyunOSSUpload'
 
 interface IBackgroundSetProps {
+  isMobile?: boolean
   backgroundSetData?: IBackgroundSetModel
   pageData?: IPageModel
+  mobilePageData?: IPageModel
   changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
   changePageBackground?: (background: IBackgroundSetModel) => void
+  changeMobilePageBackground?: (background: IBackgroundSetModel) => void
   changeTempData?: (tempData: ITemplateModel<any>[]) => void
+  changeMobileTempData?: (tempData: ITemplateModel<any>[]) => void
 }
 
 interface IBackgroundSetState {
@@ -28,27 +33,58 @@ class BackgroundSet extends PureComponent<IBackgroundSetProps, IBackgroundSetSta
   state: IBackgroundSetState = {}
 
   handleOk = async () => {
-    const { backgroundSetData, pageData, changePageBackground, changeTempData } = this.props
+    const {
+      isMobile,
+      backgroundSetData,
+      pageData,
+      mobilePageData,
+      changePageBackground,
+      changeMobilePageBackground,
+      changeTempData,
+      changeMobileTempData
+    } = this.props
     const { bgType, bgColor, bgImageUrl } = this.state
     if (!backgroundSetData?.tempId) {
-      await changePageBackground!({
-        bgType: bgType || pageData?.background?.bgType || BackgroundSetType.NoneColor,
-        bgColor,
-        bgImageUrl
-      })
+      if (isMobile) {
+        await changeMobilePageBackground!({
+          bgType: bgType || pageData?.background?.bgType || BackgroundSetType.NoneColor,
+          bgColor,
+          bgImageUrl
+        })
+      } else {
+        await changePageBackground!({
+          bgType: bgType || pageData?.background?.bgType || BackgroundSetType.NoneColor,
+          bgColor,
+          bgImageUrl
+        })
+      }
       this.handleCancel()
     } else {
-      const allTempData = pageData!.allTempData as ITemplateModel<any>[]
-      allTempData.forEach(item => {
-        if (item.id === backgroundSetData!.tempId) {
-          item.background = {
-            bgType: bgType || item.background?.bgType || BackgroundSetType.NoneColor,
-            bgColor,
-            bgImageUrl
+      if (isMobile) {
+        const allMobileTempData = mobilePageData!.allTempData
+        allMobileTempData.forEach(item => {
+          if (item.id === backgroundSetData!.tempId) {
+            item.background = {
+              bgType: bgType || item.background?.bgType || BackgroundSetType.NoneColor,
+              bgColor,
+              bgImageUrl
+            }
           }
-        }
-      })
-      await changeTempData!(allTempData)
+        })
+        await changeMobileTempData!(allMobileTempData)
+      } else {
+        const allTempData = pageData!.allTempData
+        allTempData.forEach(item => {
+          if (item.id === backgroundSetData!.tempId) {
+            item.background = {
+              bgType: bgType || item.background?.bgType || BackgroundSetType.NoneColor,
+              bgColor,
+              bgImageUrl
+            }
+          }
+        })
+        await changeTempData!(allTempData)
+      }
       this.handleCancel()
     }
   }
@@ -155,7 +191,8 @@ class BackgroundSet extends PureComponent<IBackgroundSetProps, IBackgroundSetSta
 
 const mapStateToProps = (state: IPageState, ownProps: IBackgroundSetProps) => ({
   backgroundSetData: state.backgroundSetReducer,
-  pageData: state.editorContainerReducer
+  pageData: state.editorContainerReducer,
+  mobilePageData: state.editorContainerMobileReducer
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
@@ -165,8 +202,14 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   async changePageBackground(background: IBackgroundSetModel) {
     await dispatch(changePageBackground(background))
   },
+  async changeMobilePageBackground(background: IBackgroundSetModel) {
+    await dispatch(changeMobilePageBackground(background))
+  },
   async changeTempData(allTempData: ITemplateModel<any>[]) {
     await dispatch(changeTempData(allTempData))
+  },
+  async changeMobileTempData(allTempData: ITemplateModel<any>[]) {
+    await dispatch(changeMobileTempData(allTempData))
   }
 })
 
