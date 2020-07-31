@@ -65,7 +65,7 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
                 <Spin size="large" />
               </div>
               :
-              <div id="generalPage" className="page-wrap" style={this.initGeneralPageBackground()}>
+              <div id="generalPage" style={this.initGeneralPageBackground()}>
                 {this.renderAllTemplate(allTempData as ITemplateModel<any>[])}
               </div>
           }

@@ -1,12 +1,15 @@
 import React, { FC } from 'react'
+import { IBannerModel } from '../../store/data'
 
 import './index.less'
 
-interface IBannerProps { }
+interface IBannerProps {
+  data: IBannerModel
+}
 
 const Banner: FC<IBannerProps> = props => {
   return (
-    <div></div>
+    <div>banner模板</div>
   )
 }
 

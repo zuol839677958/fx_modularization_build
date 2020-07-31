@@ -1,6 +1,7 @@
 // 整个项目状态管理
 export interface IPageState {
   editorContainerReducer: IPageModel; // 编辑生成的网页内容
+  editorContainerMobileReducer: IPageModel; // 编辑生成的H5网页内容
   editorSliderReducer: IEditorSliderModel; // 侧滑栏编辑
   backgroundSetReducer: IBackgroundSetModel; // 网页背景以及模板背景设置
   addTemplateSliderReducer: IAddTemplateSliderModel; // 新增模块
