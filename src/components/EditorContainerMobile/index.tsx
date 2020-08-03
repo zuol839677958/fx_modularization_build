@@ -5,10 +5,12 @@ import { connect } from 'react-redux'
 import { BackgroundSetType } from '../BackgroundSet/store/state'
 
 import TemplateList from './TemplateList'
+import ActionBar from '../MobileMask/ActionBar'
 
 import './index.less'
 
 interface IEditorContainerMobileProps extends RouteComponentProps {
+  mobileActiveTempId?: string
   isShowSlider?: boolean
   isShowAddTemplate?: boolean
   generalMobilePageBackground?: IBackgroundSetModel
@@ -16,6 +18,7 @@ interface IEditorContainerMobileProps extends RouteComponentProps {
 
 const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
   const {
+    mobileActiveTempId,
     isShowSlider,
     isShowAddTemplate,
     history,
@@ -54,12 +57,14 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
           </div>
           
         </div>
+        {mobileActiveTempId ? <ActionBar /> : null}
       </div>
     </div>
   )
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorContainerMobileProps) => ({
+  mobileActiveTempId: state.editorContainerMobileReducer.activeTempId,
   isShowSlider: state.editorSliderReducer.isShow,
   isShowAddTemplate: state.addTemplateSliderReducer.isShow,
   generalMobilePageBackground: state.editorContainerMobileReducer.background

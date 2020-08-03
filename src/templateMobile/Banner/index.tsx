@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { IBannerModel } from '../../store/data'
+import { BannerType } from '../../components/EditorContainerMobile/store/state'
 
 import './index.less'
 
@@ -8,16 +9,28 @@ interface IBannerProps {
 }
 
 const Banner: FC<IBannerProps> = props => {
+  const { data } = props
+
+  const renderBannerTemplate = () => {
+    switch (data.bannerType) {
+      case BannerType.SingleImage:
+        return (
+          <img
+            style={{ width: `${data.widthPercent || 100}%` }}
+            data-viewer={data.isFull ? '' : data.imageData.imageUrl}
+            src={data.imageData.imageUrl}
+            title={data.imageData.imageTitle}
+            alt={data.imageData.imageDesc} />
+        )
+      case BannerType.Swiper:
+      case BannerType.Video:
+      default:
+        return <></>
+    }
+  }
+
   return (
-    <div className="content_box">
-        <div className="img_content_box">
-          <img  src="https://img.wbp5.com/upload/files/master/2020/06/02/165117995.png" alt=""/>
-      </div>
-      <div className="video_content_box">
-          <video controls src="https://file.wbp5.com/upload/files/master/2020/07/25/154931384.mp4"></video>
-      </div>
-    </div>
-    
+    <div className={`banner_box ${data.isFull ? 'isFull' : ''}`}>{renderBannerTemplate()}</div>
   )
 }
 
