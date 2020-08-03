@@ -46,7 +46,7 @@ const TemplateList: FC<ITemplateListProps> = props => {
   const renderTemplate = (tempData: ITemplateModel<any>) => {
     switch (tempData.type) {
       case TemplateType.Banner:
-        return <Banner key={tempData.id} data={tempData.tempData as IBannerModel} />
+        return <Banner data={tempData.tempData as IBannerModel} />
       default:
         return null
     }
