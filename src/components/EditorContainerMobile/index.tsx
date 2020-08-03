@@ -42,6 +42,7 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
     return bgCss
   }
 
+
   return (
     <div className="mobile-editor"
       style={{ paddingLeft: isShowAddTemplate ? '400px' : isShowSlider ? "340px" : "0px" }}
@@ -51,6 +52,7 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
           <div id="generalMobilePage" style={initGeneralMobilePageBackground()}>
             <TemplateList history={history} location={location} match={match} />
           </div>
+          
         </div>
       </div>
     </div>
