@@ -12,7 +12,7 @@ const MobileHome: FC<RouteComponentProps> = props => {
     <>
       <Header {...props} />
       <EditorContainerMobile {...props} />
-      <EditorSlider />
+      <EditorSlider isMobile={true} />
       <BackgroundSet isMobile={true} />
       <AddTemplate />
     </>

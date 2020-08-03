@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { ITemplateModel, IIconTitleTextModel } from '../store/data'
+import { ITemplateModel, IIconTitleTextModel, IBackgroundSetModel } from '../store/data'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 import { TemplatePositionType } from '../components/EditorContainer/store/state';
 import { CSSProperties } from 'react';
@@ -246,6 +246,37 @@ const initTemplatePositionStyle = (positionType: TemplatePositionType): CSSPrope
   return bgCss
 }
 
+// 渲染模板背景
+const initTempBackground = (background?: IBackgroundSetModel, spacing?: number, isMobile?: boolean): CSSProperties => {
+  let bgCss: CSSProperties = {}
+  bgCss = initTempSpacing(spacing, isMobile)
+  if (!background) return bgCss
+  switch (background.bgType) {
+    case BackgroundSetType.NoneColor:
+      break
+    case BackgroundSetType.PureColor:
+      bgCss.backgroundColor = background.bgColor
+      break
+    case BackgroundSetType.BackgroundImage:
+      bgCss.background = `url(${background.bgImageUrl}) no-repeat center center`
+      bgCss.backgroundSize = 'cover'
+      break
+  }
+  return bgCss
+}
+
+// 渲染模板间距
+const initTempSpacing = (spacing?: number, isMobile?: boolean) => {
+  let bgCss: CSSProperties = {}
+  if (spacing === void 0) return bgCss
+  if (isMobile) {
+    bgCss.padding = `${spacing / 100}rem 0rem`
+  } else {
+    bgCss.padding = `${spacing}px 0px`
+  }
+  return bgCss
+}
+
 export {
   swapArray,
   zIndexUp,
@@ -267,5 +298,6 @@ export {
   updateIconTitleTextItemTitleBgImageUrl,
   updateIconTitleTextItemTitleBgType,
   deepClone,
-  initTemplatePositionStyle
+  initTemplatePositionStyle,
+  initTempBackground
 }

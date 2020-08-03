@@ -12,8 +12,10 @@ import { SliderValue } from 'antd/lib/slider'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
 
 import "./index.less"
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 interface IEditorBannerProps {
+  isMobile?: boolean
   data: ITemplateModel<IBannerModel>
   allTempData?: ITemplateModel<any>[]
   changeTempData?: (allTempData: ITemplateModel<any>[]) => void
@@ -24,7 +26,7 @@ interface IEditorBannerState {
   topTitle: string
 }
 
-class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
+class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
   state: IEditorBannerState = {
     typeIndex: 0,
     topTitle: "Banner模板编辑"
@@ -193,13 +195,17 @@ class Banner extends PureComponent<IEditorBannerProps, IEditorBannerState> {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorBannerProps) => ({
-  allTempData: state.editorContainerReducer.allTempData
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorBannerProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Banner)
+export default connect(mapStateToProps, mapDispatchToProps)(EditorBanner)

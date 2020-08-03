@@ -1,4 +1,4 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from "../../../store/data"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from "../../../store/data"
 import { BackgroundSetType } from "../../BackgroundSet/store/state"
 
 export enum TemplateType {
@@ -37,7 +37,6 @@ const editorContainerMobileState: ITemplateModel<
   | IIconTitleTextModel[]
   | IPlaintextModel
   | IPictureTextModel
-  | IShareModel
   | ICorrelationSpecialModel
   | IAudioModel
   | IMorePictureModel[]
@@ -62,17 +61,6 @@ const editorContainerMobileState: ITemplateModel<
       tempData: {
         audioUrl: "https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
         positionType: TemplatePositionType.Center
-      }
-    },
-    {
-      id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
-      type: TemplateType.Share,
-      isShow: true,
-      spacing: 20,
-      tempData: {
-        isTW: false,
-        labelFontColor: '#fff',
-        positionType: TemplatePositionType.Right
       }
     },
     {
