@@ -8,19 +8,21 @@ import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { SliderValue } from 'antd/lib/slider'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import FontColorSet from '../../FontColorSet'
 
 import "./index.less"
 
-interface ICorrelationSpecialProps {
+interface IEditorCorrelationSpecialProps {
+  isMobile?: boolean
   data: ITemplateModel<ICorrelationSpecialModel[]>
   allTempData?: ITemplateModel<any>[]
   changeTempData?: (tempData: ITemplateModel<any>[]) => void
 }
 
-interface ICorrelationSpecialState {
+interface IEditorCorrelationSpecialState {
   typeIndex: number
   topTitle: string
   addShow: boolean
@@ -29,8 +31,8 @@ interface ICorrelationSpecialState {
   fontColorSelectModalVisible: boolean
 }
 
-class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrelationSpecialState> {
-  state: ICorrelationSpecialState = {
+class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialProps, IEditorCorrelationSpecialState> {
+  state: IEditorCorrelationSpecialState = {
     typeIndex: 0,
     topTitle: "相关专题模板编辑",
     addShow: false,
@@ -202,14 +204,18 @@ class CorrelationSpecial extends PureComponent<ICorrelationSpecialProps, ICorrel
   }
 }
 
-const mapStateToProps = (state: IPageState, ownProps: ICorrelationSpecialProps) => ({
+const mapStateToProps = (state: IPageState, ownProps: IEditorCorrelationSpecialProps) => ({
   allTempData: state.editorContainerReducer.allTempData,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorCorrelationSpecialProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CorrelationSpecial)
+export default connect(mapStateToProps, mapDispatchToProps)(EditorCorrelationSpecial)

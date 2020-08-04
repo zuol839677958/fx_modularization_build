@@ -42,7 +42,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
 
     return (
       <div id={tempData.id} className="iconTitleText_box"
-        style={this.initTempBackground(tempData.background, tempData.spacing)}
+        style={this.initTempCss(tempData.background, tempData.spacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {

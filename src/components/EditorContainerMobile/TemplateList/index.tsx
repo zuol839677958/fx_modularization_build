@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IIconTitleTextModel } from '../../../store/data'
+import React, { FC, memo, useState } from 'react'
+import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getIsShowList } from '../../../utils/utils'
+import { getIsShowList, initTempBackground } from '../../../utils/utils'
 import { TemplateType } from '../../EditorContainer/store/state'
 import { changeMobileActiveTempId } from '../store/actions'
 import { Dispatch, Action } from 'redux'
+import { changeEditorSliderShow, changeEditorSliderTab } from '../../EditorSlider/store/actions'
+import { changeAddTemplateSliderShow } from '../../AddTemplate/store/actions'
 
 import MobileMask from '../../MobileMask'
 
@@ -19,11 +21,21 @@ interface ITemplateListProps extends RouteComponentProps {
   mobileActiveTempId?: string
   mobileAllTempData?: ITemplateModel<any>[]
   changeMobileActiveTempId?: (activeTempId: string) => void
+  changeEditorSliderShow?: (isShow: boolean) => void
+  changeAddTemplateSliderShow?: (isShow: boolean) => void
+  changeEditorSliderTab?: (tabTypeIndex: number) => void
 }
 
 const TemplateList: FC<ITemplateListProps> = props => {
   const [isShowMaskTempId, setIsShowMaskTempId] = useState<string>('')
-  const { mobileActiveTempId, mobileAllTempData, changeMobileActiveTempId } = props
+  const {
+    mobileActiveTempId,
+    mobileAllTempData,
+    changeMobileActiveTempId,
+    changeEditorSliderShow,
+    changeAddTemplateSliderShow,
+    changeEditorSliderTab
+  } = props
 
   // 鼠标移入模板处理
   const handleTempMouseEnter = (tempId: string) => {
@@ -38,6 +50,9 @@ const TemplateList: FC<ITemplateListProps> = props => {
   // 鼠标点击模板处理
   const handleTempClick = (tempId: string) => {
     changeMobileActiveTempId!(tempId)
+    changeEditorSliderShow!(true)
+    changeAddTemplateSliderShow!(false)
+    changeEditorSliderTab!(0)
   }
 
   /**
@@ -55,6 +70,15 @@ const TemplateList: FC<ITemplateListProps> = props => {
     }
   }
 
+  /**
+   * 渲染模板样式
+   * @param background 模板背景
+   * @param spacing 模板间距
+   */
+  const initTempCss = (background?: IBackgroundSetModel, spacing?: number) => {
+    return initTempBackground(background, spacing, true)
+  }
+
   const filterMobileAllTempData = getIsShowList(mobileAllTempData!) as ITemplateModel<any>[]
   if (filterMobileAllTempData.length === 0) return null
 
@@ -63,6 +87,7 @@ const TemplateList: FC<ITemplateListProps> = props => {
       {
         filterMobileAllTempData.map(tempData => (
           <div id={tempData.id} className="temp-box" key={tempData.id}
+            style={initTempCss(tempData.background, tempData.spacing)}
             onMouseEnter={() => handleTempMouseEnter(tempData.id)}
             onMouseLeave={handleTempMouseLeave}
             onClick={() => handleTempClick(tempData.id)}
@@ -85,7 +110,16 @@ const mapStateToProps = (state: IPageState, ownProps: ITemplateListProps) => ({
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeMobileActiveTempId(activeTempId: string) {
     dispatch(changeMobileActiveTempId(activeTempId))
+  },
+  changeEditorSliderShow(isShow: boolean) {
+    dispatch(changeEditorSliderShow(isShow))
+  },
+  changeAddTemplateSliderShow(isShow: boolean) {
+    dispatch(changeAddTemplateSliderShow(isShow))
+  },
+  changeEditorSliderTab(tabTypeIndex: number) {
+    dispatch(changeEditorSliderTab(tabTypeIndex))
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TemplateList)
+export default connect(mapStateToProps, mapDispatchToProps)(memo(TemplateList))

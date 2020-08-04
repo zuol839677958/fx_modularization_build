@@ -11,15 +11,17 @@ import { SketchPicker, ColorResult } from 'react-color'
 import { SliderValue } from 'antd/lib/slider'
 import { TemplatePositionType } from '../../EditorContainer/store/state'
 import { RadioChangeEvent } from 'antd/lib/radio'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
+import { changeEditorSliderTab } from '../store/actions'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
-import { changeEditorSliderTab } from '../store/actions'
 
 import './index.less'
 
 interface IEditorIconTitleTextProps {
+  isMobile?: boolean
   isShow?: boolean
   data: ITemplateModel<IIconTitleTextModel[]>
   allTempData?: ITemplateModel<any>[]
@@ -389,9 +391,13 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps)
   tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorIconTitleTextProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   },
   changeTabTypeIndex(tabTypeIndex: number) {
     dispatch(changeEditorSliderTab(tabTypeIndex))

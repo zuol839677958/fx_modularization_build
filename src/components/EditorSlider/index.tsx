@@ -8,18 +8,19 @@ import './index.less'
 //模板
 import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
 import EditorPlaintext from './Plaintext'//编辑纯文本
-import PictureText from './PictureText'//图文模块
-import Banner from "./Banner"//banner模块
-import Share from "./Share"//分享模块
-import CorrelationSpecial from "./CorrelationSpecial"//专题列表
-import Audio from "./Audio"//音频模块
+import EditorPictureText from './PictureText'//图文模块
+import EditorBanner from "./Banner"//banner模块
+import EditorShare from "./Share"//分享模块
+import EditorCorrelationSpecial from "./CorrelationSpecial"//专题列表
+import EditorAudio from "./Audio"//音频模块
 import EditorMorePicture from "./MorePicture" //双图模板
 
 interface IEditorBoxProps {
-  isShowEditorSlider?: boolean;
-  title?: string;
+  isMobile?: boolean
+  isShowEditorSlider?: boolean
+  title?: string
   allTempData?: ITemplateModel<any>[]
-  currentTemplateId?: string;
+  currentTemplateId?: string
 }
 
 class EditorBox extends PureComponent<IEditorBoxProps> {
@@ -46,24 +47,26 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
   }
 
   switchEditorModel(currentTempData: ITemplateModel<any>) {
+    const { isMobile } = this.props
+
     switch (currentTempData.type) {
       case TemplateType.Banner:
-        return <Banner data={currentTempData} />
+        return <EditorBanner isMobile={isMobile} data={currentTempData} />
       case TemplateType.Share:
-        return <Share data={currentTempData} />
+        return <EditorShare data={currentTempData} />
       case TemplateType.IconTitleText:
-        return <EditorIconTitleText data={currentTempData} />
+        return <EditorIconTitleText isMobile={isMobile} data={currentTempData} />
       case TemplateType.Plaintext:
-        return <EditorPlaintext data={currentTempData} />
+        return <EditorPlaintext isMobile={isMobile} data={currentTempData} />
       case TemplateType.LeftPictureRightText:
       case TemplateType.LeftTextRightPicture:
-        return <PictureText data={currentTempData} />
+        return <EditorPictureText isMobile={isMobile} data={currentTempData} />
       case TemplateType.CorrelationSpecial:
-        return <CorrelationSpecial data={currentTempData} />
+        return <EditorCorrelationSpecial isMobile={isMobile} data={currentTempData} />
       case TemplateType.Audio:
-        return <Audio data={currentTempData} />
+        return <EditorAudio isMobile={isMobile} data={currentTempData} />
       case TemplateType.MorePicture:
-        return <EditorMorePicture data={currentTempData}/>
+        return <EditorMorePicture data={currentTempData} />
       default:
         return <Fragment></Fragment>
     }
@@ -71,8 +74,8 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorBoxProps) => ({
-  currentTemplateId: state.editorContainerReducer.activeTempId,
-  allTempData: state.editorContainerReducer.allTempData,
+  currentTemplateId: ownProps.isMobile ? state.editorContainerMobileReducer.activeTempId : state.editorContainerReducer.activeTempId,
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
   isShowEditorSlider: state.editorSliderReducer.isShow
 })
 

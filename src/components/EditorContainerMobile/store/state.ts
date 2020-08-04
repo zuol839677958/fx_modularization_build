@@ -1,4 +1,4 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from "../../../store/data"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel } from "../../../store/data"
 import { BackgroundSetType } from "../../BackgroundSet/store/state"
 
 export enum TemplateType {
@@ -37,10 +37,8 @@ const editorContainerMobileState: ITemplateModel<
   | IIconTitleTextModel[]
   | IPlaintextModel
   | IPictureTextModel
-  | IShareModel
   | ICorrelationSpecialModel
   | IAudioModel
-  | IMorePictureModel[]
 >[] = [
     {
       id: `${TemplateType[TemplateType.Banner]}_${Date.now()}`,
@@ -62,17 +60,6 @@ const editorContainerMobileState: ITemplateModel<
       tempData: {
         audioUrl: "https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
         positionType: TemplatePositionType.Center
-      }
-    },
-    {
-      id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
-      type: TemplateType.Share,
-      isShow: true,
-      spacing: 20,
-      tempData: {
-        isTW: false,
-        labelFontColor: '#fff',
-        positionType: TemplatePositionType.Right
       }
     },
     {
@@ -212,24 +199,6 @@ const editorContainerMobileState: ITemplateModel<
       isShow: true,
       spacing: 20,
       tempData: []
-    },
-    {
-      id: `${TemplateType[TemplateType.MorePicture]}_${Date.now()}`,
-      type: TemplateType.MorePicture,
-      isShow: true,
-      spacing: 20,
-      tempData: [
-        {
-          picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg",
-          picWidthPercent: 49,
-          spacingPercent: 20
-        },
-        {
-          picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png",
-          picWidthPercent: 49,
-          spacingPercent: 20
-        }
-      ]
     },
   ]
 

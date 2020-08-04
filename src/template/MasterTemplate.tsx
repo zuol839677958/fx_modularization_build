@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment, CSSProperties } from 'react'
 import { Button, Modal } from 'antd'
 import { EditFilled, DeleteFilled, CopyFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { ITemplateModel, IBackgroundSetModel } from '../store/data'
-import { zIndexDown, zIndexUp, insertItemToArray, deepClone } from '../utils/utils'
+import { zIndexDown, zIndexUp, insertItemToArray, deepClone, initTempBackground } from '../utils/utils'
 import _ from 'lodash'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
@@ -170,31 +170,9 @@ class MasterTemplate<P> extends PureComponent<P, IMasterTemplateState> {
     params.setTempBackground(backgroundSet)
   }
 
-  // 渲染模板背景
-  initTempBackground(background?: IBackgroundSetModel, spacing?: number): CSSProperties {
-    let bgCss: CSSProperties = {}
-    bgCss = this.initTempSpacing(spacing)
-    if (!background) return bgCss
-    switch (background.bgType) {
-      case BackgroundSetType.NoneColor:
-        break
-      case BackgroundSetType.PureColor:
-        bgCss.backgroundColor = background.bgColor
-        break
-      case BackgroundSetType.BackgroundImage:
-        bgCss.background = `url(${background.bgImageUrl}) no-repeat center center`
-        bgCss.backgroundSize = 'cover'
-        break
-    }
-    return bgCss
-  }
-
-  // 渲染模板间距
-  initTempSpacing(spacing?: number) {
-    let bgCss: CSSProperties = {}
-    if (spacing === void 0) return bgCss
-    bgCss.padding = `${spacing}px 0px`
-    return bgCss
+  // 渲染模板样式
+  initTempCss(background?: IBackgroundSetModel, spacing?: number): CSSProperties {
+    return initTempBackground(background, spacing)
   }
 }
 

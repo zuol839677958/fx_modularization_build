@@ -7,12 +7,14 @@ import { updateCurrentTempData } from '../../../utils/utils'
 import { Row, Slider, Radio, Input } from 'antd'
 import { TemplatePositionType } from '../../EditorContainer/store/state'
 import { SliderValue } from 'antd/lib/slider'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 
 import './index.less'
 
 interface IEditorAudioProps {
+  isMobile?: boolean
   data: ITemplateModel<IAudioModel>
   allTempData?: ITemplateModel<any>[]
   changeTempData?: (allTempData: ITemplateModel<any>[]) => void
@@ -54,14 +56,14 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
             <Input placeholder="请输入音频链接地址"
               value={data.tempData.audioUrl}
               onChange={this.changeAudioUrl}
-          />
-        </Row>
+            />
+          </Row>
         </div>
       </Fragment>
     )
   }
   //修改音频地址
-  changeAudioUrl = (e:any) =>{
+  changeAudioUrl = (e: any) => {
     let inputVal = e.target.value
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
@@ -69,7 +71,7 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
-  
+
   // 更改模板间距
   changeTempSpacing = (spacing: SliderValue) => {
     const { data, allTempData, changeTempData } = this.props
@@ -92,9 +94,13 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorAudioProps) => ({
   allTempData: state.editorContainerReducer.allTempData,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorAudioProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   }
 })
 
