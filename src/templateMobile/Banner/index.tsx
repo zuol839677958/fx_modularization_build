@@ -26,6 +26,8 @@ const Banner: FC<IBannerProps> = props => {
       case BannerType.Video:
       default:
         return <></>
+
+        
     }
   }
 

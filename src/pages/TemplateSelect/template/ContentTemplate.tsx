@@ -19,9 +19,6 @@ interface matchModel {
  */
 
 export const ContentContext = createContext<matchModel>({ params: {} });
-
-
-
 /**
  * 整个列表数据
  *  @return jsxComponent

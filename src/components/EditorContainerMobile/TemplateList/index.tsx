@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IIconTitleTextModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getIsShowList } from '../../../utils/utils'
@@ -48,6 +48,8 @@ const TemplateList: FC<ITemplateListProps> = props => {
     switch (tempData.type) {
       case TemplateType.Banner:
         return <Banner data={tempData.tempData as IBannerModel} />
+      case TemplateType.IconTitleText:
+        return <IconTitleText data={tempData.tempData as IIconTitleTextModel}/>
       default:
         return null
     }

@@ -9,7 +9,7 @@ interface IconTitleTextProps {
 
 const IconTitleText: FC<IconTitleTextProps> = props => {
   return (
-      <div>1111</div>
+      <div></div>
   )
 }
 
