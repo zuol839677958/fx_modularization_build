@@ -8,7 +8,6 @@ import { Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker, ColorResult } from 'react-color'
-import { SliderValue } from 'antd/lib/slider'
 import { TemplatePositionType } from '../../EditorContainer/store/state'
 import { RadioChangeEvent } from 'antd/lib/radio'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
@@ -182,9 +181,9 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 更改模板间距
-  changeTempSpacing = (spacing: SliderValue) => {
+  changeTempSpacing = (spacing: number) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing as number
+    data.spacing = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

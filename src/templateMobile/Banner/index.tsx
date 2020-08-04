@@ -15,12 +15,24 @@ const Banner: FC<IBannerProps> = props => {
     switch (data.bannerType) {
       case BannerType.SingleImage:
         return (
-          <img
-            style={{ width: `${data.widthPercent || 100}%` }}
-            data-viewer={data.isFull ? '' : data.imageData.imageUrl}
-            src={data.imageData.imageUrl}
-            title={data.imageData.imageTitle}
-            alt={data.imageData.imageDesc} />
+          <>
+            {
+              data.isFull ?
+                <img
+                  style={{ width: `${data.widthPercent || 100}%` }}
+                  src={data.imageData.imageUrl}
+                  title={data.imageData.imageTitle}
+                  alt={data.imageData.imageDesc} />
+                :
+                <img
+                  style={{ width: `${data.widthPercent || 100}%` }}
+                  data-preview-src
+                  data-preview-group="1"
+                  src={data.imageData.imageUrl}
+                  title={data.imageData.imageTitle}
+                  alt={data.imageData.imageDesc} />
+            }
+          </>
         )
       case BannerType.Swiper:
       case BannerType.Video:
@@ -30,7 +42,7 @@ const Banner: FC<IBannerProps> = props => {
   }
 
   return (
-    <div className={`banner_box ${data.isFull ? 'isFull' : ''}`}>{renderBannerTemplate()}</div>
+    <div className={`banner_mbox ${data.isFull ? 'isFull' : ''}`}>{renderBannerTemplate()}</div>
   )
 }
 

@@ -32,7 +32,7 @@ const editorContainerMobileReducer = (state: IPageModel, action: IEditorContaine
         ...state,
         pageHtml: action.pageHtml
       }
-      window.localStorage.setItem('pageEditorData', JSON.stringify(newState))
+      window.localStorage.setItem('pageMobileEditorData', JSON.stringify(newState))
       return newState
     case CHANGE_MOBILE_PAGE_DATA:
       return Object.assign({}, state, action.pageData)

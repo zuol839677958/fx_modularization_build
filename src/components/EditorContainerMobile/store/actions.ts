@@ -30,7 +30,7 @@ const changeMobilePageData = (pageData: IPageModel) => {
 }
 
 const saveMobilePageHtml = () => {
-  const pageHtml = document.getElementById('generalPageMobile')?.outerHTML || ''
+  const pageHtml = document.getElementById('generalMobilePage')?.outerHTML || ''
   return {
     type: SAVE_MOBILE_PAGE_HTML,
     pageHtml

@@ -10,11 +10,11 @@ import AddTemplate from '../../components/AddTemplate'
 const MobileHome: FC<RouteComponentProps> = props => {
   return (
     <>
-      <Header {...props} />
+      <Header isMobile={true} {...props} />
       <EditorContainerMobile {...props} />
       <EditorSlider isMobile={true} />
       <BackgroundSet isMobile={true} />
-      <AddTemplate />
+      <AddTemplate isMobile={true} />
     </>
   )
 }

@@ -38,6 +38,7 @@ const audioDefaultData: ITemplateModel<IAudioModel> = {
     positionType:2
   }
 }
+
 /* 新增多图模板默认数据 */
 const morePictureDefaultData: ITemplateModel<IMorePictureModel[]> = {
   id: `${TemplateType[TemplateType.MorePicture]}`,
