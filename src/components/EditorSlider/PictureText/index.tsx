@@ -9,6 +9,7 @@ import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
 import { changeEditorSliderTab } from '../store/actions'
 import { SliderValue } from 'antd/lib/slider'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
@@ -19,6 +20,7 @@ import AliyunOSSUpload from '../../AliyunOSSUpload'
 import './index.less'
 
 interface IEditorPictureTextProps {
+  isMobile?: boolean
   data: ITemplateModel<IPictureTextModel>
   allTempData?: ITemplateModel<any>[]
   tabTypeIndex?: number
@@ -407,9 +409,13 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorPictureTextProps) =
   tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorPictureTextProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   },
   changeTabTypeIndex(tabTypeIndex: number) {
     dispatch(changeEditorSliderTab(tabTypeIndex))

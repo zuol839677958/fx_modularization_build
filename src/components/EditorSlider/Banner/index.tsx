@@ -8,11 +8,11 @@ import { BannerType } from '../../EditorContainer/store/state'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { updateCurrentTempData } from '../../../utils/utils'
 import { SliderValue } from 'antd/lib/slider'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import AliyunOSSUpload from '../../AliyunOSSUpload'
 
 import "./index.less"
-import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 interface IEditorBannerProps {
   isMobile?: boolean

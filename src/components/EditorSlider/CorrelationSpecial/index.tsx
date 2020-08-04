@@ -8,6 +8,7 @@ import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { SliderValue } from 'antd/lib/slider'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import FontColorSet from '../../FontColorSet'
@@ -15,6 +16,7 @@ import FontColorSet from '../../FontColorSet'
 import "./index.less"
 
 interface IEditorCorrelationSpecialProps {
+  isMobile?: boolean
   data: ITemplateModel<ICorrelationSpecialModel[]>
   allTempData?: ITemplateModel<any>[]
   changeTempData?: (tempData: ITemplateModel<any>[]) => void
@@ -206,9 +208,13 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorCorrelationSpecialP
   allTempData: state.editorContainerReducer.allTempData,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorCorrelationSpecialProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   }
 })
 

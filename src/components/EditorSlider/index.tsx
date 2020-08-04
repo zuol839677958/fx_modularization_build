@@ -55,16 +55,16 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
       case TemplateType.Share:
         return <EditorShare data={currentTempData} />
       case TemplateType.IconTitleText:
-        return <EditorIconTitleText data={currentTempData} />
+        return <EditorIconTitleText isMobile={isMobile} data={currentTempData} />
       case TemplateType.Plaintext:
-        return <EditorPlaintext data={currentTempData} />
+        return <EditorPlaintext isMobile={isMobile} data={currentTempData} />
       case TemplateType.LeftPictureRightText:
       case TemplateType.LeftTextRightPicture:
-        return <EditorPictureText data={currentTempData} />
+        return <EditorPictureText isMobile={isMobile} data={currentTempData} />
       case TemplateType.CorrelationSpecial:
-        return <EditorCorrelationSpecial data={currentTempData} />
+        return <EditorCorrelationSpecial isMobile={isMobile} data={currentTempData} />
       case TemplateType.Audio:
-        return <EditorAudio data={currentTempData} />
+        return <EditorAudio isMobile={isMobile} data={currentTempData} />
       case TemplateType.MorePicture:
         return <EditorMorePicture data={currentTempData} />
       default:

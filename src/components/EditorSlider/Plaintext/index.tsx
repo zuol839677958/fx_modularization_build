@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Button, Row, Slider } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
 import { SliderValue } from 'antd/lib/slider'
+import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import RichTextEditor from '../../RichTextEditor'
@@ -14,6 +15,7 @@ import FontColorSet from '../../FontColorSet'
 import './index.less'
 
 interface IEditorPlaintextProps {
+  isMobile?: boolean
   data: ITemplateModel<IPlaintextModel>
   allTempData?: ITemplateModel<any>[]
   changeTempData?: (allTempData: ITemplateModel<any>[]) => void
@@ -128,9 +130,13 @@ const mapStateToProps = (state: IPageState, ownProps: IEditorPlaintextProps) => 
   allTempData: state.editorContainerReducer.allTempData,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorPlaintextProps) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      dispatch(changeMobileTempData(allTempData))
+    } else {
+      dispatch(changeTempData(allTempData))
+    }
   }
 })
 
