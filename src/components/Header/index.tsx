@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Button, message, Modal, Menu, Dropdown } from 'antd'
-import { IPageState, IBackgroundSetModel, IPageModel } from '../../store/data'
+import { IPageState, IBackgroundSetModel, IPageModel, ITemplateModel } from '../../store/data'
 import { Dispatch, Action } from 'redux'
 import { connect } from 'react-redux'
 import { changeBackgroundSetData } from '../BackgroundSet/store/actions'
@@ -13,6 +13,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { changeMobileActiveTempId, changeMobilePageData, saveMobilePageHtml } from '../EditorContainerMobile/store/actions'
 
 import './index.less'
+import { TemplateType } from '../EditorContainer/store/state'
 
 interface IHeaderProps extends RouteComponentProps {
   isMobile?: boolean
@@ -263,7 +264,10 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
           } = this.props
           const { specialId } = this.props.match.params as { specialId: string }
           const res = await getSpeicalData(specialId)
-          await changePageData!(JSON.parse(res.Content!))
+          const pageData = JSON.parse(res.Content!) as IPageModel
+          pageData.allTempData = pageData.allTempData.filter((item: ITemplateModel<any>) =>
+            (![TemplateType.Share, TemplateType.MorePicture].includes(item.type)))
+          await changePageData!(pageData)
           await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
           await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
           changeActiveTempId!('') // 去除遮罩编辑样式

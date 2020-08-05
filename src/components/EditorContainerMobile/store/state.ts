@@ -1,36 +1,6 @@
 import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel } from "../../../store/data"
 import { BackgroundSetType } from "../../BackgroundSet/store/state"
-
-export enum TemplateType {
-  Banner = 1,
-  Share,
-  IconTitleText,
-  LeftPictureRightText,
-  LeftTextRightPicture,
-  Plaintext,
-  RelatedList,
-  CorrelationSpecial,
-  Audio,
-  MorePicture
-}
-
-export enum BannerType {
-  SingleImage = 1,
-  Swiper,
-  Video
-}
-
-export enum TemplatePositionType {
-  Left = 1,
-  Center,
-  Right
-}
-
-export enum AudioPositionType {
-  Left = 1,
-  Center,
-  Right
-}
+import { TemplateType, BannerType, TemplatePositionType } from "../../EditorContainer/store/state"
 
 const editorContainerMobileState: ITemplateModel<
   IBannerModel
