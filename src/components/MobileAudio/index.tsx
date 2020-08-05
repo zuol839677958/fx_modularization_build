@@ -40,8 +40,9 @@ class AudioTemp extends Component<IAudioProps, AudioState> {
 
   //在音频可以播放时就显示总时长
   canplay() {
+    if (!this.audio.current.duration) return
     this.audio.current.oncanplay = () => {
-      var allTime =
+      const allTime =
         (Math.floor(this.audio.current.duration / 60) + "").padStart(2, "0") +
         ":" +
         (Math.floor(this.audio.current.duration % 60) + "").padStart(2, "0")

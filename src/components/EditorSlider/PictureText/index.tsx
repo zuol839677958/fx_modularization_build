@@ -51,7 +51,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   render() {
-    const { data, tabTypeIndex } = this.props
+    const { isMobile, data, tabTypeIndex } = this.props
     const {
       tabTitle,
       editItemData,
@@ -93,16 +93,22 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
               onChange={this.changePictureWidthPercent}
             />
           </div>
-          <p>图文间距(%)</p>
-          <div className="spacing-box">
-            <Slider
-              style={{ width: '100%' }}
-              min={1}
-              max={50}
-              value={data.tempData.spacingPercent}
-              onChange={this.changePictureTextSpacing}
-            />
-          </div>
+          {
+            isMobile ? null
+              :
+              <Fragment>
+                <p>图文间距(%)</p>
+                <div className="spacing-box">
+                  <Slider
+                    style={{ width: '100%' }}
+                    min={1}
+                    max={50}
+                    value={data.tempData.spacingPercent}
+                    onChange={this.changePictureTextSpacing}
+                  />
+                </div>
+              </Fragment>
+          }
           <p>条目管理</p>
           <Draggable
             data={data.tempData.titleTextList}

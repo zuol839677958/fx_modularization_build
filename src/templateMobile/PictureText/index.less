@@ -1,36 +1,44 @@
 @import (reference) "../../styles/common/PublicDefind.less";
-.PictureText_box{
-    .mobile_padding();
+
+.PictureText_box {
+  .mobile_padding();
+  .flex();
+
+  .PictureText_item {
     .flex();
-    .PictureText_item{
-        .flex();
-        flex-direction: column;
-        .top_title_text{
-            .flex();
-            flex-direction: column;
-            margin-bottom:0.2rem;
-          .title{
-                align-self: center;
-                padding: 0.06rem 0.1rem;
-                color: #9f3b3c;
-                font-size: 14px;
-                font-weight: 600;
-                border-radius: 4px;
-                background-color: #f0c9aa;
-                margin-bottom:0.18rem;
-            }
-            .text{
-                margin-bottom:0.1rem;
-                font-size: 12px;
-                line-height:1.5;
-                color: #fff;
-                line-height: 0.3rem;
-            }
-        }
-        .describe_img{
-            img {
-                width:100%;
-            }
-        }
+    flex-direction: column;
+
+    .top_title_text {
+      .flex();
+      flex-direction: column;
+      margin-bottom: 0.2rem;
+
+      .title {
+        align-self: center;
+        padding: 0.06rem 0.1rem;
+        color: #9f3b3c;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 0.04rem;
+        background-color: #f0c9aa;
+        margin-bottom: 0.18rem;
+      }
+
+      .text {
+        margin-bottom: 0.1rem;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #fff;
+      }
     }
+
+    .describe_img {
+      .flex();
+      justify-content: center;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
 }

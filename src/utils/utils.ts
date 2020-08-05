@@ -304,6 +304,32 @@ const initTempSpacing = (spacing?: number, isMobile?: boolean) => {
   return bgCss
 }
 
+/**
+ * 渲染标题背景
+ * @param backgroundSet 标题背景
+ */
+const initTitleBackground = (backgroundSet?: IBackgroundSetModel) => {
+  if (!backgroundSet) return ''
+  switch (backgroundSet.bgType) {
+    case BackgroundSetType.NoneColor:
+      return 'none'
+    case BackgroundSetType.PureColor:
+      return backgroundSet.bgColor
+    case BackgroundSetType.BackgroundImage:
+      return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
+    default:
+      return ''
+  }
+}
+
+/**
+ * 渲染标题间距
+ * @param backgroundSet 标题背景
+ */
+const initTitlePadding = (backgroundSet?: IBackgroundSetModel) => {
+  if (backgroundSet?.bgType === BackgroundSetType.NoneColor) return '0'
+}
+
 export {
   swapArray,
   zIndexUp,
@@ -327,5 +353,7 @@ export {
   updateIconTitleTextItemTitleBgType,
   deepClone,
   initTemplatePositionStyle,
-  initTempBackground
+  initTempBackground,
+  initTitleBackground,
+  initTitlePadding
 }
