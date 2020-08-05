@@ -20,10 +20,9 @@ const PictureText: FC<PictureTextProps> = props => {
   const renderTxtList = (txtList: IIconTitleTextModel[]) => {
     if (txtList.length === 0) return null
     const filterList = getIsShowList(txtList) as IIconTitleTextModel[]
-    if (filterList.length === 0) return null
 
     return (
-      txtList.map((item, index) => (
+      filterList.map((item, index) => (
         <TxtItem data={item} key={index} />
       ))
     )
