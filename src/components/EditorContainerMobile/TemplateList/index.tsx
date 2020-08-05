@@ -10,13 +10,15 @@ import { changeEditorSliderShow, changeEditorSliderTab } from '../../EditorSlide
 import { changeAddTemplateSliderShow } from '../../AddTemplate/store/actions'
 
 import MobileMask from '../../MobileMask'
-import './index.less'
+
 //模板
 import Banner from '../../../templateMobile/Banner'
 import IconTitleText from "../../../templateMobile/IconTitleText"
-import Audio from "../../MobileAudio"
+import Audio from "../../../templateMobile/Audio"
 import Plaintext from "../../../templateMobile/Plaintext"
 import PictureText from "../../../templateMobile/PictureText"
+
+import './index.less'
 
 interface ITemplateListProps extends RouteComponentProps {
   mobileActiveTempId?: string
@@ -65,7 +67,7 @@ const TemplateList: FC<ITemplateListProps> = props => {
       case TemplateType.Banner:
         return <Banner data={tempData.tempData as IBannerModel} />
       case TemplateType.IconTitleText:
-        return <IconTitleText data={tempData.tempData as IIconTitleTextModel}/>
+        return <IconTitleText data={tempData.tempData as IIconTitleTextModel[]} />
       case TemplateType.Plaintext:
         return <Plaintext data={tempData.tempData as IPlaintextModel}/>
       case TemplateType.LeftPictureRightText:

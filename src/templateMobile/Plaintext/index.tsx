@@ -4,17 +4,19 @@ import { IPlaintextModel } from '../../store/data'
 import './index.less'
 
 interface PlaintextProps {
-    data: IPlaintextModel
+  data: IPlaintextModel
 }
 
 const Plaintext: FC<PlaintextProps> = props => {
-    return (
-        <div className="plaintext_box">
-            <div className="general_plaintext">
-                请输入文本
-            </div>
-        </div>
-    )
+  const { data } = props
+
+  return (
+    <div className="plaintext_box">
+      <div className="general_plaintext" style={{ color: data.fontColor }}
+        dangerouslySetInnerHTML={{ __html: data.textHtml }}
+      ></div>
+    </div>
+  )
 }
 
 export default Plaintext

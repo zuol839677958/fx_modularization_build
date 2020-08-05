@@ -1,123 +1,125 @@
 @import (reference) "../../styles/common/PublicDefind.less";
+
 .Audio_box {
+  audio {
+    height: 0.8rem;
+    opacity: 0;
+  }
+
+  .flex();
+  .mobile_padding();
+
+  .audio-wrapper {
+    background-color: #fdfdfd;
+    margin: 0.1rem auto;
+    max-width: 5rem;
+    width: 100%;
+    height: 0.9rem;
+    border: 0.5px solid #dddddd;
+    border-radius: 0.03rem;
+
     audio {
-        height: 0.8rem;
-        opacity: 0;
+      display: none;
     }
-    .flex();
-    .mobile_padding();
-    .audio-wrapper {
-        background-color: #fdfdfd;
-        margin: 0.1rem auto;
-        max-width: 5rem;
-        width: 100%;
-        height: 0.9rem;
-        border: 0.5px solid #dddddd;
-        border-radius: 0.03rem;
+  }
 
-        audio {
-            display: none;
-        }
+  .audio-left {
+    float: left;
+    text-align: center;
+    width: 26%;
+    height: 100%;
+  }
+
+  .audio-wrapper>.audio-left>img {
+    width: 0.5rem !important;
+    position: relative;
+    top: 0.15rem;
+    margin: auto;
+    display: block;
+    /* 解除与app的样式冲突 */
+    cursor: pointer;
+  }
+
+  .audio-right {
+    margin-right: 4%;
+    float: right;
+    width: 70%;
+    height: 100%;
+  }
+
+  .audio-right p {
+    font-size: 15px;
+    height: 35%;
+    margin: 0.08rem 0;
+    /* 歌曲名称只显示在一行，超出部分显示为省略号 */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 0.232rem;
+    /* 要适配小屏幕手机，所以最大宽度先设小一点，后面js根据屏幕大小重新设置 */
+    position: absolute;
+  }
+
+  .progress-bar-bg {
+    background-color: #d5d5d5;
+    position: relative;
+    height: 0.02rem;
+    top: 0.4rem;
+    cursor: pointer;
+
+    .cache {
+      width: 0px;
+      height: 100%;
+      background-color: #aaa;
+      display: block;
+      position: absolute;
+      top: 0;
+      z-index: 3;
     }
+  }
 
-    .audio-left {
-        float: left;
-        text-align: center;
-        width: 26%;
-        height: 100%;
-    }
+  .progress-bar {
+    background-color: #303030;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+  }
 
-    .audio-wrapper>.audio-left>img {
-        width: 0.5rem !important;
-        position: relative;
-        top: 0.15rem;
-        margin: auto;
-        display: block;
-        /* 解除与app的样式冲突 */
-        cursor: pointer;
-    }
+  .progress-bar-bg span {
+    content: " ";
+    width: 0.14rem;
+    height: 0.14rem;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background-color: #303030;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 10;
+    margin-top: -0.07rem;
+    margin-left: -0.05rem;
+    cursor: pointer;
+  }
 
-    .audio-right {
-        margin-right: 4%;
-        float: right;
-        width: 70%;
-        height: 100%;
-    }
+  .audio-time {
+    overflow: hidden;
+    margin-top: 0.43rem;
+    color: #c0c0c0;
+  }
 
-    .audio-right p {
-        font-size: 15px;
-        height: 35%;
-        margin: 0.08rem 0;
-        /* 歌曲名称只显示在一行，超出部分显示为省略号 */
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        max-width: 0.232rem;
-        /* 要适配小屏幕手机，所以最大宽度先设小一点，后面js根据屏幕大小重新设置 */
-        position: absolute;
-    }
+  .audio-length-total {
+    float: right;
+    font-size: 12px;
+    text-indent: 0;
+    text-align: right;
+  }
 
-    .progress-bar-bg {
-        background-color: #d5d5d5;
-        position: relative;
-        height: 0.02rem;
-        top: 0.4rem;
-        cursor: pointer;
-
-        .cache {
-            width: 0px;
-            height: 100%;
-            background-color: #aaa;
-            display: block;
-            position: absolute;
-            top: 0;
-            z-index: 3;
-        }
-
-    }
-
-    .progress-bar {
-        background-color: #303030;
-        width: 0;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        z-index: 5;
-    }
-
-    .progress-bar-bg span {
-        content: " ";
-        width: 0.14rem;
-        height: 0.14rem;
-        border-radius: 50%;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
-        background-color: #303030;
-        position: absolute;
-        left: 0;
-        top: 50%;
-        z-index: 10;
-        margin-top: -0.07rem;
-        margin-left: -0.05rem;
-        cursor: pointer;
-    }
-
-    .audio-time {
-        overflow: hidden;
-        margin-top: 0.43rem;
-        color: #c0c0c0;
-    }
-
-    .audio-length-total {
-        float: right;
-        font-size: 12px;
-        text-indent: 0;
-        text-align: right;
-    }
-
-    .audio-length-current {
-        float: left;
-        font-size: 12px;
-        text-indent: 0;
-    }
+  .audio-length-current {
+    float: left;
+    font-size: 12px;
+    text-indent: 0;
+  }
 }

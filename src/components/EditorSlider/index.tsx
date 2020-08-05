@@ -37,6 +37,7 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
   }
 
   renderSliderBox(currentTempData: ITemplateModel<any>): JSX.Element {
+    if (!currentTempData) return <Fragment></Fragment>
     return (
       <Fragment>
         {

@@ -1,38 +1,39 @@
 @import (reference) "../../styles/common/PublicDefind.less";
 
-.icon_title_text_box{
-    .mobile_padding();
+.icon_title_text_box {
+  .mobile_padding();
+  .flex();
+  flex-direction: column;
+
+  .item_list {
+    margin-bottom: 0.1rem;
+    width: 100%;
+    font-size: 12px;
     .flex();
-    flex-direction:column;
-    .item_list{
-        margin-bottom:0.1rem;
-        width:100%;
-        font-size: 12px;
-        .flex();
-        justify-content: center;
-        .des_icon{
-            justify-content: start;
-            width:0.5rem;
-            height:0.5rem;
-            background:url("https://img.wbp5.com/upload/images/master/2020/07/29/140341910.jpg") center;
-            border-radius: 0.08rem;
-            background-size: cover;
-        }
-        .heading{
-            font-weight: 600;
-            color: #9f3b3c;
-            background-color: #f0c9aa;
-            border-radius: 0.04rem;
-            padding: 0.08rem 0.08rem;
-            align-self: center;
-            margin-left:0.1rem;
-        }
-        .txt{
-            align-self: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: #f0c9aa;
-            margin-left: 10px;
-        }
+    align-items: center;
+
+    .des_icon {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 0.08rem;
+      margin-right: 0.1rem;
     }
+
+    .heading {
+      font-weight: 600;
+      color: #9f3b3c;
+      background-color: #f0c9aa;
+      border-radius: 0.04rem;
+      padding: 0.08rem 0.08rem;
+      align-self: center;
+    }
+
+    .txt {
+      align-self: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #f0c9aa;
+      margin-left: 10px;
+    }
+  }
 }

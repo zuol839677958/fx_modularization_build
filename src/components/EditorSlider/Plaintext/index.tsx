@@ -126,7 +126,7 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorPlaintextProps) => ({
-  allTempData: state.editorContainerReducer.allTempData,
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorPlaintextProps) => ({
