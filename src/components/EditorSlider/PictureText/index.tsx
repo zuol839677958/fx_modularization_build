@@ -8,7 +8,6 @@ import { message, Input, Row, Button, Radio, Slider } from 'antd'
 import { BackgroundSetType } from '../../BackgroundSet/store/state'
 import { SketchPicker } from 'react-color'
 import { changeEditorSliderTab } from '../store/actions'
-import { SliderValue } from 'antd/lib/slider'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -207,9 +206,9 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   // 更改模板间距
-  changeTempSpacing = (spacing: SliderValue) => {
+  changeTempSpacing = (spacing: number) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing as number
+    data.spacing = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -224,10 +223,10 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   // 更改标题文字大小
-  changeItemTitleFontSize = (titleFontSize: SliderValue) => {
+  changeItemTitleFontSize = (titleFontSize: number) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextItemTitleFontSize(titleFontSize as number, editItemIndex!, data.tempData.titleTextList)
+    updateIconTitleTextItemTitleFontSize(titleFontSize, editItemIndex!, data.tempData.titleTextList)
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -257,19 +256,19 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
   }
 
   // 更改图片宽度
-  changePictureWidthPercent = (picWidthPercent: SliderValue) => {
+  changePictureWidthPercent = (picWidthPercent: number) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    tempData.picWidthPercent = picWidthPercent as number
+    tempData.picWidthPercent = picWidthPercent
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
 
   // 更改图文间距
-  changePictureTextSpacing = (spacing: SliderValue) => {
+  changePictureTextSpacing = (spacing: number) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    tempData.spacingPercent = spacing as number
+    tempData.spacingPercent = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

@@ -7,7 +7,6 @@ import { Radio, Row, Slider, Input } from 'antd'
 import { BannerType } from '../../EditorContainer/store/state'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { updateCurrentTempData } from '../../../utils/utils'
-import { SliderValue } from 'antd/lib/slider'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import AliyunOSSUpload from '../../AliyunOSSUpload'
@@ -89,9 +88,9 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
   }
 
   // 更改模板间距
-  changeTempSpacing = (spacing: SliderValue) => {
+  changeTempSpacing = (spacing: number) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing as number
+    data.spacing = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -159,10 +158,10 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
   }
 
   // 更改Banner宽度
-  changeBannerWidth = (widthPercent: SliderValue) => {
+  changeBannerWidth = (widthPercent: number) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    tempData.widthPercent = widthPercent as number
+    tempData.widthPercent = widthPercent
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

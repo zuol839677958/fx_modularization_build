@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
 import { changeTempData } from '../../EditorContainer/store/actions'
-import { SliderValue } from 'antd/lib/slider'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -138,9 +137,9 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
   }
 
   // 更改模板间距
-  changeTempSpacing = (spacing: SliderValue) => {
+  changeTempSpacing = (spacing: number) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing as number
+    data.spacing = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

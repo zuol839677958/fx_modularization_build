@@ -14,6 +14,27 @@
 
   .header-left {
     flex: 1;
+    display: flex;
+    align-items: center;
+
+    .menu-box {
+      margin-left: 20px;
+      cursor: pointer;
+
+      .menu {
+        width: 30px;
+        height: 30px;
+      }
+
+      .arrow {
+        width: 20px;
+        height: 20px;
+
+        &.down {
+          transform: rotate(180deg);
+        }
+      }
+    }
   }
 
   .header-center {

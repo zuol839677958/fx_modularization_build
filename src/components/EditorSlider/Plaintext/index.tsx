@@ -5,7 +5,6 @@ import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
 import { Button, Row, Slider } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
-import { SliderValue } from 'antd/lib/slider'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
@@ -82,9 +81,9 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
   }
 
   // 更改模板间距
-  changeTempSpacing = (spacing: SliderValue) => {
+  changeTempSpacing = (spacing: number) => {
     const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing as number
+    data.spacing = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

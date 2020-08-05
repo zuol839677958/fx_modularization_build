@@ -9,31 +9,32 @@ import { defaultTemplateList } from "../../config/addTemplateDefaultData"
 import { Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { deepClone } from '../../utils/utils'
+import { changeMobileTempData } from '../EditorContainerMobile/store/actions'
+import { addMobileTemplateListData } from '../../config/addMobileTemplateListData'
 
 import TitleBack from '../EditorSlider/commonEditorComponent/titleBack'
 
 import './index.less'
 
 interface IAddTemplateProps {
+  isMobile?: boolean
   isShow?: boolean
   allTempData?: ITemplateModel<any>[]
-  defaultTemplateList?: ITemplateModel<any>[]
   changeTempData?: (tempData: ITemplateModel<any>[]) => void
   changeAddTemplateSliderShow?: (isShow: boolean) => void
 }
 
 interface IAddTemplateState {
-  addTemplateListData: IAddTemplateListDataModel[]
+  activeTemplateListData: IAddTemplateListDataModel[]
 }
 
 class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
   state: IAddTemplateState = {
-    addTemplateListData
+    activeTemplateListData: []
   }
 
   render() {
-    const { isShow } = this.props
-    const { addTemplateListData } = this.state
+    const { isMobile, isShow } = this.props
 
     return (
       <div className="addTemplate_slider" style={{ display: isShow ? 'block' : 'none' }}>
@@ -45,11 +46,11 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
         <div className="Menu-add-box">
           <div className="Menu-left-list">
             <ul>
-              {this.renderMenuList(addTemplateListData)}
+              {this.renderMenuList(isMobile ? addMobileTemplateListData : addTemplateListData)}
             </ul>
           </div>
           <div className="tmp-right-show">
-            {this.renderContentList(addTemplateListData)}
+            {this.renderContentList(isMobile ? addMobileTemplateListData : addTemplateListData)}
           </div>
         </div>
       </div>
@@ -105,7 +106,9 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       <Fragment>
         {
           menuList.map((item, index) => (
-            <li key={index} className={item.isActive ? "active" : ""} onClick={() => this.changeType(index)}>{item.tempName}</li>
+            <li key={index} className={item.isActive ? "active" : ""}
+              onClick={() => this.changeType(index)}
+            >{item.tempName}</li>
           ))
         }
       </Fragment>
@@ -117,15 +120,16 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
    * @memberof AddTemplate
    * @activeIndex 当前点击元素
    */
-  changeType(activeIndex: number) {
-    const { addTemplateListData } = this.state
-    addTemplateListData.forEach((item, index) => {
+  changeType = (activeIndex: number) => {
+    const { isMobile } = this.props
+    const activeTemplateListData = isMobile ? addMobileTemplateListData : addTemplateListData
+    activeTemplateListData.forEach((item, index) => {
       item.isActive = false
       if (index === activeIndex) {
         item.isActive = true
       }
     })
-    this.setState({ addTemplateListData })
+    this.setState({ activeTemplateListData })
   }
 
   // 关闭新增模块侧滑栏
@@ -135,17 +139,21 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
   }
 }
 
-const mapStateToProps = (state: IPageState, _ownProps: IAddTemplateProps) => ({
-  allTempData: state.editorContainerReducer.allTempData,
+const mapStateToProps = (state: IPageState, ownProps: IAddTemplateProps) => ({
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
   isShow: state.addTemplateSliderReducer.isShow
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IAddTemplateProps) => ({
   changeAddTemplateSliderShow(isShow: boolean) {
     dispatch(changeAddTemplateSliderShow(isShow))
   },
   async changeTempData(allTempData: ITemplateModel<any>[]) {
-    await dispatch(changeTempData(allTempData))
+    if (ownProps.isMobile) {
+      await dispatch(changeMobileTempData(allTempData))
+    } else {
+      await dispatch(changeTempData(allTempData))
+    }
   },
 })
 
