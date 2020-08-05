@@ -1,5 +1,5 @@
 import React, { FC, memo, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getIsShowList, initTempBackground } from '../../../utils/utils'
@@ -14,7 +14,7 @@ import MobileMask from '../../MobileMask'
 //模板
 import Banner from '../../../templateMobile/Banner'
 import IconTitleText from "../../../templateMobile/IconTitleText"
-
+import Audio from "../../MobileAudio"
 import './index.less'
 
 interface ITemplateListProps extends RouteComponentProps {
@@ -65,6 +65,8 @@ const TemplateList: FC<ITemplateListProps> = props => {
         return <Banner data={tempData.tempData as IBannerModel} />
       case TemplateType.IconTitleText:
         return <IconTitleText data={tempData.tempData as IIconTitleTextModel}/>
+      case TemplateType.Audio:
+        return <Audio  data={tempData.tempData as IAudioModel}/>
       default:
         return null
     }
