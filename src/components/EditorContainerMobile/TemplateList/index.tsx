@@ -1,5 +1,5 @@
 import React, { FC, memo, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel, IPlaintextModel, IPictureTextModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getIsShowList, initTempBackground } from '../../../utils/utils'
@@ -17,7 +17,7 @@ import IconTitleText from "../../../templateMobile/IconTitleText"
 import Audio from "../../../templateMobile/Audio"
 import Plaintext from "../../../templateMobile/Plaintext"
 import PictureText from "../../../templateMobile/PictureText"
-
+import CorrelationSpecial from "../../../templateMobile/CorrelationSpecial"
 import './index.less'
 
 interface ITemplateListProps extends RouteComponentProps {
@@ -75,6 +75,8 @@ const TemplateList: FC<ITemplateListProps> = props => {
         return <PictureText data={tempData.tempData as IPictureTextModel}/>
       case TemplateType.Audio:
         return <Audio data={tempData.tempData as IAudioModel}/>
+      case TemplateType.CorrelationSpecial:
+        return <CorrelationSpecial data = {tempData.tempData as ICorrelationSpecialModel}/>
       default:
         return null
     }
