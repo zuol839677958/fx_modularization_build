@@ -1,6 +1,7 @@
 @import (reference) "../../styles/common/PublicDefind.less";
 
 .banner_mbox {
+  text-align: center;
   .mobile_padding();
   .flex();
 
@@ -13,5 +14,11 @@
     margin: 0 auto;
     padding: 0;
     vertical-align: top;
+  }
+
+  &>video {
+    display: block;
+    margin: 0 auto;
+    object-fit: fill;
   }
 }

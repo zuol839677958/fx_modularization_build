@@ -36,6 +36,14 @@ const Banner: FC<IBannerProps> = props => {
         )
       case BannerType.Swiper:
       case BannerType.Video:
+        return (
+          <video
+            style={{ width: `${data.widthPercent || 100}%` }}
+            controls
+            poster={data.videoData?.poster}
+            src={data.videoData?.videoSrc}
+          />
+        )
       default:
         return <></>
     }
