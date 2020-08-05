@@ -52,7 +52,7 @@ const zIndexDown = (arr: any[], index: number, length: number, hasType?: boolean
 }
 
 const getIsShowList = (dataList: { isShow: boolean }[]) => {
-  if (dataList.length === 0) return
+  if (dataList.length === 0) return []
   return _.filter(dataList, item => item.isShow)
 }
 
@@ -227,7 +227,11 @@ const deepClone = (data: any) => {
   return obj
 }
 
-const initTemplatePositionStyle = (positionType: TemplatePositionType): CSSProperties => {
+/**
+ * 渲染模板显示位置
+ * @param positionType 位置类型 
+ */
+const initTemplatePositionStyle = (positionType?: TemplatePositionType): CSSProperties => {
   let bgCss: CSSProperties = {}
   switch (positionType) {
     case TemplatePositionType.Left:
@@ -241,6 +245,29 @@ const initTemplatePositionStyle = (positionType: TemplatePositionType): CSSPrope
       break
     default:
       bgCss.textAlign = 'left'
+      break
+  }
+  return bgCss
+}
+
+/**
+ * 渲染H5模板显示位置
+ * @param positionType 位置类型
+ */
+const initMobileTemplatePositionStyle = (positionType?: TemplatePositionType): CSSProperties => {
+  let bgCss: CSSProperties = {}
+  switch (positionType) {
+    case TemplatePositionType.Left:
+      bgCss.justifyContent = 'flex-start'
+      break
+    case TemplatePositionType.Center:
+      bgCss.justifyContent = 'center'
+      break
+    case TemplatePositionType.Right:
+      bgCss.justifyContent = 'flex-end'
+      break
+    default:
+      bgCss.justifyContent = 'flex-start'
       break
   }
   return bgCss
@@ -286,6 +313,7 @@ export {
   updateIconTitleTextItemShow,
   updateIconTitleTextIconIsShow,
   updateIconTitleTextPositionType,
+  initMobileTemplatePositionStyle,
   updateIconTitleTextIconUrl,
   updateIconTitleTextItemTitle,
   updateIconTitleTextItemTitleFontSize,

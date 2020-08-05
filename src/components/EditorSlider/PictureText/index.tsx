@@ -404,7 +404,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorPictureTextProps) => ({
-  allTempData: state.editorContainerReducer.allTempData,
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
   tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 

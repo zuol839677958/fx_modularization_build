@@ -23,7 +23,7 @@ interface IEditorAudioState { }
 
 class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
   render() {
-    const { data } = this.props
+    const { isMobile, data } = this.props
 
     return (
       <Fragment>
@@ -36,20 +36,23 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
               min={0}
               max={200}
               value={data.spacing}
-              onChange ={this.changeTempSpacing}
+              onChange={this.changeTempSpacing}
             />
           </Row>
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>音频显示位置</p>
-            <Radio.Group
-              value={data.tempData.positionType}
-              onChange={e => this.changeTempPosition(e.target.value)}
-            >
-              <Radio value={TemplatePositionType.Left}>居左</Radio>
-              <Radio value={TemplatePositionType.Center}>居中</Radio>
-              <Radio value={TemplatePositionType.Right}>居右</Radio>
-            </Radio.Group>
-          </Row>
+          {
+            isMobile ? null :
+              <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+                <p>音频显示位置</p>
+                <Radio.Group
+                  value={data.tempData.positionType}
+                  onChange={e => this.changeTempPosition(e.target.value)}
+                >
+                  <Radio value={TemplatePositionType.Left}>居左</Radio>
+                  <Radio value={TemplatePositionType.Center}>居中</Radio>
+                  <Radio value={TemplatePositionType.Right}>居右</Radio>
+                </Radio.Group>
+              </Row>
+          }
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>音频链接地址</p>
             <Input placeholder="请输入音频链接地址"
@@ -90,7 +93,7 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorAudioProps) => ({
-  allTempData: state.editorContainerReducer.allTempData,
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorAudioProps) => ({

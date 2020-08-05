@@ -385,8 +385,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps) => ({
-  currentTemplateId: state.editorContainerReducer.activeTempId,
-  allTempData: state.editorContainerReducer.allTempData,
+  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
   tabTypeIndex: state.editorSliderReducer.tabTypeIndex
 })
 
