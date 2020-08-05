@@ -11,10 +11,9 @@ import { RouteComponentProps } from 'react-router-dom'
 import { updateTemplateData, updateSpecialContent, getSpeicalData } from '../../axios/api'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { changeMobileActiveTempId, changeMobilePageData, saveMobilePageHtml } from '../EditorContainerMobile/store/actions'
+import { TemplateType } from '../EditorContainer/store/state'
 
 import './index.less'
-import { TemplateType } from '../EditorContainer/store/state'
-import { template } from 'lodash'
 
 interface IHeaderProps extends RouteComponentProps {
   isMobile?: boolean

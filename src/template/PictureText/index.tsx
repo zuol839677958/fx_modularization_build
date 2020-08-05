@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react'
-import { IPictureTextModel, IIconTitleTextModel, IBackgroundSetModel } from '../../store/data'
+import { IPictureTextModel, IIconTitleTextModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { TemplateType } from '../../components/EditorContainer/store/state'
-import { getIsShowList } from '../../utils/utils'
-import { BackgroundSetType } from '../../components/BackgroundSet/store/state'
+import { getIsShowList, initTitlePadding, initTitleBackground } from '../../utils/utils'
 
 import './index.less'
 
@@ -117,8 +116,8 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
               style={{
                 fontSize: tempData.titleFontSize,
                 color: tempData.titleFontColor,
-                padding: this.initTitlePadding(tempData.background),
-                background: this.initTitleBackground(tempData.background)
+                padding: initTitlePadding(tempData.background),
+                background: initTitleBackground(tempData.background)
               }}
             >{tempData.title}</h5>
             <section
@@ -129,24 +128,6 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
         ))}
       </Fragment>
     )
-  }
-
-  initTitleBackground(backgroundSet?: IBackgroundSetModel) {
-    if (!backgroundSet) return ''
-    switch (backgroundSet.bgType) {
-      case BackgroundSetType.NoneColor:
-        return 'none'
-      case BackgroundSetType.PureColor:
-        return backgroundSet.bgColor
-      case BackgroundSetType.BackgroundImage:
-        return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
-      default:
-        return ''
-    }
-  }
-
-  initTitlePadding(backgroundSet?: IBackgroundSetModel) {
-    if (backgroundSet?.bgType === BackgroundSetType.NoneColor) return '0px'
   }
 }
 

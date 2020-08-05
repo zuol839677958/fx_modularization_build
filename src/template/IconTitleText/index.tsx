@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
-import { IIconTitleTextModel, IBackgroundSetModel } from '../../store/data'
+import { IIconTitleTextModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { getIsShowList, initTemplatePositionStyle } from '../../utils/utils'
-import { BackgroundSetType } from '../../components/BackgroundSet/store/state'
+import { getIsShowList, initTemplatePositionStyle, initTitlePadding, initTitleBackground } from '../../utils/utils'
 
 import './index.less'
 
@@ -69,7 +68,11 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
               <div className="list-left">
                 {tempData.hasIcon ? <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} /> : null}
                 <span className="heading"
-                  style={{ color: tempData.titleFontColor, padding: this.initTitlePadding(tempData.background), background: this.initTitleBackground(tempData.background) }}
+                  style={{
+                    color: tempData.titleFontColor,
+                    padding: initTitlePadding(tempData.background),
+                    background: initTitleBackground(tempData.background)
+                  }}
                 >{tempData.title}</span>
               </div>
               <div className="list-right">
@@ -80,24 +83,6 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
         }
       </Fragment>
     )
-  }
-
-  initTitleBackground(backgroundSet?: IBackgroundSetModel) {
-    if (!backgroundSet) return ''
-    switch (backgroundSet.bgType) {
-      case BackgroundSetType.NoneColor:
-        return 'none'
-      case BackgroundSetType.PureColor:
-        return backgroundSet.bgColor
-      case BackgroundSetType.BackgroundImage:
-        return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
-      default:
-        return ''
-    }
-  }
-
-  initTitlePadding(backgroundSet?: IBackgroundSetModel) {
-    if (backgroundSet?.bgType === BackgroundSetType.NoneColor) return '0px'
   }
 }
 

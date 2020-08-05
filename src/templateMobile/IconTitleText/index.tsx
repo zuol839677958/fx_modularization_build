@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
-import { IIconTitleTextModel, IBackgroundSetModel } from '../../store/data'
-import { getIsShowList, initMobileTemplatePositionStyle } from '../../utils/utils'
-import { BackgroundSetType } from '../../components/BackgroundSet/store/state'
+import { IIconTitleTextModel } from '../../store/data'
+import { getIsShowList, initMobileTemplatePositionStyle, initTitlePadding, initTitleBackground } from '../../utils/utils'
 
 import './index.less'
 
@@ -11,32 +10,6 @@ interface IconTitleTextProps {
 
 const IconTitleText: FC<IconTitleTextProps> = props => {
   const { data } = props
-
-  /**
-   * 渲染标题背景
-   * @param backgroundSet 标题背景
-   */
-  const initTitleBackground = (backgroundSet?: IBackgroundSetModel) => {
-    if (!backgroundSet) return ''
-    switch (backgroundSet.bgType) {
-      case BackgroundSetType.NoneColor:
-        return 'none'
-      case BackgroundSetType.PureColor:
-        return backgroundSet.bgColor
-      case BackgroundSetType.BackgroundImage:
-        return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
-      default:
-        return ''
-    }
-  }
-
-  /**
-   * 渲染标题间距
-   * @param backgroundSet 标题背景
-   */
-  const initTitlePadding = (backgroundSet?: IBackgroundSetModel) => {
-    if (backgroundSet?.bgType === BackgroundSetType.NoneColor) return '0rem'
-  }
 
   if (data.length === 0) return null
   const filterList = getIsShowList(data) as IIconTitleTextModel[]
