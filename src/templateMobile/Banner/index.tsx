@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { IBannerModel } from '../../store/data'
-import { BannerType } from '../../components/EditorContainerMobile/store/state'
+import { BannerType } from '../../components/EditorContainer/store/state'
 
 import './index.less'
 
