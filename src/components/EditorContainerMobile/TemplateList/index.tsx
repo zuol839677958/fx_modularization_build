@@ -1,5 +1,5 @@
 import React, { FC, memo, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel, IPlaintextModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getIsShowList, initTempBackground } from '../../../utils/utils'
@@ -10,12 +10,12 @@ import { changeEditorSliderShow, changeEditorSliderTab } from '../../EditorSlide
 import { changeAddTemplateSliderShow } from '../../AddTemplate/store/actions'
 
 import MobileMask from '../../MobileMask'
-
+import './index.less'
 //模板
 import Banner from '../../../templateMobile/Banner'
 import IconTitleText from "../../../templateMobile/IconTitleText"
 import Audio from "../../MobileAudio"
-import './index.less'
+import Plaintext from "../../../templateMobile/Plaintext"
 
 interface ITemplateListProps extends RouteComponentProps {
   mobileActiveTempId?: string
@@ -65,6 +65,8 @@ const TemplateList: FC<ITemplateListProps> = props => {
         return <Banner data={tempData.tempData as IBannerModel} />
       case TemplateType.IconTitleText:
         return <IconTitleText data={tempData.tempData as IIconTitleTextModel}/>
+      case TemplateType.Plaintext:
+        return <Plaintext data={tempData.tempData as IPlaintextModel}/>
       case TemplateType.Audio:
         return <Audio  data={tempData.tempData as IAudioModel}/>
       default:

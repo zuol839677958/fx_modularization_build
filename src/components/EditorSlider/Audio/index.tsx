@@ -36,7 +36,7 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
               min={0}
               max={200}
               value={data.spacing}
-              onChange={this.changeTempSpacing}
+              onChange ={this.changeTempSpacing}
             />
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
