@@ -1,5 +1,5 @@
 import React, { FC, memo, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel, IPlaintextModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel, IPlaintextModel, IPictureTextModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getIsShowList, initTempBackground } from '../../../utils/utils'
@@ -16,6 +16,7 @@ import Banner from '../../../templateMobile/Banner'
 import IconTitleText from "../../../templateMobile/IconTitleText"
 import Audio from "../../MobileAudio"
 import Plaintext from "../../../templateMobile/Plaintext"
+import PictureText from "../../../templateMobile/PictureText"
 
 interface ITemplateListProps extends RouteComponentProps {
   mobileActiveTempId?: string
@@ -67,8 +68,11 @@ const TemplateList: FC<ITemplateListProps> = props => {
         return <IconTitleText data={tempData.tempData as IIconTitleTextModel}/>
       case TemplateType.Plaintext:
         return <Plaintext data={tempData.tempData as IPlaintextModel}/>
+      case TemplateType.LeftPictureRightText:
+      case TemplateType.LeftTextRightPicture:
+        return <PictureText data={tempData.tempData as IPictureTextModel}/>
       case TemplateType.Audio:
-        return <Audio  data={tempData.tempData as IAudioModel}/>
+        return <Audio data={tempData.tempData as IAudioModel}/>
       default:
         return null
     }
