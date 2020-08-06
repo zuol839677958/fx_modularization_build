@@ -30,6 +30,7 @@ export type TemplateSpecialModel = {
   Content?: string
   ContentH5?: string
   Status: number; //专题类型是否已经发布 1为已经发布 
+  AddTime: string;
 }
 
 export type UpdateSpecialContentOptions = {

@@ -115,6 +115,7 @@ export interface ICorrelationSpecialModel {
   imageUrl: string; // 图片链接
   fontColor?: string; // 文本内容字体颜色
   summary?: string; // 描述
+  addTime?: string // 创建时间
 }
 
 /* 背景设置 */

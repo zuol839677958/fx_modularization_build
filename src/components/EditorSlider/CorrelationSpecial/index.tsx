@@ -186,7 +186,8 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
     data?.tempData.push({
       specailId: res.SpecialId,
       title: res.Title,
-      imageUrl: res.TitleImg
+      imageUrl: res.TitleImg,
+      addTime: res.AddTime
     })
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
