@@ -163,8 +163,8 @@ class AudioTemp extends Component<IAudioProps, AudioState> {
           <audio ref={this.audio} src={data.audioUrl} controls preload="auto"></audio>
           <div className="audio-left">
             {isPlay ?
-              <img id="audioPlayer" onClick={() => this.audioPlay()} className="play-pause" alt="" src="https://img.wbp5.com/upload/images/firstnews/2019/07/31/144634661.png" />
-              : <img id="audioPlayer" onClick={() => this.audioPlay()} className="play-pause" alt="" src="https://img.wbp5.com/upload/images/firstnews/2019/08/01/200512349.png" />
+               <img id="audioPlayer" onClick={() => this.audioPlay()} className="play-pause" alt="" src="https://img.wbp5.com/upload/images/firstnews/2019/07/31/144634661.png" />
+              :<img id="audioPlayer" onClick={() => this.audioPlay()} className="play-pause" alt="" src="https://img.wbp5.com/upload/images/firstnews/2019/08/01/200512349.png" />
             }
           </div>
 
