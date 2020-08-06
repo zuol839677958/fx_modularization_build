@@ -67,14 +67,14 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
         <RichTextEditor
           modalVisible={richTextEditorModalVisible}
           richTextContent={data.tempData.textHtml}
-          handleModalVisible={(flag: boolean) => this.handleRichTextEditorModalVisible(flag)}
-          saveContent={(content: string) => this.saveRichTextContent(content)}
+          handleModalVisible={this.handleRichTextEditorModalVisible}
+          saveContent={this.saveRichTextContent}
         />
         <FontColorSet
           modalVisible={fontColorSelectModalVisible}
           fontColor={currentFontColor}
-          handleModalVisible={flag => this.handleFontColorSelectModalVisible(flag)}
-          handleChangeFontColor={color => this.handleChangeFontColor(color)}
+          handleModalVisible={this.handleFontColorSelectModalVisible}
+          handleChangeFontColor={this.handleChangeFontColor}
         />
       </Fragment>
     )
@@ -95,12 +95,12 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
   }
 
   // 处理颜色选择弹框显示和隐藏
-  handleFontColorSelectModalVisible(fontColorSelectModalVisible: boolean) {
+  handleFontColorSelectModalVisible = (fontColorSelectModalVisible: boolean) => {
     this.setState({ fontColorSelectModalVisible })
   }
 
   // 改变字体颜色
-  handleChangeFontColor(color: string) {
+  handleChangeFontColor = (color: string) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.fontColor = color
@@ -110,12 +110,12 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
   }
 
   // 处理富文本编辑弹窗显示和隐藏
-  handleRichTextEditorModalVisible(richTextEditorModalVisible: boolean) {
+  handleRichTextEditorModalVisible = (richTextEditorModalVisible: boolean) => {
     this.setState({ richTextEditorModalVisible })
   }
 
   // 保存富文本内容
-  saveRichTextContent(content: string) {
+  saveRichTextContent = (content: string) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.textHtml = content
