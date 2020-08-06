@@ -6,11 +6,11 @@ import TxtItem from './components/TxtItem'
 
 import './index.less'
 
-interface PictureTextProps {
+interface IPictureTextProps {
   data: IPictureTextModel
 }
 
-const PictureText: FC<PictureTextProps> = props => {
+const PictureText: FC<IPictureTextProps> = props => {
   const { data } = props
 
   /**

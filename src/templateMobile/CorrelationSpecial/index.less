@@ -1,53 +1,66 @@
 @import (reference) "../../styles/common/PublicDefind.less";
-.CorrelationSpecial_Box{
-    .mobile_padding();
-    .flex();
-    flex-direction: column;
-        h2{
-            font-size: 18px;
-            font-weight: 900;
-            margin-bottom: 0.2rem;
+
+.CorrelationSpecial_Box {
+  .mobile_padding();
+  .flex();
+  flex-direction: column;
+
+  h2 {
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 0.2rem;
+    color: #333;
+  }
+
+  a {
+    display: block;
+
+    .special_list {
+      padding-bottom: 0.16rem;
+      padding-top: 0.12rem;
+      border-bottom: 1px solid #e6e7eb;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .list_item {
+        .flex();
+
+        .item_left {
+          margin-right: .1rem;
+
+          img {
+            height: 1rem;
+            width: 1.2rem;
+            border-radius: 4px;
+            margin-right: 0.12rem;
+          }
         }
 
-        .special_list{
-            padding-bottom: 0.16rem;
-            padding-top: 0.12rem;
-            border-bottom: 1px solid #e6e7eb;
-            &:last-child{
-                border-bottom:none;
-            }
-            .list_item{
-                .flex();
-                justify-content: space-between;
-                .item_left{
-                    
-                    img{
-                        height: 1rem;
-                        width: 1.2rem;
-                        border-radius: 4px;
-                        margin-right: 0.12rem;
-                    }
-                } 
-                .item_right{
-                    .flex();
-                    flex-direction: column;
-                    span{
-                        font-size: 14px;
-                        font-weight: 900;
-                        color: #1b1f27;
-                        line-height: 1.5;
-                        height: 0.5rem;
-                        margin-bottom: 6px;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
-                        -webkit-line-clamp: 2;
-                        overflow: hidden;
-                    }
-                    i{
-                        color: #b8bbc8;
-                        font-size: 12px;
-                    }
-                }
-             }
+        .item_right {
+          .flex();
+          flex-direction: column;
+
+          span {
+            font-size: 14px;
+            font-weight: 900;
+            color: #1b1f27;
+            line-height: 1.5;
+            height: .5rem;
+            margin-bottom: 6px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 5.5rem;
+          }
+
+          i {
+            color: #b8bbc8;
+            font-size: 12px;
+          }
         }
+      }
+    }
+  }
 }

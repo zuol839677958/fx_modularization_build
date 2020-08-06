@@ -69,14 +69,14 @@ const TemplateList: FC<ITemplateListProps> = props => {
       case TemplateType.IconTitleText:
         return <IconTitleText data={tempData.tempData as IIconTitleTextModel[]} />
       case TemplateType.Plaintext:
-        return <Plaintext data={tempData.tempData as IPlaintextModel}/>
+        return <Plaintext data={tempData.tempData as IPlaintextModel} />
       case TemplateType.LeftPictureRightText:
       case TemplateType.LeftTextRightPicture:
-        return <PictureText data={tempData.tempData as IPictureTextModel}/>
+        return <PictureText data={tempData.tempData as IPictureTextModel} />
       case TemplateType.Audio:
-        return <Audio data={tempData.tempData as IAudioModel}/>
+        return <Audio data={tempData.tempData as IAudioModel} />
       case TemplateType.CorrelationSpecial:
-        return <CorrelationSpecial data = {tempData.tempData as ICorrelationSpecialModel}/>
+        return <CorrelationSpecial data={tempData.tempData as ICorrelationSpecialModel[]} fontColor={tempData.fontColor} />
       default:
         return null
     }
