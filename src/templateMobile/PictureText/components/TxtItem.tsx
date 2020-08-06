@@ -19,7 +19,9 @@ const TxtItem: FC<ITxtItemProps> = props => {
           background: initTitleBackground(data.background)
         }}
       >{data.title}</h3>
-      <div className="text">{data.text}</div>
+      <div className="text"
+        style={{ color: data.textFontColor }}
+        dangerouslySetInnerHTML={{ __html: data.text }}></div>
     </div>
   )
 }

@@ -21,23 +21,28 @@ interface IRichTextEditorProps {
 }
 
 interface IRichTextEditorState {
+  isEdit: boolean
   content: string
 }
 
 class RichTextEditor extends PureComponent<IRichTextEditorProps, IRichTextEditorState> {
   state: IRichTextEditorState = {
+    isEdit: false,
     content: BraftEditor.createEditorState('')
   }
 
   handleOk = () => {
     const { saveContent, richTextContent } = this.props
-    const { content } = this.state
-    this.setState({ content: '' })
-    saveContent!(content || richTextContent)
+    const { isEdit, content } = this.state
+    this.setState({ isEdit: false })
+    saveContent!(isEdit ? content : richTextContent)
   }
 
   handleEditorContentChange = (editorState: EditorState) => {
-    this.setState({ content: editorState.toHTML() })
+    this.setState({
+      isEdit: true,
+      content: editorState.toHTML()
+    })
   }
 
   getEditorControls = () => {
@@ -54,7 +59,7 @@ class RichTextEditor extends PureComponent<IRichTextEditorProps, IRichTextEditor
     return controls.map(item => ({ key: item } as ControlType))
   }
 
-  getFontFamilies = () => { 
+  getFontFamilies = () => {
     const fontFamilies = [
       {
         name: '宋体',
