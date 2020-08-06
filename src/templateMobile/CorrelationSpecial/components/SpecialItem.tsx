@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { ICorrelationSpecialModel } from '../../../store/data'
+import { getMobileSpecialLinkUrl } from '../../../axios/env'
 
 interface ISpecialItemProps {
   data: ICorrelationSpecialModel
@@ -9,7 +10,7 @@ const SpecialItem: FC<ISpecialItemProps> = props => {
   const { data } = props
 
   return (
-    <a href="/" rel="noopener noreferrer">
+    <a href={`${getMobileSpecialLinkUrl()}${data.specailId}`} rel="noopener noreferrer">
       <div className="special_list">
         <div className="list_item">
           <div className="item_left">
