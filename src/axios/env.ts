@@ -30,6 +30,18 @@ const getSepecialLinkUrl = () => {
   }
 }
 
+const getMobileSpecialLinkUrl = () => {
+  checkDomain()
+  switch (env) {
+    case EnvTpye.Test:
+      return 'https://mtestolv1.tostar.top/special/'
+    case EnvTpye.Pre:
+      return 'https://mpreolv1.tostar.top/special/'
+    case EnvTpye.Product:
+      return 'https://m.fx110.com/special/'
+  }
+}
+
 const checkDomain = () => {
   const domain = window.location.origin
   if (domain.indexOf('localhost') > -1 || domain.indexOf('spadminstest') > -1) env = EnvTpye.Test
@@ -39,5 +51,6 @@ const checkDomain = () => {
 
 export {
   getEnvRequestUrl,
-  getSepecialLinkUrl
+  getSepecialLinkUrl,
+  getMobileSpecialLinkUrl
 }
