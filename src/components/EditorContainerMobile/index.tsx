@@ -39,7 +39,8 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
     try {
       const { specialId } = match.params as { specialId: string }
       const res = await getSpeicalData(specialId)
-      changeMobilePageData!(JSON.parse(res.ContentH5!))
+      const pageData = JSON.parse(res.ContentH5!) as IPageModel
+      changeMobilePageData!(pageData)
       setLoading(false)
     } catch (e) {
       console.warn('模板渲染错误：', e)
@@ -53,7 +54,8 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
     try {
       const { tempId } = match.params as { tempId: string }
       const res = await getTemplateDetail(Number(tempId))
-      changeMobilePageData!(JSON.parse(res.ContentH5!))
+      const pageData = JSON.parse(res.ContentH5!) as IPageModel
+      changeMobilePageData!(pageData)
       setLoading(false)
     } catch (e) {
       console.warn('模板渲染错误：', e)
