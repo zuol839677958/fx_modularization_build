@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { IIconTitleTextModel } from '../../store/data'
-import { getIsShowList, initMobileTemplatePositionStyle, initTitlePadding, initTitleBackground } from '../../utils/utils'
+import { getIsShowList, initMobileTemplatePositionStyle } from '../../utils/utils'
 
 import IconItem from './components/IconItem'
 import TitleItem from './components/TitleItem'
