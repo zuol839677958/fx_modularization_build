@@ -1,11 +1,11 @@
 import React, { FC, useMemo } from 'react'
 
-interface ITxtItemProps {
+interface ITextItemProps {
   text: string
   textFontColor?: string
 }
 
-const TxtItem: FC<ITxtItemProps> = props => {
+const TextItem: FC<ITextItemProps> = props => {
   const { text, textFontColor } = props
 
   return useMemo(() => (
@@ -15,4 +15,4 @@ const TxtItem: FC<ITxtItemProps> = props => {
   ), [text, textFontColor])
 }
 
-export default TxtItem
+export default TextItem

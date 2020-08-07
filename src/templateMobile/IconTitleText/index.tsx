@@ -2,6 +2,10 @@ import React, { FC } from 'react'
 import { IIconTitleTextModel } from '../../store/data'
 import { getIsShowList, initMobileTemplatePositionStyle, initTitlePadding, initTitleBackground } from '../../utils/utils'
 
+import IconItem from './components/IconItem'
+import TitleItem from './components/TitleItem'
+import TextItem from './components/TextItem'
+
 import './index.less'
 
 interface IconTitleTextProps {
@@ -20,19 +24,9 @@ const IconTitleText: FC<IconTitleTextProps> = props => {
       {
         filterList.map((item, index) => (
           <div className="item_list" key={index} style={initMobileTemplatePositionStyle(item.positionType)}>
-            {
-              item.hasIcon ?
-                <img className="des_icon" src={item.iconUrl} alt="" />
-                : null
-            }
-            <span className="heading"
-              style={{
-                color: item.titleFontColor,
-                padding: initTitlePadding(item.background),
-                background: initTitleBackground(item.background)
-              }}
-            >{item.title}</span>
-            <i className="txt">{item.text}</i>
+            <IconItem {...item} />
+            <TitleItem {...item} />
+            <TextItem  {...item} />
           </div>
         ))
       }
