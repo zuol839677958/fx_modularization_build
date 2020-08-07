@@ -43,7 +43,7 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
     return (
       <div id={tempData.id}
         className={`correlationSpecial_box`}
-        style={this.initTempCss(tempData.background, tempData.spacing)}
+        style={this.initTempCss(tempData.background, tempData.topSpacing, tempData.bottomSpacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {

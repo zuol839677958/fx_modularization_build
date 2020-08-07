@@ -1,8 +1,8 @@
 import React, { FC, memo, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IBackgroundSetModel, IIconTitleTextModel, IAudioModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../../../store/data'
+import { IPageState, ITemplateModel, IBannerModel, IIconTitleTextModel, IAudioModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../../../store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getIsShowList, initTempBackground } from '../../../utils/utils'
+import { getIsShowList, initTempCss } from '../../../utils/utils'
 import { TemplateType } from '../../EditorContainer/store/state'
 import { changeMobileActiveTempId } from '../store/actions'
 import { Dispatch, Action } from 'redux'
@@ -82,15 +82,6 @@ const TemplateList: FC<ITemplateListProps> = props => {
     }
   }
 
-  /**
-   * 渲染模板样式
-   * @param background 模板背景
-   * @param spacing 模板间距
-   */
-  const initTempCss = (background?: IBackgroundSetModel, spacing?: number) => {
-    return initTempBackground(background, spacing, true)
-  }
-
   const filterMobileAllTempData = getIsShowList(mobileAllTempData!) as ITemplateModel<any>[]
   if (filterMobileAllTempData.length === 0) return null
 
@@ -99,7 +90,7 @@ const TemplateList: FC<ITemplateListProps> = props => {
       {
         filterMobileAllTempData.map(tempData => (
           <div id={tempData.id} className="temp-box" key={tempData.id}
-            style={initTempCss(tempData.background, tempData.spacing)}
+            style={initTempCss(tempData.background, tempData.topSpacing, tempData.bottomSpacing, true)}
             onMouseEnter={() => handleTempMouseEnter(tempData.id)}
             onMouseLeave={handleTempMouseLeave}
             onClick={() => handleTempClick(tempData.id)}

@@ -31,7 +31,8 @@ export interface ITemplateModel<T> {
   id: string; // 模板id
   type: number; // 模板类型
   isShow: boolean; // 模板是否显示
-  spacing?: number; // 模板间距
+  topSpacing?: number; // 模板上间距
+  bottomSpacing?: number; // 模板下间距
   fontColor?: string; // 模板字体颜色
   background?: IBackgroundSetModel; // 模板背景
   tempData: T; // 模板数据

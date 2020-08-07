@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
-import { message, Input, Row, Radio, Button, Slider } from 'antd'
+import { message, Input, Row, Radio, Button } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../store/data'
 import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow, insertItemToArray, updateIconTitleTextPositionType } from '../../../utils/utils'
@@ -16,6 +16,7 @@ import { changeEditorSliderTab } from '../store/actions'
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../FontColorSet'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
+import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
 
@@ -55,7 +56,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   render() {
-    const { data, tabTypeIndex } = this.props;
+    const { data, isMobile, tabTypeIndex } = this.props;
     const {
       title,
       topTitle,
@@ -72,16 +73,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
           changeTypeIndex={index => this.changeTypeIndex(index)}
         />
         <div className="item-Manage-content" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} isMobile={isMobile} />
           <div className="item-Manage">
             <p>{title}</p>
           </div>
@@ -178,14 +170,6 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
         />
       </Fragment >
     )
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 切换文字显示位置：居左，居中，居右

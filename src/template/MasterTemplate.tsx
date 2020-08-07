@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment, CSSProperties } from 'react'
 import { Button, Modal } from 'antd'
 import { EditFilled, DeleteFilled, CopyFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { ITemplateModel, IBackgroundSetModel } from '../store/data'
-import { zIndexDown, zIndexUp, insertItemToArray, deepClone, initTempBackground } from '../utils/utils'
+import { zIndexDown, zIndexUp, insertItemToArray, deepClone, initTempCss } from '../utils/utils'
 import _ from 'lodash'
 import { BackgroundSetType } from '../components/BackgroundSet/store/state'
 
@@ -171,8 +171,8 @@ class MasterTemplate<P> extends PureComponent<P, IMasterTemplateState> {
   }
 
   // 渲染模板样式
-  initTempCss(background?: IBackgroundSetModel, spacing?: number): CSSProperties {
-    return initTempBackground(background, spacing)
+  initTempCss(background?: IBackgroundSetModel, topSpacing?: number, bottomSpacing?: number): CSSProperties {
+    return initTempCss(background, topSpacing, bottomSpacing)
   }
 }
 

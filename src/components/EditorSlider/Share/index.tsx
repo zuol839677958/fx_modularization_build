@@ -5,10 +5,11 @@ import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { updateCurrentTempData } from '../../../utils/utils'
 import { SketchPicker } from 'react-color'
-import { Row, Slider, Radio } from 'antd'
+import { Row, Radio } from 'antd'
 import { TemplatePositionType } from '../../EditorContainer/store/state'
 
 import TitleBack from '../commonEditorComponent/titleBack'
+import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
 
@@ -28,16 +29,7 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
       <Fragment>
         <TitleBack titleArrow={false} title='分享模板编辑' />
         <div className="editor_content">
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} />
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>分享显示位置</p>
             <Radio.Group
@@ -59,14 +51,6 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
         </div>
       </Fragment>
     )
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 切换分享显示位置

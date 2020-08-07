@@ -4,10 +4,11 @@ import { changeTempData } from '../../EditorContainer/store/actions'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { updateCurrentTempData } from '../../../utils/utils'
-import { Row, Slider } from 'antd'
+import { Row } from 'antd'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
+import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
 
@@ -27,16 +28,7 @@ class EditorMorePicture extends PureComponent<IEditorMorePictureProps, IEditorMo
       <Fragment>
         <TitleBack titleArrow={false} title='双图模板编辑' />
         <div className="editor_content">
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} />
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>更换左图</p>
             <AliyunOSSUpload
@@ -54,14 +46,6 @@ class EditorMorePicture extends PureComponent<IEditorMorePictureProps, IEditorMo
         </div>
       </Fragment>
     )
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 更换图片

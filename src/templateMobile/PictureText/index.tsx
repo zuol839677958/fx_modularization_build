@@ -2,7 +2,9 @@ import React, { FC } from 'react'
 import { IPictureTextModel, IIconTitleTextModel } from '../../store/data'
 import { getIsShowList } from '../../utils/utils'
 
-import TxtItem from './components/TxtItem'
+import TitleItem from './components/TitleItem'
+import TextItem from './components/TextItem'
+import ImageItem from './components/ImageItem'
 
 import './index.less'
 
@@ -23,7 +25,10 @@ const PictureText: FC<IPictureTextProps> = props => {
 
     return (
       filterList.map((item, index) => (
-        <TxtItem data={item} key={index} />
+        <div className="top_title_text" key={index}>
+          <TitleItem {...item} />
+          <TextItem {...item} />
+        </div>
       ))
     )
   }
@@ -32,11 +37,7 @@ const PictureText: FC<IPictureTextProps> = props => {
     <div className="PictureText_box">
       <div className="PictureText_item">
         {renderTxtList(data.titleTextList)}
-        <div className="describe_img">
-          <img src={data.picUrl} alt="" data-preview-src data-preview-group="1"
-            style={{ width: `${data.picWidthPercent}%` }}
-          />
-        </div>
+        <ImageItem {...data} />
       </div>
     </div>
   )

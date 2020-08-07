@@ -4,11 +4,12 @@ import { changeTempData } from '../../EditorContainer/store/actions'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
 import { updateCurrentTempData } from '../../../utils/utils'
-import { Row, Slider, Radio, Input } from 'antd'
+import { Row, Radio, Input } from 'antd'
 import { TemplatePositionType } from '../../EditorContainer/store/state'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
+import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
 
@@ -29,16 +30,7 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
       <Fragment>
         <TitleBack titleArrow={false} title='音频模板编辑' />
         <div className="editor_content">
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} isMobile={isMobile} />
           {
             isMobile ? null :
               <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
@@ -70,14 +62,6 @@ class EditorAudio extends PureComponent<IEditorAudioProps, IEditorAudioState> {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
     tempData.audioUrl = inputVal
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

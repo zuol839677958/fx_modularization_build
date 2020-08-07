@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, IBannerModel, IBannerVideoModel } from '../../../store/data'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
-import TitleBack from '../commonEditorComponent/titleBack'
 import { Radio, Row, Slider, Input } from 'antd'
 import { BannerType } from '../../EditorContainer/store/state'
 import { changeTempData } from '../../EditorContainer/store/actions'
@@ -10,6 +9,8 @@ import { updateCurrentTempData } from '../../../utils/utils'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import AliyunOSSUpload from '../../AliyunOSSUpload'
+import TitleBack from '../commonEditorComponent/titleBack'
+import Spacing from '../commonEditorComponent/spacing'
 
 import "./index.less"
 
@@ -32,7 +33,7 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
   }
 
   render() {
-    const { data } = this.props
+    const { data, isMobile } = this.props
     const { typeIndex, topTitle } = this.state
 
     return (
@@ -42,16 +43,7 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
           title={topTitle!}
         />
         <div className="banner-select-box">
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing || 0}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} isMobile={isMobile} />
           <Radio.Group
             value={data.tempData.bannerType}
             onChange={e => this.changeBannerType(e.target.value)}
@@ -85,14 +77,6 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
         </div>
       </Fragment>
     )
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 切换Banner模板类型

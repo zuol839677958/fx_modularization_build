@@ -22,7 +22,7 @@ interface IEditorContainerMobileProps extends RouteComponentProps {
 }
 
 const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const {
     mobileActiveTempId,
