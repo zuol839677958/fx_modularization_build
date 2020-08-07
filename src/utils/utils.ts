@@ -301,8 +301,8 @@ const initTempCss = (background?: IBackgroundSetModel, topSpacing?: number, bott
 // 渲染模板间距
 const initTempSpacing = (topSpacing?: number, bottomSpacing?: number, isMobile?: boolean) => {
   const bgCss: CSSProperties = {}
-  if (topSpacing) bgCss.paddingTop = `${topSpacing / 100}${isMobile ? 'rem' : 'px'}`
-  if (bottomSpacing) bgCss.paddingBottom = `${bottomSpacing / 100}${isMobile ? 'rem' : 'px'}`
+  if (topSpacing) bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${isMobile ? 'rem' : 'px'}`
+  if (bottomSpacing) bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${isMobile ? 'rem' : 'px'}`
   return bgCss
 }
 
