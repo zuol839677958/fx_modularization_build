@@ -7,13 +7,61 @@
 @import (less) "../../template/Audio/index";
 @import (less) "../../template/MorePicture/index";
 
-.preview-wrap {
-  background: #fff;
 
-  .mask-box {
-    display: none !important;
+.preview_content {
+  position: relative;
+
+  .preview-wrap {
+    background: #fff;
+    padding-bottom: 56px;
+
+    .mask-box {
+      display: none !important;
+    }
+
+    audio {
+      outline: none;
+    }
   }
-  audio{
-    outline:none; 
+
+  .preview-mobile {
+
+    .mobile-content {
+
+      .editor-wrap {
+        width: 418px;
+        height: 780px;
+        background: #fff;
+        border-radius: 50px;
+        padding-top: 55px;
+        margin: 40px auto 0;
+        position: relative;
+
+        .mobile-wrap {
+          width: 375px;
+          height: 667px;
+          margin: 0 auto;
+          overflow: scroll;
+
+          iframe {
+            ::-webkit-scrollbar {
+              display: none
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .preview-bottom-bar {
+    height: 75px;
+    line-height: 75px;
+    width: 100%;
+    background-color: #001529;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    text-align: center;
   }
 }
+

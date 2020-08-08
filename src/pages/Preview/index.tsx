@@ -3,12 +3,19 @@ import { IPageModel } from '../../store/data'
 import { message } from 'antd'
 
 import './index.less'
+import { MobileTwoTone, FundProjectionScreenOutlined } from '@ant-design/icons'
 
 interface IPreviewProps {
   pageHtml: string
 }
+interface IPreviewType{
+    isWeb:boolean
+}
+class Preview extends PureComponent<IPreviewProps,IPreviewType> {
+  state: IPreviewType = {
+    isWeb: true
+  }
 
-class Preview extends PureComponent<IPreviewProps> {
   componentDidMount() {
     const ele: Element = document.querySelector(".share_box")!
     if (!ele) return
@@ -32,15 +39,49 @@ class Preview extends PureComponent<IPreviewProps> {
     try {
       const pageData = JSON.parse(localStorage.getItem('pageEditorData') as string) as IPageModel
       const { pageHtml } = pageData
-
+     
       return (
-        <section className="preview-wrap" dangerouslySetInnerHTML={{ __html: pageHtml }}></section>
+        <div className="preview_content">
+          {
+          this.state.isWeb?
+            <section className="preview-wrap"  dangerouslySetInnerHTML={{ __html: pageHtml }}></section>
+          : <section className="preview-mobile">
+                  <div className="mobile-content">
+                        <div className="editor-wrap">
+                            <div className="mobile-wrap">
+                              <iframe src="http://mtestolv1.tostar.top/special/3197" title="专题" style={{border:0,width:375,height:660}} frameBorder="0" ></iframe>
+                              {/* <iframe src="https:m.baidu.com" title="专题" style={{border:0,width:370,height:660}} frameBorder="0" ></iframe> */}
+
+                            </div>
+                        </div>
+                  </div>
+            </section>
+          }
+          <section className="preview-bottom-bar">
+              <div className="Mobile_box">
+                <FundProjectionScreenOutlined onClick={ ()=>{ this.changeToWeb()} } style={{ fontSize:24,marginRight:10,color:"blue"}} /> 
+                <MobileTwoTone onClick={ ()=>{ this.changeToMoblie()} } twoToneColor="#ddd" style={{ fontSize:24 }}/> 
+              </div>
+          </section>
+        </div>
       )
     } catch (e) {
       message.error('模板解析错误！')
       return null
     }
   }
+  changeToWeb = () => {
+    this.setState({
+       isWeb:true
+    })
+
+  }
+  changeToMoblie =() =>{
+    this.setState({
+      isWeb:false
+   })
+  }
+
 }
 
 export default Preview

@@ -33,7 +33,7 @@ const PictureText: FC<IPictureTextProps> = props => {
       <div className="PictureText_item">
         {renderTxtList(data.titleTextList)}
         <div className="describe_img">
-          <img src={data.picUrl} alt="" data-preview-src data-preview-group="1"
+          <img src={data.picUrl} alt="" data-preview-src={data.picUrl} data-preview-group="1"
             style={{ width: `${data.picWidthPercent}%` }}
           />
         </div>

@@ -21,7 +21,8 @@ const TxtItem: FC<ITxtItemProps> = props => {
       >{data.title}</h3>
       <div className="text"
         style={{ color: data.textFontColor }}
-        dangerouslySetInnerHTML={{ __html: data.text }}></div>
+        dangerouslySetInnerHTML={{ __html: data.text }}>
+      </div>
     </div>
   )
 }
