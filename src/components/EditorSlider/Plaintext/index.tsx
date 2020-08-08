@@ -3,13 +3,14 @@ import { IPlaintextModel, IPageState, ITemplateModel } from '../../../store/data
 import { Dispatch, Action } from 'redux'
 import { changeTempData } from '../../EditorContainer/store/actions'
 import { connect } from 'react-redux'
-import { Button, Row, Slider } from 'antd'
+import { Button, Row } from 'antd'
 import { updateCurrentTempData } from '../../../utils/utils'
 import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import RichTextEditor from '../../RichTextEditor'
 import FontColorSet from '../../FontColorSet'
+import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
 
@@ -34,23 +35,14 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
   }
 
   render() {
-    const { data } = this.props
+    const { data, isMobile } = this.props
     const { richTextEditorModalVisible, currentFontColor, fontColorSelectModalVisible } = this.state
 
     return (
       <Fragment>
         <TitleBack titleArrow={false} title='纯文字模板编辑' />
         <div className="editor_content">
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} isMobile={isMobile} />
           <Row className="inputAndColor_wrap">
             <p>纯文字内容</p>
             <div className="inputAndColor_box">
@@ -78,14 +70,6 @@ class EditorPlaintext extends PureComponent<IEditorPlaintextProps, IEditorPlaint
         />
       </Fragment>
     )
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 打开颜色选择弹窗

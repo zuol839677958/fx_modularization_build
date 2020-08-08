@@ -58,7 +58,6 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.Audio]}_${Date.now()}`,
       type: TemplateType.Audio,
       isShow: true,
-      spacing: 20,
       tempData: {
         audioUrl: "https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
         positionType: TemplatePositionType.Center
@@ -68,7 +67,6 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.Share]}_${Date.now()}`,
       type: TemplateType.Share,
       isShow: true,
-      spacing: 20,
       tempData: {
         isTW: false,
         labelFontColor: '#fff',
@@ -79,7 +77,6 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.IconTitleText]}_${Date.now()}`,
       type: TemplateType.IconTitleText,
       isShow: true,
-      spacing: 20,
       tempData: [
         {
           iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
@@ -126,7 +123,6 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.Plaintext]}_${Date.now()}`,
       type: TemplateType.Plaintext,
       isShow: true,
-      spacing: 20,
       tempData: {
         textHtml: 'Mahasagara，汇聊号“521667”，总盈利率排名第49，获胜率高达93.91%擅长做波段和中线1年时间。 内将资金翻仓6倍，因眼光精准、下手果决而闻名。',
         fontColor: '#fff'
@@ -136,7 +132,6 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.LeftPictureRightText]}_${Date.now()}`,
       type: TemplateType.LeftPictureRightText,
       isShow: true,
-      spacing: 50,
       tempData: {
         picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
         picWidthPercent: 49,
@@ -173,7 +168,6 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.LeftTextRightPicture]}_${Date.now()}`,
       type: TemplateType.LeftTextRightPicture,
       isShow: true,
-      spacing: 50,
       tempData: {
         picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
         picWidthPercent: 49,
@@ -210,14 +204,12 @@ const editorContainerState: ITemplateModel<
       id: `${TemplateType[TemplateType.CorrelationSpecial]}_${Date.now()}`,
       type: TemplateType.CorrelationSpecial,
       isShow: true,
-      spacing: 20,
       tempData: []
     },
     {
       id: `${TemplateType[TemplateType.MorePicture]}_${Date.now()}`,
       type: TemplateType.MorePicture,
       isShow: true,
-      spacing: 20,
       tempData: [
         {
           picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg",

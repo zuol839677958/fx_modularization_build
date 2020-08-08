@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons'
 import { updateCurrentTempData } from '../../../utils/utils'
-import { message, Row, Slider } from 'antd';
+import { message, Row } from 'antd'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
 import { getSpeicalData } from '../../../axios/api';
@@ -11,6 +11,7 @@ import { changeMobileTempData } from '../../EditorContainerMobile/store/actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import FontColorSet from '../../FontColorSet'
+import Spacing from '../commonEditorComponent/spacing'
 
 import "./index.less"
 
@@ -41,7 +42,7 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
   }
 
   render() {
-    const { data } = this.props
+    const { data, isMobile } = this.props
     const { typeIndex, topTitle, currentFontColor, fontColorSelectModalVisible } = this.state
 
     return (
@@ -51,16 +52,7 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
           title={topTitle!}
         />
         <div className="special_editor_box">
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} isMobile={isMobile} />
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>标签字体颜色</p>
             <div className="fontColorSelect"
@@ -134,14 +126,6 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
   // 处理颜色选择弹框显示和隐藏
   handleFontColorSelectModalVisible = (fontColorSelectModalVisible: boolean) => {
     this.setState({ fontColorSelectModalVisible })
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 更改文字颜色

@@ -144,7 +144,7 @@ const updateIconTitleTextItemTextFontColor = (textFontColor: string, itemIndex: 
 const updateIconTitleTextItemTitleBgColor = (bgColor: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
-      item.background!.bgColor = bgColor
+      item.background = { ...item.background, bgColor }
     }
   })
   return tempData
@@ -153,7 +153,7 @@ const updateIconTitleTextItemTitleBgColor = (bgColor: string, itemIndex: number,
 const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
-      item.background!.bgImageUrl = bgImageUrl
+      item.background = { ...item.background, bgImageUrl }
     }
   })
   return tempData
@@ -162,7 +162,7 @@ const updateIconTitleTextItemTitleBgImageUrl = (bgImageUrl: string, itemIndex: n
 const updateIconTitleTextItemTitleBgType = (bgType: BackgroundSetType, itemIndex: number, tempData: IIconTitleTextModel[]) => {
   tempData.forEach((item, index) => {
     if (index === itemIndex) {
-      item.background!.bgType = bgType
+      item.background = { ...item.background, bgType }
     }
   })
   return tempData
@@ -273,10 +273,16 @@ const initMobileTemplatePositionStyle = (positionType?: TemplatePositionType): C
   return bgCss
 }
 
-// 渲染模板背景
-const initTempBackground = (background?: IBackgroundSetModel, spacing?: number, isMobile?: boolean): CSSProperties => {
+/**
+ * 渲染模板样式
+ * @param background 模板背景
+ * @param topSpacing 模板上间距
+ * @param bottomSpacing 模板下间距
+ * @param isMobile 是否为移动端
+ */
+const initTempCss = (background?: IBackgroundSetModel, topSpacing?: number, bottomSpacing?: number, isMobile?: boolean): CSSProperties => {
   let bgCss: CSSProperties = {}
-  bgCss = initTempSpacing(spacing, isMobile)
+  bgCss = initTempSpacing(topSpacing, bottomSpacing, isMobile)
   if (!background) return bgCss
   switch (background.bgType) {
     case BackgroundSetType.NoneColor:
@@ -293,14 +299,10 @@ const initTempBackground = (background?: IBackgroundSetModel, spacing?: number, 
 }
 
 // 渲染模板间距
-const initTempSpacing = (spacing?: number, isMobile?: boolean) => {
-  let bgCss: CSSProperties = {}
-  if (spacing === void 0) return bgCss
-  if (isMobile) {
-    bgCss.padding = `${spacing / 100}rem 0rem`
-  } else {
-    bgCss.padding = `${spacing}px 0px`
-  }
+const initTempSpacing = (topSpacing?: number, bottomSpacing?: number, isMobile?: boolean) => {
+  const bgCss: CSSProperties = {}
+  if (topSpacing) bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${isMobile ? 'rem' : 'px'}`
+  if (bottomSpacing) bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${isMobile ? 'rem' : 'px'}`
   return bgCss
 }
 
@@ -353,7 +355,7 @@ export {
   updateIconTitleTextItemTitleBgType,
   deepClone,
   initTemplatePositionStyle,
-  initTempBackground,
+  initTempCss,
   initTitleBackground,
   initTitlePadding
 }

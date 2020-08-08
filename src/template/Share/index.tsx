@@ -54,7 +54,7 @@ class Share extends MasterTemplate<IShareProps> {
     return (
       <div id={tempData.id}
         className="share_box"
-        style={this.initTempCss(tempData.background, tempData.spacing)}
+        style={this.initTempCss(tempData.background, tempData.topSpacing, tempData.bottomSpacing)}
         onMouseEnter={() => this.setState({ isShowMask: true })}
         onMouseLeave={() => this.setState({ isShowMask: false })}
         onClick={(e) => {
@@ -79,6 +79,7 @@ class Share extends MasterTemplate<IShareProps> {
   async getSepecialShareData() {
     const { specialId } = this.props.match.params as { specialId: string }
     const res = await getSpeicalData(specialId)
+    if (!res) return
     const { SpecialId, Title, Summary } = res
     this.setState({
       shareTitle: Title,

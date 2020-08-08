@@ -15,6 +15,7 @@ import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import RichTextEditor from '../../RichTextEditor'
 import FontColorSet from '../../FontColorSet'
 import AliyunOSSUpload from '../../AliyunOSSUpload'
+import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
 
@@ -68,16 +69,7 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
           changeTypeIndex={this.changeTabTypeIndex}
         />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
-          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
-            <p>模板间距(像素)</p>
-            <Slider
-              style={{ width: '100%' }}
-              min={0}
-              max={200}
-              value={data.spacing}
-              onChange={this.changeTempSpacing}
-            />
-          </Row>
+          <Spacing data={data} isMobile={isMobile} />
           <p>更换图片</p>
           <AliyunOSSUpload
             preImageUrl={data.tempData.picUrl}
@@ -209,14 +201,6 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
       default:
         return <Fragment></Fragment>
     }
-  }
-
-  // 更改模板间距
-  changeTempSpacing = (spacing: number) => {
-    const { data, allTempData, changeTempData } = this.props
-    data.spacing = spacing
-    updateCurrentTempData(data, allTempData!)
-    changeTempData!(allTempData!)
   }
 
   // 更改标题文本
