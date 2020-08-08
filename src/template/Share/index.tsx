@@ -79,6 +79,7 @@ class Share extends MasterTemplate<IShareProps> {
   async getSepecialShareData() {
     const { specialId } = this.props.match.params as { specialId: string }
     const res = await getSpeicalData(specialId)
+    if (!res) return
     const { SpecialId, Title, Summary } = res
     this.setState({
       shareTitle: Title,
