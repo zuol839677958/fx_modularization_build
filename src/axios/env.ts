@@ -26,7 +26,7 @@ const getSepecialLinkUrl = () => {
     case EnvTpye.Pre:
       return 'https://wwwpreolv4.tostar.top/special/'
     case EnvTpye.Product:
-      return 'https://www.fx110.com/special/'
+      return 'https://www.fx110.uk/special/'
   }
 }
 
@@ -38,7 +38,7 @@ const getMobileSpecialLinkUrl = () => {
     case EnvTpye.Pre:
       return 'https://mpreolv1.tostar.top/special/'
     case EnvTpye.Product:
-      return 'https://m.fx110.com/special/'
+      return 'https://m.fx110.uk/special/'
   }
 }
 
