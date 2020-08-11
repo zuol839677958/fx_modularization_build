@@ -1,5 +1,4 @@
 import React, { FC, useState, useEffect } from 'react'
-import { MobileTwoTone, FundProjectionScreenOutlined } from '@ant-design/icons'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { getSepecialLinkUrl, getMobileSpecialLinkUrl } from '../../axios/env'
 
@@ -29,8 +28,8 @@ const Preview: FC<RouteComponentProps> = props => {
       </section>
       <section className="preview-bottom-bar">
         <div className="Mobile_box">
-          <FundProjectionScreenOutlined onClick={() => setIsWeb(true)} style={{ fontSize: 24, marginRight: 10, color: "blue" }} />
-          <MobileTwoTone onClick={() => setIsWeb(false)} twoToneColor="#ddd" style={{ fontSize: 24 }} />
+          <span className={isWeb?"span_active":""} onClick={() => setIsWeb(true)} style={{ fontSize: 24, marginRight: 10, color: "blue" }} />
+          <i className={isWeb?"":"i_active"} onClick={() => setIsWeb(false)}  style={{ fontSize: 24 }} />
         </div>
       </section>
     </div>
