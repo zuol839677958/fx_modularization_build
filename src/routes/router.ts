@@ -29,7 +29,7 @@ const routers: RouteProps[] = [
     component: MobileHome
   },
   {
-    path: '/preview',
+    path: '/preview/:specialId?/:isMobile?',
     exact: true,
     component: Preview
   }
