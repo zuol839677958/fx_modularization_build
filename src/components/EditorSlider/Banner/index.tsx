@@ -154,7 +154,7 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
   changeVideoPoster = (poster: string) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    if (tempData.videoData) tempData.videoData!.poster = poster
+    if (tempData.videoData) tempData.videoData = { ...tempData.videoData, poster }
     else tempData.videoData = {
       poster,
       videoSrc: ''
@@ -167,7 +167,7 @@ class EditorBanner extends PureComponent<IEditorBannerProps, IEditorBannerState>
   changeVideoSrc = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    if (tempData.videoData) tempData.videoData!.videoSrc = e.target.value
+    if (tempData.videoData) tempData.videoData = { ...tempData.videoData, videoSrc: e.target.value }
     else tempData.videoData = {
       poster: '',
       videoSrc: e.target.value

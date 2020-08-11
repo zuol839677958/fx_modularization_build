@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { message } from 'antd'
 import QRCode from 'qrcode.react'
@@ -10,7 +10,7 @@ interface IQrcodeBoxProps {
 const QrcodeBox: FC<IQrcodeBoxProps> = props => {
   const { mobileSpecialLinkUrl } = props
 
-  return (
+  return useMemo(() => (
     <div className="qrcode_copy_url">
       <div className="qrcode">
         <h3>微信扫一扫，看效果</h3>
@@ -31,7 +31,7 @@ const QrcodeBox: FC<IQrcodeBoxProps> = props => {
         </div>
       </div>
     </div>
-  )
+  ), [mobileSpecialLinkUrl])
 }
 
 export default QrcodeBox

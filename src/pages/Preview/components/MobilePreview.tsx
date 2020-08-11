@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import QrcodeBox from './QrcodeBox'
 import { IPageModel } from '../../../store/data'
 import { message } from 'antd'
@@ -21,7 +21,7 @@ const MobilePreview: FC<IMobilePreviewProps> = props => {
     }
   }, [])
 
-  return (
+  return useMemo(() => (
     <div className="mobile-content">
       <div className="editor-wrap">
         <div className="mobile-wrap">
@@ -36,7 +36,7 @@ const MobilePreview: FC<IMobilePreviewProps> = props => {
         isFromSpecial ? <QrcodeBox mobileSpecialLinkUrl={mobileSpecialLinkUrl} /> : null
       }
     </div>
-  )
+  ), [isFromSpecial, mobileSpecialLinkUrl, pageHtml])
 }
 
 export default MobilePreview

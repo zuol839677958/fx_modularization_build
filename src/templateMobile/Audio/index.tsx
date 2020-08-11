@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState, useCallback } from 'react'
+import React, { FC, useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import { IAudioModel } from '../../store/data'
 
 import './index.less'
@@ -30,7 +30,7 @@ const Audio: FC<IAudioProps> = props => {
     canplay()
   }, [canplay])
 
-  return (
+  return useMemo(() => (
     <div className="Audio_box">
       <section className="linkBreak audio-wrapper">
         <audio ref={audio} src={data.audioUrl || ''} controls preload="auto"></audio>
@@ -49,7 +49,7 @@ const Audio: FC<IAudioProps> = props => {
         </div>
       </section>
     </div>
-  )
+  ), [allTime, data.audioUrl])
 }
 
 export default Audio

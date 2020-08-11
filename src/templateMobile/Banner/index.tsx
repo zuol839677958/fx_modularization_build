@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo, useCallback } from 'react'
 import { IBannerModel } from '../../store/data'
 import { BannerType } from '../../components/EditorContainer/store/state'
 
@@ -11,7 +11,7 @@ interface IBannerProps {
 const Banner: FC<IBannerProps> = props => {
   const { data } = props
 
-  const renderBannerTemplate = () => {
+  const renderBannerTemplate = useCallback(() => {
     switch (data.bannerType) {
       case BannerType.SingleImage:
         return (
@@ -47,11 +47,11 @@ const Banner: FC<IBannerProps> = props => {
       default:
         return <></>
     }
-  }
+  }, [data.bannerType, data.imageData.imageDesc, data.imageData.imageTitle, data.imageData.imageUrl, data.isFull, data.videoData, data.widthPercent])
 
-  return (
+  return useMemo(() => (
     <div className={`banner_mbox ${data.isFull ? 'isFull' : ''}`}>{renderBannerTemplate()}</div>
-  )
+  ), [data.isFull, renderBannerTemplate])
 }
 
 export default Banner
