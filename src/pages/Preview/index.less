@@ -1,3 +1,4 @@
+// PC端
 @import (less) "../../template/Banner/index";
 @import (less) "../../template/CorrelationSpecial/index";
 @import (less) "../../template/IconTitleText/index";
@@ -7,6 +8,13 @@
 @import (less) "../../template/Audio/index";
 @import (less) "../../template/MorePicture/index";
 
+// 移动端
+@import (less) "../../templateMobile/Banner/index";
+@import (less) "../../templateMobile/CorrelationSpecial/index";
+@import (less) "../../templateMobile/IconTitleText/index";
+@import (less) "../../templateMobile/PictureText/index";
+@import (less) "../../templateMobile/Plaintext/index";
+@import (less) "../../templateMobile/Audio/index";
 
 .preview_content {
   position: relative;
@@ -15,12 +23,10 @@
     background: #fff;
     padding-bottom: 56px;
 
-    .mask-box {
-      display: none !important;
-    }
-
-    audio {
-      outline: none;
+    iframe {
+      border: 0;
+      width: 100%;
+      height: calc(100vh - 75px);
     }
   }
 
@@ -45,8 +51,12 @@
           overflow: scroll;
 
           iframe {
+            border: 0;
+            width: 375px;
+            height: 660px;
+
             ::-webkit-scrollbar {
-              display: none
+              display: none;
             }
           }
         }

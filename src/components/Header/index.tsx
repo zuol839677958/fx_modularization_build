@@ -220,11 +220,12 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
 
   // 跳转至预览页面
   async jumpToPreview() {
-    const { savePageHtml } = this.props
+    const { specialId } = this.props.match.params as { specialId: string }
+    const { isMobile, savePageHtml } = this.props
     await savePageHtml!() // 保存网页html代码
     const openWindow = window.open('about:blank') as Window
     const { origin, pathname } = window.location
-    openWindow.location = `${origin}${pathname}#/preview` as any
+    openWindow.location = `${origin}${pathname}#/preview/${specialId}/${isMobile ? 1 : 0}` as any
   }
 
   // 获取历史更改

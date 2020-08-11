@@ -16,66 +16,67 @@ import { ContentContext } from './ContentTemplate';
 
 
 interface TemplateItemModel extends TemplateResponseModel {
-    SpecialId?: string;
+  SpecialId?: string;
 }
 
 
 interface TemplateItemModel extends TemplateResponseModel {
-    SpecialId?: string;
+  SpecialId?: string;
 }
 
 
 
 function TemplateSelectItemTemplateComponent(props: TemplateItemModel) {
+  const content = useRef<string>()
+  const contentH5 = useRef<string>()
 
+  useEffect(() => {
+    content.current = props.Content!
+    contentH5.current = props.ContentH5!
+  })
 
+  // 跳转至预览页面
+  const jumpToPreview = useCallback(() => {
+    if (!content.current || !contentH5.current) return message.warning('此模板没有任何内容！')
+    localStorage.setItem('pageEditorData', content.current)
+    localStorage.setItem('pageMobileEditorData', contentH5.current)
+    const openWindow = window.open('about:blank') as Window
+    const { origin, pathname } = window.location
+    openWindow.location = `${origin}${pathname}#/preview` as any
+  }, [content])
 
-    const ref = useRef<string>();
+  if (!props.TempId) return (<></>)
 
-    useEffect(() => {
-        ref.current = props.Content!;
-    })
-    // 跳转至预览页面
-    const jumpToPreview = useCallback(() => {
-        if (!ref.current) return message.warning('此模板没有任何内容！')
-        localStorage.setItem('pageEditorData', ref.current)
-        const openWindow = window.open('about:blank') as Window
-        const { origin, pathname } = window.location
-        openWindow.location = `${origin}${pathname}#/preview` as any
-    }, [ref])
-
-    if (!props.TempId) return (<></>)
-
-    return (
-        <>
-            <li>
-                <div className="tmp-left">
-                    <div className="img-box" >
-                        <img src={props.Img} alt={props.Title} />
-                    </div>
-                    <div className="preview-usered">
-                        <span className="preview" onClick={jumpToPreview}>预览</span>
-                        <Link to={`/home/${props.SpecialId}/0/${props.TempId}`}>
-                            <span className="usered">使用</span>
-                        </Link>
-                    </div>
-                </div>
-                <div className="tmp-right">
-                    <h6>{props.Title}</h6>
-                    <p>模板说明：{props.Summary}</p>
-                </div>
-            </li>
-        </>
-    )
+  return (
+    <>
+      <li>
+        <div className="tmp-left">
+          <div className="img-box" >
+            <img src={props.Img} alt={props.Title} />
+          </div>
+          <div className="preview-usered">
+            <span className="preview" onClick={jumpToPreview}>预览</span>
+            <Link to={`/home/${props.SpecialId}/0/${props.TempId}`}>
+              <span className="usered">使用</span>
+            </Link>
+          </div>
+        </div>
+        <div className="tmp-right">
+          <h6>{props.Title}</h6>
+          <p>模板说明：{props.Summary}</p>
+        </div>
+      </li>
+    </>
+  )
 }
 
 function areEqual(prevProps: TemplateItemModel, nextProps: TemplateItemModel) {
 
-    if (prevProps.SpecialId !== nextProps.SpecialId) return false;
+  if (prevProps.SpecialId !== nextProps.SpecialId) return false;
 
-    if (prevProps.Content !== nextProps.Content) return false;
+  if (prevProps.Content !== nextProps.Content) return false;
 
-    return true;
+  return true;
 
 }
 
@@ -89,20 +90,20 @@ const TemplateItem = memo(TemplateSelectItemTemplateComponent, areEqual);
  */
 function TemplateSelectTemplateList(props: PageResponse<TemplateResponseModel> | undefined) {
 
-    const context = useContext(ContentContext);
+  const context = useContext(ContentContext);
 
-    let [SpecialId] = useState<string>(context.params.specialId);
+  let [SpecialId] = useState<string>(context.params.specialId);
 
-    if (!props) return (<Fragment></Fragment>);
+  if (!props) return (<Fragment></Fragment>);
 
-    return <ul key={1}>
-        {
-            props.PageDatas?.map(item => {
-                let data = { ...item, SpecialId };
-                return (<TemplateItem key={item.TempId} {...data} />)
-            })
-        }
-    </ul>
+  return <ul key={1}>
+    {
+      props.PageDatas?.map(item => {
+        let data = { ...item, SpecialId };
+        return (<TemplateItem key={item.TempId} {...data} />)
+      })
+    }
+  </ul>
 
 }
 
