@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react'
+import React, { FC, useCallback } from 'react'
 import QrcodeBox from './QrcodeBox'
 import { IPageModel } from '../../../store/data'
 import { message } from 'antd'
@@ -10,16 +10,16 @@ interface IMobilePreviewProps {
 
 const MobilePreview: FC<IMobilePreviewProps> = props => {
   const { isFromSpecial, mobileSpecialLinkUrl } = props
-  const pageHtml = useRef<string>('')
 
-  useEffect(() => {
+  const pageHtml = useCallback(() => {
     try {
       const pageData = JSON.parse(localStorage.getItem('pageMobileEditorData') as string) as IPageModel
-      pageHtml.current = pageData.pageHtml
+      return pageData.pageHtml
     } catch (e) {
       message.error('H5模板解析错误！')
+      return ''
     }
-  })
+  }, [])
 
   return (
     <div className="mobile-content">
@@ -28,7 +28,7 @@ const MobilePreview: FC<IMobilePreviewProps> = props => {
           {
             isFromSpecial ?
               <iframe src={mobileSpecialLinkUrl} title="H5专题" frameBorder="0"></iframe>
-              : <section dangerouslySetInnerHTML={{ __html: pageHtml.current }}></section>
+              : <section dangerouslySetInnerHTML={{ __html: pageHtml() }}></section>
           }
         </div>
       </div>

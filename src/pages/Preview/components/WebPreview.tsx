@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react'
+import React, { FC, useCallback } from 'react'
 import { message } from 'antd'
 import { IPageModel } from '../../../store/data'
 
@@ -9,23 +9,23 @@ interface IWebPreviewProps {
 
 const WebPreview: FC<IWebPreviewProps> = props => {
   const { isFromSpecial, specialLinkUrl } = props
-  const pageHtml = useRef<string>('')
-
-  useEffect(() => {
+  
+  const pageHtml = useCallback(() => {
     try {
       const pageData = JSON.parse(localStorage.getItem('pageEditorData') as string) as IPageModel
-      pageHtml.current = pageData.pageHtml
+      return pageData.pageHtml
     } catch (e) {
       message.error('模板解析错误！')
+      return ''
     }
-  })
+  }, [])
 
   return (
     <>
       {
         isFromSpecial ?
           <iframe src={specialLinkUrl} title="Web专题" frameBorder="0"></iframe>
-          : <section dangerouslySetInnerHTML={{ __html: pageHtml.current }}></section>
+          : <section dangerouslySetInnerHTML={{ __html: pageHtml() }}></section>
       }
     </>
   )
