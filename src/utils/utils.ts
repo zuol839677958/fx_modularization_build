@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { ITemplateModel, IIconTitleTextModel, IBackgroundSetModel } from '../store/data'
-import { BackgroundSetType } from '../components/BackgroundSet/store/state'
-import { TemplatePositionType } from '../components/EditorContainer/store/state';
+import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
+import { TemplatePositionType } from '../components/web/EditorContainer/store/state';
 import { CSSProperties } from 'react';
 
 /**
@@ -183,48 +183,15 @@ const updateCurrentTempData = (currentTempData: ITemplateModel<any>, allTempData
   return allTempData
 }
 
-const getType = (obj: any) => {
-  //tostring会返回对应不同的标签的构造函数
-  const toString = Object.prototype.toString;
-  const map: any = {
-    '[object Boolean]': 'boolean',
-    '[object Number]': 'number',
-    '[object String]': 'string',
-    '[object Function]': 'function',
-    '[object Array]': 'array',
-    '[object Date]': 'date',
-    '[object RegExp]': 'regExp',
-    '[object Undefined]': 'undefined',
-    '[object Null]': 'null',
-    '[object Object]': 'object'
-  };
-  if (obj instanceof Element) {
-    return 'element'
-  }
-  return map[toString.call(obj)];
-}
-
-const deepClone = (data: any) => {
-  const type = getType(data)
-  let obj: any
-  if (type === 'array') {
-    obj = []
-  } else if (type === 'object') {
-    obj = {}
-  } else {
-    //不再具有下一层次
-    return data
-  }
-  if (type === 'array') {
-    for (let i = 0, len = data.length; i < len; i++) {
-      obj.push(deepClone(data[i]))
-    }
-  } else if (type === 'object') {
-    for (let key in data) {
-      obj[key] = deepClone(data[key])
-    }
-  }
-  return obj
+/**
+ * 深度拷贝
+ * @param target 目标对象
+ */
+const deepClone = (target: any) => {
+  const res = new target.constructor()
+  for (const [key, val] of Object.entries(target))
+  Reflect.set(res, key, Object.is(typeof val, 'object') ? deepClone(val) : val)
+  return res
 }
 
 /**

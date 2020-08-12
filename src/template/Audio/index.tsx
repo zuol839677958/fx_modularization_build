@@ -2,7 +2,7 @@
 
 import React, { CSSProperties } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { AudioPositionType } from '../../components/EditorContainer/store/state'
+import { AudioPositionType } from '../../components/web/EditorContainer/store/state'
 import { IAudioModel } from '../../store/data'
 
 import './index.less'

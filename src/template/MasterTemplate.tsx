@@ -4,7 +4,7 @@ import { EditFilled, DeleteFilled, CopyFilled, ArrowUpOutlined, ArrowDownOutline
 import { ITemplateModel, IBackgroundSetModel } from '../store/data'
 import { zIndexDown, zIndexUp, insertItemToArray, deepClone, initTempCss } from '../utils/utils'
 import _ from 'lodash'
-import { BackgroundSetType } from '../components/BackgroundSet/store/state'
+import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
 
 import './MasterTemplate.less'
 

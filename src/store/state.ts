@@ -1,7 +1,7 @@
 import { IPageModel } from "./data"
 //  import { editorContainerState } from '../components/EditorContainer/store/state'
 // import { editorContainerMobileState } from '../components/EditorContainerMobile/store/state'
-import { BackgroundSetType } from '../components/BackgroundSet/store/state'
+import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
 
 const editorContainerReducer: IPageModel = {
   modeType: 1,

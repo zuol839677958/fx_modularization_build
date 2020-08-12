@@ -14,17 +14,17 @@ const loadingBox = (
 
 const App: FC = () => (
   <div className="App">
-    <Router>
-      <Suspense fallback={loadingBox}>
+    <Suspense fallback={loadingBox}>
+      <Router>
         <Switch>
           {
             routers.map(item => (
-              <Route key={item.path as string} exact path={item.path} component={item.component}></Route>
+              <Route key={item.path as string} {...item}></Route>
             ))
           }
         </Switch>
-      </Suspense>
-    </Router>
+      </Router>
+    </Suspense>
   </div>
 )
 
