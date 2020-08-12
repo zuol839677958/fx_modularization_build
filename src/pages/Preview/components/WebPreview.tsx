@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import { message } from 'antd'
 import { IPageModel } from '../../../store/data'
 
@@ -9,7 +9,7 @@ interface IWebPreviewProps {
 
 const WebPreview: FC<IWebPreviewProps> = props => {
   const { isFromSpecial, specialLinkUrl } = props
-  
+
   const pageHtml = useCallback(() => {
     try {
       const pageData = JSON.parse(localStorage.getItem('pageEditorData') as string) as IPageModel
@@ -20,7 +20,7 @@ const WebPreview: FC<IWebPreviewProps> = props => {
     }
   }, [])
 
-  return (
+  return useMemo(() => (
     <>
       {
         isFromSpecial ?
@@ -28,7 +28,7 @@ const WebPreview: FC<IWebPreviewProps> = props => {
           : <section dangerouslySetInnerHTML={{ __html: pageHtml() }}></section>
       }
     </>
-  )
+  ), [isFromSpecial, pageHtml, specialLinkUrl])
 }
 
 export default WebPreview

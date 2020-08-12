@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../store/data'
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons'
-import { updateCurrentTempData } from '../../../utils/utils'
+import { updateCurrentTempData, deepClone } from '../../../utils/utils'
 import { message, Row } from 'antd'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
@@ -167,12 +167,14 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
     if (res.Status !== 1) {
       return message.warning("请选择已发布专题,请重新输入专题编号")
     }
-    data?.tempData.push({
+    const copyTempData = deepClone(data.tempData)
+    copyTempData.push({
       specailId: res.SpecialId,
       title: res.Title,
       imageUrl: res.TitleImg,
       addTime: res.AddTime
     })
+    data.tempData = copyTempData
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

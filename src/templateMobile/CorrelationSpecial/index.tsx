@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 import { ICorrelationSpecialModel } from '../../store/data'
 
 import SpecialItem from './components/SpecialItem'
@@ -13,7 +13,7 @@ interface ICorrelationSpecialProps {
 const CorrelationSpecial: FC<ICorrelationSpecialProps> = props => {
   const { data, fontColor } = props
 
-  return (
+  return useMemo(() => (
     <div className="CorrelationSpecial_Box">
       <h2 style={{ color: fontColor }}>相关专题</h2>
       {
@@ -22,7 +22,7 @@ const CorrelationSpecial: FC<ICorrelationSpecialProps> = props => {
         ))
       }
     </div>
-  )
+  ), [data, fontColor])
 }
 
 export default CorrelationSpecial
