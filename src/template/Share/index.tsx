@@ -2,7 +2,7 @@
 import React, { CSSProperties } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { IShareModel } from '../../store/data'
-import { TemplatePositionType } from '../../components/EditorContainer/store/state'
+import { TemplatePositionType } from '../../components/web/EditorContainer/store/state'
 import { getSpeicalData } from '../../axios/api'
 import { RouteComponentProps } from 'react-router-dom'
 import { getSepecialLinkUrl } from '../../axios/env'

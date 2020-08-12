@@ -1,4 +1,4 @@
-import { TemplateType } from "../components/EditorContainer/store/state";
+import { TemplateType } from "../components/web/EditorContainer/store/state";
 import { IAddTemplateListDataModel } from "./addTemplateListData";
 
 

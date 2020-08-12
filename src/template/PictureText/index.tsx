@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { IPictureTextModel, IIconTitleTextModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
-import { TemplateType } from '../../components/EditorContainer/store/state'
+import { TemplateType } from '../../components/web/EditorContainer/store/state'
 import { getIsShowList, initTitlePadding, initTitleBackground } from '../../utils/utils'
 
 import './index.less'

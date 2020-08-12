@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { IBannerModel, IBannerImageModel, IBannerVideoModel } from '../../store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { BannerType } from '../../components/EditorContainer/store/state'
+import { BannerType } from '../../components/web/EditorContainer/store/state'
 
 import './index.less'
 
