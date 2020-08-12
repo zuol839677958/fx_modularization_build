@@ -8,21 +8,19 @@
   h2 {
     font-size: .18rem;
     font-weight: 900;
-    margin-bottom: 0.2rem;
     color: #333;
   }
 
   a {
     display: block;
+    border-bottom: 1px solid #e6e7eb;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     .special_list {
-      padding-bottom: 0.16rem;
-      padding-top: 0.12rem;
-      border-bottom: 1px solid #e6e7eb;
-
-      &:last-child {
-        border-bottom: none;
-      }
+      padding: .16rem 0;
 
       .list_item {
         .flex();
@@ -31,18 +29,19 @@
           margin-right: .1rem;
 
           img {
-            height: 1rem;
             width: 1.2rem;
+            height: .8rem;
             border-radius: 4px;
             margin-right: 0.12rem;
           }
         }
 
         .item_right {
-          height: 1rem;
+          height: .8rem;
           .flex();
           flex-direction: column;
           justify-content: space-between;
+
           span {
             font-size: .14rem;
             font-weight: 900;
