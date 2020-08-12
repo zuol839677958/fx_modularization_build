@@ -28,8 +28,8 @@ const Preview: FC<RouteComponentProps> = props => {
       </section>
       <section className="preview-bottom-bar">
         <div className="Mobile_box">
-          <span className={isWeb?"span_active":""} onClick={() => setIsWeb(true)} style={{ fontSize: 24, marginRight: 10, color: "blue" }} />
-          <i className={isWeb?"":"i_active"} onClick={() => setIsWeb(false)}  style={{ fontSize: 24 }} />
+          <span className={isWeb ? "span_active" : ""} onClick={() => setIsWeb(true)} style={{ fontSize: 24, marginRight: 10, color: "blue" }} />
+          <i className={isWeb ? "" : "i_active"} onClick={() => setIsWeb(false)} style={{ fontSize: 24 }} />
         </div>
       </section>
     </div>
