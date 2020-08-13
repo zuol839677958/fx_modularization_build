@@ -1,11 +1,18 @@
+import React, {
+  useState,
+  Fragment,
+  useContext,
+  useCallback,
+  useRef,
+  memo,
+  useEffect,
+} from 'react'
+import { TemplateResponseModel, PageResponse } from '@/axios/data'
 
-import React, { useState, Fragment, useContext, useCallback, useRef, memo, useEffect } from 'react'
-import { TemplateResponseModel, PageResponse } from '../../../axios/data';
-
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { message } from 'antd'
-import { ContentContext } from './ContentTemplate';
-
+import { ContentContext } from './ContentTemplate'
+import { openWindow } from '@/utils/utils'
 
 /**
  * 选择模块的列表数据
@@ -14,17 +21,13 @@ import { ContentContext } from './ContentTemplate';
    @return {jsxComponent} jsxComponent
  */
 
-
 interface TemplateItemModel extends TemplateResponseModel {
-  SpecialId?: string;
+  SpecialId?: string
 }
 
-
 interface TemplateItemModel extends TemplateResponseModel {
-  SpecialId?: string;
+  SpecialId?: string
 }
-
-
 
 function TemplateSelectItemTemplateComponent(props: TemplateItemModel) {
   const content = useRef<string>()
@@ -37,25 +40,26 @@ function TemplateSelectItemTemplateComponent(props: TemplateItemModel) {
 
   // 跳转至预览页面
   const jumpToPreview = useCallback(() => {
-    if (!content.current || !contentH5.current) return message.warning('此模板没有任何内容！')
+    if (!content.current || !contentH5.current)
+      return message.warning('此模板没有任何内容！')
     localStorage.setItem('pageEditorData', content.current)
     localStorage.setItem('pageMobileEditorData', contentH5.current)
-    const openWindow = window.open('about:blank') as Window
-    const { origin, pathname } = window.location
-    openWindow.location = `${origin}${pathname}#/preview` as any
+    openWindow('#/preview')
   }, [content])
 
-  if (!props.TempId) return (<></>)
+  if (!props.TempId) return <></>
 
   return (
     <>
       <li>
         <div className="tmp-left">
-          <div className="img-box" >
+          <div className="img-box">
             <img src={props.Img} alt={props.Title} />
           </div>
           <div className="preview-usered">
-            <span className="preview" onClick={jumpToPreview}>预览</span>
+            <span className="preview" onClick={jumpToPreview}>
+              预览
+            </span>
             <Link to={`/home/${props.SpecialId}/0/${props.TempId}`}>
               <span className="usered">使用</span>
             </Link>
@@ -71,41 +75,38 @@ function TemplateSelectItemTemplateComponent(props: TemplateItemModel) {
 }
 
 function areEqual(prevProps: TemplateItemModel, nextProps: TemplateItemModel) {
+  if (prevProps.SpecialId !== nextProps.SpecialId) return false
 
-  if (prevProps.SpecialId !== nextProps.SpecialId) return false;
+  if (prevProps.Content !== nextProps.Content) return false
 
-  if (prevProps.Content !== nextProps.Content) return false;
-
-  return true;
-
+  return true
 }
 
 ///list里面的每个小的模块
-const TemplateItem = memo(TemplateSelectItemTemplateComponent, areEqual);
+const TemplateItem = memo(TemplateSelectItemTemplateComponent, areEqual)
 
 /**
  * 选择模块的列表数据
  * @param {PageResponse<TemplateResponseModel> | undefined} props  父级传进来的参数 需要
    @return 列表
  */
-function TemplateSelectTemplateList(props: PageResponse<TemplateResponseModel> | undefined) {
+function TemplateSelectTemplateList(
+  props: PageResponse<TemplateResponseModel> | undefined
+) {
+  const context = useContext(ContentContext)
 
-  const context = useContext(ContentContext);
+  let [SpecialId] = useState<string>(context.params.specialId)
 
-  let [SpecialId] = useState<string>(context.params.specialId);
+  if (!props) return <Fragment></Fragment>
 
-  if (!props) return (<Fragment></Fragment>);
-
-  return <ul key={1}>
-    {
-      props.PageDatas?.map(item => {
-        let data = { ...item, SpecialId };
-        return (<TemplateItem key={item.TempId} {...data} />)
-      })
-    }
-  </ul>
-
+  return (
+    <ul key={1}>
+      {props.PageDatas?.map((item) => {
+        let data = { ...item, SpecialId }
+        return <TemplateItem key={item.TempId} {...data} />
+      })}
+    </ul>
+  )
 }
 
-
-export default memo(TemplateSelectTemplateList);
+export default memo(TemplateSelectTemplateList)

@@ -1,18 +1,36 @@
 import React, { PureComponent } from 'react'
 import { Button, message, Modal, Menu, Dropdown } from 'antd'
-import { IPageState, IBackgroundSetModel, IPageModel, ITemplateModel, IPictureTextModel } from '../../../store/data'
+import {
+  IPageState,
+  IBackgroundSetModel,
+  IPageModel,
+  ITemplateModel,
+  IPictureTextModel,
+} from '@/store/data'
 import { Dispatch, Action } from 'redux'
 import { connect } from 'react-redux'
 import { changeBackgroundSetData } from '../../commonPlugin/BackgroundSet/store/actions'
-import { savePageHtml, changeActiveTempId, changePageData } from '../../web/EditorContainer/store/actions'
+import {
+  savePageHtml,
+  changeActiveTempId,
+  changePageData,
+} from '../../web/EditorContainer/store/actions'
 import { changeEditorSliderShow } from '../EditorSlider/store/actions'
 import { changeAddTemplateSliderShow } from '../AddTemplate/store/actions'
 import { RouteComponentProps } from 'react-router-dom'
-import { updateTemplateData, updateSpecialContent, getSpeicalData } from '../../../axios/api'
+import {
+  updateTemplateData,
+  updateSpecialContent,
+  getSpeicalData,
+} from '@/axios/api'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { changeMobileActiveTempId, changeMobilePageData, saveMobilePageHtml } from '../../mobile/EditorContainerMobile/store/actions'
+import {
+  changeMobileActiveTempId,
+  changeMobilePageData,
+  saveMobilePageHtml,
+} from '../../mobile/EditorContainerMobile/store/actions'
 import { TemplateType } from '../../web/EditorContainer/store/state'
-
+import { openWindow } from '@/utils/utils'
 import './index.less'
 
 interface IHeaderProps extends RouteComponentProps {
@@ -33,7 +51,7 @@ interface IHeaderState {
 
 class Header extends PureComponent<IHeaderProps, IHeaderState> {
   state: IHeaderState = {
-    arrowActive: false
+    arrowActive: false,
   }
 
   render() {
@@ -45,34 +63,57 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
 
     const actionMenu = (
       <Menu>
-        <Menu.Item onClick={this.switchEditorPage}>{isMobile ? '电脑端设计' : '移动端设计'}</Menu.Item>
+        <Menu.Item onClick={this.switchEditorPage}>
+          {isMobile ? '电脑端设计' : '移动端设计'}
+        </Menu.Item>
       </Menu>
     )
-
     return (
       <div className="header-wrap">
         <div className="header-left">
-          <Button type="default" shape="round"
+          <Button
+            type="default"
+            shape="round"
             onClick={() => this.openAddTemplateSlider()}
-          >新增模块</Button>
-          <Button type="default" shape="round"
+          >
+            新增模块
+          </Button>
+          <Button
+            type="default"
+            shape="round"
             style={{ marginLeft: 20 }}
             onClick={() => this.setPageBackground()}
-          >设置背景</Button>
-          {
-            isShowGetHistoryBtn
-              ? <Button type="default" shape="round"
-                style={{ marginLeft: 20 }}
-                onClick={() => this.getHistoryEditorPageData()}
-              >获取历史更改</Button>
-              : null
-          }
-          <Dropdown overlay={actionMenu} placement="bottomCenter" trigger={['click']} arrow
+          >
+            设置背景
+          </Button>
+          {isShowGetHistoryBtn ? (
+            <Button
+              type="default"
+              shape="round"
+              style={{ marginLeft: 20 }}
+              onClick={() => this.getHistoryEditorPageData()}
+            >
+              获取历史更改
+            </Button>
+          ) : null}
+          <Dropdown
+            overlay={actionMenu}
+            placement="bottomCenter"
+            trigger={['click']}
+            arrow
             onVisibleChange={this.handleMenuVisibleChange}
           >
             <div className="menu-box">
-              <img className="menu" src="https://img.wbp5.com/upload/files/master/2020/08/04/152856206.png" alt="" />
-              <img className={`arrow ${arrowActive ? '' : 'down'}`} src="https://img.wbp5.com/upload/files/master/2020/08/04/153412998.png" alt="" />
+              <img
+                className="menu"
+                src="https://img.wbp5.com/upload/files/master/2020/08/04/152856206.png"
+                alt=""
+              />
+              <img
+                className={`arrow ${arrowActive ? '' : 'down'}`}
+                src="https://img.wbp5.com/upload/files/master/2020/08/04/153412998.png"
+                alt=""
+              />
             </div>
           </Dropdown>
         </div>
@@ -80,25 +121,50 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
           <span>通用专题模块化</span>
         </div>
         <div className="header-right">
-          {
-            isMobile ?
-              <Button type="default" shape="round" onClick={this.synchronizePCContent}>将电脑内容同步到此</Button>
-              : null
-          }
-          <Button type="primary" shape="round" style={{ marginLeft: 20 }}
+          {isMobile ? (
+            <Button
+              type="default"
+              shape="round"
+              onClick={this.synchronizePCContent}
+            >
+              将电脑内容同步到此
+            </Button>
+          ) : null}
+          <Button
+            type="primary"
+            shape="round"
+            style={{ marginLeft: 20 }}
             onClick={() => this.saveSpecialPageData()}
-          >保存</Button>
-          {
-            isShowSaveTempBtn
-              ? <Button type="primary" shape="round" style={{ marginLeft: 20 }}
-                onClick={() => this.updateTemplateData()}
-              >保存为模板</Button>
-              : null
-          }
-          <Button type="default" shape="round" style={{ marginLeft: 20 }}
+          >
+            保存
+          </Button>
+          {isShowSaveTempBtn ? (
+            <Button
+              type="primary"
+              shape="round"
+              style={{ marginLeft: 20 }}
+              onClick={() => this.updateTemplateData()}
+            >
+              保存为模板
+            </Button>
+          ) : null}
+          <Button
+            type="default"
+            shape="round"
+            style={{ marginLeft: 20 }}
             onClick={() => this.jumpToPreview()}
-          >预览</Button>
-          <Button type="link" style={{ marginLeft: 20 }}><a href="https://docs.qq.com/doc/DRmtBV21udnJMT0h1" target="_blank" rel="noopener noreferrer">帮助说明</a></Button>
+          >
+            预览
+          </Button>
+          <Button type="link" style={{ marginLeft: 20 }}>
+            <a
+              href="https://docs.qq.com/doc/DRmtBV21udnJMT0h1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              帮助说明
+            </a>
+          </Button>
         </div>
       </div>
     )
@@ -112,10 +178,11 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
   // 切换编辑页面
   switchEditorPage = () => {
     const { isMobile } = this.props
-    const openWindow = window.open('about:blank') as Window
-    const { origin, pathname, hash } = window.location
-    openWindow.location =
-      `${origin}${pathname}${isMobile ? hash.replace('mobile-home', 'home') : hash.replace('home', 'mobile-home')}` as any
+    const { hash } = window.location
+    const hashArgs = isMobile
+      ? ['mobile-home', 'home']
+      : ['home', 'mobile-home']
+    openWindow(`${String.prototype.replace.apply(hash, hashArgs as any)}`)
   }
 
   // 设置网页背景
@@ -149,17 +216,17 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
           await updateSpecialContent({
             SpecialId: Number(specialId),
             ContentH5: JSON.stringify(pageData),
-            EditType: 2
+            EditType: 2,
           })
         } else {
           await updateSpecialContent({
             SpecialId: Number(specialId),
             Content: JSON.stringify(pageData),
-            EditType: 1
+            EditType: 1,
           })
         }
         message.success({ content: '保存页面成功！', key })
-      }
+      },
     })
   }
 
@@ -183,17 +250,17 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
           await updateTemplateData({
             TempId: Number(tempId),
             ContentH5: JSON.stringify(pageData),
-            EditType: 2
+            EditType: 2,
           })
         } else {
           await updateTemplateData({
             TempId: Number(tempId),
             Content: JSON.stringify(pageData),
-            EditType: 1
+            EditType: 1,
           })
         }
         message.success({ content: '更新模板成功！', key })
-      }
+      },
     })
   }
 
@@ -203,7 +270,7 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
       changeEditorSliderShow,
       changeAddTemplateSliderShow,
       changeActiveTempId,
-      savePageHtml
+      savePageHtml,
     } = this.props
 
     await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
@@ -223,21 +290,21 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
     const { specialId } = this.props.match.params as { specialId: string }
     const { isMobile, savePageHtml } = this.props
     await savePageHtml!() // 保存网页html代码
-    const openWindow = window.open('about:blank') as Window
-    const { origin, pathname } = window.location
-    openWindow.location = `${origin}${pathname}#/preview/${specialId}/${isMobile ? 1 : 0}` as any
+    openWindow(`#/preview/${specialId}/${+!!isMobile}`)
   }
 
   // 获取历史更改
   async getHistoryEditorPageData() {
     const { isMobile } = this.props
-    const historyPageData = window.localStorage.getItem(`${isMobile ? 'pageMobileEditorData' : 'pageEditorData'}`)
+    const historyPageData = window.localStorage.getItem(
+      `${isMobile ? 'pageMobileEditorData' : 'pageEditorData'}`
+    )
     if (!historyPageData) return message.warning('没有历史更改记录')
     const {
       changePageData,
       changeEditorSliderShow,
       changeAddTemplateSliderShow,
-      changeActiveTempId
+      changeActiveTempId,
     } = this.props
     await changePageData!(JSON.parse(historyPageData) as IPageModel)
     await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
@@ -261,19 +328,28 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
             changePageData,
             changeEditorSliderShow,
             changeAddTemplateSliderShow,
-            changeActiveTempId
+            changeActiveTempId,
           } = this.props
           const { specialId } = this.props.match.params as { specialId: string }
           const res = await getSpeicalData(specialId)
           const pageData = JSON.parse(res.Content!) as IPageModel
-          pageData.allTempData = pageData.allTempData.filter((item: ITemplateModel<any>) =>
-            (![TemplateType.Share, TemplateType.MorePicture].includes(item.type)))
+          pageData.allTempData = pageData.allTempData.filter(
+            (item: ITemplateModel<any>) =>
+              ![TemplateType.Share, TemplateType.MorePicture].includes(
+                item.type
+              )
+          )
           pageData.allTempData.forEach((item: ITemplateModel<any>) => {
-            if (item.type === TemplateType.LeftPictureRightText || item.type === TemplateType.LeftTextRightPicture) {
-              (item.tempData as IPictureTextModel).picWidthPercent = 100;
-              (item.tempData as IPictureTextModel).titleTextList.forEach(item => {
-                item.titleFontSize = 14
-              })
+            if (
+              item.type === TemplateType.LeftPictureRightText ||
+              item.type === TemplateType.LeftTextRightPicture
+            ) {
+              ;(item.tempData as IPictureTextModel).picWidthPercent = 100
+              ;(item.tempData as IPictureTextModel).titleTextList.forEach(
+                (item) => {
+                  item.titleFontSize = 14
+                }
+              )
             }
           })
           await changePageData!(pageData)
@@ -284,17 +360,22 @@ class Header extends PureComponent<IHeaderProps, IHeaderState> {
           console.warn('模板渲染错误：', e)
           message.error('同步电脑端专题网页解析错误！')
         }
-      }
+      },
     })
   }
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IHeaderProps) => ({
   backgroundSetData: state.backgroundSetReducer,
-  pageData: ownProps.isMobile ? state.editorContainerMobileReducer : state.editorContainerReducer
+  pageData: ownProps.isMobile
+    ? state.editorContainerMobileReducer
+    : state.editorContainerReducer,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IHeaderProps) => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch<Action>,
+  ownProps: IHeaderProps
+) => ({
   changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {
     dispatch(changeBackgroundSetData(backgroundSet))
   },
@@ -324,7 +405,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IHeaderProps) 
     } else {
       await dispatch(changePageData(pageData))
     }
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
