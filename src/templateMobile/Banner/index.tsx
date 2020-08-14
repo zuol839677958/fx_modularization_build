@@ -26,7 +26,7 @@ const Banner: FC<IBannerProps> = props => {
                 :
                 <img
                   style={{ width: `${data.widthPercent || 100}%` }}
-                  data-preview-src
+                  data-preview-src ={data.imageData.imageUrl}
                   data-preview-group="1"
                   src={data.imageData.imageUrl}
                   title={data.imageData.imageTitle}
