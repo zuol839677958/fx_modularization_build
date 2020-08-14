@@ -41,18 +41,6 @@ const CorrelationSpecial: FC<ICorrelationSpecialProps> = props => {
     )
   }, [data])
 
-  const handleScript = `
-    <scrpit>
-      (function () {
-        var btnDom = document.getElementById('loadMoreSpecial');
-        btnDom.addEventListener('click', showSpecial);
-        function showSpecial() {
-          var specials = document.querySelectorAll('.hide-special');
-          specials[0].classList.remove('hide-special')
-        }
-      })();
-    </scrpit>
-  `
 
   return useMemo(() => (
     <>
@@ -60,9 +48,8 @@ const CorrelationSpecial: FC<ICorrelationSpecialProps> = props => {
         <h2 style={{ color: fontColor }}>相关专题</h2>
         {handleSpecialPaging()}
       </div>
-      <section dangerouslySetInnerHTML={{ __html: handleScript }}></section>
     </>
-  ), [fontColor, handleScript, handleSpecialPaging])
+  ), [fontColor, handleSpecialPaging])
 }
 
 export default CorrelationSpecial
