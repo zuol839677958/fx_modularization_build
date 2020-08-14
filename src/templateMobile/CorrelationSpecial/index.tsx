@@ -1,9 +1,10 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC, useMemo, useCallback, useRef } from 'react'
 import { ICorrelationSpecialModel } from '../../store/data'
 
 import SpecialItem from './components/SpecialItem'
 
 import './index.less'
+import { deepClone } from '@/utils/utils'
 
 interface ICorrelationSpecialProps {
   data: ICorrelationSpecialModel[]
@@ -13,16 +14,55 @@ interface ICorrelationSpecialProps {
 const CorrelationSpecial: FC<ICorrelationSpecialProps> = props => {
   const { data, fontColor } = props
 
-  return useMemo(() => (
-    <div className="CorrelationSpecial_Box">
-      <h2 style={{ color: fontColor }}>相关专题</h2>
-      {
-        data.map(item => (
+  const handleSpecialPaging = useCallback(() => {
+    const copyData = deepClone(data)
+    const pageSize = 4
+    const size = copyData.length / pageSize
+    const resData: ICorrelationSpecialModel[][] = []
+    for (let i = 0; i < size; i++) {
+      resData.push(copyData.splice(0, pageSize))
+    }
+
+    const specoalItemDOM = resData.map((res, idx) =>
+      <div key={idx} className={idx > 0 ? 'hide-special' : 'special'}>
+        {res.map(item => (
           <SpecialItem key={item.specailId} data={item} />
-        ))
-      }
-    </div>
-  ), [data, fontColor])
+        ))}
+      </div>
+    )
+
+    const controllerBtn = data.length > pageSize ? <span id='loadMoreSpecial' className="loadMore">查看更多专题</span> : null
+
+    return (
+      <>
+        {specoalItemDOM}
+        {controllerBtn}
+      </>
+    )
+  }, [data])
+
+  const handleScript = `
+    <scrpit>
+      (function () {
+        var btnDom = document.getElementById('loadMoreSpecial');
+        btnDom.addEventListener('click', showSpecial);
+        function showSpecial() {
+          var specials = document.querySelectorAll('.hide-special');
+          specials[0].classList.remove('hide-special')
+        }
+      })();
+    </scrpit>
+  `
+
+  return useMemo(() => (
+    <>
+      <div className="CorrelationSpecial_Box">
+        <h2 style={{ color: fontColor }}>相关专题</h2>
+        {handleSpecialPaging()}
+      </div>
+      <section dangerouslySetInnerHTML={{ __html: handleScript }}></section>
+    </>
+  ), [fontColor, handleScript, handleSpecialPaging])
 }
 
 export default CorrelationSpecial

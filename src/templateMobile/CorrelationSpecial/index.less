@@ -11,13 +11,13 @@
     color: #333;
   }
 
+  .hide-special {
+    display: none;
+  }
+
   a {
     display: block;
     border-bottom: 1px solid #e6e7eb;
-
-    &:last-child {
-      border-bottom: none;
-    }
 
     .special_list {
       padding: .16rem 0;
@@ -61,5 +61,15 @@
         }
       }
     }
+  }
+
+  .loadMore {
+    .flexPlus(center, center);
+    font-size: .14rem;
+    line-height: .20rem;
+    color: #00b5e9;
+    letter-spacing: 1px;
+    margin-top: .1rem;
+    cursor: pointer;
   }
 }
