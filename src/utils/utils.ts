@@ -420,21 +420,6 @@ const openWindow = (url: string): Window => {
   return openWindow
 }
 
-export const mobileHtmlScript = () => {
-  return `
-    <scrpit>
-      (function () {
-        var btnDom = document.getElementById('loadMoreSpecial');
-        btnDom.addEventListener('click', showSpecial);
-        function showSpecial() {
-          var specials = document.querySelectorAll('.hide-special');
-          specials[0].classList.remove('hide-special')
-        }
-      })();
-    </scrpit>
-  `
-}
-
 export {
   swapArray,
   zIndexUp,

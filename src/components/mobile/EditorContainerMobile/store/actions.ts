@@ -1,6 +1,5 @@
 import { CHANGE_MOBILE_PAGE_TEMPLATE_DATA, CHANGE_MOBILE_PAGE_ACTIVE_TEMP_ID, CHANGE_MOBILE_PAGE_BACKGROUND, SAVE_MOBILE_PAGE_HTML, CHANGE_MOBILE_PAGE_DATA } from './actionTypes'
 import { ITemplateModel, IBackgroundSetModel, IPageModel } from '../../../../store/data'
-import { mobileHtmlScript } from '@/utils/utils'
 
 const changeMobileTempData = (allTempData: ITemplateModel<any>[]) => {
   return {
@@ -31,8 +30,7 @@ const changeMobilePageData = (pageData: IPageModel) => {
 }
 
 const saveMobilePageHtml = () => {
-  const scriptStr = mobileHtmlScript()
-  const pageHtml = (document.getElementById('generalMobilePage')?.outerHTML || '') + scriptStr
+  const pageHtml = document.getElementById('generalMobilePage')?.outerHTML || ''
   return {
     type: SAVE_MOBILE_PAGE_HTML,
     pageHtml
