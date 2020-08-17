@@ -428,10 +428,8 @@ function HeaderFC(props: IHeaderProps) {
   }, [changeAddTemplateSliderShow])
   // 设置网页背景
   const setPageBackground = useCallback(() => {
+    Object.assign(backgroundSetData, pageData?.background)
     backgroundSetData!.tempId = ''
-    backgroundSetData!.bgType = pageData?.background?.bgType
-    backgroundSetData!.bgColor = pageData?.background?.bgColor
-    backgroundSetData!.bgImageUrl = pageData?.background?.bgImageUrl
     backgroundSetData!.isShow = true
     changeBackgroundSetData!(backgroundSetData!)
   }, [backgroundSetData, changeBackgroundSetData, pageData])
@@ -609,7 +607,6 @@ function HeaderFC(props: IHeaderProps) {
       )
     })
   const leftBtnDOM = useMemo(() => {
-    console.log(92929)
     return btnsDOM(leftBtns)
   }, [leftBtns])
   const rightBtnDOM = useMemo(() => btnsDOM(rightBtns), [rightBtns])
@@ -649,7 +646,6 @@ function HeaderFC(props: IHeaderProps) {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IHeaderProps) => {
-  console.log(888888)
   return {
     backgroundSetData: state.backgroundSetReducer,
     pageData: ownProps.isMobile
