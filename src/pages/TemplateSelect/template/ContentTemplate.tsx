@@ -2,8 +2,8 @@ import RenderTemplateList from "./ItemTemplate";
 import React, { createContext, useEffect, useState, memo } from "react";
 import TipTemplate from "./TipTemplate";
 import PaginationTemplate from "./PaginationTemplate";
-import { PageResponse, TemplateResponseModel } from "../../../axios/data";
-import { getTemplateList } from '../../../axios/api'
+import { PageResponse, TemplateResponseModel } from "@/axios/data";
+import { getTemplateList } from '@/axios/api'
 
 
 interface matchModel {

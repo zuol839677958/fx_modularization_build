@@ -1,4 +1,4 @@
-import { TemplateType } from "../components/web/EditorContainer/store/state";
+import { TemplateType } from "@/store/state/editor.state";
 
 export interface IAddTemplateListDataModel {
   tempName: string // 模板分类名称

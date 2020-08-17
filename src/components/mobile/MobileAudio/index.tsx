@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { IAudioModel } from "../../../store/data"
+import { IAudioModel } from "@/store/data"
 
 import "./index.less"
 

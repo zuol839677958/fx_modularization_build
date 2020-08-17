@@ -1,6 +1,6 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, ICorrelationSpecialModel, IAudioModel } from '../store/data'
-import { BannerType, TemplateType, TemplatePositionType } from '../components/web/EditorContainer/store/state'
-import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, ICorrelationSpecialModel, IAudioModel } from '@/store/data'
+import { BannerType, TemplateType, TemplatePositionType } from '@/store/state/editor.state'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 
 /* 新增Banner模板默认数据 */
 const bannerDefaultData: ITemplateModel<IBannerModel> = {

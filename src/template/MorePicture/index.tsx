@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
-import { IMorePictureModel } from '../../store/data'
+import { IMorePictureModel } from '@/store/data'
 
 import './index.less'
 

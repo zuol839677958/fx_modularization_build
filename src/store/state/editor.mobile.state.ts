@@ -1,8 +1,8 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel } from "../../../../store/data"
-import { BackgroundSetType } from "../../../commonPlugin/BackgroundSet/store/state"
-import { TemplateType, BannerType, TemplatePositionType } from "../../../web/EditorContainer/store/state"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel } from "@/store/data"
+import { BackgroundSetType } from "./backgroundSet.state"
+import { TemplateType, BannerType, TemplatePositionType } from "./editor.state"
 
-const editorContainerMobileState: ITemplateModel<
+export const editorContainerMobileState: ITemplateModel<
   IBannerModel
   | IIconTitleTextModel[]
   | IPlaintextModel
@@ -163,7 +163,3 @@ const editorContainerMobileState: ITemplateModel<
       tempData: []
     },
   ]
-
-export {
-  editorContainerMobileState
-}

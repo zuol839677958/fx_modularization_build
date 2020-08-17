@@ -1,6 +1,6 @@
 import React from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { IPlaintextModel } from '../../store/data'
+import { IPlaintextModel } from '@/store/data'
 
 import './index.less'
 

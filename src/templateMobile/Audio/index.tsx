@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState, useCallback, useMemo } from 'react'
-import { IAudioModel } from '../../store/data'
+import { IAudioModel } from '@/store/data'
 
 import './index.less'
 

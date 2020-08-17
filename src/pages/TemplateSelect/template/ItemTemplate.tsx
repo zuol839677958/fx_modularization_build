@@ -12,7 +12,7 @@ import { TemplateResponseModel, PageResponse } from '@/axios/data'
 import { Link } from 'react-router-dom'
 import { message } from 'antd'
 import { ContentContext } from './ContentTemplate'
-import { openWindow } from '@/utils/utils'
+import { openWindow } from '@/utils'
 
 /**
  * 选择模块的列表数据

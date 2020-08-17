@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react'
 import { message } from 'antd'
-import { IPageModel } from '../../../store/data'
+import { IPageModel } from '@/store/data'
 
 interface IWebPreviewProps {
   isFromSpecial: boolean

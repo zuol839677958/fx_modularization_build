@@ -1,28 +1,28 @@
 import React, { PureComponent, Dispatch, Fragment, CSSProperties } from 'react'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
-import { ITemplateModel, IPageState, IBackgroundSetModel, IPageModel } from '../../../store/data'
-import { TemplateType } from './store/state'
+import { ITemplateModel, IPageState, IBackgroundSetModel, IPageModel } from '@/store/data'
+import { TemplateType } from '@/store/state/editor.state'
 import { message, Spin } from 'antd'
-import { changeEditorSliderShow, changeEditorSliderTab } from '../../commonComponents/EditorSlider/store/actions'
-import { changeActiveTempId, changeTempData, changePageData } from './store/actions'
-import { getIsShowList } from '../../../utils/utils'
-import { BackgroundSetType } from '../../commonPlugin/BackgroundSet/store/state'
-import { changeBackgroundSetData } from '../../commonPlugin/BackgroundSet/store/actions'
-import { IMasterTemplateProps } from '../../../template/MasterTemplate'
-import { getTemplateDetail, getSpeicalData } from '../../../axios/api'
-import { changeAddTemplateSliderShow } from '../../commonComponents/AddTemplate/store/actions'
+import { changeEditorSliderShow, changeEditorSliderTab } from '@/store/actions/editor.slider.actions'
+import { changeActiveTempId, changeTempData, changePageData } from '@/store/actions/editor.actions'
+import { getIsShowList } from '@/utils'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
+import { changeBackgroundSetData } from '@/store/actions/backgroundSet.actions'
+import { IMasterTemplateProps } from '@/template/MasterTemplate'
+import { getTemplateDetail, getSpeicalData } from '@/axios/api'
+import { changeAddTemplateSliderShow } from '@/store/actions/addTemplate.actions'
 import { RouteComponentProps } from 'react-router-dom'
 
 //模板
-import Banner from '../../../template/Banner'
-import IconTitleText from '../../../template/IconTitleText'
-import PictureText from '../../../template/PictureText'
-import Plaintext from '../../../template/Plaintext'
-import CorrelationSpecial from "../../../template/CorrelationSpecial"
-import Share from "../../../template/Share"
-import Audio from "../../../template/Audio"
-import MorePicture from "../../../template/MorePicture"
+import Banner from '@/template/Banner'
+import IconTitleText from '@/template/IconTitleText'
+import PictureText from '@/template/PictureText'
+import Plaintext from '@/template/Plaintext'
+import CorrelationSpecial from "@/template/CorrelationSpecial"
+import Share from "@/template/Share"
+import Audio from "@/template/Audio"
+import MorePicture from "@/template/MorePicture"
 
 import './index.less'
 
@@ -53,7 +53,6 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
   render() {
     const { allTempData, isShowSlider, isShowAddTemplate } = this.props
     const { loading } = this.state
-
     return (
       <div className="editor-content"
         style={{ paddingLeft: isShowAddTemplate ? '400px' : isShowSlider ? "340px" : "0px" }}
@@ -194,13 +193,15 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
   }
 }
 
-const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => ({
-  activeTempId: state.editorContainerReducer.activeTempId,
-  allTempData: state.editorContainerReducer.allTempData,
-  isShowSlider: state.editorSliderReducer.isShow,
-  isShowAddTemplate: state.addTemplateSliderReducer.isShow,
-  generalPageBackground: state.editorContainerReducer.background
-})
+const mapStateToProps = (state: IPageState, ownProps: IEditorContainerProps) => {
+  return {
+    activeTempId: state.editorContainerReducer.activeTempId,
+    allTempData: state.editorContainerReducer.allTempData,
+    isShowSlider: state.editorSliderReducer.isShow,
+    isShowAddTemplate: state.addTemplateSliderReducer.isShow,
+    generalPageBackground: state.editorContainerReducer.background
+  }
+}
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   changeEditorSliderShow(isShow: boolean) {

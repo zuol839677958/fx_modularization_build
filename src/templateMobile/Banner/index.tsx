@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useCallback } from 'react'
-import { IBannerModel } from '../../store/data'
-import { BannerType } from '../../components/web/EditorContainer/store/state'
+import { IBannerModel } from '@/store/data'
+import { BannerType } from '@/store/state/editor.state'
 
 import './index.less'
 

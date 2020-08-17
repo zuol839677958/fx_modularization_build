@@ -1,4 +1,4 @@
-import { IBackgroundSetModel } from "../../../../store/data"
+import { IBackgroundSetModel } from "@/store/data"
 
 export enum BackgroundSetType {
   NoneColor = 1,
@@ -6,12 +6,10 @@ export enum BackgroundSetType {
   BackgroundImage
 }
 
-const backgroundSetState: IBackgroundSetModel = {
+export const backgroundSetState: IBackgroundSetModel = {
   tempId: '',
   bgType: BackgroundSetType.NoneColor,
   bgColor: '',
   bgImageUrl: '',
   isShow: false
 }
-
-export { backgroundSetState }

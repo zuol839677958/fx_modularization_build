@@ -1,6 +1,6 @@
-import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from '../store/data'
-import { BannerType, TemplateType, TemplatePositionType } from '../components/web/EditorContainer/store/state'
-import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
+import { ITemplateModel, IBannerModel, IShareModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from '@/store/data'
+import { BannerType, TemplateType, TemplatePositionType } from '@/store/state/editor.state'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 
 /* 新增Banner模板默认数据 */
 const bannerDefaultData: ITemplateModel<IBannerModel> = {
@@ -44,17 +44,17 @@ const morePictureDefaultData: ITemplateModel<IMorePictureModel[]> = {
   id: `${TemplateType[TemplateType.MorePicture]}`,
   type: TemplateType.MorePicture,
   isShow: true,
-  tempData:[ 
+  tempData:[
     {
-    picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg", 
+    picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg",
     picWidthPercent: 49,
     spacingPercent:20
   },
   {
     picUrl: "https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png",
-    picWidthPercent: 49, 
+    picWidthPercent: 49,
     spacingPercent:20
-  }] 
+  }]
 }
 
 

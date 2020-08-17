@@ -1,10 +1,10 @@
 import React, { PureComponent, Fragment, CSSProperties } from 'react'
 import { Button, Modal } from 'antd'
 import { EditFilled, DeleteFilled, CopyFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { ITemplateModel, IBackgroundSetModel } from '../store/data'
-import { zIndexDown, zIndexUp, insertItemToArray, deepClone, initTempCss } from '../utils/utils'
+import { ITemplateModel, IBackgroundSetModel } from '@/store/data'
+import { zIndexDown, zIndexUp, insertItemToArray, deepClone, initTempCss } from '@/utils'
 import _ from 'lodash'
-import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 
 import './MasterTemplate.less'
 

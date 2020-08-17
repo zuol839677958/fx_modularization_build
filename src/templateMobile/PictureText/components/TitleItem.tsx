@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react'
-import { IBackgroundSetModel } from '../../../store/data'
-import { initTitlePadding, initTitleBackground } from '../../../utils/utils'
+import { IBackgroundSetModel } from '@/store/data'
+import { initTitlePadding, initTitleBackground } from '@/utils'
 
 interface ITitleItemProps {
   title: string

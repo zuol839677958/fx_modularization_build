@@ -1,17 +1,34 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
 import { message, Input, Row, Radio, Button } from 'antd'
 import { connect } from 'react-redux'
-import { IIconTitleTextModel, ITemplateModel, IPageState } from '../../../../store/data'
-import { updateIconTitleTextItemShow, updateCurrentTempData, deleteIconTitleTextItem, swapArray, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgColor, updateIconTitleTextItemTitleBgType, deepClone, updateIconTitleTextIconUrl, updateIconTitleTextItemTitleBgImageUrl, updateIconTitleTextIconIsShow, insertItemToArray, updateIconTitleTextPositionType } from '../../../../utils/utils'
-import TitleBack from "../commonEditorComponent/titleBack"
+import { IIconTitleTextModel, ITemplateModel, IPageState } from '@/store/data'
+import {
+  updateIconTitleTextItemShow,
+  updateCurrentTempData,
+  deleteIconTitleTextItem,
+  swapArray,
+  updateIconTitleTextItemTitle,
+  updateIconTitleTextItemText,
+  updateIconTitleTextItemTitleFontColor,
+  updateIconTitleTextItemTextFontColor,
+  updateIconTitleTextItemTitleBgColor,
+  updateIconTitleTextItemTitleBgType,
+  deepClone,
+  updateIconTitleTextIconUrl,
+  updateIconTitleTextItemTitleBgImageUrl,
+  updateIconTitleTextIconIsShow,
+  insertItemToArray,
+  updateIconTitleTextPositionType,
+} from '@/utils'
+import TitleBack from '../commonEditorComponent/titleBack'
 import { Action } from 'redux'
-import { changeTempData } from '../../../web/EditorContainer/store/actions'
-import { BackgroundSetType } from '../../../commonPlugin/BackgroundSet/store/state'
+import { changeTempData } from '@/store/actions/editor.actions'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 import { SketchPicker, ColorResult } from 'react-color'
-import { TemplatePositionType } from '../../../web/EditorContainer/store/state'
+import { TemplatePositionType } from '@/store/state/editor.state'
 import { RadioChangeEvent } from 'antd/lib/radio'
-import { changeMobileTempData } from '../../../mobile/EditorContainerMobile/store/actions'
-import { changeEditorSliderTab } from '../store/actions'
+import { changeMobileTempData } from '@/store/actions/editor.mobile.actions'
+import { changeEditorSliderTab } from '@/store/actions/editor.slider.actions'
 
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
 import FontColorSet from '../../../commonPlugin/FontColorSet'
@@ -43,26 +60,29 @@ interface IEditorIconTitleTextState {
 
 enum FontColorChangeType {
   Titile = 1,
-  Text
+  Text,
 }
 
-class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEditorIconTitleTextState> {
+class EditorIconTitleText extends PureComponent<
+  IEditorIconTitleTextProps,
+  IEditorIconTitleTextState
+> {
   state: IEditorIconTitleTextState = {
     sort: 1,
-    topTitle: "图标标题文字模板编辑",
-    title: "条目管理",
+    topTitle: '图标标题文字模板编辑',
+    title: '条目管理',
     currentFontColor: '',
-    fontColorSelectModalVisible: false
+    fontColorSelectModalVisible: false,
   }
 
   render() {
-    const { data, isMobile, tabTypeIndex } = this.props;
+    const { data, isMobile, tabTypeIndex } = this.props
     const {
       title,
       topTitle,
       editItemData,
       currentFontColor,
-      fontColorSelectModalVisible
+      fontColorSelectModalVisible,
     } = this.state
 
     return (
@@ -70,9 +90,12 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
         <TitleBack
           titleArrow={tabTypeIndex === 1}
           title={topTitle!}
-          changeTypeIndex={index => this.changeTypeIndex(index)}
+          changeTypeIndex={(index) => this.changeTypeIndex(index)}
         />
-        <div className="item-Manage-content" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
+        <div
+          className="item-Manage-content"
+          style={{ display: tabTypeIndex === 0 ? 'block' : 'none' }}
+        >
           <Spacing data={data} isMobile={isMobile} />
           <div className="item-Manage">
             <p>{title}</p>
@@ -85,15 +108,22 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
             handleIsShowItem={this.changeChecked}
             handleDraggableItemChange={this.changeItemSort}
           />
-          <Row style={{ justifyContent: "center" }}>
-            <Button type="primary" shape="round"
+          <Row style={{ justifyContent: 'center' }}>
+            <Button
+              type="primary"
+              shape="round"
               style={{ marginTop: '50px', width: 200 }}
               onClick={() => this.addTemplateItem()}
               disabled={data.tempData.length >= 6}
-            >加一栏</Button>
+            >
+              加一栏
+            </Button>
           </Row>
         </div>
-        <div className="second-Manage-content" style={{ display: tabTypeIndex === 1 ? "block" : "none" }}>
+        <div
+          className="second-Manage-content"
+          style={{ display: tabTypeIndex === 1 ? 'block' : 'none' }}
+        >
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>文字显示位置</p>
             <Radio.Group
@@ -115,23 +145,32 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
               <Radio value={false}>否</Radio>
             </Radio.Group>
           </Row>
-          {editItemData?.hasIcon
-            ? <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
+          {editItemData?.hasIcon ? (
+            <Row style={{ marginBottom: 10, flexDirection: 'column' }}>
               <p>修改图标</p>
               <AliyunOSSUpload
                 preImageUrl={editItemData?.iconUrl}
                 handleUploadImageChange={this.changeIconUrl}
               />
-            </Row> : null}
+            </Row>
+          ) : null}
           <Row className="inputAndColor_wrap">
             <p>修改标题</p>
             <div className="inputAndColor_box">
-              <Input placeholder="请输入标题" value={editItemData?.title}
+              <Input
+                placeholder="请输入标题"
+                value={editItemData?.title}
                 onChange={this.changeItemTitle}
               />
-              <div className="fontColorSelect"
+              <div
+                className="fontColorSelect"
                 style={{ background: editItemData?.titleFontColor }}
-                onClick={() => this.initFontColorSelectModal(FontColorChangeType.Titile, editItemData!.titleFontColor!)}
+                onClick={() =>
+                  this.initFontColorSelectModal(
+                    FontColorChangeType.Titile,
+                    editItemData!.titleFontColor!
+                  )
+                }
               ></div>
             </div>
           </Row>
@@ -152,12 +191,20 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
           <Row className="inputAndColor_wrap">
             <p>修改文字</p>
             <div className="inputAndColor_box">
-              <Input placeholder="请输入文字" value={editItemData?.text}
+              <Input
+                placeholder="请输入文字"
+                value={editItemData?.text}
                 onChange={this.changeItemText}
               />
-              <div className="fontColorSelect"
+              <div
+                className="fontColorSelect"
                 style={{ background: editItemData?.textFontColor }}
-                onClick={() => this.initFontColorSelectModal(FontColorChangeType.Text, editItemData!.titleFontColor!)}
+                onClick={() =>
+                  this.initFontColorSelectModal(
+                    FontColorChangeType.Text,
+                    editItemData!.titleFontColor!
+                  )
+                }
               ></div>
             </div>
           </Row>
@@ -168,7 +215,7 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
           handleModalVisible={this.handleFontColorSelectModalVisible}
           handleChangeFontColor={this.handleChangeFontColor}
         />
-      </Fragment >
+      </Fragment>
     )
   }
 
@@ -176,7 +223,11 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   changeTextPositionType = (e: RadioChangeEvent) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextPositionType(e.target.value, editItemIndex!, data.tempData)
+    updateIconTitleTextPositionType(
+      e.target.value,
+      editItemIndex!,
+      data.tempData
+    )
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -194,7 +245,11 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   changeTitleBgType = (e: RadioChangeEvent) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextItemTitleBgType(e.target.value, editItemIndex!, data.tempData)
+    updateIconTitleTextItemTitleBgType(
+      e.target.value,
+      editItemIndex!,
+      data.tempData
+    )
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -204,15 +259,19 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
     const { editItemData } = this.state
     switch (editItemData?.background?.bgType) {
       case BackgroundSetType.PureColor:
-        return <SketchPicker
-          color={editItemData?.background?.bgColor}
-          onChange={this.changeTitleBackgroundColor}
-        />
+        return (
+          <SketchPicker
+            color={editItemData?.background?.bgColor}
+            onChange={this.changeTitleBackgroundColor}
+          />
+        )
       case BackgroundSetType.BackgroundImage:
-        return <AliyunOSSUpload
-          preImageUrl={editItemData?.background?.bgImageUrl}
-          handleUploadImageChange={this.changeTitleBackgroundImageUrl}
-        />
+        return (
+          <AliyunOSSUpload
+            preImageUrl={editItemData?.background?.bgImageUrl}
+            handleUploadImageChange={this.changeTitleBackgroundImageUrl}
+          />
+        )
       default:
         return <Fragment></Fragment>
     }
@@ -264,14 +323,18 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
     this.setState({
       topTitle: '修改详情页',
       editItemIndex: draggableIndex,
-      editItemData: draggableData as IIconTitleTextModel
+      editItemData: draggableData as IIconTitleTextModel,
     })
   }
 
   // 复制条目
-  copyTemplateItem = (draggableData: IDraggableData, draggableIndex: number) => {
+  copyTemplateItem = (
+    draggableData: IDraggableData,
+    draggableIndex: number
+  ) => {
     const { data, allTempData, changeTempData } = this.props
-    if (data.tempData.length >= 6) return message.warning('已超过条目最大限制！')
+    if (data.tempData.length >= 6)
+      return message.warning('已超过条目最大限制！')
     const tempData = deepClone(data.tempData)
     insertItemToArray(tempData, draggableIndex, draggableData)
     data.tempData = tempData
@@ -305,16 +368,21 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 
   // 加载颜色选择弹窗
-  initFontColorSelectModal(fontColorChangeType: FontColorChangeType, currentFontColor: string) {
+  initFontColorSelectModal(
+    fontColorChangeType: FontColorChangeType,
+    currentFontColor: string
+  ) {
     this.setState({
       currentFontColor,
-      fontColorChangeType
+      fontColorChangeType,
     })
     this.handleFontColorSelectModalVisible(true)
   }
 
   // 处理颜色选择弹窗显示隐藏
-  handleFontColorSelectModalVisible = (fontColorSelectModalVisible: boolean) => {
+  handleFontColorSelectModalVisible = (
+    fontColorSelectModalVisible: boolean
+  ) => {
     this.setState({ fontColorSelectModalVisible })
   }
 
@@ -326,10 +394,18 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
 
     switch (fontColorChangeType) {
       case FontColorChangeType.Titile:
-        updateIconTitleTextItemTitleFontColor(color, editItemIndex!, data.tempData)
+        updateIconTitleTextItemTitleFontColor(
+          color,
+          editItemIndex!,
+          data.tempData
+        )
         break
       case FontColorChangeType.Text:
-        updateIconTitleTextItemTextFontColor(color, editItemIndex!, data.tempData)
+        updateIconTitleTextItemTextFontColor(
+          color,
+          editItemIndex!,
+          data.tempData
+        )
         break
       default:
         break
@@ -343,7 +419,11 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   changeTitleBackgroundColor = (color: ColorResult) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextItemTitleBgColor(color.hex, editItemIndex!, data.tempData)
+    updateIconTitleTextItemTitleBgColor(
+      color.hex,
+      editItemIndex!,
+      data.tempData
+    )
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -352,7 +432,11 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   changeTitleBackgroundImageUrl = (bgImageUrl: string) => {
     const { data, allTempData, changeTempData } = this.props
     const { editItemIndex } = this.state
-    updateIconTitleTextItemTitleBgImageUrl(bgImageUrl, editItemIndex!, data.tempData)
+    updateIconTitleTextItemTitleBgImageUrl(
+      bgImageUrl,
+      editItemIndex!,
+      data.tempData
+    )
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }
@@ -368,12 +452,20 @@ class EditorIconTitleText extends PureComponent<IEditorIconTitleTextProps, IEdit
   }
 }
 
-const mapStateToProps = (state: IPageState, ownProps: IEditorIconTitleTextProps) => ({
-  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
-  tabTypeIndex: state.editorSliderReducer.tabTypeIndex
+const mapStateToProps = (
+  state: IPageState,
+  ownProps: IEditorIconTitleTextProps
+) => ({
+  allTempData: ownProps.isMobile
+    ? state.editorContainerMobileReducer.allTempData
+    : state.editorContainerReducer.allTempData,
+  tabTypeIndex: state.editorSliderReducer.tabTypeIndex,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorIconTitleTextProps) => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch<Action>,
+  ownProps: IEditorIconTitleTextProps
+) => ({
   changeTempData(allTempData: ITemplateModel<any>[]) {
     if (ownProps.isMobile) {
       dispatch(changeMobileTempData(allTempData))
@@ -383,7 +475,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IEditorIconTit
   },
   changeTabTypeIndex(tabTypeIndex: number) {
     dispatch(changeEditorSliderTab(tabTypeIndex))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditorIconTitleText)

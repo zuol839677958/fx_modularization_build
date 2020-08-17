@@ -1,13 +1,13 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
-import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '../../../../store/data'
+import { IPageState, ITemplateModel, ICorrelationSpecialModel } from '@/store/data'
 import { CloseOutlined, DeleteOutlined } from '@ant-design/icons'
-import { updateCurrentTempData, deepClone } from '../../../../utils/utils'
+import { updateCurrentTempData, deepClone } from '@/utils'
 import { message, Row } from 'antd'
 import { connect } from 'react-redux'
 import { Action } from 'redux'
-import { getSpeicalData } from '../../../../axios/api';
-import { changeTempData } from '../../../web/EditorContainer/store/actions'
-import { changeMobileTempData } from '../../../mobile/EditorContainerMobile/store/actions'
+import { getSpeicalData } from '@/axios/api';
+import { changeTempData } from '@/store/actions/editor.actions'
+import { changeMobileTempData } from '@/store/actions/editor.mobile.actions'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import FontColorSet from '../../../commonPlugin/FontColorSet'
@@ -163,7 +163,7 @@ class EditorCorrelationSpecial extends PureComponent<IEditorCorrelationSpecialPr
     const res = await getSpeicalData(inputVal)
     this.setState({ addShow: false, inputValue: "" })
     if (!res) { return message.warning("请重新输入专题编号") }
-    //判断是否为已发布专题，未发布提示 
+    //判断是否为已发布专题，未发布提示
     if (res.Status !== 1) {
       return message.warning("请选择已发布专题,请重新输入专题编号")
     }

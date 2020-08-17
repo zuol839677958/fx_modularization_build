@@ -17,7 +17,7 @@ const uploadImage = async (Base64: string, WatermarkType: number = 0) => {
 }
 
 const getSpeicalData = async (specialId: string) => {
-  const res = await http.get(`/api/SpecialNewApi?specialId=${specialId}`)
+  const res = await http.get(`/api/SpecialNewApi?specialId=${specialId}`,{unErrorMsg:true})
   return res?.bodyMessage as TemplateSpecialModel
 }
 

@@ -3,9 +3,9 @@ import {
   ITemplateModel,
   IIconTitleTextModel,
   IBackgroundSetModel,
-} from '../store/data'
-import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
-import { TemplatePositionType } from '../components/web/EditorContainer/store/state'
+} from '@/store/data'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
+import { TemplatePositionType } from '@/store/state/editor.state'
 import { CSSProperties } from 'react'
 
 /**

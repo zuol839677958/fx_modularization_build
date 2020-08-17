@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { IPictureTextModel, IIconTitleTextModel } from '../../store/data'
-import { getIsShowList } from '../../utils/utils'
+import { IPictureTextModel, IIconTitleTextModel } from '@/store/data'
+import { getIsShowList } from '@/utils'
 
 import TitleItem from './components/TitleItem'
 import TextItem from './components/TextItem'

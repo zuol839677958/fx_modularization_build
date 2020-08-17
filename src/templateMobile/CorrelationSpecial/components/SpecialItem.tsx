@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react'
-import { ICorrelationSpecialModel } from '../../../store/data'
-import { getMobileSpecialLinkUrl } from '../../../axios/env'
+import { ICorrelationSpecialModel } from '@/store/data'
+import { getMobileSpecialLinkUrl } from '@/axios/env'
 
 interface ISpecialItemProps {
   data: ICorrelationSpecialModel

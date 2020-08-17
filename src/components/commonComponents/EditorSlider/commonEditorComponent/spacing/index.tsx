@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
 import { Row, Slider } from 'antd'
 import { connect } from 'react-redux'
-import { IPageState, ITemplateModel } from '../../../../../store/data'
-import { changeMobileTempData } from '../../../../mobile/EditorContainerMobile/store/actions'
-import { changeTempData } from '../../../../web/EditorContainer/store/actions'
+import { IPageState, ITemplateModel } from '@/store/data'
+import { changeMobileTempData } from '@/store/actions/editor.mobile.actions'
+import { changeTempData } from '@/store/actions/editor.actions'
 import { Dispatch, Action } from 'redux'
-import { updateCurrentTempData } from '../../../../../utils/utils'
+import { updateCurrentTempData } from '@/utils'
 
 interface ISpacingProps {
   data: ITemplateModel<any>

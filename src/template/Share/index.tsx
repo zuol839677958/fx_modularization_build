@@ -1,12 +1,12 @@
 
 import React, { CSSProperties } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { IShareModel } from '../../store/data'
-import { TemplatePositionType } from '../../components/web/EditorContainer/store/state'
-import { getSpeicalData } from '../../axios/api'
+import { IShareModel } from '@/store/data'
+import { TemplatePositionType } from '@/store/state/editor.state'
+import { getSpeicalData } from '@/axios/api'
 import { RouteComponentProps } from 'react-router-dom'
-import { getSepecialLinkUrl } from '../../axios/env'
-import { initTemplatePositionStyle } from '../../utils/utils'
+import { getSepecialLinkUrl } from '@/axios/env'
+import { initTemplatePositionStyle } from '@/utils'
 
 import './index.less'
 
@@ -137,4 +137,4 @@ class Share extends MasterTemplate<IShareProps> {
   }
 }
 
-export default Share 
+export default Share

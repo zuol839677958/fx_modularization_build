@@ -1,20 +1,28 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { IPageState, ITemplateModel } from '../../../store/data'
+import { IPageState, ITemplateModel } from '@/store/data'
 import { Dispatch, Action } from 'redux'
-import { changeAddTemplateSliderShow } from './store/actions'
-import { changeTempData } from '../../web/EditorContainer/store/actions'
-import { addTemplateListData, IAddTemplateListDataModel } from '../../../config/addTemplateListData'
-import { defaultTemplateList } from "../../../config/addTemplateDefaultData"
+import {
+  AddTemplateActions,
+  EditorActions,
+  EditorMobileActions,
+} from '@/store/actions'
+import {
+  addTemplateListData,
+  IAddTemplateListDataModel,
+} from '@/config/addTemplateListData'
+import { defaultTemplateList } from '@/config/addTemplateDefaultData'
 import { Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { deepClone } from '../../../utils/utils'
-import { changeMobileTempData } from '../../mobile/EditorContainerMobile/store/actions'
-import { addMobileTemplateListData } from '../../../config/addMobileTemplateListData'
+import { deepClone } from '@/utils'
+import { addMobileTemplateListData } from '@/config/addMobileTemplateListData'
 
 import TitleBack from '../EditorSlider/commonEditorComponent/titleBack'
 
 import './index.less'
+const { changeAddTemplateSliderShow } = AddTemplateActions
+const { changeTempData } = EditorActions
+const { changeMobileTempData } = EditorMobileActions
 
 interface IAddTemplateProps {
   isMobile?: boolean
@@ -30,45 +38,58 @@ interface IAddTemplateState {
 
 class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
   state: IAddTemplateState = {
-    activeTemplateListData: []
+    activeTemplateListData: [],
   }
 
   render() {
     const { isMobile, isShow } = this.props
 
     return (
-      <div className="addTemplate_slider" style={{ display: isShow ? 'block' : 'none' }}>
+      <div
+        className="addTemplate_slider"
+        style={{ display: isShow ? 'block' : 'none' }}
+      >
         <TitleBack
-          title='新增模块'
+          title="新增模块"
           titleArrow={false}
           customCloseSlider={() => this.closeAddTemplateSlider()}
         />
         <div className="Menu-add-box">
           <div className="Menu-left-list">
             <ul>
-              {this.renderMenuList(isMobile ? addMobileTemplateListData : addTemplateListData)}
+              {this.renderMenuList(
+                isMobile ? addMobileTemplateListData : addTemplateListData
+              )}
             </ul>
           </div>
           <div className="tmp-right-show">
-            {this.renderContentList(isMobile ? addMobileTemplateListData : addTemplateListData)}
+            {this.renderContentList(
+              isMobile ? addMobileTemplateListData : addTemplateListData
+            )}
           </div>
         </div>
       </div>
     )
   }
 
-  renderContentList(addTemplateListData: IAddTemplateListDataModel[]): JSX.Element {
+  renderContentList(
+    addTemplateListData: IAddTemplateListDataModel[]
+  ): JSX.Element {
     if (addTemplateListData.length === 0) return <Fragment></Fragment>
 
-    const tempList = addTemplateListData.filter(item => item.isActive)[0].tempList
+    const tempList = addTemplateListData.filter((item) => item.isActive)[0]
+      .tempList
 
     return (
       <div className="right-box">
-        {
-          tempList.map((item, index) => (
-            <img onClick={() => this.addTemplateModel(item.type)} key={index} src={item.tempImageUrl} alt="" />
-          ))
-        }
+        {tempList.map((item, index) => (
+          <img
+            onClick={() => this.addTemplateModel(item.type)}
+            key={index}
+            src={item.tempImageUrl}
+            alt=""
+          />
+        ))}
       </div>
     )
   }
@@ -85,32 +106,39 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
       cancelText: '取消',
       onOk: async () => {
         const { allTempData, changeTempData } = this.props
-        const currentTempData = deepClone(defaultTemplateList.filter(item => item.type === type)[0]) as ITemplateModel<any>
+        const currentTempData = deepClone(
+          defaultTemplateList.filter((item) => item.type === type)[0]
+        ) as ITemplateModel<any>
         currentTempData.id = `${currentTempData.id}_${Date.now()}`
         allTempData!.push(currentTempData)
         await changeTempData!(allTempData!)
-        window.scrollTo(0, document.getElementsByTagName("body")[0].scrollHeight)
-      }
+        window.scrollTo(
+          0,
+          document.getElementsByTagName('body')[0].scrollHeight
+        )
+      },
     })
   }
 
   /**
    *
    * @param {IAddTemplateListDataModel[]} MenuList
-   * @memberof AddTemplate 
-   * @MenuList 菜单列表数据 
+   * @memberof AddTemplate
+   * @MenuList 菜单列表数据
    */
   renderMenuList(menuList: IAddTemplateListDataModel[]): JSX.Element {
     if (menuList.length === 0) return <Fragment></Fragment>
     return (
       <Fragment>
-        {
-          menuList.map((item, index) => (
-            <li key={index} className={item.isActive ? "active" : ""}
-              onClick={() => this.changeType(index)}
-            >{item.tempName}</li>
-          ))
-        }
+        {menuList.map((item, index) => (
+          <li
+            key={index}
+            className={item.isActive ? 'active' : ''}
+            onClick={() => this.changeType(index)}
+          >
+            {item.tempName}
+          </li>
+        ))}
       </Fragment>
     )
   }
@@ -122,7 +150,9 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
    */
   changeType = (activeIndex: number) => {
     const { isMobile } = this.props
-    const activeTemplateListData = isMobile ? addMobileTemplateListData : addTemplateListData
+    const activeTemplateListData = isMobile
+      ? addMobileTemplateListData
+      : addTemplateListData
     activeTemplateListData.forEach((item, index) => {
       item.isActive = false
       if (index === activeIndex) {
@@ -140,11 +170,16 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IAddTemplateProps) => ({
-  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
-  isShow: state.addTemplateSliderReducer.isShow
+  allTempData: ownProps.isMobile
+    ? state.editorContainerMobileReducer.allTempData
+    : state.editorContainerReducer.allTempData,
+  isShow: state.addTemplateSliderReducer.isShow,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, ownProps: IAddTemplateProps) => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch<Action>,
+  ownProps: IAddTemplateProps
+) => ({
   changeAddTemplateSliderShow(isShow: boolean) {
     dispatch(changeAddTemplateSliderShow(isShow))
   },

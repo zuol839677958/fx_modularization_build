@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react'
-import { ICorrelationSpecialModel } from '../../store/data'
+import { ICorrelationSpecialModel } from '@/store/data'
 
 import SpecialItem from './components/SpecialItem'
 
