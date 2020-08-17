@@ -35,21 +35,21 @@ const swapArray = (
       arr[index2].background,
       arr[index1].background,
     ]
-    // 交换相同模板的间距
-    ;[arr[index1].spacing, arr[index2].spacing] = [
-      arr[index2].spacing,
-      arr[index1].spacing,
-    ]
-    // 交换相同模板的显示影藏
-    ;[arr[index1].isShow, arr[index2].isShow] = [
-      arr[index2].isShow,
-      arr[index1].isShow,
-    ]
-    // 交换相同模板的模板数据
-    ;[arr[index1].tempData, arr[index2].tempData] = [
-      arr[index2].tempData,
-      arr[index1].tempData,
-    ]
+      // 交换相同模板的间距
+      ;[arr[index1].spacing, arr[index2].spacing] = [
+        arr[index2].spacing,
+        arr[index1].spacing,
+      ]
+      // 交换相同模板的显示影藏
+      ;[arr[index1].isShow, arr[index2].isShow] = [
+        arr[index2].isShow,
+        arr[index1].isShow,
+      ]
+      // 交换相同模板的模板数据
+      ;[arr[index1].tempData, arr[index2].tempData] = [
+        arr[index2].tempData,
+        arr[index1].tempData,
+      ]
     return arr[index2].id
   }
   arr[index1] = arr.splice(index2, 1, arr[index1])[0]
@@ -373,11 +373,11 @@ const initTempSpacing = (
   if (topSpacing)
     bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${
       isMobile ? 'rem' : 'px'
-    }`
+      }`
   if (bottomSpacing)
     bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${
       isMobile ? 'rem' : 'px'
-    }`
+      }`
   return bgCss
 }
 

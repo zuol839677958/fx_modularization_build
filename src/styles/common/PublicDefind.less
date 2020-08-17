@@ -440,6 +440,16 @@
   display: flex;
 }
 
+.flexPlus(@justify, @align) {
+  display: -moz-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: @justify;
+  align-items: @align;
+}
+
 .flex-align-items(@itme) {
   -moz-box-align: @itme;
   -webkit-box-align: @itme;

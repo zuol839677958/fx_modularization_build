@@ -14,6 +14,7 @@ const Preview: FC<RouteComponentProps> = props => {
   const specialLinkUrl = `${getSepecialLinkUrl()}${specialId}`
   const mobileSpecialLinkUrl = `${getMobileSpecialLinkUrl()}${specialId}`
 
+  
   useEffect(() => {
     setIsWeb(!Number(isMobile))
   }, [isMobile])

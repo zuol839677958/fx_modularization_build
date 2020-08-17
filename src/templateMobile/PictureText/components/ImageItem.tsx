@@ -10,7 +10,7 @@ const ImageItem: FC<IImageItemProps> = props => {
 
   return useMemo(() => (
     <div className="describe_img">
-      <img src={picUrl} alt="" data-preview-src data-preview-group="1"
+      <img src={picUrl} alt="" data-preview-src={picUrl} data-preview-group="1"
         style={{ width: `${picWidthPercent}%` }}
       />
     </div>
