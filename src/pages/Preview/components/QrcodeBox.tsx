@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react'
+import React, { FC, useMemo, memo } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { message } from 'antd'
 import QRCode from 'qrcode.react'
@@ -34,4 +34,4 @@ const QrcodeBox: FC<IQrcodeBoxProps> = props => {
   ), [mobileSpecialLinkUrl])
 }
 
-export default QrcodeBox
+export default memo(QrcodeBox)

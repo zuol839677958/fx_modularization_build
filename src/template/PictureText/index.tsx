@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { IPictureTextModel, IIconTitleTextModel } from '@/store/data'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { TemplateType } from '@/store/state/editor.state'
@@ -131,4 +131,4 @@ class PictureText extends MasterTemplate<IPictureTextProps> {
   }
 }
 
-export default PictureText
+export default memo(PictureText)

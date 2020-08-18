@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, memo } from 'react'
 import { IIconTitleTextModel } from '@/store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { getIsShowList, initTemplatePositionStyle, initTitlePadding, initTitleBackground } from '@/utils'
@@ -86,4 +86,4 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
   }
 }
 
-export default IconTitleText
+export default memo(IconTitleText)

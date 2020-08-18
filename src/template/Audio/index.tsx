@@ -1,6 +1,6 @@
 
 
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, memo } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { AudioPositionType } from '@/store/state/editor.state'
 import { IAudioModel } from '@/store/data'
@@ -92,4 +92,4 @@ class Audio extends MasterTemplate<IAudioProps> {
 
 }
 
-export default Audio
+export default memo(Audio)

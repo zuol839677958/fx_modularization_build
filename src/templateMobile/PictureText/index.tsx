@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, memo } from 'react'
 import { IPictureTextModel, IIconTitleTextModel } from '@/store/data'
 import { getIsShowList } from '@/utils'
 
@@ -43,4 +43,4 @@ const PictureText: FC<IPictureTextProps> = props => {
   )
 }
 
-export default PictureText
+export default memo(PictureText)

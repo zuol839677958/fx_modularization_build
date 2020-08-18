@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react'
+import React, { FC, useCallback, useMemo, memo } from 'react'
 import { message } from 'antd'
 import { IPageModel } from '@/store/data'
 
@@ -31,4 +31,4 @@ const WebPreview: FC<IWebPreviewProps> = props => {
   ), [isFromSpecial, pageHtml, specialLinkUrl])
 }
 
-export default WebPreview
+export default memo(WebPreview)

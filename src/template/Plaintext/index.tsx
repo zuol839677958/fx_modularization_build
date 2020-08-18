@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { IPlaintextModel } from '@/store/data'
 
@@ -58,4 +58,4 @@ class Plaintext extends MasterTemplate<IPlaintextProps> {
   }
 }
 
-export default Plaintext
+export default memo(Plaintext)

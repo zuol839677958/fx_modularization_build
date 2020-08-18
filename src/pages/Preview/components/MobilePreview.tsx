@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react'
+import React, { FC, useCallback, useMemo, memo } from 'react'
 import QrcodeBox from './QrcodeBox'
 import { IPageModel } from '@/store/data'
 import { message } from 'antd'
@@ -39,4 +39,4 @@ const MobilePreview: FC<IMobilePreviewProps> = props => {
   ), [isFromSpecial, mobileSpecialLinkUrl, pageHtml])
 }
 
-export default MobilePreview
+export default memo(MobilePreview)
