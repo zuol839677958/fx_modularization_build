@@ -3,9 +3,9 @@ import {
   ITemplateModel,
   IIconTitleTextModel,
   IBackgroundSetModel,
-} from '../store/data'
-import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
-import { TemplatePositionType } from '../components/web/EditorContainer/store/state'
+} from '@/store/data'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
+import { TemplatePositionType } from '@/store/state/editor.state'
 import { CSSProperties } from 'react'
 
 /**
@@ -418,21 +418,6 @@ const openWindow = (url: string): Window => {
   const { origin, pathname } = window.location
   openWindow.location = `${origin}${pathname}${url}` as any
   return openWindow
-}
-
-export const mobileHtmlScript = () => {
-  return `
-    <scrpit>
-      (function () {
-        var btnDom = document.getElementById('loadMoreSpecial');
-        btnDom.addEventListener('click', showSpecial);
-        function showSpecial() {
-          var specials = document.querySelectorAll('.hide-special');
-          specials[0].classList.remove('hide-special')
-        }
-      })();
-    </scrpit>
-  `
 }
 
 export {

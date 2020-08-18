@@ -1,10 +1,10 @@
 import React, { PureComponent, Dispatch } from 'react'
 import { CloseOutlined } from '@ant-design/icons';
-import { changeEditorSliderShow } from '../../store/actions';
+import { changeEditorSliderShow } from '@/store/actions/editor.slider.actions';
 import { connect } from 'react-redux';
 import { Action } from 'redux';
-import { IPageState } from '../../../../../store/data';
-import { changeActiveTempId } from '../../../../web/EditorContainer/store/actions';
+import { IPageState } from '@/store/data';
+import { changeActiveTempId } from '@/store/actions/editor.actions';
 
 import './index.less';
 

@@ -1,16 +1,16 @@
 import React, { PureComponent, Fragment } from 'react'
 import { SketchPicker, ColorResult } from 'react-color'
 import { Modal, Radio, Button } from 'antd';
-import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '../../../store/data'
-import { BackgroundSetType } from './store/state'
+import { IBackgroundSetModel, IPageState, IPageModel, ITemplateModel } from '@/store/data'
+import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 import { Dispatch, Action } from 'redux';
 import { connect } from 'react-redux';
-import { changeBackgroundSetData } from './store/actions'
-import { changePageBackground, changeTempData } from '../../web/EditorContainer/store/actions'
-import { changeMobilePageBackground, changeMobileTempData } from '../../mobile/EditorContainerMobile/store/actions'
+import { BackgroundSetActions } from '@/store/actions'
+import { changePageBackground, changeTempData } from '@/store/actions/editor.actions'
+import { changeMobilePageBackground, changeMobileTempData } from '@/store/actions/editor.mobile.actions'
 
 import AliyunOSSUpload from '../AliyunOSSUpload'
-
+const {changeBackgroundSetData} = BackgroundSetActions
 interface IBackgroundSetProps {
   isMobile?: boolean
   backgroundSetData?: IBackgroundSetModel

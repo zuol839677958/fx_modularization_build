@@ -1,6 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { getSepecialLinkUrl, getMobileSpecialLinkUrl } from '../../axios/env'
+import { getSepecialLinkUrl, getMobileSpecialLinkUrl } from '@/axios/env'
 
 import WebPreview from './components/WebPreview'
 import MobilePreview from './components/MobilePreview'

@@ -1,33 +1,28 @@
-import { IPageModel } from "./data"
+import { IPageModel } from '@/store/data'
 //  import { editorContainerState } from '../components/EditorContainer/store/state'
 // import { editorContainerMobileState } from '../components/EditorContainerMobile/store/state'
-import { BackgroundSetType } from '../components/commonPlugin/BackgroundSet/store/state'
+import { BackgroundSetType } from './backgroundSet.state'
 
-const editorContainerReducer: IPageModel = {
+export const editorContainerReducer: IPageModel = {
   modeType: 1,
   pageHtml: '',
   activeTempId: '',
   background: {
     bgType: BackgroundSetType.PureColor,
-    bgColor: '#9f3b3c'
+    bgColor: '#9f3b3c',
   },
-  allTempData: []
+  allTempData: [],
   //  allTempData: editorContainerState
 }
 
-const editorContainerMobileReducer: IPageModel = {
+export const editorContainerMobileReducer: IPageModel = {
   modeType: 1,
   pageHtml: '',
   activeTempId: '',
   background: {
     bgType: BackgroundSetType.PureColor,
-    bgColor: '#9f3b3c'
+    bgColor: '#9f3b3c',
   },
-  allTempData: []
+  allTempData: [],
   // allTempData: editorContainerMobileState
-}
-
-export default {
-  editorContainerReducer,
-  editorContainerMobileReducer
 }

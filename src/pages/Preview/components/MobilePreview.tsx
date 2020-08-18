@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react'
 import QrcodeBox from './QrcodeBox'
-import { IPageModel } from '../../../store/data'
+import { IPageModel } from '@/store/data'
 import { message } from 'antd'
 
 interface IMobilePreviewProps {

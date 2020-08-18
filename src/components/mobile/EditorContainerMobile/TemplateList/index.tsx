@@ -1,23 +1,35 @@
 import React, { FC, memo, useState } from 'react'
-import { IPageState, ITemplateModel, IBannerModel, IIconTitleTextModel, IAudioModel, IPlaintextModel, IPictureTextModel, ICorrelationSpecialModel } from '../../../../store/data'
+import {
+  IPageState,
+  ITemplateModel,
+  IBannerModel,
+  IIconTitleTextModel,
+  IAudioModel,
+  IPlaintextModel,
+  IPictureTextModel,
+  ICorrelationSpecialModel,
+} from '@/store/data'
 import { RouteComponentProps } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getIsShowList, initTempCss } from '../../../../utils/utils'
-import { TemplateType } from '../../../web/EditorContainer/store/state'
-import { changeMobileActiveTempId } from '../store/actions'
+import { getIsShowList, initTempCss } from '@/utils'
+import { TemplateType } from '@/store/state/editor.state'
+import { changeMobileActiveTempId } from '@/store/actions/editor.mobile.actions'
 import { Dispatch, Action } from 'redux'
-import { changeEditorSliderShow, changeEditorSliderTab } from '../../../commonComponents/EditorSlider/store/actions'
-import { changeAddTemplateSliderShow } from '../../../commonComponents/AddTemplate/store/actions'
+import {
+  changeEditorSliderShow,
+  changeEditorSliderTab,
+} from '@/store/actions/editor.slider.actions'
+import { changeAddTemplateSliderShow } from '@/store/actions/addTemplate.actions'
 
 import MobileMask from '../../MobileMask'
 
 //模板
-import Banner from '../../../../templateMobile/Banner'
-import IconTitleText from "../../../../templateMobile/IconTitleText"
-import Audio from "../../../../templateMobile/Audio"
-import Plaintext from "../../../../templateMobile/Plaintext"
-import PictureText from "../../../../templateMobile/PictureText"
-import CorrelationSpecial from "../../../../templateMobile/CorrelationSpecial"
+import Banner from '@/templateMobile/Banner'
+import IconTitleText from '@/templateMobile/IconTitleText'
+import Audio from '@/templateMobile/Audio'
+import Plaintext from '@/templateMobile/Plaintext'
+import PictureText from '@/templateMobile/PictureText'
+import CorrelationSpecial from '@/templateMobile/CorrelationSpecial'
 import './index.less'
 
 interface ITemplateListProps extends RouteComponentProps {
@@ -29,7 +41,7 @@ interface ITemplateListProps extends RouteComponentProps {
   changeEditorSliderTab?: (tabTypeIndex: number) => void
 }
 
-const TemplateList: FC<ITemplateListProps> = props => {
+const TemplateList: FC<ITemplateListProps> = (props) => {
   const [isShowMaskTempId, setIsShowMaskTempId] = useState<string>('')
   const {
     mobileActiveTempId,
@@ -37,7 +49,7 @@ const TemplateList: FC<ITemplateListProps> = props => {
     changeMobileActiveTempId,
     changeEditorSliderShow,
     changeAddTemplateSliderShow,
-    changeEditorSliderTab
+    changeEditorSliderTab,
   } = props
 
   // 鼠标移入模板处理
@@ -67,7 +79,9 @@ const TemplateList: FC<ITemplateListProps> = props => {
       case TemplateType.Banner:
         return <Banner data={tempData.tempData as IBannerModel} />
       case TemplateType.IconTitleText:
-        return <IconTitleText data={tempData.tempData as IIconTitleTextModel[]} />
+        return (
+          <IconTitleText data={tempData.tempData as IIconTitleTextModel[]} />
+        )
       case TemplateType.Plaintext:
         return <Plaintext data={tempData.tempData as IPlaintextModel} />
       case TemplateType.LeftPictureRightText:
@@ -76,38 +90,53 @@ const TemplateList: FC<ITemplateListProps> = props => {
       case TemplateType.Audio:
         return <Audio data={tempData.tempData as IAudioModel} />
       case TemplateType.CorrelationSpecial:
-        return <CorrelationSpecial data={tempData.tempData as ICorrelationSpecialModel[]} fontColor={tempData.fontColor} />
+        return (
+          <CorrelationSpecial
+            data={tempData.tempData as ICorrelationSpecialModel[]}
+            fontColor={tempData.fontColor}
+          />
+        )
       default:
         return null
     }
   }
 
-  const filterMobileAllTempData = getIsShowList(mobileAllTempData!) as ITemplateModel<any>[]
+  const filterMobileAllTempData = getIsShowList(
+    mobileAllTempData!
+  ) as ITemplateModel<any>[]
   if (filterMobileAllTempData.length === 0) return null
 
   return (
     <>
-      {
-        filterMobileAllTempData.map(tempData => (
-          <div id={tempData.id} className="temp-box" key={tempData.id}
-            style={initTempCss(tempData.background, tempData.topSpacing, tempData.bottomSpacing, true)}
-            onMouseEnter={() => handleTempMouseEnter(tempData.id)}
-            onMouseLeave={handleTempMouseLeave}
-            onClick={() => handleTempClick(tempData.id)}
-          >
-            {renderTemplate(tempData)}
-            {isShowMaskTempId === tempData.id || mobileActiveTempId === tempData.id
-              ? <MobileMask /> : null}
-          </div>
-        ))
-      }
+      {filterMobileAllTempData.map((tempData) => (
+        <div
+          id={tempData.id}
+          className="temp-box"
+          key={tempData.id}
+          style={initTempCss(
+            tempData.background,
+            tempData.topSpacing,
+            tempData.bottomSpacing,
+            true
+          )}
+          onMouseEnter={() => handleTempMouseEnter(tempData.id)}
+          onMouseLeave={handleTempMouseLeave}
+          onClick={() => handleTempClick(tempData.id)}
+        >
+          {renderTemplate(tempData)}
+          {isShowMaskTempId === tempData.id ||
+          mobileActiveTempId === tempData.id ? (
+            <MobileMask />
+          ) : null}
+        </div>
+      ))}
     </>
   )
 }
 
 const mapStateToProps = (state: IPageState, ownProps: ITemplateListProps) => ({
   mobileActiveTempId: state.editorContainerMobileReducer.activeTempId,
-  mobileAllTempData: state.editorContainerMobileReducer.allTempData
+  mobileAllTempData: state.editorContainerMobileReducer.allTempData,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
@@ -122,7 +151,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
   },
   changeEditorSliderTab(tabTypeIndex: number) {
     dispatch(changeEditorSliderTab(tabTypeIndex))
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(TemplateList))

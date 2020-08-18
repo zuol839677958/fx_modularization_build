@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
-import { IIconTitleTextModel } from '../../store/data'
+import { IIconTitleTextModel } from '@/store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
-import { getIsShowList, initTemplatePositionStyle, initTitlePadding, initTitleBackground } from '../../utils/utils'
+import { getIsShowList, initTemplatePositionStyle, initTitlePadding, initTitleBackground } from '@/utils'
 
 import './index.less'
 

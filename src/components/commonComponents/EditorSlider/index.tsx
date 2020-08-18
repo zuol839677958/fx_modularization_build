@@ -1,19 +1,18 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { IPageState, ITemplateModel } from '../../../store/data'
-import { TemplateType } from '../../web/EditorContainer/store/state'
-
+import { IPageState, ITemplateModel } from '@/store/data'
+import { TemplateType } from '@/store/state/editor.state'
 import './index.less'
 
 //模板
-import EditorIconTitleText from "./IconTitleText" //编辑部分图标文字
-import EditorPlaintext from './Plaintext'//编辑纯文本
-import EditorPictureText from './PictureText'//图文模块
-import EditorBanner from "./Banner"//banner模块
-import EditorShare from "./Share"//分享模块
-import EditorCorrelationSpecial from "./CorrelationSpecial"//专题列表
-import EditorAudio from "./Audio"//音频模块
-import EditorMorePicture from "./MorePicture" //双图模板
+import EditorIconTitleText from './IconTitleText' //编辑部分图标文字
+import EditorPlaintext from './Plaintext' //编辑纯文本
+import EditorPictureText from './PictureText' //图文模块
+import EditorBanner from './Banner' //banner模块
+import EditorShare from './Share' //分享模块
+import EditorCorrelationSpecial from './CorrelationSpecial' //专题列表
+import EditorAudio from './Audio' //音频模块
+import EditorMorePicture from './MorePicture' //双图模板
 
 interface IEditorBoxProps {
   isMobile?: boolean
@@ -27,10 +26,15 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
   render() {
     const { isShowEditorSlider, currentTemplateId, allTempData } = this.props
     if (!currentTemplateId) return null
-    const currentTempData = allTempData!.filter(item => item.id === currentTemplateId)[0] as ITemplateModel<any>
+    const currentTempData = allTempData!.filter(
+      (item) => item.id === currentTemplateId
+    )[0] as ITemplateModel<any>
 
     return (
-      <div className="slider-content" style={{ display: isShowEditorSlider ? 'block' : 'none' }}>
+      <div
+        className="slider-content"
+        style={{ display: isShowEditorSlider ? 'block' : 'none' }}
+      >
         {this.renderSliderBox(currentTempData)}
       </div>
     )
@@ -38,13 +42,7 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
 
   renderSliderBox(currentTempData: ITemplateModel<any>): JSX.Element {
     if (!currentTempData) return <Fragment></Fragment>
-    return (
-      <Fragment>
-        {
-          this.switchEditorModel(currentTempData)
-        }
-      </Fragment>
-    )
+    return <Fragment>{this.switchEditorModel(currentTempData)}</Fragment>
   }
 
   switchEditorModel(currentTempData: ITemplateModel<any>) {
@@ -56,14 +54,21 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
       case TemplateType.Share:
         return <EditorShare data={currentTempData} />
       case TemplateType.IconTitleText:
-        return <EditorIconTitleText isMobile={isMobile} data={currentTempData} />
+        return (
+          <EditorIconTitleText isMobile={isMobile} data={currentTempData} />
+        )
       case TemplateType.Plaintext:
         return <EditorPlaintext isMobile={isMobile} data={currentTempData} />
       case TemplateType.LeftPictureRightText:
       case TemplateType.LeftTextRightPicture:
         return <EditorPictureText isMobile={isMobile} data={currentTempData} />
       case TemplateType.CorrelationSpecial:
-        return <EditorCorrelationSpecial isMobile={isMobile} data={currentTempData} />
+        return (
+          <EditorCorrelationSpecial
+            isMobile={isMobile}
+            data={currentTempData}
+          />
+        )
       case TemplateType.Audio:
         return <EditorAudio isMobile={isMobile} data={currentTempData} />
       case TemplateType.MorePicture:
@@ -75,9 +80,13 @@ class EditorBox extends PureComponent<IEditorBoxProps> {
 }
 
 const mapStateToProps = (state: IPageState, ownProps: IEditorBoxProps) => ({
-  currentTemplateId: ownProps.isMobile ? state.editorContainerMobileReducer.activeTempId : state.editorContainerReducer.activeTempId,
-  allTempData: ownProps.isMobile ? state.editorContainerMobileReducer.allTempData : state.editorContainerReducer.allTempData,
-  isShowEditorSlider: state.editorSliderReducer.isShow
+  currentTemplateId: ownProps.isMobile
+    ? state.editorContainerMobileReducer.activeTempId
+    : state.editorContainerReducer.activeTempId,
+  allTempData: ownProps.isMobile
+    ? state.editorContainerMobileReducer.allTempData
+    : state.editorContainerReducer.allTempData,
+  isShowEditorSlider: state.editorSliderReducer.isShow,
 })
 
 export default connect(mapStateToProps)(EditorBox)

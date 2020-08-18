@@ -1,9 +1,9 @@
 import React, { PureComponent, Dispatch, Fragment } from 'react'
-import { ITemplateModel, IPageState, IMorePictureModel } from '../../../../store/data'
-import { changeTempData } from '../../../web/EditorContainer/store/actions'
+import { ITemplateModel, IPageState, IMorePictureModel } from '@/store/data'
+import { changeTempData } from '@/store/actions/editor.actions'
 import { Action } from 'redux'
 import { connect } from 'react-redux'
-import { updateCurrentTempData } from '../../../../utils/utils'
+import { updateCurrentTempData } from '@/utils'
 import { Row } from 'antd'
 
 import TitleBack from '../commonEditorComponent/titleBack'

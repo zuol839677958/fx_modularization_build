@@ -3,7 +3,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { Upload, message, Checkbox } from 'antd'
 import { UploadProps, RcFile, UploadChangeParam } from 'antd/lib/upload'
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface'
-import { uploadImage } from '../../../axios/api'
+import { uploadImage } from '@/axios/api'
 import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 interface IAliyunOSSUploadProps {

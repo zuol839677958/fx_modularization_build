@@ -1,5 +1,5 @@
-import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from "../../../../store/data"
-import { BackgroundSetType } from "../../../commonPlugin/BackgroundSet/store/state"
+import { ITemplateModel, IBannerModel, IIconTitleTextModel, IPlaintextModel, IPictureTextModel, IShareModel, ICorrelationSpecialModel, IAudioModel, IMorePictureModel } from "@/store/data"
+import { BackgroundSetType } from "./backgroundSet.state"
 
 export enum TemplateType {
   Banner = 1,
@@ -32,7 +32,7 @@ export enum AudioPositionType {
   Right
 }
 
-const editorContainerState: ITemplateModel<
+export const editorContainerState: ITemplateModel<
   IBannerModel
   | IIconTitleTextModel[]
   | IPlaintextModel
@@ -224,7 +224,3 @@ const editorContainerState: ITemplateModel<
       ]
     },
   ]
-
-export {
-  editorContainerState
-}

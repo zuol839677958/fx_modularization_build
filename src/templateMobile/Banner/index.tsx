@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useCallback } from 'react'
-import { IBannerModel } from '../../store/data'
-import { BannerType } from '../../components/web/EditorContainer/store/state'
+import { IBannerModel } from '@/store/data'
+import { BannerType } from '@/store/state/editor.state'
 
 import './index.less'
 
@@ -26,7 +26,7 @@ const Banner: FC<IBannerProps> = props => {
                 :
                 <img
                   style={{ width: `${data.widthPercent || 100}%` }}
-                  data-preview-src ={data.imageData.imageUrl}
+                  data-preview-src={data.imageData.imageUrl}
                   data-preview-group="1"
                   src={data.imageData.imageUrl}
                   title={data.imageData.imageTitle}
@@ -39,6 +39,9 @@ const Banner: FC<IBannerProps> = props => {
         return (
           <video
             style={{ width: `${data.widthPercent || 100}%` }}
+            x5-playsinline
+            webkit-playsinline
+            preload="none"
             controls
             poster={data.videoData?.poster}
             src={data.videoData?.videoSrc}

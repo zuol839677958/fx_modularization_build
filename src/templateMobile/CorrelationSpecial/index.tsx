@@ -1,10 +1,10 @@
-import React, { FC, useMemo, useCallback } from 'react'
-import { ICorrelationSpecialModel } from '../../store/data'
+import React, { FC, useMemo,useCallback } from 'react'
+import { ICorrelationSpecialModel } from '@/store/data'
 
 import SpecialItem from './components/SpecialItem'
 
 import './index.less'
-import { deepClone } from '@/utils/utils'
+import { deepClone } from '@/utils'
 
 interface ICorrelationSpecialProps {
   data: ICorrelationSpecialModel[]

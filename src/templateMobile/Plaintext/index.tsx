@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react'
-import { IPlaintextModel } from '../../store/data'
+import { IPlaintextModel } from '@/store/data'
 
 import './index.less'
 
