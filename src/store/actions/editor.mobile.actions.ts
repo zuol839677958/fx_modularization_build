@@ -1,6 +1,7 @@
 import { EditorMobileActionTypes } from '@/store/constants'
 import { ITemplateModel, IBackgroundSetModel, IPageModel } from '@/store/data'
-const {CHANGE_MOBILE_PAGE_TEMPLATE_DATA, CHANGE_MOBILE_PAGE_ACTIVE_TEMP_ID, CHANGE_MOBILE_PAGE_BACKGROUND, SAVE_MOBILE_PAGE_HTML, CHANGE_MOBILE_PAGE_DATA} = EditorMobileActionTypes
+const { CHANGE_MOBILE_PAGE_TEMPLATE_DATA, CHANGE_MOBILE_PAGE_ACTIVE_TEMP_ID, CHANGE_MOBILE_PAGE_BACKGROUND, SAVE_MOBILE_PAGE_HTML, CHANGE_MOBILE_PAGE_DATA } = EditorMobileActionTypes
+
 export const changeMobileTempData = (allTempData: ITemplateModel<any>[]) => {
   return {
     type: CHANGE_MOBILE_PAGE_TEMPLATE_DATA,

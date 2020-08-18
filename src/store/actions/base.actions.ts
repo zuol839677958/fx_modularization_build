@@ -5,8 +5,9 @@ export const addCount = () => {
     type: BaseActionTypes.ADD_COUNT
   }
 }
-export const closeEditorBox =()=>{
+
+export const closeEditorBox = () => {
   return {
-     type: BaseActionTypes.CLOSE_EDITOR_BOX
+    type: BaseActionTypes.CLOSE_EDITOR_BOX
   }
 }

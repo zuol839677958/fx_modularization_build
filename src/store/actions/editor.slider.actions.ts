@@ -1,5 +1,6 @@
 import { EditorSliderActionTypes } from '@/store/constants'
-const {IS_INIT_SLIDER, CHANGE_SLIDER_TAB} = EditorSliderActionTypes
+const { IS_INIT_SLIDER, CHANGE_SLIDER_TAB } = EditorSliderActionTypes
+
 export const changeEditorSliderShow = (isShow: boolean) => {
   return {
     type: IS_INIT_SLIDER,
