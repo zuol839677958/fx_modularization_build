@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useCallback, useRef } from 'react'
+import React, { FC, useMemo, useCallback } from 'react'
 import { ICorrelationSpecialModel } from '../../store/data'
 
 import SpecialItem from './components/SpecialItem'
