@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState, useCallback, useMemo } from 'react'
+import React, { FC, useEffect, useRef, useState, useCallback, useMemo, memo } from 'react'
 import { IAudioModel } from '@/store/data'
 
 import './index.less'
@@ -52,4 +52,4 @@ const Audio: FC<IAudioProps> = props => {
   ), [allTime, data.audioUrl])
 }
 
-export default Audio
+export default memo(Audio)
