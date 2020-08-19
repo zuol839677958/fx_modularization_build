@@ -204,13 +204,14 @@ function HeaderFC(props: IHeaderProps) {
   const jumpToPreview = async () => {
     await handleSavePageAction()
     const Content = JSON.stringify(pageData)
-    await savePreviewCache({
-      SpecialId: Number(specialId),
-      ContentH5: Content,
-      Content,
-      EditType: +!!isMobile + 1, // 2 | 1
-    })
-    openWindow(`#/preview/${specialId}/${+!!isMobile}`)
+    console.log('content: ', Content)
+    // await savePreviewCache({
+    //   SpecialId: Number(specialId),
+    //   ContentH5: Content,
+    //   Content,
+    //   EditType: +!!isMobile + 1, // 2 | 1
+    // })
+    // openWindow(`#/preview/${specialId}/${+!!isMobile}`)
   }
 
   const leftBtns: BtnProps[] = useMemo(() => {
