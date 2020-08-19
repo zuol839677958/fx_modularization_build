@@ -22,6 +22,7 @@ import {
   updateTemplateData,
   updateSpecialContent,
   getSpeicalData,
+  savePreviewCache
 } from '@/axios/api'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import {
@@ -201,7 +202,14 @@ function HeaderFC(props: IHeaderProps) {
 
   // 跳转至预览页面
   const jumpToPreview = async () => {
-    await savePageHtml!() // 保存网页html代码
+    await handleSavePageAction()
+    const Content = JSON.stringify(pageData)
+    await savePreviewCache({
+      SpecialId: Number(specialId),
+      ContentH5: Content,
+      Content,
+      EditType: +!!isMobile + 1, // 2 | 1
+    })
     openWindow(`#/preview/${specialId}/${+!!isMobile}`)
   }
 
@@ -275,7 +283,7 @@ function HeaderFC(props: IHeaderProps) {
     return btnsDOM(leftBtns)
   }, [leftBtns])
   const rightBtnDOM = useMemo(() => btnsDOM(rightBtns), [rightBtns])
-  
+
   return (
     <div className="header-wrap">
       <Space size={20} className="header-left">

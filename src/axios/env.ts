@@ -1,8 +1,20 @@
 export enum EnvTpye {
-  Test = 1, // 测试环境
+  Test, // 测试环境
   Pre, // 预发布
   Product // 正式环境
 }
+
+const domainUrl = [
+  'https://wwwtestolv4.tostar.top',
+  'https://wwwpreolv4.tostar.top',
+  'https://www.fx110.uk'
+]
+
+const mobileDomainUrl = [
+  'https://mtestolv1.tostar.top',
+  'https://mpreolv1.tostar.top',
+  'https://m.fx110.uk'
+]
 
 let env: EnvTpye = 4
 
@@ -20,26 +32,22 @@ const getEnvRequestUrl = () => {
 
 const getSepecialLinkUrl = () => {
   checkDomain()
-  switch (env) {
-    case EnvTpye.Test:
-      return 'https://wwwtestolv4.tostar.top/special/'
-    case EnvTpye.Pre:
-      return 'https://wwwpreolv4.tostar.top/special/'
-    case EnvTpye.Product:
-      return 'https://www.fx110.uk/special/'
-  }
+  return `${domainUrl[env]}/special/`
 }
 
 const getMobileSpecialLinkUrl = () => {
   checkDomain()
-  switch (env) {
-    case EnvTpye.Test:
-      return 'https://mtestolv1.tostar.top/special/'
-    case EnvTpye.Pre:
-      return 'https://mpreolv1.tostar.top/special/'
-    case EnvTpye.Product:
-      return 'https://m.fx110.uk/special/'
-  }
+  return `${mobileDomainUrl[env]}/special/`
+}
+
+const getSpecialPreviewUrl = () => {
+  checkDomain()
+  return `${domainUrl[env]}/info/special/detailspreview`
+}
+
+const getMobileSpecialPreviewUrl = () => {
+  checkDomain()
+  return `${mobileDomainUrl[env]}/master/special/detailspreview`
 }
 
 const checkDomain = () => {
@@ -52,5 +60,7 @@ const checkDomain = () => {
 export {
   getEnvRequestUrl,
   getSepecialLinkUrl,
-  getMobileSpecialLinkUrl
+  getMobileSpecialLinkUrl,
+  getSpecialPreviewUrl,
+  getMobileSpecialPreviewUrl
 }

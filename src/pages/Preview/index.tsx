@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useMemo } from 'react'
-import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { getSepecialLinkUrl, getMobileSpecialLinkUrl } from '@/axios/env'
+import { RouteComponentProps, withRouter, useParams } from 'react-router-dom'
+import { getSpecialPreviewUrl, getMobileSpecialPreviewUrl } from '@/axios/env'
+import { getSpecialPreviewRouteParams } from '@/utils'
 
 import WebPreview from './components/WebPreview'
 import MobilePreview from './components/MobilePreview'
@@ -9,10 +10,11 @@ import './index.less'
 
 const Preview: FC<RouteComponentProps> = props => {
   const [isWeb, setIsWeb] = useState<boolean>(true)
-  const { specialId } = props.match.params as { specialId: string }
-  const { isMobile } = props.match.params as { isMobile: string }
-  const specialLinkUrl = `${getSepecialLinkUrl()}${specialId}`
-  const mobileSpecialLinkUrl = `${getMobileSpecialLinkUrl()}${specialId}`
+  const { specialId, isMobile } = useParams()
+
+  const previewRoutesParams = getSpecialPreviewRouteParams(specialId)
+  const specialLinkUrl = `${getSpecialPreviewUrl()}?${previewRoutesParams}`
+  const mobileSpecialLinkUrl = `${getMobileSpecialPreviewUrl()}?${previewRoutesParams}`
 
   const isDisplayWeb = useMemo(() => (isWeb ? 'block' : 'none'), [isWeb])
   const isDisplayMobile = useMemo(() => (!isWeb ? 'block' : 'none'), [isWeb])
