@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, useMemo } from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { getSepecialLinkUrl, getMobileSpecialLinkUrl } from '@/axios/env'
 
@@ -14,23 +14,27 @@ const Preview: FC<RouteComponentProps> = props => {
   const specialLinkUrl = `${getSepecialLinkUrl()}${specialId}`
   const mobileSpecialLinkUrl = `${getMobileSpecialLinkUrl()}${specialId}`
 
-  
+  const isDisplayWeb = useMemo(() => (isWeb ? 'block' : 'none'), [isWeb])
+  const isDisplayMobile = useMemo(() => (!isWeb ? 'block' : 'none'), [isWeb])
+  const webTabActive = useMemo(() => (isWeb ? 'span_active' : ''), [isWeb])
+  const mobileTabActive = useMemo(() => (isWeb ? '' : 'i_active'), [isWeb])
+
   useEffect(() => {
     setIsWeb(!Number(isMobile))
   }, [isMobile])
 
   return (
     <div className="preview_content">
-      <section className="preview-wrap" style={{ display: isWeb ? 'block' : 'none' }}>
+      <section className="preview-wrap" style={{ display: isDisplayWeb }}>
         <WebPreview isFromSpecial={!!specialId} specialLinkUrl={specialLinkUrl} />
       </section>
-      <section className="preview-mobile" style={{ display: !isWeb ? 'block' : 'none' }}>
+      <section className="preview-mobile" style={{ display: isDisplayMobile }}>
         <MobilePreview isFromSpecial={!!specialId} mobileSpecialLinkUrl={mobileSpecialLinkUrl} />
       </section>
       <section className="preview-bottom-bar">
         <div className="Mobile_box">
-          <span className={isWeb ? "span_active" : ""} onClick={() => setIsWeb(true)} />
-          <i className={isWeb ? "" : "i_active"} onClick={() => setIsWeb(false)} />
+          <span className={webTabActive} onClick={() => setIsWeb(true)} />
+          <i className={mobileTabActive} onClick={() => setIsWeb(false)} />
         </div>
       </section>
     </div>
