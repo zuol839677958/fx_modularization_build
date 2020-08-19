@@ -7,6 +7,10 @@ import {
 import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 import { TemplatePositionType } from '@/store/state/editor.state'
 import { CSSProperties } from 'react'
+import qs from 'qs'
+import moment from 'moment'
+//@ts-ignore
+import md5 from 'md5'
 
 /**
  * 数组元素交换位置
@@ -420,6 +424,25 @@ const openWindow = (url: string): Window => {
   return openWindow
 }
 
+/**
+ * 获取主站预览页面路由参数
+ * @param specialId 专题id
+ * @return {String} 路由参数：'id=3197&vkey=A20A2644EC27A9483431BCE18452E252&vtime=20200819095836'
+ */
+const getSpecialPreviewRouteParams = (specialId: number) => {
+  if (!specialId) return ''
+  const preKey = 'Tz45Uio98TtZtw23huNzuk87kp02iu2d'
+  const nowDay = moment(Date.now()).format('YYYYMMDD')
+  const nowTime = moment(Date.now()).format('YYYYMMDDHHmmss')
+  const params = {
+    id: specialId,
+    vkey: (md5(`${preKey}${specialId}${nowDay}`) as string).toLocaleUpperCase(),
+    vtime: nowTime,
+    type: 18
+  }
+  return qs.stringify(params)
+}
+
 export {
   swapArray,
   zIndexUp,
@@ -447,4 +470,5 @@ export {
   initTitleBackground,
   initTitlePadding,
   openWindow,
+  getSpecialPreviewRouteParams
 }

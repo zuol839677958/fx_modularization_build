@@ -22,6 +22,7 @@ import {
   updateTemplateData,
   updateSpecialContent,
   getSpeicalData,
+  savePreviewCache
 } from '@/axios/api'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import {
@@ -55,6 +56,7 @@ interface BtnProps {
   handleClick?: Function
   show?: boolean
 }
+
 function DropMenu(props: { isMobile?: boolean }) {
   const { isMobile } = props
   const hashArgs = useMemo(
@@ -104,6 +106,7 @@ function HeaderFC(props: IHeaderProps) {
   const openAddTemplateSlider = useCallback(() => {
     changeAddTemplateSliderShow!(true)
   }, [changeAddTemplateSliderShow])
+
   // 设置网页背景
   const setPageBackground = useCallback(() => {
     Object.assign(backgroundSetData, pageData?.background)
@@ -131,12 +134,12 @@ function HeaderFC(props: IHeaderProps) {
           item.type === TemplateType.LeftPictureRightText ||
           item.type === TemplateType.LeftTextRightPicture
         ) {
-          ;(item.tempData as IPictureTextModel).picWidthPercent = 100
-          ;(item.tempData as IPictureTextModel).titleTextList.forEach(
-            (item) => {
-              item.titleFontSize = 14
-            }
-          )
+          ; (item.tempData as IPictureTextModel).picWidthPercent = 100
+            ; (item.tempData as IPictureTextModel).titleTextList.forEach(
+              (item) => {
+                item.titleFontSize = 14
+              }
+            )
         }
       })
       await changePageData!(pageData)
@@ -148,6 +151,7 @@ function HeaderFC(props: IHeaderProps) {
       message.error('同步电脑端专题网页解析错误！')
     }
   }
+
   // 更新模板
   async function updateTemplate() {
     const res = await ModalConfirm({
@@ -167,6 +171,7 @@ function HeaderFC(props: IHeaderProps) {
     })
     message.success({ content: '更新模板成功！', key })
   }
+
   // 处理保存页面动作
   const handleSavePageAction = async () => {
     await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
@@ -174,6 +179,7 @@ function HeaderFC(props: IHeaderProps) {
     await changeActiveTempId!('') // 去除遮罩编辑样式
     await savePageHtml!() // 保存网页html代码
   }
+
   // 保存至专题网页数据
   const saveSpecialPageData = async () => {
     const res = await ModalConfirm({
@@ -193,11 +199,20 @@ function HeaderFC(props: IHeaderProps) {
     })
     message.success({ content: '保存页面成功！', key })
   }
+
   // 跳转至预览页面
   const jumpToPreview = async () => {
-    await savePageHtml!() // 保存网页html代码
+    await handleSavePageAction()
+    const Content = JSON.stringify(pageData)
+    await savePreviewCache({
+      SpecialId: Number(specialId),
+      ContentH5: Content,
+      Content,
+      EditType: +!!isMobile + 1, // 2 | 1
+    })
     openWindow(`#/preview/${specialId}/${+!!isMobile}`)
   }
+
   const leftBtns: BtnProps[] = useMemo(() => {
     return [
       {
@@ -268,6 +283,7 @@ function HeaderFC(props: IHeaderProps) {
     return btnsDOM(leftBtns)
   }, [leftBtns])
   const rightBtnDOM = useMemo(() => btnsDOM(rightBtns), [rightBtns])
+
   return (
     <div className="header-wrap">
       <Space size={20} className="header-left">
