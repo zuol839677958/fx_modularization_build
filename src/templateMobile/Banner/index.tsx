@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useCallback } from 'react'
+import React, { FC, useMemo, useCallback, memo } from 'react'
 import { IBannerModel } from '@/store/data'
 import { BannerType } from '@/store/state/editor.state'
 
@@ -57,4 +57,4 @@ const Banner: FC<IBannerProps> = props => {
   ), [data.isFull, renderBannerTemplate])
 }
 
-export default Banner
+export default memo(Banner)
