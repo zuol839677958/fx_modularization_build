@@ -30,10 +30,11 @@ export const changeMobilePageData = (pageData: IPageModel) => {
   }
 }
 
-export const saveMobilePageHtml = () => {
+export const saveMobilePageHtml = (callBack?: (newState: IPageModel) => Promise<void>) => {
   const pageHtml = document.getElementById('generalMobilePage')?.outerHTML || ''
   return {
     type: SAVE_MOBILE_PAGE_HTML,
-    pageHtml
+    pageHtml,
+    callBack
   }
 }

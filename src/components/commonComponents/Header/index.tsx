@@ -43,7 +43,7 @@ interface IHeaderProps extends RouteComponentProps {
   changeActiveTempId?: (activeTempId: string) => void
   changeEditorSliderShow?: (isShow: boolean) => void
   changeAddTemplateSliderShow?: (isShow: boolean) => void
-  savePageHtml?: () => void
+  savePageHtml?: (callBack?: (newState: IPageModel) => Promise<void>) => void
   changePageData?: (pageData: IPageModel) => void
 }
 
@@ -173,11 +173,11 @@ function HeaderFC(props: IHeaderProps) {
   }
 
   // 处理保存页面动作
-  const handleSavePageAction = async () => {
+  const handleSavePageAction = async (callBack?: (newState: IPageModel) => Promise<void>) => {
     await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
     await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
     await changeActiveTempId!('') // 去除遮罩编辑样式
-    await savePageHtml!() // 保存网页html代码
+    await savePageHtml!(callBack) // 保存网页html代码
   }
 
   // 保存至专题网页数据
@@ -202,16 +202,17 @@ function HeaderFC(props: IHeaderProps) {
 
   // 跳转至预览页面
   const jumpToPreview = async () => {
-    await handleSavePageAction()
-    const Content = JSON.stringify(pageData)
-    console.log('content: ', Content)
-    // await savePreviewCache({
-    //   SpecialId: Number(specialId),
-    //   ContentH5: Content,
-    //   Content,
-    //   EditType: +!!isMobile + 1, // 2 | 1
-    // })
-    // openWindow(`#/preview/${specialId}/${+!!isMobile}`)
+    const callBack = async (newState: IPageModel) => {
+      const Content = JSON.stringify(newState)
+      await savePreviewCache({
+        SpecialId: Number(specialId),
+        ContentH5: Content,
+        Content,
+        EditType: +!!isMobile + 1, // 2 | 1
+      })
+      openWindow(`#/preview/${specialId}/${+!!isMobile}`)
+    }
+    await handleSavePageAction(callBack)
   }
 
   const leftBtns: BtnProps[] = useMemo(() => {
@@ -367,11 +368,11 @@ const mapDispatchToProps = (
         await dispatch(changeActiveTempId(activeTempId))
       }
     },
-    async savePageHtml() {
+    async savePageHtml(callBack?: (newState: IPageModel) => Promise<void>) {
       if (ownProps.isMobile) {
-        await dispatch(saveMobilePageHtml())
+        await dispatch(saveMobilePageHtml(callBack))
       } else {
-        await dispatch(savePageHtml())
+        await dispatch(savePageHtml(callBack))
       }
     },
     async changeAddTemplateSliderShow(isShow: boolean) {
