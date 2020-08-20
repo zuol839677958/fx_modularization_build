@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useMemo } from 'react'
+import React, { FC, useState, useMemo } from 'react'
 import { RouteComponentProps, withRouter, useParams } from 'react-router-dom'
 import { getSpecialPreviewUrl, getMobileSpecialPreviewUrl } from '@/axios/env'
 import { getSpecialPreviewRouteParams } from '@/utils'

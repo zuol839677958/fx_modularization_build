@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState } from 'react'
 import { Row, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IPageState, ITemplateModel } from '@/store/data'
