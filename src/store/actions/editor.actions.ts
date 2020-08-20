@@ -30,10 +30,11 @@ export const changePageData = (pageData: IPageModel) => {
   }
 }
 
-export const savePageHtml = () => {
+export const savePageHtml = (callBack?: (newState: IPageModel) => Promise<void>) => {
   const pageHtml = document.getElementById('generalPage')?.outerHTML || ''
   return {
     type: SAVE_PAGE_HTML,
-    pageHtml
+    pageHtml,
+    callBack
   }
 }

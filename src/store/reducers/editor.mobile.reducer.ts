@@ -14,6 +14,7 @@ interface IEditorContainerMobileReducerAction extends Action {
   background: IBackgroundSetModel
   pageHtml: string
   pageData: IPageModel
+  callBack?: (newState: IPageModel) => Promise<void>
 }
 
 export const editorContainerMobileReducer = (
@@ -45,6 +46,7 @@ export const editorContainerMobileReducer = (
         'pageMobileEditorData',
         JSON.stringify(newState)
       )
+      action.callBack && action.callBack(newState)
       return newState
     case CHANGE_MOBILE_PAGE_DATA:
       return {

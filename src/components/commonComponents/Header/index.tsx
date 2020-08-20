@@ -7,22 +7,21 @@ import {
   ITemplateModel,
   IPictureTextModel,
 } from '@/store/data'
-import { Dispatch, Action } from 'redux'
-import { connect } from 'react-redux'
-import { changeBackgroundSetData } from '@/store/actions/backgroundSet.actions'
+import { useSelector, useStore, useDispatch } from 'react-redux'
+import { changeBackgroundSetData as changeBackgroundSetDataAction } from '@/store/actions/backgroundSet.actions'
 import {
-  savePageHtml,
-  changeActiveTempId,
-  changePageData,
+  savePageHtml as savePageHtmlAction,
+  changeActiveTempId as changeActiveTempIdAction,
+  changePageData as changePageDataAction,
 } from '@/store/actions/editor.actions'
-import { changeEditorSliderShow } from '@/store/actions/editor.slider.actions'
-import { changeAddTemplateSliderShow } from '@/store/actions/addTemplate.actions'
+import { changeEditorSliderShow as changeEditorSliderShowAction } from '@/store/actions/editor.slider.actions'
+import { changeAddTemplateSliderShow as changeAddTemplateSliderShowAction } from '@/store/actions/addTemplate.actions'
 import { RouteComponentProps, useLocation, useParams } from 'react-router-dom'
 import {
   updateTemplateData,
   updateSpecialContent,
   getSpeicalData,
-  savePreviewCache
+  savePreviewCache,
 } from '@/axios/api'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import {
@@ -34,17 +33,10 @@ import { TemplateType } from '@/store/state/editor.state'
 import { openWindow } from '@/utils'
 import './index.less'
 import { ModalFuncProps } from 'antd/lib/modal/Modal'
+// import {createSelector} from 'reselect'
 
 interface IHeaderProps extends RouteComponentProps {
   isMobile?: boolean
-  pageData?: IPageModel
-  backgroundSetData?: IBackgroundSetModel
-  changeBackgroundSetData?: (backgroundSet: IBackgroundSetModel) => void
-  changeActiveTempId?: (activeTempId: string) => void
-  changeEditorSliderShow?: (isShow: boolean) => void
-  changeAddTemplateSliderShow?: (isShow: boolean) => void
-  savePageHtml?: () => void
-  changePageData?: (pageData: IPageModel) => void
 }
 
 interface IHeaderState {
@@ -82,17 +74,65 @@ function DropMenu(props: { isMobile?: boolean }) {
 }
 
 function HeaderFC(props: IHeaderProps) {
-  const {
-    isMobile,
-    changeAddTemplateSliderShow,
-    backgroundSetData,
-    pageData,
-    changeBackgroundSetData,
-    changePageData,
-    changeEditorSliderShow,
-    changeActiveTempId,
-    savePageHtml,
-  } = props
+  const { isMobile } = props
+  // 数据Key值
+  const pageDataKey = useMemo(
+    () =>
+      isMobile ? 'editorContainerMobileReducer' : 'editorContainerReducer',
+    [isMobile]
+  )
+
+  // store
+  const store = useStore()
+  const dispatch = useDispatch()
+  // redux-state
+  // const abc = createSelector((state: IPageState) => state[pageDataKey])
+  const pageData = useSelector(
+    (state: IPageState) => state[pageDataKey],
+    (left, right) => {
+      const l = JSON.stringify(left)
+      const r = JSON.stringify(right)
+      return l === r
+    }
+  )
+  const backgroundSetData = useSelector(
+    ({ backgroundSetReducer }: IPageState) => backgroundSetReducer
+  )
+  // redux-dispatch
+  const savePageHtml = useCallback(() => {
+    const action = isMobile ? saveMobilePageHtml() : savePageHtmlAction()
+    dispatch(action)
+  }, [dispatch, isMobile])
+  const changeActiveTempId = useCallback(
+    (activeTempId: string) => {
+      const action = isMobile
+        ? changeMobileActiveTempId
+        : changeActiveTempIdAction
+      dispatch(action(activeTempId))
+    },
+    [dispatch, isMobile]
+  )
+  const changeEditorSliderShow = useCallback(
+    (isShow: boolean) => dispatch(changeEditorSliderShowAction(isShow)),
+    [dispatch]
+  )
+  const changePageData = useCallback(
+    (pageData: IPageModel) => {
+      const action = isMobile ? changeMobilePageData : changePageDataAction
+      dispatch(action(pageData))
+    },
+    [dispatch, isMobile]
+  )
+  const changeAddTemplateSliderShow = useCallback(
+    (isShow: boolean) => dispatch(changeAddTemplateSliderShowAction(isShow)),
+    [dispatch]
+  )
+  const changeBackgroundSetData = useCallback(
+    (backgroundSet: IBackgroundSetModel) =>
+      dispatch(changeBackgroundSetDataAction(backgroundSet)),
+    [dispatch]
+  )
+  // state
   const [arrowActive, setArrowActive] = useState(false)
   const { search } = useLocation()
   const { specialId, tempId } = useParams()
@@ -102,10 +142,32 @@ function HeaderFC(props: IHeaderProps) {
   const isShowGetHistoryBtn = useMemo(() => search.includes('history=1'), [
     search,
   ])
+
+  // 获取最新pageData
+  const getNewPageData = useCallback(() => store.getState()[pageDataKey], [
+    pageDataKey,
+    store,
+  ])
+
+  // events
+  // 处理保存页面动作
+  const handleSavePageAction = useCallback(() => {
+    changeEditorSliderShow!(false) // 关闭编辑侧滑栏
+    changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
+    changeActiveTempId!('') // 去除遮罩编辑样式
+    savePageHtml!() // 保存网页html代码
+  }, [
+    changeActiveTempId,
+    changeAddTemplateSliderShow,
+    changeEditorSliderShow,
+    savePageHtml,
+  ])
+
   // 打开新增模块侧滑栏
-  const openAddTemplateSlider = useCallback(() => {
-    changeAddTemplateSliderShow!(true)
-  }, [changeAddTemplateSliderShow])
+  const openAddTemplateSlider = useCallback(
+    () => changeAddTemplateSliderShow!(true),
+    [changeAddTemplateSliderShow]
+  )
 
   // 设置网页背景
   const setPageBackground = useCallback(() => {
@@ -115,9 +177,30 @@ function HeaderFC(props: IHeaderProps) {
     changeBackgroundSetData!(backgroundSetData!)
   }, [backgroundSetData, changeBackgroundSetData, pageData])
 
+  // modal封装
+  const modalConfirm = useCallback((opts: ModalFuncProps) => {
+    return new Promise((res, rej) => {
+      Modal.confirm(
+        Object.assign(
+          {
+            title: '温馨提示',
+            icon: <ExclamationCircleOutlined />,
+            centered: true,
+            content: '确定进行此操作嘛？',
+            getContainer: false,
+            okText: '确认',
+            cancelText: '取消',
+            onOk: () => res(true),
+          },
+          opts
+        )
+      )
+    })
+  }, [])
+
   // 同步PC端内容
-  const synchronizePCContent = async () => {
-    const res = await ModalConfirm({
+  const synchronizePCContent = useCallback(async () => {
+    const res = await modalConfirm({
       title: '同步提示',
       content: '确定将电脑内容同步到此吗？',
     })
@@ -134,35 +217,42 @@ function HeaderFC(props: IHeaderProps) {
           item.type === TemplateType.LeftPictureRightText ||
           item.type === TemplateType.LeftTextRightPicture
         ) {
-          ; (item.tempData as IPictureTextModel).picWidthPercent = 100
-            ; (item.tempData as IPictureTextModel).titleTextList.forEach(
-              (item) => {
-                item.titleFontSize = 14
-              }
-            )
+          ;(item.tempData as IPictureTextModel).picWidthPercent = 100
+          ;(item.tempData as IPictureTextModel).titleTextList.forEach(
+            (item) => {
+              item.titleFontSize = 14
+            }
+          )
         }
       })
-      await changePageData!(pageData)
-      await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
-      await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
+      changePageData!(pageData)
+      changeEditorSliderShow!(false) // 关闭编辑侧滑栏
+      changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
       changeActiveTempId!('') // 去除遮罩编辑样式
     } catch (e) {
       console.warn('模板渲染错误：', e)
       message.error('同步电脑端专题网页解析错误！')
     }
-  }
+  }, [
+    changeActiveTempId,
+    changeAddTemplateSliderShow,
+    changeEditorSliderShow,
+    changePageData,
+    modalConfirm,
+    specialId,
+  ])
 
   // 更新模板
-  async function updateTemplate() {
-    const res = await ModalConfirm({
+  const updateTemplate = useCallback(async () => {
+    const res = await modalConfirm({
       title: '更新提示',
       content: '确定更新此模板吗？',
     })
     if (!res) return
     const key = 'updateTemplate'
     message.loading({ content: '正在更新模板...', key })
-    await handleSavePageAction()
-    const Content = JSON.stringify(pageData)
+    handleSavePageAction()
+    const Content = JSON.stringify(getNewPageData())
     await updateTemplateData({
       TempId: Number(tempId),
       ContentH5: Content,
@@ -170,27 +260,19 @@ function HeaderFC(props: IHeaderProps) {
       EditType: +!!isMobile + 1, // 2 | 1
     })
     message.success({ content: '更新模板成功！', key })
-  }
-
-  // 处理保存页面动作
-  const handleSavePageAction = async () => {
-    await changeEditorSliderShow!(false) // 关闭编辑侧滑栏
-    await changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
-    await changeActiveTempId!('') // 去除遮罩编辑样式
-    await savePageHtml!() // 保存网页html代码
-  }
+  }, [getNewPageData, handleSavePageAction, isMobile, modalConfirm, tempId])
 
   // 保存至专题网页数据
-  const saveSpecialPageData = async () => {
-    const res = await ModalConfirm({
+  const saveSpecialPageData = useCallback(async () => {
+    const res = await modalConfirm({
       title: '保存提示',
       content: '确定保存此专题网页吗？',
     })
     if (!res) return
     const key = 'savePageHtml'
     message.loading({ content: '正在保存页面...', key })
-    await handleSavePageAction()
-    const Content = JSON.stringify(pageData)
+    handleSavePageAction()
+    const Content = JSON.stringify(getNewPageData())
     await updateSpecialContent({
       SpecialId: Number(specialId),
       ContentH5: Content,
@@ -198,12 +280,12 @@ function HeaderFC(props: IHeaderProps) {
       EditType: +!!isMobile + 1, // 2 | 1
     })
     message.success({ content: '保存页面成功！', key })
-  }
+  }, [getNewPageData, handleSavePageAction, isMobile, modalConfirm, specialId])
 
   // 跳转至预览页面
-  const jumpToPreview = async () => {
-    await handleSavePageAction()
-    const Content = JSON.stringify(pageData)
+  const jumpToPreview = useCallback(async () => {
+    handleSavePageAction()
+    const Content = JSON.stringify(getNewPageData())
     await savePreviewCache({
       SpecialId: Number(specialId),
       ContentH5: Content,
@@ -211,8 +293,7 @@ function HeaderFC(props: IHeaderProps) {
       EditType: +!!isMobile + 1, // 2 | 1
     })
     openWindow(`#/preview/${specialId}/${+!!isMobile}`)
-  }
-
+  }, [getNewPageData, handleSavePageAction, isMobile, specialId])
   const leftBtns: BtnProps[] = useMemo(() => {
     return [
       {
@@ -233,42 +314,51 @@ function HeaderFC(props: IHeaderProps) {
       },
     ]
   }, [isShowGetHistoryBtn, openAddTemplateSlider, setPageBackground])
-  const rightBtns: BtnProps[] = [
-    {
-      value: '将电脑内容同步到此',
-      props: { type: 'default', shape: 'round' },
-      handleClick: synchronizePCContent,
-      show: !!isMobile,
-    },
-    {
-      value: '保存',
-      props: { type: 'primary', shape: 'round' },
-      handleClick: saveSpecialPageData,
-    },
-    {
-      value: '保存为模板',
-      props: { type: 'primary', shape: 'round' },
-      handleClick: updateTemplate,
-      show: isShowSaveTempBtn,
-    },
-    {
-      value: '预览',
-      props: { type: 'default', shape: 'round' },
-      handleClick: jumpToPreview,
-    },
-    {
-      value: (
-        <a
-          href="https://docs.qq.com/doc/DRmtBV21udnJMT0h1"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          帮助说明
-        </a>
-      ),
-      props: { type: 'link' },
-    },
-  ]
+  const rightBtns: BtnProps[] = useMemo(() => {
+    return [
+      {
+        value: '将电脑内容同步到此',
+        props: { type: 'default', shape: 'round' },
+        handleClick: synchronizePCContent,
+        show: !!isMobile,
+      },
+      {
+        value: '保存',
+        props: { type: 'primary', shape: 'round' },
+        handleClick: saveSpecialPageData,
+      },
+      {
+        value: '保存为模板',
+        props: { type: 'primary', shape: 'round' },
+        handleClick: updateTemplate,
+        show: isShowSaveTempBtn,
+      },
+      {
+        value: '预览',
+        props: { type: 'default', shape: 'round' },
+        handleClick: jumpToPreview,
+      },
+      {
+        value: (
+          <a
+            href="https://docs.qq.com/doc/DRmtBV21udnJMT0h1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            帮助说明
+          </a>
+        ),
+        props: { type: 'link' },
+      },
+    ]
+  }, [
+    isMobile,
+    isShowSaveTempBtn,
+    jumpToPreview,
+    saveSpecialPageData,
+    synchronizePCContent,
+    updateTemplate,
+  ])
   const dropMenu = <DropMenu isMobile={isMobile} />
   const btnsDOM = (arr: BtnProps[]) =>
     arr.map((btn: BtnProps) => {
@@ -319,71 +409,4 @@ function HeaderFC(props: IHeaderProps) {
   )
 }
 
-function ModalConfirm(opts: ModalFuncProps) {
-  return new Promise((res, rej) => {
-    Modal.confirm(
-      Object.assign(
-        {
-          title: '温馨提示',
-          icon: <ExclamationCircleOutlined />,
-          centered: true,
-          content: '确定进行此操作嘛？',
-          getContainer: false,
-          okText: '确认',
-          cancelText: '取消',
-          onOk: () => res(true),
-        },
-        opts
-      )
-    )
-  })
-}
-
-const mapStateToProps = (state: IPageState, ownProps: IHeaderProps) => {
-  return {
-    backgroundSetData: state.backgroundSetReducer,
-    pageData: ownProps.isMobile
-      ? state.editorContainerMobileReducer
-      : state.editorContainerReducer,
-  }
-}
-
-const mapDispatchToProps = (
-  dispatch: Dispatch<Action>,
-  ownProps: IHeaderProps
-) => {
-  return {
-    changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {
-      dispatch(changeBackgroundSetData(backgroundSet))
-    },
-    async changeEditorSliderShow(isShow: boolean) {
-      await dispatch(changeEditorSliderShow(isShow))
-    },
-    async changeActiveTempId(activeTempId: string) {
-      if (ownProps.isMobile) {
-        await dispatch(changeMobileActiveTempId(activeTempId))
-      } else {
-        await dispatch(changeActiveTempId(activeTempId))
-      }
-    },
-    async savePageHtml() {
-      if (ownProps.isMobile) {
-        await dispatch(saveMobilePageHtml())
-      } else {
-        await dispatch(savePageHtml())
-      }
-    },
-    async changeAddTemplateSliderShow(isShow: boolean) {
-      await dispatch(changeAddTemplateSliderShow(isShow))
-    },
-    async changePageData(pageData: IPageModel) {
-      if (ownProps.isMobile) {
-        await dispatch(changeMobilePageData(pageData))
-      } else {
-        await dispatch(changePageData(pageData))
-      }
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderFC)
+export default HeaderFC
