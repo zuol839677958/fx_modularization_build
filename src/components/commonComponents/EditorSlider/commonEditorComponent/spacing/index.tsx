@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { Row, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IPageState, ITemplateModel } from '@/store/data'
@@ -16,6 +16,13 @@ interface ISpacingProps {
 
 const Spacing: FC<ISpacingProps> = props => {
   const { data, allTempData, changeTempData } = props
+  const [topSpacing, setTopSpacing] = useState<number>(data.topSpacing || 0)
+  const [bottomSpacing, setBottomSpacing] = useState<number>(data.bottomSpacing || 0)
+
+  // useEffect(() => {
+  //   setTopSpacing(data.topSpacing || 0)
+  //   setBottomSpacing(data.bottomSpacing || 0)
+  // }, [data.bottomSpacing, data.topSpacing])
 
   /**
    * 更新模板间距
@@ -23,6 +30,7 @@ const Spacing: FC<ISpacingProps> = props => {
    * @param isTopSpacing 是否为模板上边距更改
    */
   const changeTempSpacing = (value: number, isTopSpacing: boolean) => {
+
     if (isTopSpacing) data.topSpacing = value
     else data.bottomSpacing = value
     updateCurrentTempData(data, allTempData!)
@@ -37,8 +45,9 @@ const Spacing: FC<ISpacingProps> = props => {
           style={{ width: '100%' }}
           min={0}
           max={200}
-          value={data.topSpacing}
-          onChange={(value: number) => changeTempSpacing(value, true)}
+          value={topSpacing}
+          onChange={(value: number) => setTopSpacing(value)}
+          onAfterChange={(value: number) => changeTempSpacing(value, true)}
         />
       </Row>
       <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
@@ -47,8 +56,9 @@ const Spacing: FC<ISpacingProps> = props => {
           style={{ width: '100%' }}
           min={0}
           max={200}
-          value={data.bottomSpacing}
-          onChange={(value: number) => changeTempSpacing(value, false)}
+          value={bottomSpacing}
+          onChange={(value: number) => setBottomSpacing(value)}
+          onAfterChange={(value: number) => changeTempSpacing(value, false)}
         />
       </Row>
     </>

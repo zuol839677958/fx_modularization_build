@@ -9,8 +9,8 @@ import MobilePreview from './components/MobilePreview'
 import './index.less'
 
 const Preview: FC<RouteComponentProps> = props => {
-  const [isWeb, setIsWeb] = useState<boolean>(true)
   const { specialId, isMobile } = useParams()
+  const [isWeb, setIsWeb] = useState<boolean>(!Number(isMobile))
 
   const previewRoutesParams = getSpecialPreviewRouteParams(specialId)
   const specialLinkUrl = `${getSpecialPreviewUrl()}?${previewRoutesParams}`
@@ -20,10 +20,6 @@ const Preview: FC<RouteComponentProps> = props => {
   const isDisplayMobile = useMemo(() => (!isWeb ? 'block' : 'none'), [isWeb])
   const webTabActive = useMemo(() => (isWeb ? 'span_active' : ''), [isWeb])
   const mobileTabActive = useMemo(() => (isWeb ? '' : 'i_active'), [isWeb])
-
-  useEffect(() => {
-    setIsWeb(!Number(isMobile))
-  }, [isMobile])
 
   return (
     <div className="preview_content">
