@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react'
+import React, { Fragment } from 'react'
 import MasterTemplate, { IMasterTemplateState, IRenderMaskParams, IMasterTemplateProps } from '../MasterTemplate'
 import { IMorePictureModel } from '@/store/data'
 
@@ -72,4 +72,4 @@ class MorePicture extends MasterTemplate<IMorePictureProps> {
   }
 }
 
-export default memo(MorePicture)
+export default MorePicture

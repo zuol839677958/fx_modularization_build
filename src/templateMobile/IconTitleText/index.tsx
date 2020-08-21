@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react'
+import React, { FC } from 'react'
 import { IIconTitleTextModel } from '@/store/data'
 import { getIsShowList, initMobileTemplatePositionStyle } from '@/utils'
 
@@ -34,4 +34,4 @@ const IconTitleText: FC<IconTitleTextProps> = props => {
   )
 }
 
-export default memo(IconTitleText)
+export default IconTitleText

@@ -1,5 +1,5 @@
 
-import React, { CSSProperties, memo } from 'react'
+import React, { CSSProperties } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { IShareModel } from '@/store/data'
 import { TemplatePositionType } from '@/store/state/editor.state'
@@ -137,4 +137,4 @@ class Share extends MasterTemplate<IShareProps> {
   }
 }
 
-export default memo(Share)
+export default Share

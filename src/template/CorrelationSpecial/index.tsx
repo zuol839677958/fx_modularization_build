@@ -1,5 +1,5 @@
 
-import React, { Fragment, memo } from 'react'
+import React, { Fragment } from 'react'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { ICorrelationSpecialModel } from '@/store/data'
 import { getSepecialLinkUrl } from '@/axios/env'
@@ -86,4 +86,4 @@ class CorrelationSpecial extends MasterTemplate<ICorrelationSpecialProps> {
   }
 }
 
-export default memo(CorrelationSpecial)
+export default CorrelationSpecial

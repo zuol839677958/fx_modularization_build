@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react'
+import React, { Fragment } from 'react'
 import { IBannerModel, IBannerImageModel, IBannerVideoModel } from '@/store/data'
 import MasterTemplate, { IMasterTemplateProps, IMasterTemplateState, IRenderMaskParams } from '../MasterTemplate'
 import { BannerType } from '@/store/state/editor.state'
@@ -108,4 +108,4 @@ class Banner extends MasterTemplate<IBannerProps> {
   }
 }
 
-export default memo(Banner)
+export default Banner

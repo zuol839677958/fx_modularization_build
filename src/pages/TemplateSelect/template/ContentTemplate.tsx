@@ -1,5 +1,5 @@
 import RenderTemplateList from "./ItemTemplate";
-import React, { createContext, useEffect, useState, memo } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import TipTemplate from "./TipTemplate";
 import PaginationTemplate from "./PaginationTemplate";
 import { PageResponse, TemplateResponseModel } from "@/axios/data";
@@ -49,4 +49,4 @@ function ContentTempate() {
     </div>)
 }
 
-export default memo(ContentTempate);
+export default ContentTempate;

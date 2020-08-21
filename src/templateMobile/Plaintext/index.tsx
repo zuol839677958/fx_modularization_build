@@ -1,4 +1,4 @@
-import React, { FC, useMemo, memo } from 'react'
+import React, { FC, useMemo } from 'react'
 import { IPlaintextModel } from '@/store/data'
 
 import './index.less'
@@ -19,4 +19,4 @@ const Plaintext: FC<IPlaintextProps> = props => {
   }, [data.fontColor, data.textHtml])
 }
 
-export default memo(Plaintext)
+export default Plaintext

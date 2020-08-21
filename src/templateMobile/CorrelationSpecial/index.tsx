@@ -1,4 +1,4 @@
-import React, { FC, useMemo,useCallback, memo } from 'react'
+import React, { FC, useMemo,useCallback } from 'react'
 import { ICorrelationSpecialModel } from '@/store/data'
 
 import SpecialItem from './components/SpecialItem'
@@ -52,4 +52,4 @@ const CorrelationSpecial: FC<ICorrelationSpecialProps> = props => {
   ), [fontColor, handleSpecialPaging])
 }
 
-export default memo(CorrelationSpecial)
+export default CorrelationSpecial
