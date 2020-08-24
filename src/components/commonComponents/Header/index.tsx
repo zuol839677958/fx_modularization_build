@@ -85,14 +85,7 @@ function HeaderFC(props: IHeaderProps) {
   const store = useStore()
   const dispatch = useDispatch()
   // redux-state
-  const pageData = useSelector(
-    (state: IPageState) => state[pageDataKey],
-    (left, right) => {
-      const l = JSON.stringify(left)
-      const r = JSON.stringify(right)
-      return l === r
-    }
-  )
+  const pageData = useSelector((state: IPageState) => state[pageDataKey])
   const backgroundSetData = useSelector(
     ({ backgroundSetReducer }: IPageState) => backgroundSetReducer
   )
@@ -169,11 +162,11 @@ function HeaderFC(props: IHeaderProps) {
 
   // 设置网页背景
   const setPageBackground = useCallback(() => {
-    Object.assign(backgroundSetData, pageData?.background)
+    Object.assign(backgroundSetData, pageData.background)
     backgroundSetData!.tempId = ''
     backgroundSetData!.isShow = true
     changeBackgroundSetData!(backgroundSetData!)
-  }, [backgroundSetData, changeBackgroundSetData, pageData])
+  }, [backgroundSetData, changeBackgroundSetData, pageData.background])
 
   // modal封装
   const modalConfirm = useCallback((opts: ModalFuncProps) => {
