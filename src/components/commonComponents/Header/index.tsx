@@ -33,7 +33,6 @@ import { TemplateType } from '@/store/state/editor.state'
 import { openWindow } from '@/utils'
 import './index.less'
 import { ModalFuncProps } from 'antd/lib/modal/Modal'
-// import {createSelector} from 'reselect'
 
 interface IHeaderProps extends RouteComponentProps {
   isMobile?: boolean
@@ -86,7 +85,6 @@ function HeaderFC(props: IHeaderProps) {
   const store = useStore()
   const dispatch = useDispatch()
   // redux-state
-  // const abc = createSelector((state: IPageState) => state[pageDataKey])
   const pageData = useSelector(
     (state: IPageState) => state[pageDataKey],
     (left, right) => {
