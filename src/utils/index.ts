@@ -369,19 +369,17 @@ const initTempCss = (
 
 // 渲染模板间距
 const initTempSpacing = (
-  topSpacing?: number,
-  bottomSpacing?: number,
+  topSpacing: number = 0,
+  bottomSpacing: number = 0,
   isMobile?: boolean
 ) => {
   const bgCss: CSSProperties = {}
-  if (topSpacing)
-    bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${
-      isMobile ? 'rem' : 'px'
-      }`
-  if (bottomSpacing)
-    bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${
-      isMobile ? 'rem' : 'px'
-      }`
+  bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${
+    isMobile ? 'rem' : 'px'
+    }`
+  bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${
+    isMobile ? 'rem' : 'px'
+    }`
   return bgCss
 }
 

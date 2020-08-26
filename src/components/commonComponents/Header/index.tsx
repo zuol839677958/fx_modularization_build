@@ -168,6 +168,18 @@ function HeaderFC(props: IHeaderProps) {
     changeBackgroundSetData!(backgroundSetData!)
   }, [backgroundSetData, changeBackgroundSetData, pageData.background])
 
+  // 获取历史更改
+  const getHistoryEditorPageData = useCallback(() => {
+    const historyPageData = window.localStorage.getItem(
+      `${isMobile ? 'pageMobileEditorData' : 'pageEditorData'}`
+    )
+    if (!historyPageData) return message.warning('没有历史更改记录')
+    changePageData!(JSON.parse(historyPageData) as IPageModel)
+    changeEditorSliderShow!(false) // 关闭编辑侧滑栏
+    changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
+    changeActiveTempId!('') // 去除遮罩编辑样式
+  }, [changeActiveTempId, changeAddTemplateSliderShow, changeEditorSliderShow, changePageData, isMobile])
+
   // modal封装
   const modalConfirm = useCallback((opts: ModalFuncProps) => {
     return new Promise((res, rej) => {
@@ -208,12 +220,12 @@ function HeaderFC(props: IHeaderProps) {
           item.type === TemplateType.LeftPictureRightText ||
           item.type === TemplateType.LeftTextRightPicture
         ) {
-          ;(item.tempData as IPictureTextModel).picWidthPercent = 100
-          ;(item.tempData as IPictureTextModel).titleTextList.forEach(
-            (item) => {
-              item.titleFontSize = 14
-            }
-          )
+          ; (item.tempData as IPictureTextModel).picWidthPercent = 100
+            ; (item.tempData as IPictureTextModel).titleTextList.forEach(
+              (item) => {
+                item.titleFontSize = 14
+              }
+            )
         }
       })
       changePageData!(pageData)
@@ -300,11 +312,11 @@ function HeaderFC(props: IHeaderProps) {
       {
         value: '获取历史更改',
         props: { type: 'default', shape: 'round' },
-        handleClick: setPageBackground,
+        handleClick: getHistoryEditorPageData,
         show: isShowGetHistoryBtn,
       },
     ]
-  }, [isShowGetHistoryBtn, openAddTemplateSlider, setPageBackground])
+  }, [getHistoryEditorPageData, isShowGetHistoryBtn, openAddTemplateSlider, setPageBackground])
   const rightBtns: BtnProps[] = useMemo(() => {
     return [
       {
