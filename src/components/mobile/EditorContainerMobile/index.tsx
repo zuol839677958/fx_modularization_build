@@ -39,6 +39,7 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
     try {
       const { specialId } = match.params as { specialId: string }
       const res = await getSpeicalData(specialId)
+      if (!res) return message.warning('此专题没有任何H5内容！')
       const pageData = JSON.parse(res.ContentH5!) as IPageModel
       changeMobilePageData!(pageData)
       setLoading(false)
@@ -54,6 +55,7 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
     try {
       const { tempId } = match.params as { tempId: string }
       const res = await getTemplateDetail(Number(tempId))
+      if (!res) return message.warning('此模板没有任何H5内容！')
       const pageData = JSON.parse(res.ContentH5!) as IPageModel
       changeMobilePageData!(pageData)
       setLoading(false)
@@ -91,7 +93,6 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
     }
     return bgCss
   }
-
 
   return (
     <div className="mobile-editor"
