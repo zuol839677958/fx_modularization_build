@@ -87,6 +87,7 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
     try {
       const { specialId } = this.props.match.params as { specialId: string }
       const res = await getSpeicalData(specialId)
+      if (!res) return message.warning('此专题没有任何内容！')
       const { changePageData } = this.props
       changePageData!(JSON.parse(res.Content!))
       this.setState({ loading: false })
@@ -102,6 +103,7 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
     try {
       const { tempId } = this.props.match.params as { tempId: string }
       const res = await getTemplateDetail(Number(tempId))
+      if (!res) return message.warning('此模板没有任何内容！')
       const { changePageData } = this.props
       changePageData!(JSON.parse(res.Content!))
       this.setState({ loading: false })
@@ -156,9 +158,9 @@ class EditorContainer extends PureComponent<IEditorContainerProps, IEditorContai
               case TemplateType.CorrelationSpecial:
                 return <CorrelationSpecial key={tempData.id} {...masterProps} />
               case TemplateType.Audio:
-                 return <Audio key={tempData.id} {...masterProps} />
+                return <Audio key={tempData.id} {...masterProps} />
               case TemplateType.MorePicture:
-                 return <MorePicture  key={tempData.id} {...masterProps}/>
+                return <MorePicture key={tempData.id} {...masterProps} />
               default:
                 return <Fragment key={tempData.id}></Fragment>
             }
