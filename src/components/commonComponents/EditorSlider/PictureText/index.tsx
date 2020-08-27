@@ -4,11 +4,12 @@ import { Dispatch, Action } from 'redux'
 import { changeTempData } from '@/store/actions/editor.actions'
 import { connect } from 'react-redux'
 import { updateIconTitleTextItemShow, updateCurrentTempData, swapArray, deleteIconTitleTextItem, updateIconTitleTextItemTitle, updateIconTitleTextItemText, updateIconTitleTextItemTitleFontColor, updateIconTitleTextItemTextFontColor, updateIconTitleTextItemTitleBgType, updateIconTitleTextItemTitleBgColor, deepClone, updateIconTitleTextItemTitleBgImageUrl, insertItemToArray, updateIconTitleTextItemTitleFontSize } from '@/utils'
-import { message, Input, Row, Button, Radio, Slider } from 'antd'
+import { message, Input, Row, Button, Radio, Slider, Checkbox } from 'antd'
 import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 import { SketchPicker } from 'react-color'
 import { changeEditorSliderTab } from '@/store/actions/editor.slider.actions'
 import { changeMobileTempData } from '@/store/actions/editor.mobile.actions'
+import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 import TitleBack from '../commonEditorComponent/titleBack'
 import Draggable, { IDraggableData } from '../commonEditorComponent/draggable'
@@ -70,24 +71,37 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
         />
         <div className="editor_box" style={{ display: tabTypeIndex === 0 ? "block" : "none" }}>
           <Spacing data={data} isMobile={isMobile} />
-          <p>更换图片</p>
-          <AliyunOSSUpload
-            preImageUrl={data.tempData.picUrl}
-            handleUploadImageChange={this.changePictureUrl}
-          />
-          <p style={{ marginTop: 20 }}>图片宽度(%)</p>
-          <div className="spacing-box">
-            <Slider
-              style={{ width: '100%' }}
-              min={10}
-              max={100}
-              value={data.tempData.picWidthPercent}
-              onChange={this.changePictureWidthPercent}
-            />
-          </div>
           {
-            isMobile ? null
-              :
+            isMobile ?
+              <Checkbox
+                style={{ marginBottom: 20 }}
+                checked={!!data.tempData.isNotShowPic}
+                onChange={this.changeIsNotShowPicture}
+              >是否不显示图片</Checkbox>
+              : null
+          }
+          {
+            data.tempData.isNotShowPic ? null :
+              <Fragment>
+                <p>更换图片</p>
+                <AliyunOSSUpload
+                  preImageUrl={data.tempData.picUrl}
+                  handleUploadImageChange={this.changePictureUrl}
+                />
+                <p style={{ marginTop: 20 }}>图片宽度(%)</p>
+                <div className="spacing-box">
+                  <Slider
+                    style={{ width: '100%' }}
+                    min={10}
+                    max={100}
+                    value={data.tempData.picWidthPercent}
+                    onChange={this.changePictureWidthPercent}
+                  />
+                </div>
+              </Fragment>
+          }
+          {
+            isMobile ? null :
               <Fragment>
                 <p>图文间距(%)</p>
                 <div className="spacing-box">
@@ -234,6 +248,15 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.handleRichTextEditorModalVisible(false)
+  }
+
+  // 是否不显示图片
+  changeIsNotShowPicture = (e: CheckboxChangeEvent) => {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData
+    tempData.isNotShowPic = e.target.checked
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 更换图片

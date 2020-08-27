@@ -402,6 +402,16 @@ const initTitleBackground = (backgroundSet?: IBackgroundSetModel) => {
 }
 
 /**
+ *  计算移动端文字，需转换成rem 
+ * @param fontSize 字体大小
+ * @return {string | undefined} 字体大小rem单位
+ */
+const initMobileFontSize = (fontSize?: number) => {
+  if (!fontSize) return undefined
+  return `${(fontSize / 100).toFixed(3)}rem`
+}
+
+/**
  * 渲染标题间距
  * @param backgroundSet 标题背景
  */
@@ -466,6 +476,7 @@ export {
   initTemplatePositionStyle,
   initTempCss,
   initTitleBackground,
+  initMobileFontSize,
   initTitlePadding,
   openWindow,
   getSpecialPreviewRouteParams
