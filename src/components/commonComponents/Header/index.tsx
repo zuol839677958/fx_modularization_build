@@ -382,6 +382,7 @@ function HeaderFC(props: IHeaderProps) {
       <Space size={20} className="header-left">
         {leftBtnDOM}
         <Dropdown
+          overlayStyle={{ position: 'fixed', zIndex: 999 }}
           overlay={dropMenu}
           placement="bottomCenter"
           trigger={['click']}
