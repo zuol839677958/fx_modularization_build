@@ -1,9 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback, useMemo } from 'react'
 import { Button, Modal } from 'antd'
 import { CopyFilled, DeleteFilled, ArrowUpOutlined, ArrowDownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { IPageState, ITemplateModel, IBackgroundSetModel } from '@/store/data'
-import { Dispatch, Action } from 'redux'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import _ from 'lodash'
 import { changeMobileActiveTempId, changeMobileTempData } from '@/store/actions/editor.mobile.actions'
 import { deepClone, insertItemToArray, zIndexUp, zIndexDown } from '@/utils'
@@ -23,19 +22,14 @@ interface IActionBarProps {
 }
 
 const ActionBar: FC<IActionBarProps> = props => {
-  const {
-    mobileActiveTempId,
-    mobileAllTempData,
-    changeEditorSliderShow,
-    changeMobileActiveTempId,
-    changeMobileTempData,
-    changeBackgroundSetData
-  } = props
-  const tempIndex = _.findIndex(mobileAllTempData, item => item.id === mobileActiveTempId)
-  const tempData = _.find(mobileAllTempData, item => item.id === mobileActiveTempId)
+  const { activeTempId, allTempData } = useSelector((state: IPageState) => state.editorContainerMobileReducer)
+  const dispatch = useDispatch()
+
+  const tempIndex = _.findIndex(allTempData, item => item.id === activeTempId)
+  const tempData = _.find(allTempData, item => item.id === activeTempId)
 
   // 复制模块
-  const copyTemplate = () => {
+  const copyTemplate = useCallback(() => {
     Modal.confirm({
       title: '复制提示',
       icon: <ExclamationCircleOutlined />,
@@ -45,16 +39,16 @@ const ActionBar: FC<IActionBarProps> = props => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        const copyTemp = deepClone(_.filter(mobileAllTempData, item => item.id === mobileActiveTempId)[0])
+        const copyTemp = deepClone(_.filter(allTempData, item => item.id === activeTempId)[0])
         copyTemp.id = `${copyTemp.id.split('_')[0]}_${Date.now()}`
-        insertItemToArray(mobileAllTempData!, tempIndex, copyTemp)
-        changeMobileTempData!(mobileAllTempData!)
+        insertItemToArray(allTempData!, tempIndex, copyTemp)
+        dispatch(changeMobileTempData!(allTempData!))
       }
     })
-  }
+  }, [activeTempId, allTempData, dispatch, tempIndex])
 
   // 删除模块
-  const deleteTemplate = () => {
+  const deleteTemplate = useCallback(() => {
     Modal.confirm({
       title: '删除提示',
       icon: <ExclamationCircleOutlined />,
@@ -64,15 +58,15 @@ const ActionBar: FC<IActionBarProps> = props => {
       okText: '确认',
       cancelText: '取消',
       onOk: () => {
-        changeMobileTempData!(_.filter(mobileAllTempData, item => item.id !== mobileActiveTempId))
-        changeMobileActiveTempId!('')
-        changeEditorSliderShow!(false)
+        dispatch(changeMobileTempData!(_.filter(allTempData, item => item.id !== activeTempId)))
+        dispatch(changeMobileActiveTempId!(''))
+        dispatch(changeEditorSliderShow!(false))
       }
     })
-  }
+  }, [activeTempId, allTempData, dispatch])
 
   // 设置模块背景
-  const setTempBackground = () => {
+  const setTempBackground = useCallback(() => {
     const backgroundSet: IBackgroundSetModel = {
       tempId: tempData?.id,
       isShow: true,
@@ -80,24 +74,24 @@ const ActionBar: FC<IActionBarProps> = props => {
       bgColor: tempData?.background?.bgColor,
       bgImageUrl: tempData?.background?.bgImageUrl
     }
-    changeBackgroundSetData!(backgroundSet)
-  }
+    dispatch(changeBackgroundSetData!(backgroundSet))
+  }, [dispatch, tempData])
 
   // 向上移动模块
-  const moveUpTemplate = () => {
-    const activeTempId = zIndexUp(mobileAllTempData!, tempIndex, true)
-    if (activeTempId) changeMobileActiveTempId!(activeTempId)
-    changeMobileTempData!(mobileAllTempData!)
-  }
+  const moveUpTemplate = useCallback(() => {
+    const activeTempId = zIndexUp(allTempData!, tempIndex, true)
+    if (activeTempId) dispatch(changeMobileActiveTempId!(activeTempId))
+    dispatch(changeMobileTempData!(allTempData!))
+  }, [allTempData, dispatch, tempIndex])
 
   // 向下移动模块
-  const moveDownTemplate = () => {
-    const activeTempId = zIndexDown(mobileAllTempData!, tempIndex, mobileAllTempData!.length, true)
-    if (activeTempId) changeMobileActiveTempId!(activeTempId)
-    changeMobileTempData!(mobileAllTempData!)
-  }
+  const moveDownTemplate = useCallback(() => {
+    const activeTempId = zIndexDown(allTempData!, tempIndex, allTempData!.length, true)
+    if (activeTempId) dispatch(changeMobileActiveTempId!(activeTempId))
+    dispatch(changeMobileTempData!(allTempData!))
+  }, [allTempData, dispatch, tempIndex])
 
-  return (
+  return useMemo(() => (
     <div className="mobile-action">
       <Button type="primary" shape="round" icon={<CopyFilled />}
         style={{ marginBottom: 10 }}
@@ -118,32 +112,12 @@ const ActionBar: FC<IActionBarProps> = props => {
           onClick={moveUpTemplate}
         ></Button>
         <Button type="primary" shape="circle" icon={<ArrowDownOutlined />}
-          disabled={tempIndex === mobileAllTempData!.length - 1}
+          disabled={tempIndex === allTempData!.length - 1}
           onClick={moveDownTemplate}
         ></Button>
       </div>
     </div>
-  )
+  ), [allTempData, copyTemplate, deleteTemplate, moveDownTemplate, moveUpTemplate, setTempBackground, tempIndex])
 }
 
-const mapStateToProps = (state: IPageState, ownProps: IActionBarProps) => ({
-  mobileActiveTempId: state.editorContainerMobileReducer.activeTempId,
-  mobileAllTempData: state.editorContainerMobileReducer.allTempData
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeEditorSliderShow(isShow: boolean) {
-    dispatch(changeEditorSliderShow(isShow))
-  },
-  changeMobileActiveTempId(activeTempId: string) {
-    dispatch(changeMobileActiveTempId(activeTempId))
-  },
-  changeMobileTempData(allTempData: ITemplateModel<any>[]) {
-    dispatch(changeMobileTempData(allTempData))
-  },
-  changeBackgroundSetData(backgroundSet: IBackgroundSetModel) {
-    dispatch(changeBackgroundSetData(backgroundSet))
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActionBar)
+export default ActionBar

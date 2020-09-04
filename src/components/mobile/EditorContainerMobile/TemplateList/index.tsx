@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import React, { FC, useState, useCallback } from 'react'
 import {
   IPageState,
   ITemplateModel,
@@ -9,12 +9,10 @@ import {
   IPictureTextModel,
   ICorrelationSpecialModel,
 } from '@/store/data'
-import { RouteComponentProps } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getIsShowList, initTempCss } from '@/utils'
 import { TemplateType } from '@/store/state/editor.state'
 import { changeMobileActiveTempId } from '@/store/actions/editor.mobile.actions'
-import { Dispatch, Action } from 'redux'
 import {
   changeEditorSliderShow,
   changeEditorSliderTab,
@@ -32,49 +30,34 @@ import PictureText from '@/templateMobile/PictureText'
 import CorrelationSpecial from '@/templateMobile/CorrelationSpecial'
 import './index.less'
 
-interface ITemplateListProps extends RouteComponentProps {
-  mobileActiveTempId?: string
-  mobileAllTempData?: ITemplateModel<any>[]
-  changeMobileActiveTempId?: (activeTempId: string) => void
-  changeEditorSliderShow?: (isShow: boolean) => void
-  changeAddTemplateSliderShow?: (isShow: boolean) => void
-  changeEditorSliderTab?: (tabTypeIndex: number) => void
-}
-
-const TemplateList: FC<ITemplateListProps> = (props) => {
+const TemplateList: FC = () => {
   const [isShowMaskTempId, setIsShowMaskTempId] = useState<string>('')
-  const {
-    mobileActiveTempId,
-    mobileAllTempData,
-    changeMobileActiveTempId,
-    changeEditorSliderShow,
-    changeAddTemplateSliderShow,
-    changeEditorSliderTab,
-  } = props
+  const { activeTempId, allTempData } = useSelector((state: IPageState) => state.editorContainerMobileReducer)
+  const dispatch = useDispatch()
 
   // 鼠标移入模板处理
-  const handleTempMouseEnter = (tempId: string) => {
+  const handleTempMouseEnter = useCallback((tempId: string) => {
     setIsShowMaskTempId(tempId)
-  }
+  }, [])
 
   // 鼠标移出模板处理
-  const handleTempMouseLeave = () => {
+  const handleTempMouseLeave = useCallback(() => {
     setIsShowMaskTempId('')
-  }
+  }, [])
 
   // 鼠标点击模板处理
-  const handleTempClick = (tempId: string) => {
-    changeMobileActiveTempId!(tempId)
-    changeEditorSliderShow!(true)
-    changeAddTemplateSliderShow!(false)
-    changeEditorSliderTab!(0)
-  }
+  const handleTempClick = useCallback((tempId: string) => {
+    dispatch(changeMobileActiveTempId!(tempId))
+    dispatch(changeEditorSliderShow!(true))
+    dispatch(changeAddTemplateSliderShow!(false))
+    dispatch(changeEditorSliderTab!(0))
+  }, [dispatch])
 
   /**
    * 渲染模板
    * @param tempData 模板数据
    */
-  const renderTemplate = (tempData: ITemplateModel<any>) => {
+  const renderTemplate = useCallback((tempData: ITemplateModel<any>) => {
     switch (tempData.type) {
       case TemplateType.Banner:
         return <Banner data={tempData.tempData as IBannerModel} />
@@ -99,10 +82,10 @@ const TemplateList: FC<ITemplateListProps> = (props) => {
       default:
         return null
     }
-  }
+  }, [])
 
   const filterMobileAllTempData = getIsShowList(
-    mobileAllTempData!
+    allTempData!
   ) as ITemplateModel<any>[]
   if (filterMobileAllTempData.length === 0) return null
 
@@ -125,33 +108,13 @@ const TemplateList: FC<ITemplateListProps> = (props) => {
         >
           {renderTemplate(tempData)}
           {isShowMaskTempId === tempData.id ||
-          mobileActiveTempId === tempData.id ? (
-            <MobileMask />
-          ) : null}
+            activeTempId === tempData.id ? (
+              <MobileMask />
+            ) : null}
         </div>
       ))}
     </>
   )
 }
 
-const mapStateToProps = (state: IPageState, ownProps: ITemplateListProps) => ({
-  mobileActiveTempId: state.editorContainerMobileReducer.activeTempId,
-  mobileAllTempData: state.editorContainerMobileReducer.allTempData,
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeMobileActiveTempId(activeTempId: string) {
-    dispatch(changeMobileActiveTempId(activeTempId))
-  },
-  changeEditorSliderShow(isShow: boolean) {
-    dispatch(changeEditorSliderShow(isShow))
-  },
-  changeAddTemplateSliderShow(isShow: boolean) {
-    dispatch(changeAddTemplateSliderShow(isShow))
-  },
-  changeEditorSliderTab(tabTypeIndex: number) {
-    dispatch(changeEditorSliderTab(tabTypeIndex))
-  },
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(memo(TemplateList))
+export default TemplateList
