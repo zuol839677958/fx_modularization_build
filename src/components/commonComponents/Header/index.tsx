@@ -16,7 +16,7 @@ import {
 } from '@/store/actions/editor.actions'
 import { changeEditorSliderShow as changeEditorSliderShowAction } from '@/store/actions/editor.slider.actions'
 import { changeAddTemplateSliderShow as changeAddTemplateSliderShowAction } from '@/store/actions/addTemplate.actions'
-import { RouteComponentProps, useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import {
   updateTemplateData,
   updateSpecialContent,
@@ -34,13 +34,10 @@ import { openWindow } from '@/utils'
 import './index.less'
 import { ModalFuncProps } from 'antd/lib/modal/Modal'
 
-interface IHeaderProps extends RouteComponentProps {
+interface IHeaderProps {
   isMobile?: boolean
 }
 
-interface IHeaderState {
-  arrowActive: boolean
-}
 interface BtnProps {
   value: any
   props: any
@@ -382,6 +379,7 @@ function HeaderFC(props: IHeaderProps) {
       <Space size={20} className="header-left">
         {leftBtnDOM}
         <Dropdown
+          overlayStyle={{ position: 'fixed', zIndex: 999 }}
           overlay={dropMenu}
           placement="bottomCenter"
           trigger={['click']}

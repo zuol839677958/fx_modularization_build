@@ -75,13 +75,13 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
             isMobile ?
               <Checkbox
                 style={{ marginBottom: 20 }}
-                checked={!!data.tempData.isNotShowPic}
-                onChange={this.changeIsNotShowPicture}
-              >是否不显示图片</Checkbox>
+                checked={!!data.tempData.isHidePic}
+                onChange={this.changeIsHidePicture}
+              >是否隐藏图片</Checkbox>
               : null
           }
           {
-            data.tempData.isNotShowPic ? null :
+            data.tempData.isHidePic ? null :
               <Fragment>
                 <p>更换图片</p>
                 <AliyunOSSUpload
@@ -250,11 +250,11 @@ class EditorPictureText extends PureComponent<IEditorPictureTextProps, IEditorPi
     this.handleRichTextEditorModalVisible(false)
   }
 
-  // 是否不显示图片
-  changeIsNotShowPicture = (e: CheckboxChangeEvent) => {
+  // 是否隐藏图片
+  changeIsHidePicture = (e: CheckboxChangeEvent) => {
     const { data, allTempData, changeTempData } = this.props
     const tempData = data.tempData
-    tempData.isNotShowPic = e.target.checked
+    tempData.isHidePic = e.target.checked
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
   }

@@ -11,7 +11,7 @@ class Home extends PureComponent<RouteComponentProps> {
   render() {
     return (
       <Fragment>
-        <Header {...this.props} />
+        <Header />
         <EditorSlider />
         <EditorContainer {...this.props} />
         <BackgroundSet />

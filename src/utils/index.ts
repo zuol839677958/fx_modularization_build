@@ -360,8 +360,7 @@ const initTempCss = (
       bgCss.backgroundColor = background.bgColor
       break
     case BackgroundSetType.BackgroundImage:
-      bgCss.background = `url(${background.bgImageUrl}) no-repeat center center`
-      bgCss.backgroundSize = 'cover'
+      bgCss.background = `url(${background.bgImageUrl}) center center / 100% 100% no-repeat`
       break
   }
   return bgCss
@@ -395,7 +394,7 @@ const initTitleBackground = (backgroundSet?: IBackgroundSetModel) => {
     case BackgroundSetType.PureColor:
       return backgroundSet.bgColor
     case BackgroundSetType.BackgroundImage:
-      return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
+      return `url(${backgroundSet.bgImageUrl}) center center / 100% 100% no-repeat`
     default:
       return ''
   }

@@ -3,20 +3,20 @@ import React, { FC, useMemo } from 'react'
 interface IImageItemProps {
   picUrl: string
   picWidthPercent?: number
-  isNotShowPic?: boolean
+  isHidePic?: boolean
 }
 
 const ImageItem: FC<IImageItemProps> = props => {
-  const { picUrl, picWidthPercent, isNotShowPic } = props
+  const { picUrl, picWidthPercent, isHidePic } = props
 
   return useMemo(() => (
-    isNotShowPic ? null :
+    isHidePic ? null :
       <div className="describe_img">
         <img src={picUrl} alt="" data-preview-src={picUrl} data-preview-group="1"
           style={{ width: `${picWidthPercent}%` }}
         />
       </div>
-  ), [isNotShowPic, picUrl, picWidthPercent])
+  ), [isHidePic, picUrl, picWidthPercent])
 }
 
 export default ImageItem
