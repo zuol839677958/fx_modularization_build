@@ -100,6 +100,7 @@ export interface IPictureTextModel {
   picUrl: string; // 图片链接
   picWidthPercent?: number // 图片宽度百分比
   spacingPercent?: number; // 图文间距
+  isHidePic?: boolean; // 是否隐藏图片
   titleTextList: IIconTitleTextModel[]; // 标题文字条目
 }
 

@@ -1,11 +1,10 @@
-import React, { FC, CSSProperties, useState, useEffect, useCallback } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
-import { IPageState, IBackgroundSetModel, IPageModel } from '@/store/data'
-import { connect } from 'react-redux'
+import React, { FC, CSSProperties, useState, useEffect, useCallback, useMemo } from 'react'
+import { useParams } from 'react-router-dom'
+import { IPageState, IPageModel } from '@/store/data'
+import { useDispatch, useSelector } from 'react-redux'
 import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 import { getSpeicalData, getTemplateDetail } from '@/axios/api'
 import { Spin, message } from 'antd'
-import { Dispatch, Action } from 'redux'
 import { changeMobilePageData } from '@/store/actions/editor.mobile.actions'
 
 import TemplateList from './TemplateList'
@@ -13,87 +12,75 @@ import ActionBar from '../MobileMask/ActionBar'
 
 import './index.less'
 
-interface IEditorContainerMobileProps extends RouteComponentProps {
-  mobileActiveTempId?: string
-  isShowSlider?: boolean
-  isShowAddTemplate?: boolean
-  generalMobilePageBackground?: IBackgroundSetModel
-  changeMobilePageData?: (pageData: IPageModel) => void
-}
-
-const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
+const EditorContainerMobile: FC = () => {
   const [loading, setLoading] = useState<boolean>(true)
+  const { activeTempId, background } = useSelector((state: IPageState) => state.editorContainerMobileReducer)
+  const { isShow: isShowSlider } = useSelector((state: IPageState) => state.editorSliderReducer)
+  const { isShow: isShowAddTemplate } = useSelector((state: IPageState) => state.addTemplateSliderReducer)
+  const { specialId, tempId, hasContent } = useParams()
+  const dispatch = useDispatch()
 
-  const {
-    mobileActiveTempId,
-    isShowSlider,
-    isShowAddTemplate,
-    history,
-    location,
-    match,
-    changeMobilePageData
-  } = props
+  const changeMobilePageDataHandler = useCallback((pageData: IPageModel) => {
+    dispatch(changeMobilePageData(pageData))
+  }, [dispatch])
 
   // 获取专题H5已编辑模板数据
   const getSpecialDetailData = useCallback(async () => {
     try {
-      const { specialId } = match.params as { specialId: string }
       const res = await getSpeicalData(specialId)
+      if (!res) return message.warning('此专题没有任何H5内容！')
       const pageData = JSON.parse(res.ContentH5!) as IPageModel
-      changeMobilePageData!(pageData)
+      changeMobilePageDataHandler!(pageData)
       setLoading(false)
     } catch (e) {
       console.warn('模板渲染错误：', e)
       message.error('专题H5网页解析错误！')
       setLoading(false)
     }
-  }, [changeMobilePageData, match.params])
+  }, [changeMobilePageDataHandler, specialId])
 
   // 获取H5模板数据
   const getTemplateDetailData = useCallback(async () => {
     try {
-      const { tempId } = match.params as { tempId: string }
       const res = await getTemplateDetail(Number(tempId))
+      if (!res) return message.warning('此模板没有任何H5内容！')
       const pageData = JSON.parse(res.ContentH5!) as IPageModel
-      changeMobilePageData!(pageData)
+      changeMobilePageDataHandler!(pageData)
       setLoading(false)
     } catch (e) {
       console.warn('模板渲染错误：', e)
       message.error('H5模板解析错误！')
       setLoading(false)
     }
-  }, [changeMobilePageData, match.params])
+  }, [changeMobilePageDataHandler, tempId])
 
   useEffect(() => {
-    const { hasContent } = match.params as { hasContent: string }
     if (Number(hasContent)) {
       getSpecialDetailData()
     } else {
       getTemplateDetailData()
     }
-  }, [getSpecialDetailData, getTemplateDetailData, match.params])
+  }, [getSpecialDetailData, getTemplateDetailData, hasContent])
 
   // 渲染H5网页背景
-  const initGeneralMobilePageBackground = () => {
+  const initGeneralMobilePageBackground = useCallback(() => {
     let bgCss: CSSProperties = {}
-    const { generalMobilePageBackground } = props
-    if (!generalMobilePageBackground!.bgType) return bgCss
-    switch (generalMobilePageBackground!.bgType) {
+    if (!background!.bgType) return bgCss
+    switch (background!.bgType) {
       case BackgroundSetType.NoneColor:
         break
       case BackgroundSetType.PureColor:
-        bgCss.backgroundColor = generalMobilePageBackground!.bgColor
+        bgCss.backgroundColor = background!.bgColor
         break
       case BackgroundSetType.BackgroundImage:
-        bgCss.background = `url(${generalMobilePageBackground!.bgImageUrl}) no-repeat center center`
+        bgCss.background = `url(${background!.bgImageUrl}) no-repeat center center`
         bgCss.backgroundSize = 'cover'
         break
     }
     return bgCss
-  }
+  }, [background])
 
-
-  return (
+  return useMemo(() => (
     <div className="mobile-editor"
       style={{ paddingLeft: isShowAddTemplate ? '400px' : isShowSlider ? "340px" : "0px" }}
     >
@@ -106,27 +93,14 @@ const EditorContainerMobile: FC<IEditorContainerMobileProps> = props => {
               </div>
               :
               <div id="generalMobilePage" style={initGeneralMobilePageBackground()}>
-                <TemplateList history={history} location={location} match={match} />
+                <TemplateList />
               </div>
           }
         </div>
-        {mobileActiveTempId ? <ActionBar /> : null}
+        {activeTempId ? <ActionBar /> : null}
       </div>
     </div>
-  )
+  ), [activeTempId, initGeneralMobilePageBackground, isShowAddTemplate, isShowSlider, loading])
 }
 
-const mapStateToProps = (state: IPageState, ownProps: IEditorContainerMobileProps) => ({
-  mobileActiveTempId: state.editorContainerMobileReducer.activeTempId,
-  isShowSlider: state.editorSliderReducer.isShow,
-  isShowAddTemplate: state.addTemplateSliderReducer.isShow,
-  generalMobilePageBackground: state.editorContainerMobileReducer.background
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => ({
-  changeMobilePageData(pageData: IPageModel) {
-    dispatch(changeMobilePageData(pageData))
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditorContainerMobile)
+export default EditorContainerMobile

@@ -16,7 +16,7 @@ import {
 } from '@/store/actions/editor.actions'
 import { changeEditorSliderShow as changeEditorSliderShowAction } from '@/store/actions/editor.slider.actions'
 import { changeAddTemplateSliderShow as changeAddTemplateSliderShowAction } from '@/store/actions/addTemplate.actions'
-import { RouteComponentProps, useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import {
   updateTemplateData,
   updateSpecialContent,
@@ -34,13 +34,10 @@ import { openWindow } from '@/utils'
 import './index.less'
 import { ModalFuncProps } from 'antd/lib/modal/Modal'
 
-interface IHeaderProps extends RouteComponentProps {
+interface IHeaderProps {
   isMobile?: boolean
 }
 
-interface IHeaderState {
-  arrowActive: boolean
-}
 interface BtnProps {
   value: any
   props: any
@@ -167,6 +164,18 @@ function HeaderFC(props: IHeaderProps) {
     backgroundSetData!.isShow = true
     changeBackgroundSetData!(backgroundSetData!)
   }, [backgroundSetData, changeBackgroundSetData, pageData.background])
+
+  // 获取历史更改
+  const getHistoryEditorPageData = useCallback(() => {
+    const historyPageData = window.localStorage.getItem(
+      `${isMobile ? 'pageMobileEditorData' : 'pageEditorData'}`
+    )
+    if (!historyPageData) return message.warning('没有历史更改记录')
+    changePageData!(JSON.parse(historyPageData) as IPageModel)
+    changeEditorSliderShow!(false) // 关闭编辑侧滑栏
+    changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
+    changeActiveTempId!('') // 去除遮罩编辑样式
+  }, [changeActiveTempId, changeAddTemplateSliderShow, changeEditorSliderShow, changePageData, isMobile])
 
   // modal封装
   const modalConfirm = useCallback((opts: ModalFuncProps) => {
@@ -300,11 +309,11 @@ function HeaderFC(props: IHeaderProps) {
       {
         value: '获取历史更改',
         props: { type: 'default', shape: 'round' },
-        handleClick: setPageBackground,
+        handleClick: getHistoryEditorPageData,
         show: isShowGetHistoryBtn,
       },
     ]
-  }, [isShowGetHistoryBtn, openAddTemplateSlider, setPageBackground])
+  }, [getHistoryEditorPageData, isShowGetHistoryBtn, openAddTemplateSlider, setPageBackground])
   const rightBtns: BtnProps[] = useMemo(() => {
     return [
       {
@@ -370,6 +379,7 @@ function HeaderFC(props: IHeaderProps) {
       <Space size={20} className="header-left">
         {leftBtnDOM}
         <Dropdown
+          overlayStyle={{ position: 'fixed', zIndex: 999 }}
           overlay={dropMenu}
           placement="bottomCenter"
           trigger={['click']}

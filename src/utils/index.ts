@@ -360,8 +360,7 @@ const initTempCss = (
       bgCss.backgroundColor = background.bgColor
       break
     case BackgroundSetType.BackgroundImage:
-      bgCss.background = `url(${background.bgImageUrl}) no-repeat center center`
-      bgCss.backgroundSize = 'cover'
+      bgCss.background = `url(${background.bgImageUrl}) center center / 100% 100% no-repeat`
       break
   }
   return bgCss
@@ -369,19 +368,17 @@ const initTempCss = (
 
 // 渲染模板间距
 const initTempSpacing = (
-  topSpacing?: number,
-  bottomSpacing?: number,
+  topSpacing: number = 0,
+  bottomSpacing: number = 0,
   isMobile?: boolean
 ) => {
   const bgCss: CSSProperties = {}
-  if (topSpacing)
-    bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${
-      isMobile ? 'rem' : 'px'
-      }`
-  if (bottomSpacing)
-    bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${
-      isMobile ? 'rem' : 'px'
-      }`
+  bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${
+    isMobile ? 'rem' : 'px'
+    }`
+  bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${
+    isMobile ? 'rem' : 'px'
+    }`
   return bgCss
 }
 
@@ -397,10 +394,20 @@ const initTitleBackground = (backgroundSet?: IBackgroundSetModel) => {
     case BackgroundSetType.PureColor:
       return backgroundSet.bgColor
     case BackgroundSetType.BackgroundImage:
-      return `url(${backgroundSet.bgImageUrl}) center center / cover no-repeat`
+      return `url(${backgroundSet.bgImageUrl}) center center / 100% 100% no-repeat`
     default:
       return ''
   }
+}
+
+/**
+ *  计算移动端文字，需转换成rem 
+ * @param fontSize 字体大小
+ * @return {string | undefined} 字体大小rem单位
+ */
+const initMobileFontSize = (fontSize?: number) => {
+  if (!fontSize) return undefined
+  return `${(fontSize / 100).toFixed(3)}rem`
 }
 
 /**
@@ -468,6 +475,7 @@ export {
   initTemplatePositionStyle,
   initTempCss,
   initTitleBackground,
+  initMobileFontSize,
   initTitlePadding,
   openWindow,
   getSpecialPreviewRouteParams

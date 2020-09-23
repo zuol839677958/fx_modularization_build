@@ -69,6 +69,7 @@ class IconTitleText extends MasterTemplate<IIconTitleTextProps> {
                 {tempData.hasIcon ? <img className="des_icon" src={tempData.iconUrl} alt={tempData.title} /> : null}
                 <span className="heading"
                   style={{
+                    fontSize: tempData.titleFontSize,
                     color: tempData.titleFontColor,
                     padding: initTitlePadding(tempData.background),
                     background: initTitleBackground(tempData.background)

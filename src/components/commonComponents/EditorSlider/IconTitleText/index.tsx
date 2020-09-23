@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment, Dispatch } from 'react'
-import { message, Input, Row, Radio, Button } from 'antd'
+import { message, Input, Row, Radio, Button, Slider } from 'antd'
 import { connect } from 'react-redux'
 import { IIconTitleTextModel, ITemplateModel, IPageState } from '@/store/data'
 import {
@@ -19,6 +19,7 @@ import {
   updateIconTitleTextIconIsShow,
   insertItemToArray,
   updateIconTitleTextPositionType,
+  updateIconTitleTextItemTitleFontSize,
 } from '@/utils'
 import TitleBack from '../commonEditorComponent/titleBack'
 import { Action } from 'redux'
@@ -66,7 +67,7 @@ enum FontColorChangeType {
 class EditorIconTitleText extends PureComponent<
   IEditorIconTitleTextProps,
   IEditorIconTitleTextState
-> {
+  > {
   state: IEditorIconTitleTextState = {
     sort: 1,
     topTitle: '图标标题文字模板编辑',
@@ -173,6 +174,16 @@ class EditorIconTitleText extends PureComponent<
                 }
               ></div>
             </div>
+          </Row>
+          <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
+            <p>修改标题字体大小</p>
+            <Slider
+              style={{ width: '100%' }}
+              min={10}
+              max={50}
+              value={editItemData?.titleFontSize}
+              onChange={this.changeItemTitleFontSize}
+            />
           </Row>
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>修改标题背景色</p>
@@ -295,6 +306,15 @@ class EditorIconTitleText extends PureComponent<
     updateCurrentTempData(data, allTempData!)
     changeTempData!(allTempData!)
     this.setState({ editItemData })
+  }
+
+  // 更改标题文字大小
+  changeItemTitleFontSize = (titleFontSize: number) => {
+    const { data, allTempData, changeTempData } = this.props
+    const { editItemIndex } = this.state
+    updateIconTitleTextItemTitleFontSize(titleFontSize, editItemIndex!, data.tempData)
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 更改文字内容文本

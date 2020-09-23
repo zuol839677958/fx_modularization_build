@@ -12,6 +12,7 @@ import TitleBack from '../commonEditorComponent/titleBack'
 import Spacing from '../commonEditorComponent/spacing'
 
 import './index.less'
+import { CheckboxChangeEvent } from 'antd/lib/checkbox'
 
 interface IEditorShareProps {
   data: ITemplateModel<IShareModel>
@@ -30,6 +31,11 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
         <TitleBack titleArrow={false} title='分享模板编辑' />
         <div className="editor_content">
           <Spacing data={data} />
+          {/* <Checkbox
+            style={{ marginBottom: 20 }}
+            checked={data.tempData.isTW}
+            onChange={this.changeIsTwShare}
+          >是否为台湾版</Checkbox> */}
           <Row style={{ marginBottom: 20, flexDirection: 'column' }}>
             <p>分享显示位置</p>
             <Radio.Group
@@ -51,6 +57,15 @@ class EditorShare extends PureComponent<IEditorShareProps, IEditorShareState> {
         </div>
       </Fragment>
     )
+  }
+
+  // 切换是否为台湾版分享
+  changeIsTwShare = (e: CheckboxChangeEvent) => {
+    const { data, allTempData, changeTempData } = this.props
+    const tempData = data.tempData
+    tempData.isTW = e.target.checked
+    updateCurrentTempData(data, allTempData!)
+    changeTempData!(allTempData!)
   }
 
   // 切换分享显示位置

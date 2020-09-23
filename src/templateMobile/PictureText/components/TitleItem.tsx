@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react'
 import { IBackgroundSetModel } from '@/store/data'
-import { initTitlePadding, initTitleBackground } from '@/utils'
+import { initTitlePadding, initTitleBackground, initMobileFontSize } from '@/utils'
 
 interface ITitleItemProps {
   title: string
@@ -15,7 +15,7 @@ const TitleItem: FC<ITitleItemProps> = props => {
   return useMemo(() => (
     <h3 className="title"
       style={{
-        fontSize: titleFontSize,
+        fontSize: initMobileFontSize(titleFontSize),
         color: titleFontColor,
         padding: initTitlePadding(background),
         background: initTitleBackground(background)

@@ -87,7 +87,8 @@ class AddTemplate extends Component<IAddTemplateProps, IAddTemplateState> {
             onClick={() => this.addTemplateModel(item.type)}
             key={index}
             src={item.tempImageUrl}
-            alt=""
+            title={item.name}
+            alt={item.name}
           />
         ))}
       </div>
