@@ -199,23 +199,23 @@ function HeaderFC(props: IHeaderProps) {
     try {
       const res = await getSpeicalData(specialId)
       const pageData = JSON.parse(res.Content!) as IPageModel
+      const filterModel = [TemplateType.Share, TemplateType.MorePicture]
+      const eachModel = [
+        TemplateType.LeftPictureRightText,
+        TemplateType.LeftTextRightPicture,
+      ]
       pageData.allTempData = pageData.allTempData.filter(
-        (item: ITemplateModel<any>) =>
-          ![TemplateType.Share, TemplateType.MorePicture].includes(item.type)
-      )
-      pageData.allTempData.forEach((item: ITemplateModel<any>) => {
-        if (
-          item.type === TemplateType.LeftPictureRightText ||
-          item.type === TemplateType.LeftTextRightPicture
-        ) {
-          ;(item.tempData as IPictureTextModel).picWidthPercent = 100
-          ;(item.tempData as IPictureTextModel).titleTextList.forEach(
-            (item) => {
-              item.titleFontSize = 14
-            }
-          )
+        (item: ITemplateModel<any>) => {
+          if (filterModel.includes(item.type)) return false
+          if (eachModel.includes(item.type)) {
+            ;(item.tempData as IPictureTextModel).picWidthPercent = 100
+            ;(item.tempData as IPictureTextModel).titleTextList.forEach(
+              (item) => (item.titleFontSize = 14)
+            )
+          }
+          return true
         }
-      })
+      )
       changePageData!(pageData)
       changeEditorSliderShow!(false) // 关闭编辑侧滑栏
       changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏
