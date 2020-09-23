@@ -8,11 +8,16 @@ import MobilePreview from './components/MobilePreview'
 
 import './index.less'
 
+type PreviewRoutesOptions = {
+  specialId: string
+  isMobile: string
+}
+
 const Preview: FC<RouteComponentProps> = props => {
-  const { specialId, isMobile } = useParams()
+  const { specialId, isMobile } = useParams<PreviewRoutesOptions>()
   const [isWeb, setIsWeb] = useState<boolean>(!Number(isMobile))
 
-  const previewRoutesParams = getSpecialPreviewRouteParams(specialId)
+  const previewRoutesParams = getSpecialPreviewRouteParams(Number(specialId))
   const specialLinkUrl = `${getSpecialPreviewUrl()}?${previewRoutesParams}`
   const mobileSpecialLinkUrl = `${getMobileSpecialPreviewUrl()}?${previewRoutesParams}`
 
