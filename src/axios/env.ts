@@ -7,13 +7,13 @@ export enum EnvTpye {
 const domainUrl = [
   'https://wwwtestolv4.tostar.top',
   'https://wwwpreolv4.tostar.top',
-  'https://www.fx110.uk'
+  'https://www.fx110.hk'
 ]
 
 const mobileDomainUrl = [
   'https://mtestolv1.tostar.top',
   'https://mpreolv1.tostar.top',
-  'https://m.fx110.uk'
+  'https://m.fx110.hk'
 ]
 
 let env: EnvTpye = 4

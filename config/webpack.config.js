@@ -268,7 +268,7 @@ module.exports = function(webpackEnv) {
 
             splitChunks: {
                 chunks: 'all',
-                minSize: 30000,
+                minSize: 10,
                 minChunks: 1,
                 maxAsyncRequests: 5,
                 maxInitialRequests: 3,
@@ -280,21 +280,19 @@ module.exports = function(webpackEnv) {
                         test: /[\\/]node_modules[\\/]/,
                         priority: -6
                     },
-                    // default: {
-                    //     minChunks: 2,
-                    //     priority: -20,
-                    //     reuseExistingChunk: true
-                    // },
                     componentsStyles: {
                         name: 'components',
                         test: /[\\/]components[\\/]/,
-
                         priority: -9,
                     },
                     templateStyles: {
                         name: 'template',
                         test: /[\\/]template[\\/]/,
-
+                        priority: -9,
+                    },
+                    templateMobileStyles: {
+                        name: 'templateMobile',
+                        test: /[\\/]templateMobile[\\/]/,
                         priority: -9,
                     },
                 }
