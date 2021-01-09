@@ -31,17 +31,11 @@ import {
 } from '@/store/actions/editor.mobile.actions'
 import { TemplateType } from '@/store/state/editor.state'
 import { openWindow } from '@/utils'
-import { ModalFuncProps } from 'antd/lib/modal/Modal'
-
 import './index.less'
+import { ModalFuncProps } from 'antd/lib/modal/Modal'
 
 interface IHeaderProps {
   isMobile?: boolean
-}
-
-type HeaderRoutesOptions = {
-  specialId: string
-  tempId: string
 }
 
 interface BtnProps {
@@ -129,10 +123,10 @@ function HeaderFC(props: IHeaderProps) {
   // state
   const [arrowActive, setArrowActive] = useState(false)
   const { search } = useLocation()
-  const { specialId, tempId } = useParams<HeaderRoutesOptions>()
-    const isShowSaveTempBtn = useMemo(() => search.includes('code=sukeji666'), [
-      search,
-    ])
+  const { specialId, tempId } = useParams()
+  const isShowSaveTempBtn = useMemo(() => search.includes('code=sukeji666'), [
+    search,
+  ])
   const isShowGetHistoryBtn = useMemo(() => search.includes('history=1'), [
     search,
   ])
@@ -214,23 +208,23 @@ function HeaderFC(props: IHeaderProps) {
     try {
       const res = await getSpeicalData(specialId)
       const pageData = JSON.parse(res.Content!) as IPageModel
-      const filterModel = [TemplateType.Share, TemplateType.MorePicture]
-      const eachModel = [
-        TemplateType.LeftPictureRightText,
-        TemplateType.LeftTextRightPicture,
-      ]
       pageData.allTempData = pageData.allTempData.filter(
-        (item: ITemplateModel<any>) => {
-          if (filterModel.includes(item.type)) return false
-          if (eachModel.includes(item.type)) {
-            ; (item.tempData as IPictureTextModel).picWidthPercent = 100
-              ; (item.tempData as IPictureTextModel).titleTextList.forEach(
-                (item) => (item.titleFontSize = 14)
-              )
-          }
-          return true
-        }
+        (item: ITemplateModel<any>) =>
+          ![TemplateType.Share, TemplateType.MorePicture].includes(item.type)
       )
+      pageData.allTempData.forEach((item: ITemplateModel<any>) => {
+        if (
+          item.type === TemplateType.LeftPictureRightText ||
+          item.type === TemplateType.LeftTextRightPicture
+        ) {
+          ; (item.tempData as IPictureTextModel).picWidthPercent = 100
+            ; (item.tempData as IPictureTextModel).titleTextList.forEach(
+              (item) => {
+                item.titleFontSize = 14
+              }
+            )
+        }
+      })
       changePageData!(pageData)
       changeEditorSliderShow!(false) // 关闭编辑侧滑栏
       changeAddTemplateSliderShow!(false) // 关闭新增模块侧滑栏

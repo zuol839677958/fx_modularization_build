@@ -12,18 +12,12 @@ import ActionBar from '../MobileMask/ActionBar'
 
 import './index.less'
 
-type EditorContainerMobileRoutesOptions = {
-  specialId: string
-  tempId: string
-  hasContent: string
-}
-
 const EditorContainerMobile: FC = () => {
   const [loading, setLoading] = useState<boolean>(true)
   const { activeTempId, background } = useSelector((state: IPageState) => state.editorContainerMobileReducer)
   const { isShow: isShowSlider } = useSelector((state: IPageState) => state.editorSliderReducer)
   const { isShow: isShowAddTemplate } = useSelector((state: IPageState) => state.addTemplateSliderReducer)
-  const { specialId, tempId, hasContent } = useParams<EditorContainerMobileRoutesOptions>()
+  const { specialId, tempId, hasContent } = useParams()
   const dispatch = useDispatch()
 
   const changeMobilePageDataHandler = useCallback((pageData: IPageModel) => {
