@@ -35,7 +35,7 @@ const Audio: FC<IAudioProps> = props => {
       <section className="linkBreak audio-wrapper">
         <audio ref={audio} src={data.audioUrl || ''} controls preload="auto"></audio>
         <div className="audio-left">
-          <img id="audioPlayer" className="play-pause" src="https://img.wbp5.com/upload/images/firstnews/2019/08/01/200512349.png" alt="" /></div>
+          <img id="audioPlayer" className="play-pause" src="https://img.wx168e.com/upload/images/firstnews/2019/08/01/200512349.png" alt="" /></div>
         <div className="audio-right">
           <div className="progress-bar-bg" id="progressBarBg">
             <em className="cache" style={{ width: '53.81%' }}></em>

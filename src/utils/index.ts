@@ -442,7 +442,7 @@ const getSpecialPreviewRouteParams = (specialId: number) => {
   const nowDay = moment(Date.now()).format('YYYYMMDD')
   const nowTime = moment(Date.now()).format('YYYYMMDDHHmmss')
   const params = {
-    id: specialId,
+    specialId: specialId,
     vkey: (md5(`${preKey}${specialId}${nowDay}`) as string).toLocaleUpperCase(),
     vtime: nowTime,
     type: 18

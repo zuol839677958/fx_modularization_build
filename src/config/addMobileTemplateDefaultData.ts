@@ -11,7 +11,7 @@ const bannerDefaultData: ITemplateModel<IBannerModel> = {
     bannerType: BannerType.SingleImage,
     isFull: false,
     imageData: {
-      imageUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
+      imageUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
     }
   }
 }
@@ -34,7 +34,7 @@ const iconTitleTextDefaultData: ITemplateModel<IIconTitleTextModel[]> = {
   isShow: true,
   tempData: [
     {
-      iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+      iconUrl: 'https://img.wx168e.com/upload/files/master/2020/05/07/152733467.png',
       hasIcon: true,
       title: '请输入标题',
       text: ':请输入文字',

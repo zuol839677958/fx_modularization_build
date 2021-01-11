@@ -18,7 +18,7 @@ export const editorContainerMobileState: ITemplateModel<
         bannerType: BannerType.SingleImage,
         isFull: true,
         imageData: {
-          imageUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
+          imageUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
         }
       }
     },
@@ -37,7 +37,7 @@ export const editorContainerMobileState: ITemplateModel<
       isShow: true,
       tempData: [
         {
-          iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+          iconUrl: 'https://img.wx168e.com/upload/files/master/2020/05/07/152733467.png',
           title: '人物',
           text: ':Mahasagara',
           titleFontColor: '#9f3b3c',
@@ -50,7 +50,7 @@ export const editorContainerMobileState: ITemplateModel<
           isShow: true
         },
         {
-          iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+          iconUrl: 'https://img.wx168e.com/upload/files/master/2020/05/07/152733467.png',
           title: '成绩',
           text: ':1年翻仓6倍，胜率93.91%',
           titleFontColor: '#9f3b3c',
@@ -63,7 +63,7 @@ export const editorContainerMobileState: ITemplateModel<
           isShow: true
         },
         {
-          iconUrl: 'https://img.wbp5.com/upload/files/master/2020/05/07/152733467.png',
+          iconUrl: 'https://img.wx168e.com/upload/files/master/2020/05/07/152733467.png',
           title: '特色',
           text: ':擅长做波段和中线交易',
           titleFontColor: '#9f3b3c',
@@ -91,7 +91,7 @@ export const editorContainerMobileState: ITemplateModel<
       type: TemplateType.LeftPictureRightText,
       isShow: true,
       tempData: {
-        picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
+        picUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
         picWidthPercent: 100,
         titleTextList: [
           {
@@ -126,7 +126,7 @@ export const editorContainerMobileState: ITemplateModel<
       type: TemplateType.LeftTextRightPicture,
       isShow: true,
       tempData: {
-        picUrl: 'https://imgs.wbp5.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+        picUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
         picWidthPercent: 100,
         titleTextList: [
           {

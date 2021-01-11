@@ -5,8 +5,8 @@ export enum EnvTpye {
 }
 
 const domainUrl = [
-  'https://wwwtestolv4.tostar.top',
-  'https://wwwpreolv4.tostar.top',
+  'https://wwwtestol.tostar.top',
+  'https://wwwpreol.tostar.top',
   'https://www.fx110.uk'
 ]
 
@@ -26,7 +26,7 @@ const getEnvRequestUrl = () => {
     case EnvTpye.Pre:
       return 'https://premswebapi.tostar.top'
     case EnvTpye.Product:
-      return 'https://gamswebapi.wbp5.com'
+      return 'http://172.20.195.157:8004'
   }
 }
 

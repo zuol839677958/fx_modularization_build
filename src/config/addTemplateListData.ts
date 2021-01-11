@@ -20,7 +20,7 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.Banner,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175219506.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/24/175219506.png'
 //       }
 //     ]
 //   },
@@ -30,11 +30,11 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.Share,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/08/143125955.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/08/143125955.png'
 //       },
 //       // {
 //       //   type: TemplateType.Share,
-//       //   tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/08/143205706.png'
+//       //   tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/08/143205706.png'
 //       // }
 //     ]
 //   },
@@ -44,7 +44,7 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.Plaintext,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/29/101545330.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/29/101545330.png'
 //       },
 //     ]
 //   },
@@ -54,7 +54,7 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.IconTitleText,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/133937984.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/28/133937984.png'
 //       },
 //     ]
 //   },
@@ -64,11 +64,11 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.LeftPictureRightText,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175727447.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/24/175727447.png'
 //       },
 //       {
 //         type: TemplateType.LeftTextRightPicture,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175741456.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/24/175741456.png'
 //       }
 //     ]
 //   },
@@ -78,7 +78,7 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.CorrelationSpecial,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/113548499.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/28/113548499.png'
 //       }
 //     ]
 //   },
@@ -88,7 +88,7 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.Audio,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/28/095536782.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/28/095536782.png'
 //       }
 //     ]
 //   },
@@ -98,7 +98,7 @@ export interface IAddTemplateItemModel {
 //     tempList: [
 //       {
 //         type: TemplateType.MorePicture,
-//         tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/30/140046775.png'
+//         tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/30/140046775.png'
 //       }
 //     ]
 //   }
@@ -112,18 +112,18 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
       {
         type: TemplateType.Banner,
         name: 'Banner',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175219506.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/24/175219506.png'
       },
       {
         type: TemplateType.Share,
         name: '分享',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/08/143125955.png'
-        //tempImageUrl: https://img.wbp5.com/upload/files/master/2020/07/08/143205706.png 台湾版分享
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/08/143125955.png'
+        //tempImageUrl: https://img.wx168e.com/upload/files/master/2020/07/08/143205706.png 台湾版分享
       },
       {
         type: TemplateType.CorrelationSpecial,
         name: '相关专题列表',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/113548499.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/28/113548499.png'
       }
     ]
   },
@@ -134,27 +134,27 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
       {
         type: TemplateType.IconTitleText,
         name: '图标标题文字',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/28/133937984.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/28/133937984.png'
       },
       {
         type: TemplateType.Plaintext,
         name: '纯文本',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/29/101545330.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/29/101545330.png'
       },
       {
         type: TemplateType.LeftPictureRightText,
         name: '左图右文',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175727447.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/24/175727447.png'
       },
       {
         type: TemplateType.LeftTextRightPicture,
         name: '左文右图',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/06/24/175741456.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/06/24/175741456.png'
       },
       {
         type: TemplateType.MorePicture,
         name: '双图',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/30/140046775.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/30/140046775.png'
       }
     ]
   },
@@ -165,7 +165,7 @@ const addTemplateListData: IAddTemplateListDataModel[] = [
       {
         type: TemplateType.Audio,
         name: '音频',
-        tempImageUrl: 'https://img.wbp5.com/upload/files/master/2020/07/28/095536782.png'
+        tempImageUrl: 'https://img.wx168e.com/upload/files/master/2020/07/28/095536782.png'
       }
     ]
   }
