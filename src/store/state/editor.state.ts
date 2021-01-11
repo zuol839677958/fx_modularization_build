@@ -50,7 +50,7 @@ export const editorContainerState: ITemplateModel<
         bannerType: BannerType.SingleImage,
         isFull: true,
         imageData: {
-          imageUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
+          imageUrl: 'https://imgs.wx168e.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
         }
       }
     },
@@ -59,7 +59,7 @@ export const editorContainerState: ITemplateModel<
       type: TemplateType.Audio,
       isShow: true,
       tempData: {
-        audioUrl: "https://file.wbp5.com/upload/files/2020/07/24/104452791902.mp3",
+        audioUrl: "https://file.wx168e.com/upload/files/2020/10/09/021317380305.mp3",
         positionType: TemplatePositionType.Center
       }
     },
@@ -133,7 +133,7 @@ export const editorContainerState: ITemplateModel<
       type: TemplateType.LeftPictureRightText,
       isShow: true,
       tempData: {
-        picUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
+        picUrl: 'https://imgs.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg',
         picWidthPercent: 49,
         spacingPercent: 2,
         titleTextList: [
@@ -169,7 +169,7 @@ export const editorContainerState: ITemplateModel<
       type: TemplateType.LeftTextRightPicture,
       isShow: true,
       tempData: {
-        picUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
+        picUrl: 'https://imgs.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111704578.png',
         picWidthPercent: 49,
         spacingPercent: 2,
         titleTextList: [
@@ -212,12 +212,12 @@ export const editorContainerState: ITemplateModel<
       isShow: true,
       tempData: [
         {
-          picUrl: "https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg",
+          picUrl: "https://imgs.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111700984.jpg",
           picWidthPercent: 49,
           spacingPercent: 20
         },
         {
-          picUrl: "https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111704578.png",
+          picUrl: "https://imgs.wx168e.com/api/secrecymaster/html_up/2019/6/20190610111704578.png",
           picWidthPercent: 49,
           spacingPercent: 20
         }

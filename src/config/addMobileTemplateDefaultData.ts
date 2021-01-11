@@ -11,7 +11,7 @@ const bannerDefaultData: ITemplateModel<IBannerModel> = {
     bannerType: BannerType.SingleImage,
     isFull: false,
     imageData: {
-      imageUrl: 'https://img.wx168e.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
+      imageUrl: 'https://imgs.wx168e.com/api/secrecymaster/html_up/2019/6/20190610115945561.png'
     }
   }
 }

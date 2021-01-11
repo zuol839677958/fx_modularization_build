@@ -1,6 +1,6 @@
 import { IPageModel } from '@/store/data'
-//  import { editorContainerState } from '../components/EditorContainer/store/state'
-// import { editorContainerMobileState } from '../components/EditorContainerMobile/store/state'
+// import { editorContainerState } from './editor.state'
+// import { editorContainerMobileState } from './editor.mobile.state'
 import { BackgroundSetType } from './backgroundSet.state'
 
 export const editorContainerReducer: IPageModel = {
@@ -12,7 +12,7 @@ export const editorContainerReducer: IPageModel = {
     bgColor: '#9f3b3c',
   },
   allTempData: [],
-  //  allTempData: editorContainerState
+  // allTempData: editorContainerState
 }
 
 export const editorContainerMobileReducer: IPageModel = {
