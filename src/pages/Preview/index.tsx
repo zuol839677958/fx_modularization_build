@@ -2,6 +2,7 @@ import React, { FC, useState, useMemo } from 'react'
 import { RouteComponentProps, withRouter, useParams } from 'react-router-dom'
 import { getSpecialPreviewUrl, getMobileSpecialPreviewUrl } from '@/axios/env'
 import { getSpecialPreviewRouteParams } from '@/utils'
+import { RouterParamsModel } from '@/routes/router.d'
 
 import WebPreview from './components/WebPreview'
 import MobilePreview from './components/MobilePreview'
@@ -9,10 +10,10 @@ import MobilePreview from './components/MobilePreview'
 import './index.less'
 
 const Preview: FC<RouteComponentProps> = props => {
-  const { specialId, isMobile } = useParams()
+  const { specialId, isMobile } = useParams<RouterParamsModel>()
   const [isWeb, setIsWeb] = useState<boolean>(!Number(isMobile))
 
-  const previewRoutesParams = getSpecialPreviewRouteParams(specialId)
+  const previewRoutesParams = getSpecialPreviewRouteParams(Number(specialId))
   const specialLinkUrl = `${getSpecialPreviewUrl()}?${previewRoutesParams}`
   const mobileSpecialLinkUrl = `${getMobileSpecialPreviewUrl()}?${previewRoutesParams}`
 

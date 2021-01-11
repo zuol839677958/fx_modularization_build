@@ -7,6 +7,7 @@ import {
   ITemplateModel,
   IPictureTextModel,
 } from '@/store/data'
+import { RouterParamsModel } from '@/routes/router.d'
 import { useSelector, useStore, useDispatch } from 'react-redux'
 import { changeBackgroundSetData as changeBackgroundSetDataAction } from '@/store/actions/backgroundSet.actions'
 import {
@@ -123,7 +124,7 @@ function HeaderFC(props: IHeaderProps) {
   // state
   const [arrowActive, setArrowActive] = useState(false)
   const { search } = useLocation()
-  const { specialId, tempId } = useParams()
+  const { specialId, tempId } = useParams<RouterParamsModel>()
   const isShowSaveTempBtn = useMemo(() => search.includes('code=sukeji666'), [
     search,
   ])

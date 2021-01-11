@@ -6,6 +6,7 @@ import { BackgroundSetType } from '@/store/state/backgroundSet.state'
 import { getSpeicalData, getTemplateDetail } from '@/axios/api'
 import { Spin, message } from 'antd'
 import { changeMobilePageData } from '@/store/actions/editor.mobile.actions'
+import { RouterParamsModel } from '@/routes/router.d'
 
 import TemplateList from './TemplateList'
 import ActionBar from '../MobileMask/ActionBar'
@@ -17,7 +18,7 @@ const EditorContainerMobile: FC = () => {
   const { activeTempId, background } = useSelector((state: IPageState) => state.editorContainerMobileReducer)
   const { isShow: isShowSlider } = useSelector((state: IPageState) => state.editorSliderReducer)
   const { isShow: isShowAddTemplate } = useSelector((state: IPageState) => state.addTemplateSliderReducer)
-  const { specialId, tempId, hasContent } = useParams()
+  const { specialId, tempId, hasContent } = useParams<RouterParamsModel>()
   const dispatch = useDispatch()
 
   const changeMobilePageDataHandler = useCallback((pageData: IPageModel) => {
