@@ -11,8 +11,8 @@ const domainUrl = [
 ]
 
 const mobileDomainUrl = [
-  'https://mtestolv1.tostar.top',
-  'https://mpreolv1.tostar.top',
+  'https://mtestol.tostar.top',
+  'https://mpreol.tostar.top',
   'https://m.fx110.hk'
 ]
 
@@ -47,7 +47,7 @@ const getSpecialPreviewUrl = () => {
 
 const getMobileSpecialPreviewUrl = () => {
   checkDomain()
-  return `${mobileDomainUrl[env]}/master/special/detailspreview`
+  return `${mobileDomainUrl[env]}/special/detailspreview`
 }
 
 const checkDomain = () => {
