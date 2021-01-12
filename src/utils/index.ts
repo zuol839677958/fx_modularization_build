@@ -373,11 +373,9 @@ const initTempSpacing = (
   isMobile?: boolean
 ) => {
   const bgCss: CSSProperties = {}
-  bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${
-    isMobile ? 'rem' : 'px'
+  bgCss.paddingTop = `${isMobile ? topSpacing / 100 : topSpacing}${isMobile ? 'rem' : 'px'
     }`
-  bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${
-    isMobile ? 'rem' : 'px'
+  bgCss.paddingBottom = `${isMobile ? bottomSpacing / 100 : bottomSpacing}${isMobile ? 'rem' : 'px'
     }`
   return bgCss
 }
@@ -445,7 +443,8 @@ const getSpecialPreviewRouteParams = (specialId: number) => {
     specialId,
     vkey: (md5(`${preKey}${specialId}${nowDay}`) as string).toLocaleUpperCase(),
     vtime: nowTime,
-    type: 18
+    type: 18,
+    s: 'B3F3E7D2E8AA5188CEDC45C6BBF4B006'
   }
   return qs.stringify(params)
 }
