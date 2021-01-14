@@ -26,7 +26,7 @@ const getEnvRequestUrl = () => {
     case EnvTpye.Pre:
       return 'https://premswebapi.tostar.top'
     case EnvTpye.Product:
-      return 'http://172.20.195.157:8004'
+      return 'http://gamswebapi.wx168e.com'
   }
 }
 
